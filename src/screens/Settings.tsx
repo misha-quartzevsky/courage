@@ -2,7 +2,6 @@ import { useState } from 'react'
 import type { CefrLevel, LearnerPersona } from '../lib/types'
 import type { ProfilePatch } from '../lib/supabase'
 import { availableLevels } from '../lib/syllabus'
-import { CloseIcon } from '../lib/icons'
 
 const LEVELS: CefrLevel[] = availableLevels()
 
@@ -12,7 +11,6 @@ interface SettingsProps {
   canSignOut: boolean
   onSave: (patch: ProfilePatch) => void | Promise<void>
   onSignOut: () => void
-  onClose: () => void
 }
 
 const toList = (s: string) =>
@@ -27,7 +25,6 @@ export function Settings({
   canSignOut,
   onSave,
   onSignOut,
-  onClose,
 }: SettingsProps) {
   const [profession, setProfession] = useState(persona?.professionFr ?? '')
   const [interests, setInterests] = useState(
@@ -36,31 +33,26 @@ export function Settings({
   const [tags, setTags] = useState((persona?.domainTags ?? []).join(', '))
   const [lvl, setLvl] = useState<CefrLevel>(level)
   const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
 
   const save = async () => {
     if (saving) return
     setSaving(true)
+    setSaved(false)
     await onSave({
       profession_text: profession.trim(),
       interests: toList(interests),
       domain_tags: toList(tags),
       target_level: lvl,
     })
-    onClose()
+    setSaving(false)
+    setSaved(true)
   }
 
   return (
     <main className="screen">
-      <header className="topbar">
+      <header>
         <h1 className="app-title">Настройки</h1>
-        <button
-          type="button"
-          className="btn btn-secondary btn-tight"
-          onClick={onClose}
-        >
-          <CloseIcon />
-          Закрыть
-        </button>
       </header>
 
       <section className="card">
@@ -125,7 +117,7 @@ export function Settings({
         disabled={saving || !profession.trim()}
         onClick={save}
       >
-        {saving ? 'Сохраняем…' : 'Сохранить'}
+        {saving ? 'Сохраняем…' : saved ? 'Сохранено ✓' : 'Сохранить'}
       </button>
 
       {canSignOut && (

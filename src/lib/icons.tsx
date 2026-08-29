@@ -119,3 +119,26 @@ export const LinkIcon = (p: IconProps) => (
     <path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
   </Svg>
 )
+
+export const HomeIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M4 11.5 12 4l8 7.5" />
+    <path d="M6 10v10h12V10" />
+  </Svg>
+)
+
+export const RefreshIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M20 11a8 8 0 0 0-14-4.5L4 8" />
+    <path d="M4 4v4h4" />
+    <path d="M4 13a8 8 0 0 0 14 4.5L20 16" />
+    <path d="M20 20v-4h-4" />
+  </Svg>
+)
+
+export const PersonIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+  </Svg>
+)

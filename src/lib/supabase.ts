@@ -4,7 +4,12 @@
 
 import { createClient } from '@supabase/supabase-js'
 import type { Session } from '@supabase/supabase-js'
-import type { CefrLevel, SupabaseProfile, UnitRecord } from './types'
+import type {
+  CefrLevel,
+  SupabaseProfile,
+  UnitRecord,
+  WordRecord,
+} from './types'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as
@@ -101,6 +106,7 @@ export async function updateProgress(progress: {
   bestAccuracy: number
   lastCompletedAt: string
   units: Record<string, UnitRecord>
+  words: WordRecord[]
 }): Promise<boolean> {
   if (!supabase) return false
   const userId = await currentUserId()
@@ -111,7 +117,7 @@ export async function updateProgress(progress: {
       streak_count: progress.streakDays,
       best_accuracy: progress.bestAccuracy,
       last_completed_at: progress.lastCompletedAt,
-      progress: progress.units,
+      progress: { units: progress.units, words: progress.words },
       updated_at: new Date().toISOString(),
     })
     .eq('user_id', userId)

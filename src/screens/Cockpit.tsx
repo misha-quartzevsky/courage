@@ -1,13 +1,7 @@
 import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
 import { doneUnitIds } from '../lib/storage'
 import { courseProgress, nextUnit, type SyllabusUnit } from '../lib/syllabus'
-import {
-  AlertIcon,
-  ArrowRightIcon,
-  BookIcon,
-  FlameIcon,
-  GearIcon,
-} from '../lib/icons'
+import { AlertIcon, ArrowRightIcon, FlameIcon } from '../lib/icons'
 import { CourseMap } from './CourseMap'
 
 export type Mode = 'voice' | 'text'
@@ -26,8 +20,6 @@ interface CockpitProps {
   onMode: (m: Mode) => void
   onStartNext: () => void
   onStartUnit: (u: SyllabusUnit) => void
-  onOpenSettings: () => void
-  onOpenCodex: () => void
 }
 
 export function Cockpit({
@@ -44,8 +36,6 @@ export function Cockpit({
   onMode,
   onStartNext,
   onStartUnit,
-  onOpenSettings,
-  onOpenCodex,
 }: CockpitProps) {
   const done = doneUnitIds(progress)
   const next = nextUnit(done, level)
@@ -57,30 +47,12 @@ export function Cockpit({
         <h1 className="app-title">
           Courage{userName ? ` · ${userName}` : ''}
         </h1>
-        <div className="topbar-actions">
-          {streakDays > 0 && (
-            <span className="badge badge-flame">
-              <FlameIcon />
-              {streakDays} j
-            </span>
-          )}
-          <button
-            type="button"
-            className="btn-icon"
-            aria-label="Справочник"
-            onClick={onOpenCodex}
-          >
-            <BookIcon />
-          </button>
-          <button
-            type="button"
-            className="btn-icon"
-            aria-label="Настройки"
-            onClick={onOpenSettings}
-          >
-            <GearIcon />
-          </button>
-        </div>
+        {streakDays > 0 && (
+          <span className="badge badge-flame">
+            <FlameIcon />
+            {streakDays} j
+          </span>
+        )}
       </header>
 
       {partnerStreak !== null && (

@@ -57,7 +57,7 @@ export type ExerciseKind = SprintExercise['kind']
 // SprintSession — aggregate root из ARCHITECTURE.md.
 export interface SprintSession {
   id: string
-  unitId: string // например 'a1-u1-se-presenter'
+  unitId: string // например 'a1-u1-se-presenter'; 'revision' для повторения
   unitTitleFr: string
   level: CefrLevel
   durationMinutes: number
@@ -66,6 +66,7 @@ export interface SprintSession {
     contextFr: string
   }
   exercises: SprintExercise[]
+  revision?: boolean // повторение — не двигает курсовой прогресс
   createdAt: string
 }
 
@@ -107,9 +108,17 @@ export interface UnitRecord {
   lastCompletedAt: string
 }
 
+// Выученное слово (для спринта Révision).
+export interface WordRecord {
+  fr: string
+  ru: string
+  addedAt: string
+}
+
 // Прогресс ученика (storage.ts + Supabase profiles.progress).
 export interface ProgressState {
   units: Record<string, UnitRecord>
+  words: WordRecord[]
   streakDays: number
   bestAccuracy: number
   updatedAt: string
@@ -124,7 +133,7 @@ export interface SupabaseProfile {
   profession_text: string | null // свободный ввод из онбординга
   interests: string[] | null
   domain_tags: string[] | null
-  progress: Record<string, UnitRecord> | null
+  progress: unknown // { units, words } или легаси-карта UnitRecord
   target_level: CefrLevel | null
   streak_count: number
   best_accuracy: number

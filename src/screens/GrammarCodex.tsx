@@ -1,11 +1,7 @@
 import { useMemo, useState } from 'react'
 import { RULES, searchRules, type GrammarRule } from '../lib/grammar'
 import { RuleCard } from './RuleCard'
-import { CloseIcon, SearchIcon } from '../lib/icons'
-
-interface GrammarCodexProps {
-  onClose: () => void
-}
+import { SearchIcon } from '../lib/icons'
 
 function RuleRow({ rule }: { rule: GrammarRule }) {
   return (
@@ -19,7 +15,7 @@ function RuleRow({ rule }: { rule: GrammarRule }) {
   )
 }
 
-export function GrammarCodex({ onClose }: GrammarCodexProps) {
+export function GrammarCodex() {
   const [query, setQuery] = useState('')
   const q = query.trim()
 
@@ -39,16 +35,8 @@ export function GrammarCodex({ onClose }: GrammarCodexProps) {
 
   return (
     <main className="screen">
-      <header className="topbar">
+      <header>
         <h1 className="app-title">Справочник</h1>
-        <button
-          type="button"
-          className="btn btn-secondary btn-tight"
-          onClick={onClose}
-        >
-          <CloseIcon />
-          Закрыть
-        </button>
       </header>
 
       <div className="search-field">

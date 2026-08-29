@@ -1572,6 +1572,55 @@ button {
 }
 
 /* ------------------------------------------------------------
+   Нижний таб-бар
+   ------------------------------------------------------------ */
+.tabbed-root .screen {
+  padding-bottom: calc(var(--safe-bottom) + 64px + var(--space-4));
+}
+
+.tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+
+.tab-item {
+  flex: 1;
+  min-height: 49px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 2px;
+  border: none;
+  background: transparent;
+  color: var(--faint);
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+.tab-item .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.tab-item--active {
+  color: var(--accent-hover);
+}
+
+/* ------------------------------------------------------------
    Reduced motion
    ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {

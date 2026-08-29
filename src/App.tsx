@@ -9,13 +9,20 @@ import type {
   SprintSession,
   SupabaseProfile,
 } from './lib/types'
-import { generateSprint } from './lib/gemini'
+import { generateRevision, generateSprint } from './lib/gemini'
 import { DEMO_PERSONA } from './lib/personas'
-import { doneUnitIds, loadProgress, mergeServerProgress, recordCompletion } from './lib/storage'
+import {
+  doneUnitIds,
+  loadProgress,
+  mergeServerProgress,
+  recordCompletion,
+  weakUnits,
+} from './lib/storage'
 import {
   LEVEL_ACHIEVEMENT,
   levelComplete,
   nextUnit,
+  unitById,
   type SyllabusUnit,
 } from './lib/syllabus'
 import {
@@ -34,17 +41,12 @@ import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
 import { LessonIntro } from './screens/LessonIntro'
 import { GrammarCodex } from './screens/GrammarCodex'
+import { Revision } from './screens/Revision'
+import { TabBar, type Tab } from './screens/TabBar'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
-type Screen =
-  | 'onboarding'
-  | 'cockpit'
-  | 'settings'
-  | 'codex'
-  | 'lesson'
-  | 'sprint'
-  | 'debrief'
+type Overlay = 'onboarding' | 'lesson' | 'sprint' | 'debrief' | null
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
   if (!p?.profession_text) return null
@@ -65,7 +67,8 @@ export default function App() {
   } | null>(null)
   const [progress, setProgress] = useState<ProgressState | null>(null)
 
-  const [screen, setScreen] = useState<Screen>('cockpit')
+  const [tab, setTab] = useState<Tab>('cours')
+  const [overlay, setOverlay] = useState<Overlay>(null)
   const [persona, setPersona] = useState<LearnerPersona | null>(null)
   const [level, setLevel] = useState<CefrLevel>('A1')
   const [mode, setMode] = useState<Mode>('voice')
@@ -99,7 +102,8 @@ export default function App() {
     setProgress(
       mergeServerProgress(p?.progress, p?.streak_count ?? 0, p?.best_accuracy ?? 0),
     )
-    setScreen(p?.profession_text ? 'cockpit' : 'onboarding')
+    setTab('cours')
+    setOverlay(p?.profession_text ? null : 'onboarding')
   }, [])
 
   useEffect(() => {
@@ -164,7 +168,7 @@ export default function App() {
     setActiveUnit(unit)
     setAiError(false)
     setRetryExercises(null)
-    setScreen('lesson')
+    setOverlay('lesson')
   }, [])
 
   const beginPractice = useCallback(async () => {
@@ -176,7 +180,7 @@ export default function App() {
       const s = await generateSprint(persona, level, activeUnit, priorBest)
       setSprint(s)
       setVerdicts([])
-      setScreen('sprint')
+      setOverlay('sprint')
     } catch {
       setAiError(true)
     } finally {
@@ -188,6 +192,25 @@ export default function App() {
     openUnit(nextUnit(doneUnitIds(progress), level))
   }, [openUnit, progress, level])
 
+  const startRevision = useCallback(async () => {
+    if (!persona) return
+    setLoading(true)
+    setAiError(false)
+    try {
+      const words = progress?.words ?? []
+      const weakRec = weakUnits(progress)[0]
+      const weak = weakRec ? unitById(weakRec.unitId) : undefined
+      const s = await generateRevision(persona, words, weak)
+      setSprint(s)
+      setVerdicts([])
+      setOverlay('sprint')
+    } catch {
+      setAiError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [persona, progress])
+
   const handleFinish = useCallback(
     (vs: EvaluationVerdict[]) => {
       setVerdicts(vs)
@@ -195,18 +218,20 @@ export default function App() {
         const avg = vs.length
           ? Math.round(vs.reduce((a, v) => a + v.accuracy, 0) / vs.length)
           : 0
+        const words = vs.flatMap((v) => v.learnedWords)
         const before = doneUnitIds(progress)
-        const nextProgress = recordCompletion(sprint, avg)
+        const nextProgress = recordCompletion(sprint, avg, words)
         setProgress(nextProgress)
         const lvl = sprint.level
         const justCompleted =
+          !sprint.revision &&
           levelComplete(lvl, doneUnitIds(nextProgress)) &&
           !levelComplete(lvl, before)
         setMilestone(
           justCompleted ? { level: lvl, text: LEVEL_ACHIEVEMENT[lvl] } : null,
         )
       }
-      setScreen('debrief')
+      setOverlay('debrief')
     },
     [sprint, progress],
   )
@@ -218,7 +243,7 @@ export default function App() {
     )
     setRetryExercises(failed.length > 0 ? failed : sprint.exercises)
     setVerdicts([])
-    setScreen('sprint')
+    setOverlay('sprint')
   }, [sprint, verdicts])
 
   const handleQuit = useCallback(() => {
@@ -228,7 +253,7 @@ export default function App() {
     setRetryExercises(null)
     setMilestone(null)
     void refreshProfile()
-    setScreen('cockpit')
+    setOverlay(null)
   }, [refreshProfile])
 
   if (!booted) {
@@ -242,7 +267,9 @@ export default function App() {
 
   if (supabase && !session) return <Login />
 
-  if (screen === 'sprint' && sprint) {
+  // --- Полноэкранные потоки (без таб-бара) ---
+
+  if (overlay === 'sprint' && sprint) {
     return (
       <Sprint
         sprint={sprint}
@@ -254,20 +281,20 @@ export default function App() {
     )
   }
 
-  if (screen === 'debrief' && sprint) {
+  if (overlay === 'debrief' && sprint) {
     return (
       <Debrief
         sprint={sprint}
         verdicts={verdicts}
         milestone={milestone}
-        next={nextUnit(doneUnitIds(progress), level)}
+        next={sprint.revision ? null : nextUnit(doneUnitIds(progress), level)}
         onRetry={handleRetry}
         onHome={handleQuit}
       />
     )
   }
 
-  if (screen === 'lesson' && activeUnit) {
+  if (overlay === 'lesson' && activeUnit) {
     return (
       <LessonIntro
         unit={activeUnit}
@@ -275,19 +302,19 @@ export default function App() {
         error={aiError}
         onStart={() => void beginPractice()}
         onSkip={() => void beginPractice()}
-        onClose={() => setScreen('cockpit')}
+        onClose={() => setOverlay(null)}
       />
     )
   }
 
-  if (screen === 'onboarding') {
+  if (overlay === 'onboarding') {
     return (
       <Onboarding
         initialLevel={level}
         onSave={async (p, lvl) => {
           setPersona(p)
           setLevel(lvl)
-          setScreen('cockpit')
+          setOverlay(null)
           await saveProfilePatch({
             profession_text: p.professionFr,
             interests: p.interestsFr,
@@ -299,43 +326,49 @@ export default function App() {
     )
   }
 
-  if (screen === 'codex') {
-    return <GrammarCodex onClose={() => setScreen('cockpit')} />
-  }
-
-  if (screen === 'settings') {
-    return (
-      <Settings
-        persona={persona}
-        level={level}
-        canSignOut={!!supabase}
-        onSave={saveProfilePatch}
-        onSignOut={() => void supabase?.auth.signOut()}
-        onClose={() => setScreen('cockpit')}
-      />
-    )
-  }
+  // --- Вкладки ---
 
   const activeStreak =
     session && profile ? profile.streak_count : progress?.streakDays ?? 0
 
   return (
-    <Cockpit
-      persona={persona}
-      level={level}
-      mode={mode}
-      loading={loading}
-      error={aiError}
-      streakDays={activeStreak}
-      partnerStreak={partner?.streakCount ?? null}
-      partnerName={partner?.displayName ?? null}
-      userName={profile?.display_name ?? null}
-      progress={progress}
-      onMode={setMode}
-      onStartNext={handleStartNext}
-      onStartUnit={openUnit}
-      onOpenSettings={() => setScreen('settings')}
-      onOpenCodex={() => setScreen('codex')}
-    />
+    <div className="tabbed-root">
+      {tab === 'cours' && (
+        <Cockpit
+          persona={persona}
+          level={level}
+          mode={mode}
+          loading={loading}
+          error={aiError}
+          streakDays={activeStreak}
+          partnerStreak={partner?.streakCount ?? null}
+          partnerName={partner?.displayName ?? null}
+          userName={profile?.display_name ?? null}
+          progress={progress}
+          onMode={setMode}
+          onStartNext={handleStartNext}
+          onStartUnit={openUnit}
+        />
+      )}
+      {tab === 'revision' && (
+        <Revision
+          progress={progress}
+          loading={loading}
+          error={aiError}
+          onStart={() => void startRevision()}
+        />
+      )}
+      {tab === 'codex' && <GrammarCodex />}
+      {tab === 'profil' && (
+        <Settings
+          persona={persona}
+          level={level}
+          canSignOut={!!supabase}
+          onSave={saveProfilePatch}
+          onSignOut={() => void supabase?.auth.signOut()}
+        />
+      )}
+      <TabBar tab={tab} onTab={setTab} />
+    </div>
   )
 }

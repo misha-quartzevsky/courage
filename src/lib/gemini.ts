@@ -547,6 +547,111 @@ export async function generateSprint(
 }
 
 // ------------------------------------------------------------
+// Спринт «Révision»: повторение выученных слов (+ слабый юнит)
+// ------------------------------------------------------------
+type RWord = { fr: string; ru: string }
+
+export function fallbackRevision(
+  persona: LearnerPersona,
+  words: RWord[],
+  weakUnit?: SyllabusUnit,
+): SprintExercise[] {
+  const out: SprintExercise[] = []
+  const pool = words.slice(0, 16)
+
+  // match — блоками по 4.
+  for (let i = 0; i + 2 <= pool.length && out.length < 3; i += 4) {
+    out.push({
+      id: `rv-m${i}`,
+      kind: 'match',
+      promptRu: 'Соедините слово с переводом.',
+      pairs: pool.slice(i, i + 4).map((w) => ({ fr: w.fr, ru: w.ru })),
+    })
+  }
+
+  // choice — fr → выбрать правильный перевод.
+  pool.slice(0, 3).forEach((w, i) => {
+    const wrong = pool.filter((x) => x.ru !== w.ru).map((x) => x.ru)
+    out.push({
+      id: `rv-c${i}`,
+      kind: 'choice',
+      promptRu: 'Что значит это слово?',
+      promptFr: w.fr,
+      options: [w.ru, wrong[i] ?? 'другое', wrong[i + 1] ?? 'не знаю'].slice(0, 3),
+      answerIndex: 0,
+    })
+  })
+
+  if (weakUnit) {
+    out.push(...fallbackExercises(persona, weakUnit).filter((e) => e.kind === 'dialogue'))
+  }
+  return out.slice(0, 6)
+}
+
+export async function generateRevision(
+  persona: LearnerPersona,
+  words: RWord[],
+  weakUnit?: SyllabusUnit,
+): Promise<SprintSession> {
+  const level = weakUnit?.level ?? 'A1'
+  const base: SprintSession = {
+    id: makeId(),
+    unitId: 'revision',
+    unitTitleFr: 'Révision',
+    level,
+    durationMinutes: 5,
+    situation: {
+      titleFr: 'Révision',
+      contextFr: 'Повторение выученных слов и тем, где были ошибки.',
+    },
+    exercises: [],
+    revision: true,
+    createdAt: new Date().toISOString(),
+  }
+
+  if (!WORKER_URL) {
+    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+  }
+
+  const wordLines = words
+    .slice(0, 20)
+    .map((w) => `${w.fr} — ${w.ru}`)
+    .join('; ')
+  const weakDigest = weakUnit
+    ? ruleDigest(rulesForUnit(weakUnit.ruleIds))
+    : ''
+
+  let text: string
+  try {
+    text = await callGemini(
+      [
+        'Ты — преподаватель французского. Собери спринт-ПОВТОРЕНИЕ.',
+        `Уровень: ${level}. Профиль: ${persona.professionFr}.`,
+        `Слова для повторения: ${wordLines}.`,
+        weakDigest ? `Также подтяни тему:\n${weakDigest}` : '',
+        '',
+        'РОВНО 6 упражнений: 2 match, 2 gap или choice вокруг этих слов,',
+        '2 transform или dialogue по слабой теме (или тоже вокруг слов).',
+        'Схема JSON — как в обычном спринте (kind у каждого упражнения).',
+        'Верни ТОЛЬКО JSON: { "durationMinutes":5, "situation":{"titleFr":"..","contextFr":".."}, "exercises":[ ... ] }',
+      ]
+        .filter(Boolean)
+        .join('\n'),
+      [{ text: 'Собери повторение.' }],
+    )
+  } catch (err) {
+    console.error('[gemini.revision]', err)
+    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+  }
+
+  const draft = sanitizeSprint(text)
+  if (!draft || draft.exercises.length < 3) {
+    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+  }
+  return { ...base, exercises: draft.exercises.slice(0, 6) }
+}
+
+// ------------------------------------------------------------
 // Онбординг: свободный текст → структурированный контекст ученика
 // ------------------------------------------------------------
 export interface PersonaExtract {
