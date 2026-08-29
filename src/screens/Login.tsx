@@ -4,6 +4,11 @@ import { AlertIcon, CheckIcon } from '../lib/icons'
 
 type Status = 'idle' | 'sending' | 'sent' | 'verifying' | 'done'
 
+// Длина OTP настраивается в Supabase (Email OTP Length, 6–10). Не привязываемся
+// к конкретному числу: принимаем от MIN_CODE до 10 цифр.
+const MIN_CODE = 6
+const MAX_CODE = 10
+
 export function Login() {
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
@@ -33,7 +38,7 @@ export function Login() {
   const submitCode = async (e: FormEvent) => {
     e.preventDefault()
     const value = code.trim()
-    if (value.length < 6) return
+    if (value.length < MIN_CODE) return
     setStatus('verifying')
     setError(null)
     const res = await verifyLoginCode(email.trim(), value)
@@ -56,7 +61,7 @@ export function Login() {
           </span>
           <p className="muted" style={{ margin: '12px 0 8px' }}>
             Отправили код для входа на <strong>{email.trim()}</strong>. Введите
-            6 цифр из письма здесь — не переходите по ссылке, иначе вход
+            цифры из письма здесь — не переходите по ссылке, иначе вход
             откроется в браузере, а не в приложении.
           </p>
 
@@ -68,18 +73,18 @@ export function Login() {
               inputMode="numeric"
               autoComplete="one-time-code"
               pattern="[0-9]*"
-              maxLength={6}
-              placeholder="123456"
+              maxLength={MAX_CODE}
+              placeholder="Код"
               value={code}
               onChange={(e) =>
-                setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
+                setCode(e.target.value.replace(/\D/g, '').slice(0, MAX_CODE))
               }
               disabled={status === 'done'}
             />
             <button
               type="submit"
               className="btn"
-              disabled={code.trim().length < 6 || status !== 'sent'}
+              disabled={code.trim().length < MIN_CODE || status !== 'sent'}
             >
               {status === 'verifying'
                 ? 'Проверяем…'
