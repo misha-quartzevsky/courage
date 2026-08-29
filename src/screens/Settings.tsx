@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { CefrLevel, LearnerPersona } from '../lib/types'
 import type { ProfilePatch } from '../lib/supabase'
 import { availableLevels } from '../lib/syllabus'
+import {
+  disablePush,
+  enablePush,
+  getPushState,
+  type PushState,
+} from '../lib/push'
 
 const LEVELS: CefrLevel[] = availableLevels()
+const HOURS = [7, 8, 9, 12, 18, 19, 20, 21, 22]
 
 interface SettingsProps {
   persona: LearnerPersona | null
   level: CefrLevel
+  reminderHour: number
   canSignOut: boolean
   onSave: (patch: ProfilePatch) => void | Promise<void>
   onSignOut: () => void
@@ -22,6 +30,7 @@ const toList = (s: string) =>
 export function Settings({
   persona,
   level,
+  reminderHour,
   canSignOut,
   onSave,
   onSignOut,
@@ -34,6 +43,27 @@ export function Settings({
   const [lvl, setLvl] = useState<CefrLevel>(level)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+
+  const [push, setPush] = useState<PushState | null>(null)
+  const [pushBusy, setPushBusy] = useState(false)
+  useEffect(() => {
+    void getPushState().then(setPush)
+  }, [])
+
+  const togglePush = async () => {
+    if (pushBusy) return
+    setPushBusy(true)
+    try {
+      if (push === 'subscribed') {
+        await disablePush()
+        setPush(await getPushState())
+      } else {
+        setPush(await enablePush())
+      }
+    } finally {
+      setPushBusy(false)
+    }
+  }
 
   const save = async () => {
     if (saving) return
@@ -107,6 +137,65 @@ export function Settings({
         <p className="muted section-hint">
           С какого уровня начинается курс. Юниты ниже остаются доступны в карте.
         </p>
+      </section>
+
+      <section className="card">
+        <h2>Напоминания</h2>
+        {push === 'unsupported' && (
+          <p className="muted section-hint">
+            На iPhone уведомления работают, только если открыть сайт в Safari и
+            добавить его на экран «Домой» (кнопка «Поделиться» → «На экран
+            „Домой“»), а потом запускать уже оттуда.
+          </p>
+        )}
+        {push === 'no-key' && (
+          <p className="muted section-hint">
+            Не настроен VAPID-ключ (VITE_VAPID_PUBLIC_KEY) — пуши пока недоступны.
+          </p>
+        )}
+        {push === 'denied' && (
+          <p className="muted section-hint">
+            Уведомления запрещены в системе. Разрешите их для этого приложения в
+            настройках телефона, затем вернитесь сюда.
+          </p>
+        )}
+        {(push === 'default' ||
+          push === 'granted' ||
+          push === 'subscribed') && (
+          <>
+            <button
+              type="button"
+              className={`btn${push === 'subscribed' ? ' btn-secondary' : ''}`}
+              disabled={pushBusy}
+              onClick={() => void togglePush()}
+            >
+              {pushBusy
+                ? 'Секунду…'
+                : push === 'subscribed'
+                  ? 'Выключить напоминания'
+                  : 'Напоминать заниматься'}
+            </button>
+            {push === 'subscribed' && (
+              <>
+                <p className="muted section-hint">Присылать напоминание в:</p>
+                <div className="chips">
+                  {HOURS.map((h) => (
+                    <button
+                      key={h}
+                      type="button"
+                      className={`chip${
+                        reminderHour === h ? ' chip--active' : ''
+                      }`}
+                      onClick={() => void onSave({ reminder_hour: h })}
+                    >
+                      {h}:00
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        )}
       </section>
 
       <div className="spacer" />

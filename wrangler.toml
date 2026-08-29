@@ -1,3 +1,10 @@
 name = "courage"
 main = "worker/worker.ts"
 compatibility_date = "2026-01-01"
+# @block65/webcrypto-web-push статически ссылается на node:crypto (в рантайме не
+# вызывается — на Workers берётся globalThis.crypto), флаг убирает предупреждение.
+compatibility_flags = ["nodejs_compat"]
+
+# Пуш-напоминания: раз в час проверяем, у кого наступил reminder_hour.
+[triggers]
+crons = ["0 * * * *"]

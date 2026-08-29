@@ -138,6 +138,8 @@ export interface SupabaseProfile {
   streak_count: number
   best_accuracy: number
   last_completed_at: string | null
+  reminder_hour: number | null // локальный час ежедневного пуш-напоминания (0–23)
+  last_notified_on: string | null // дата последнего отправленного пуша (YYYY-MM-DD)
   partner_id: string | null
   created_at: string
   updated_at: string

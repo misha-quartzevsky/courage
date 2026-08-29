@@ -363,6 +363,7 @@ export default function App() {
         <Settings
           persona={persona}
           level={level}
+          reminderHour={profile?.reminder_hour ?? 19}
           canSignOut={!!supabase}
           onSave={saveProfilePatch}
           onSignOut={() => void supabase?.auth.signOut()}

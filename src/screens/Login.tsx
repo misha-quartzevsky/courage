@@ -1,27 +1,28 @@
 import { useState, type FormEvent } from 'react'
-import { sendMagicLink } from '../lib/supabase'
+import { sendLoginCode, verifyLoginCode } from '../lib/supabase'
 import { AlertIcon, CheckIcon } from '../lib/icons'
 
-type Status = 'idle' | 'sending' | 'sent'
+type Status = 'idle' | 'sending' | 'sent' | 'verifying' | 'done'
 
 export function Login() {
   const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (e: FormEvent) => {
+  const requestCode = async (e: FormEvent) => {
     e.preventDefault()
     const value = email.trim()
     if (!value) return
     setStatus('sending')
     setError(null)
-    const res = await sendMagicLink(value)
+    const res = await sendLoginCode(value)
     if (!res.ok) {
-      console.error('sendMagicLink failed', res.error)
+      console.error('sendLoginCode failed', res.error)
       setError(
         res.error
-          ? `Не удалось отправить ссылку: ${res.error}`
-          : 'Не удалось отправить ссылку. Проверьте адрес и попробуйте ещё раз.',
+          ? `Не удалось отправить код: ${res.error}`
+          : 'Не удалось отправить код. Проверьте адрес и попробуйте ещё раз.',
       )
       setStatus('idle')
       return
@@ -29,22 +30,85 @@ export function Login() {
     setStatus('sent')
   }
 
-  if (status === 'sent') {
+  const submitCode = async (e: FormEvent) => {
+    e.preventDefault()
+    const value = code.trim()
+    if (value.length < 6) return
+    setStatus('verifying')
+    setError(null)
+    const res = await verifyLoginCode(email.trim(), value)
+    if (!res.ok) {
+      setError(res.error ? `Неверный код: ${res.error}` : 'Неверный код.')
+      setStatus('sent')
+      return
+    }
+    // onAuthChange в App подхватит сессию и сменит экран.
+    setStatus('done')
+  }
+
+  if (status === 'sent' || status === 'verifying' || status === 'done') {
     return (
       <main className="screen screen-center">
         <section className="card card-raised login-card">
           <span className="verdict verdict--ok">
             <CheckIcon />
-            Ссылка отправлена
+            Код отправлен
           </span>
-          <div className="score-verdict" style={{ margin: '12px 0 8px' }}>
-            Проверьте почту
-          </div>
-          <p className="muted">
-            Отправили ссылку для входа на <strong>{email.trim()}</strong>.
-            Откройте её на этом устройстве — вернётесь в приложение уже
-            авторизованным.
+          <p className="muted" style={{ margin: '12px 0 8px' }}>
+            Отправили код для входа на <strong>{email.trim()}</strong>. Введите
+            6 цифр из письма здесь — не переходите по ссылке, иначе вход
+            откроется в браузере, а не в приложении.
           </p>
+
+          <form className="text-form" onSubmit={submitCode}>
+            <label htmlFor="login-code">Код из письма</label>
+            <input
+              id="login-code"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              pattern="[0-9]*"
+              maxLength={6}
+              placeholder="123456"
+              value={code}
+              onChange={(e) =>
+                setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
+              }
+              disabled={status === 'done'}
+            />
+            <button
+              type="submit"
+              className="btn"
+              disabled={code.trim().length < 6 || status !== 'sent'}
+            >
+              {status === 'verifying'
+                ? 'Проверяем…'
+                : status === 'done'
+                  ? 'Входим…'
+                  : 'Войти'}
+            </button>
+          </form>
+
+          <button
+            type="button"
+            className="btn btn-secondary"
+            style={{ marginTop: 8 }}
+            disabled={status === 'verifying' || status === 'done'}
+            onClick={() => {
+              setCode('')
+              setError(null)
+              setStatus('idle')
+            }}
+          >
+            Другой адрес
+          </button>
+
+          {error && (
+            <p className="error" style={{ marginTop: 12 }}>
+              <AlertIcon />
+              {error}
+            </p>
+          )}
         </section>
       </main>
     )
@@ -56,12 +120,12 @@ export function Login() {
         <p className="eyebrow">Français pour deux</p>
         <h1 className="screen-title serif">Courage</h1>
         <p className="muted" style={{ marginTop: 8 }}>
-          Вход без пароля — ссылка придёт на почту.
+          Вход без пароля — код придёт на почту.
         </p>
       </div>
 
       <section className="card login-card">
-        <form className="text-form" onSubmit={handleSubmit}>
+        <form className="text-form" onSubmit={requestCode}>
           <label htmlFor="login-email">Email</label>
           <input
             id="login-email"
@@ -80,7 +144,7 @@ export function Login() {
             className="btn"
             disabled={status === 'sending' || !email.trim()}
           >
-            {status === 'sending' ? 'On envoie…' : 'Envoyer le lien'}
+            {status === 'sending' ? 'On envoie…' : 'Envoyer le code'}
           </button>
         </form>
       </section>

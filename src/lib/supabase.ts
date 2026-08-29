@@ -21,9 +21,14 @@ export const supabase =
     ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
     : null
 
-// --- Auth: magic link без пароля ---
+// --- Auth: вход по одноразовому коду (OTP) без пароля ---
+//
+// Именно код, а не magic-ссылка: ссылка из письма на iOS всегда открывается
+// в Safari, а не в установленном PWA (у PWA отдельное хранилище сессии), поэтому
+// в PWA вход по ссылке зависает навсегда. С кодом пользователь не уходит из
+// приложения: ввёл 6 цифр — сессия легла в хранилище самого PWA.
 
-export async function sendMagicLink(
+export async function sendLoginCode(
   email: string,
 ): Promise<{ ok: boolean; error?: string }> {
   if (!supabase) {
@@ -32,9 +37,29 @@ export async function sendMagicLink(
       error: 'Supabase не настроен: укажите VITE_SUPABASE_URL и VITE_SUPABASE_ANON_KEY',
     }
   }
-  const { error } = await supabase.auth.signInWithOtp({ email })
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { shouldCreateUser: true },
+  })
   if (error) {
-    console.error('[supabase.magicLink]', error)
+    console.error('[supabase.sendLoginCode]', error)
+    return { ok: false, error: error.message }
+  }
+  return { ok: true }
+}
+
+export async function verifyLoginCode(
+  email: string,
+  token: string,
+): Promise<{ ok: boolean; error?: string }> {
+  if (!supabase) return { ok: false, error: 'Supabase не настроен' }
+  const { error } = await supabase.auth.verifyOtp({
+    email,
+    token: token.trim(),
+    type: 'email',
+  })
+  if (error) {
+    console.error('[supabase.verifyLoginCode]', error)
     return { ok: false, error: error.message }
   }
   return { ok: true }
@@ -84,6 +109,7 @@ export interface ProfilePatch {
   domain_tags?: string[]
   target_level?: CefrLevel
   display_name?: string
+  reminder_hour?: number
 }
 
 export async function updateProfile(patch: ProfilePatch): Promise<boolean> {
