@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import type { CefrLevel, LearnerPersona } from '../lib/types'
 import type { ProfilePatch } from '../lib/supabase'
+import { availableLevels } from '../lib/syllabus'
 import { CloseIcon } from '../lib/icons'
 
-const LEVELS: CefrLevel[] = ['A1', 'A2']
+const LEVELS: CefrLevel[] = availableLevels()
 
 interface SettingsProps {
   persona: LearnerPersona | null

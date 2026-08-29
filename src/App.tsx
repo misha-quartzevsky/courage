@@ -162,8 +162,8 @@ export default function App() {
   )
 
   const handleStartNext = useCallback(() => {
-    void startUnit(nextUnit(doneUnitIds(progress)))
-  }, [startUnit, progress])
+    void startUnit(nextUnit(doneUnitIds(progress), level))
+  }, [startUnit, progress, level])
 
   const handleFinish = useCallback(
     (vs: EvaluationVerdict[]) => {

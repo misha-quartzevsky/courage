@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import type { CefrLevel, LearnerPersona } from '../lib/types'
 import { extractPersona } from '../lib/gemini'
+import { availableLevels } from '../lib/syllabus'
 import { CloseIcon } from '../lib/icons'
 
-const LEVELS: CefrLevel[] = ['A1', 'A2']
+const LEVELS: CefrLevel[] = availableLevels()
 
 interface OnboardingProps {
   initialLevel: CefrLevel

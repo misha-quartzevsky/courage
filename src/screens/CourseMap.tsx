@@ -1,5 +1,6 @@
-import type { ProgressState } from '../lib/types'
+import type { CefrLevel, ProgressState } from '../lib/types'
 import {
+  isBelowLevel,
   nextUnit,
   syllabusByLevel,
   type SyllabusUnit,
@@ -9,24 +10,29 @@ import { ArrowRightIcon, CheckIcon } from '../lib/icons'
 
 interface CourseMapProps {
   progress: ProgressState | null
+  level: CefrLevel
   onStartUnit: (u: SyllabusUnit) => void
 }
 
-export function CourseMap({ progress, onStartUnit }: CourseMapProps) {
+export function CourseMap({ progress, level, onStartUnit }: CourseMapProps) {
   const done = doneUnitIds(progress)
-  const next = nextUnit(done)
+  const next = nextUnit(done, level)
   const groups = syllabusByLevel()
 
   return (
     <div className="course-map">
       {groups.map((group) => {
         const doneCount = group.units.filter((u) => done.has(u.id)).length
+        const below = isBelowLevel(group.units[0], level)
         return (
-          <section className="card" key={group.level}>
+          <section
+            className={`card${below ? ' card-dim' : ''}`}
+            key={group.level}
+          >
             <h2>
               Parcours {group.level}
               <span className="course-count">
-                {doneCount}/{group.units.length}
+                {below ? 'ниже вашего уровня' : `${doneCount}/${group.units.length}`}
               </span>
             </h2>
             <ul className="unit-list">

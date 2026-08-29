@@ -39,7 +39,7 @@ export function Cockpit({
   onStartUnit,
   onOpenSettings,
 }: CockpitProps) {
-  const next = nextUnit(doneUnitIds(progress))
+  const next = nextUnit(doneUnitIds(progress), level)
 
   return (
     <main className="screen">
@@ -126,10 +126,10 @@ export function Cockpit({
       </section>
 
       <p className="muted section-hint">
-        Уровень {level}. Любой юнит можно пройти или повторить — нажмите на него.
+        Ваш уровень — {level}. Любой юнит можно пройти или повторить — нажмите на него.
       </p>
 
-      <CourseMap progress={progress} onStartUnit={onStartUnit} />
+      <CourseMap progress={progress} level={level} onStartUnit={onStartUnit} />
     </main>
   )
 }

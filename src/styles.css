@@ -553,6 +553,16 @@ button {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.card-dim {
+  opacity: 0.55;
+}
+
+.card-dim .course-count {
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .course-count {

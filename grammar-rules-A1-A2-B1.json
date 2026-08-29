@@ -1650,5 +1650,1171 @@
 "ru": "Тысячи деревьев будут посажены нашей ассоциацией."
 }
 ]
+},
+{
+"id": "b1-u1-passe-compose-imparfait",
+"level": "B1",
+"unit": 1,
+"category": "Temps et modes",
+"title_fr": "Le passé composé et l’imparfait",
+"title_ru": "Прошедшее составное (Passé composé) и прошедшее незаконченное (Imparfait)",
+"summary_ru": "Passé composé используется для обозначения завершенных, однократных действий, смены ситуации или цепочки последовательных событий. Imparfait служит для описания фона, контекста, состояний, характеристик людей и повторяющихся привычных действий в прошлом.",
+"triggers": [
+"un jour",
+"tout à coup",
+"puis",
+"hier",
+"le mois dernier",
+"avant",
+"souvent",
+"tous les jours",
+"pendant que",
+"quand j'étais petit"
+],
+"formation_rule": "Passé composé: auxiliaire avoir/être au présent + participe passé. Imparfait: radical de la 1re personne du pluriel (nous) au présent + terminaisons -ais, -ais, -ait, -ions, -iez, -aient.",
+"key_exceptions": {
+"être (imparfait)": "j'étais, tu étais, il/elle/on était, nous étions, vous étiez, ils/elles étaient",
+"accord passé composé": "Accord du participe passé avec le sujet avec l'auxiliaire être; accord avec le COD placé avant avec l'auxiliaire avoir."
+},
+"authentic_examples": [
+{
+"fr": "Je lisais tranquillement quand ma fille et mon gendre sont arrivés.",
+"ru": "Я спокойно читал, когда пришли моя дочь и зять."
+},
+{
+"fr": "Ma grand-mère était une pianiste géniale. Elle jouait du classique.",
+"ru": "Моя бабушка была гениальной пианисткой. Она играла классику."
+}
+]
+},
+{
+"id": "b1-u1-indicateurs-temps-1",
+"level": "B1",
+"unit": 1,
+"category": "Syntaxe et connecteurs",
+"title_fr": "Les indicateurs de temps (1) : il y a, dans, pendant, pour, en, depuis",
+"title_ru": "Временные указатели (1): момент, длительность, непрерывность",
+"summary_ru": "Используются для точной временной привязки. 'Il y a' указывает на момент в прошлом (назад). 'Dans' — момент в будущем (через). 'Pendant' — ограниченная длительность. 'Pour' — запланированный срок. 'En' — время, необходимое для выполнения действия. 'Depuis' / 'Ça fait... que' — действие началось в прошлом и продолжается в настоящем.",
+"triggers": [
+"il y a + durée",
+"dans + durée",
+"pendant + durée",
+"pour + durée",
+"en + durée",
+"depuis + durée/point de départ",
+"ça fait + durée + que"
+],
+"formation_rule": "Moment passé: il y a + durée (Il est parti il y a dix minutes). Moment futur: dans + durée (Il reviendra dans deux jours). Durée limitée: pendant + durée (Nous avons joué pendant trois heures). Durée prévue: pour + durée (Je pars pour deux semaines). Temps nécessaire: en + durée (Elle a couru cinq kilomètres en 34 minutes). Continuité: depuis + présent / Ça fait... que + présent (J'habite à Toulouse depuis deux ans = Ça fait deux ans que j'habite à Toulouse).",
+"key_exceptions": {
+"pendant": "Quand l'indicateur 'pendant' est suivi d'un chiffre, il est facultatif (ex. : Ils ont discuté [pendant] deux heures)."
+},
+"authentic_examples": [
+{
+"fr": "Ça fait deux ans que j’ai un petit compagnon à quatre pattes.",
+"ru": "У меня уже два года есть четвероногий друг."
+},
+{
+"fr": "Dans deux ou trois semaines, vous aurez quelques numéros de plus dans votre téléphone.",
+"ru": "Через две-три недели в вашем телефоне появится еще несколько номеров."
+}
+]
+},
+{
+"id": "b1-u1-plus-que-parfait-1",
+"level": "B1",
+"unit": 1,
+"category": "Temps et modes",
+"title_fr": "Le plus-que-parfait (1)",
+"title_ru": "Предпрошедшее время (Le plus-que-parfait)",
+"summary_ru": "Обозначает действие в прошлом, которое произошло раньше другого действия в прошлом (прошедшее в прошедшем).",
+"triggers": [
+"avant",
+"parce que",
+"quand",
+"déjà"
+],
+"formation_rule": "Auxiliaire avoir ou être à l'imparfait + participe passé du verbe conjugué.",
+"key_exceptions": {
+"accord avec être": "Le participe passé s'accorde avec le sujet : Elles étaient sorties.",
+"verbes pronominaux indirects": "Pas d'accord avec les verbes pronominaux à construction indirecte : Ils s'étaient parlé (parler à quelqu'un)."
+},
+"authentic_examples": [
+{
+"fr": "L’aîné, Paul-Émile, était parti faire ses études à Dijon.",
+"ru": "Старший, Поль-Эмиль, уехал учиться в Дижон."
+},
+{
+"fr": "J’ai lu le livre que tu m’avais conseillé.",
+"ru": "Я прочитал книгу, которую ты мне посоветовал."
+}
+]
+},
+{
+"id": "b1-u2-interrogation",
+"level": "B1",
+"unit": 2,
+"category": "Syntaxe et connecteurs",
+"title_fr": "L'interrogation (registres familier, standard et soutenu)",
+"title_ru": "Вопросительные предложения (разговорный, нейтральный и официальный регистры)",
+"summary_ru": "Форма вопроса зависит от регистра общения. Разговорный: прямой порядок слов с восходящей интонацией (+ вопросительное слово в конце). Стандартный: конструкция 'est-ce que'. Официальный/литературный: инверсия сказуемого и подлежащего.",
+"triggers": [
+"qui",
+"que",
+"quoi",
+"où",
+"quand",
+"comment",
+"pourquoi",
+"combien"
+],
+"formation_rule": "Familier: Sujet + verbe (+ complément) (+ mot interrogatif) ? (On peut faire quoi ?). Standard: (Mot interrogatif) + est-ce que + sujet + verbe ? (Qu'est-ce qu'on peut faire ?). Soutenu: (Mot interrogatif) + verbe-sujet ? (Que peut-on faire ?).",
+"key_exceptions": {
+"reprise du nom": "Dans les questions soutenues avec un nom sujet, le nom est placé devant et repris par un pronom après le verbe : Pourquoi les bonnes manières sont-elles importantes ?",
+"t euphonique": "Ajout d'un '-t-' euphonique entre voyelles : Quand va-t-il répondre ?"
+},
+"authentic_examples": [
+{
+"fr": "Peut-on annuler un rendez-vous par SMS ?",
+"ru": "Можно ли отменить встречу по СМС?"
+},
+{
+"fr": "Pourquoi devrions-nous vous engager ?",
+"ru": "Почему мы должны нанять именно вас?"
+}
+]
+},
+{
+"id": "b1-u2-necessite-obligation",
+"level": "B1",
+"unit": 2,
+"category": "Temps et modes",
+"title_fr": "Exprimer la nécessité et l'obligation : subjonctif vs infinitif",
+"title_ru": "Выражение необходимости и обязательства: Subjonctif против Infinitif",
+"summary_ru": "Для выражения общего правила/необходимости, применимой ко всем (безличной), используется инфинитив. Если необходимость обращена к конкретному лицу/субъекту, используется придаточное предложение с союзом 'que' и глаголом в Subjonctif.",
+"triggers": [
+"il faut (que)",
+"il est nécessaire (de / que)",
+"il est important (de / que)",
+"il faudrait (que)"
+],
+"formation_rule": "Général: Il faut + infinitif / Il est nécessaire de + infinitif. Sujet précis: Il faut que + sujet + subjonctif / Il est nécessaire que + sujet + subjonctif.",
+"key_exceptions": {
+"subjonctif irrégulier": "être (sois, soit, soyons, soyez, soient), avoir (aie, ait, ayons, ayez, aient), faire (fasse), aller (aille, allions), pouvoir (puisse), vouloir (veuille, voulions), savoir (sache)."
+},
+"authentic_examples": [
+{
+"fr": "Il faut que notre fils apprenne les bonnes manières.",
+"ru": "Нужно, чтобы наш сын научился хорошим манерам."
+},
+{
+"fr": "Il est important que les enfants s'imprègnent d'écologie dès leur plus jeune âge.",
+"ru": "Важно, чтобы дети впитывали экологию с самого раннего возраста."
+}
+]
+},
+{
+"id": "b1-u2-exprimer-sentiments",
+"level": "B1",
+"unit": 2,
+"category": "Temps et modes",
+"title_fr": "Exprimer ses sentiments et appréciations : infinitif vs subjonctif",
+"title_ru": "Выражение чувств и оценок: Infinitif против Subjonctif",
+"summary_ru": "При выражении чувства по отношению к собственному действию или обобщенной ситуации используется 'de + infinitif'. При выражении чувства к действию другого лица/предмета используется 'que + subjonctif'.",
+"triggers": [
+"c'est super (de/que)",
+"c'est dommage (de/que)",
+"je suis content(e) / ravi(e) / déçu(e) (de/que)",
+"ça fait du bien (de/que)",
+"j'en ai assez (de/que)",
+"ça m'énerve (de/que)",
+"je trouve ça bien / triste (de/que)"
+],
+"formation_rule": "Même sujet / fait général: Expression de sentiment + de + infinitif (ex. : C'est dommage de devoir attendre). Sujets différents: Expression de sentiment + que + subjonctif (ex. : Ça m'énerve qu'on doive en arriver là).",
+"key_exceptions": {
+"apprécier": "J'apprécie de + infinitif (J'apprécie de travailler ici) vs J'apprécie que + subjonctif."
+},
+"authentic_examples": [
+{
+"fr": "Je suis ravi(e) que ce magasin ait ouvert des blablabla caisses.",
+"ru": "Я в восторге от того, что этот магазин открыл кассы для общения."
+},
+{
+"fr": "Je trouve ça triste qu'on ait besoin de ça pour retrouver un peu de lien.",
+"ru": "Мне грустно, что нам нужно подобное, чтобы восстановить связь между людьми."
+}
+]
+},
+{
+"id": "b1-u3-conditionnel-present",
+"level": "B1",
+"unit": 3,
+"category": "Temps et modes",
+"title_fr": "Le conditionnel présent",
+"title_ru": "Условное наклонение настоящего времени (Le conditionnel présent)",
+"summary_ru": "Служит для выражения вежливой просьбы, желаний, советов, предложений, предположений и воображаемых ситуаций.",
+"triggers": [
+"j'aimerais",
+"je voudrais",
+"tu devrais",
+"à ta place",
+"dans un monde idéal",
+"au cas où"
+],
+"formation_rule": "Radical du futur simple + terminaisons de l'imparfait (-ais, -ais, -ait, -ions, -iez, -aient). Pour les verbes en -re/-dre, suppression du -e final avant ajout des terminaisons.",
+"key_exceptions": {
+"radicaux irréguliers": "être (ser-), avoir (aur-), aller (ir-), faire (fer-), pouvoir (pourr-), devoir (devr-), vouloir (voudr-), savoir (saur-), falloir (faudr-), venir (viendr-)."
+},
+"authentic_examples": [
+{
+"fr": "Sauriez-vous où se trouve la billetterie ?",
+"ru": "Не подскажете ли вы, где находится касса?"
+},
+{
+"fr": "À ta place, je me dépêcherais.",
+"ru": "На твоем месте я бы поспешил."
+},
+{
+"fr": "Dans un monde idéal, les événements culturels seraient gratuits.",
+"ru": "В идеальном мире культурные мероприятия были бы бесплатными."
+}
+]
+},
+{
+"id": "b1-u3-la-restriction",
+"level": "B1",
+"unit": 3,
+"category": "Syntaxe et connecteurs",
+"title_fr": "La restriction : ne… que",
+"title_ru": "Ограничительный оборот (La restriction : ne… que)",
+"summary_ru": "Конструкция 'ne... que' не является отрицанием. Она выражает ограничение со значением 'только', 'лишь', 'исключительно' (seulement, uniquement, juste).",
+"triggers": [
+"ne... que",
+"seulement",
+"uniquement",
+"juste"
+],
+"formation_rule": "'Ne' se place avant le verbe (et avant les pronoms compléments), 'que/qu'' se place juste avant l'élément restreint. Aux temps composés: 'ne' avant l'auxiliaire, 'que' après le participe passé (Nous n'avons vu qu'un film).",
+"key_exceptions": {
+"n'avoir qu'à": "L'expression 'n'avoir qu'à + infinitif' n'est pas une restriction mais l'expression d'un conseil ou d'un reproche (Tu n'as qu'à demander = Tu devrais demander)."
+},
+"authentic_examples": [
+{
+"fr": "Il n’y en a que trois.",
+"ru": "Их всего лишь три."
+},
+{
+"fr": "Elle ne pourra assister qu’à deux concerts.",
+"ru": "Она сможет посетить только два концерта."
+}
+]
+},
+{
+"id": "b1-u3-cause-consequence",
+"level": "B1",
+"unit": 3,
+"category": "Syntaxe et connecteurs",
+"title_fr": "La cause et la conséquence",
+"title_ru": "Причина и следствие (La cause et la conséquence)",
+"summary_ru": "Коннекторы причины объясняют мотивы или происхождение событий (parce que, comme, puisque, grâce à, à cause de). Коннекторы следствия показывают результат (donc, par conséquent, alors, tellement/si... que, c'est pourquoi, du coup).",
+"triggers": [
+"parce que",
+"puisque",
+"comme",
+"car",
+"étant donné que",
+"grâce à",
+"à cause de",
+"en raison de",
+"donc",
+"par conséquent",
+"du coup",
+"alors",
+"c'est pourquoi",
+"si / tellement... que"
+],
+"formation_rule": "Cause + proposition: parce que, car, puisque, comme (toujours en début de phrase), étant donné que. Cause + nom: grâce à (positif), à cause de (négatif), en raison de / étant donné (neutre). Conséquence: donc, par conséquent, alors, du coup (oral), c'est pourquoi, tellement/si + adj/adv + que + indicatif.",
+"key_exceptions": {
+"comme": "'Comme' de cause se place obligatoirement en tête de phrase : Comme il était fatigué, il n'est pas venu.",
+"puisque": "Indique une cause déjà connue de l'interlocuteur ou évidente : Puisque tu es là, aide-moi.",
+"étant donné": "'Étant donné' suivi d'un nom est invariable."
+},
+"authentic_examples": [
+{
+"fr": "Comme nous sommes situés dans le parc national des Pyrénées, nous devons être porteurs d’un message écologique.",
+"ru": "Так как мы находимся в национальном парке Пиренеев, мы должны нести экологический посыл."
+},
+{
+"fr": "Il a tellement aimé le film qu'il est retourné le voir.",
+"ru": "Фильм ему настолько понравился, что он пошел смотреть его снова."
+}
+]
+},
+{
+"id": "b1-u4-les-indefinis-quantite",
+"level": "B1",
+"unit": 4,
+"category": "Adjectifs et pronoms",
+"title_fr": "Les indéfinis exprimant la quantité",
+"title_ru": "Неопределенные прилагательные и местоимения количества",
+"summary_ru": "Обозначают количество: нулевое (aucun/aucune), индивидуальное (chaque/chacun), неопределенное (quelques/certains) или тотальное (tout/tous/toute/toutes). Могут выступать в роли определителей перед существительными (adjectifs) или заменять их (pronoms).",
+"triggers": [
+"aucun(e)",
+"chaque",
+"chacun(e)",
+"certains/certaines",
+"quelques",
+"quelques-uns/unes",
+"tout",
+"toute",
+"tous",
+"toutes"
+],
+"formation_rule": "Quantité nulle: aucun(e) + nom / aucun(e) n'est... Quantité individuelle: chaque + nom singulier / chacun(e) (pronom). Quantité indéterminée: quelques + nom pluriel / quelques-uns (unes); certains / certaines. Totalité: tout le / toute la + nom / tous les / toutes les + nom pluriel; tout (pronom neutre) / tous / toutes (pronoms).",
+"key_exceptions": {
+"prononciation de tous": "L'adjectif 'tous' перед существительным: -s не читается [tu] (Tous les candidats). Местоимение 'tous': -s обязательно произносится [tus] (Tous sont francophiles).",
+"aucun": "'Aucun(e)' требует отрицательной частицы 'ne', но употребляется без 'pas' (Aucune langue n'est difficile)."
+},
+"authentic_examples": [
+{
+"fr": "Chaque candidat devra choisir son mot ou expression favori(te).",
+"ru": "Каждый кандидат должен будет выбрать свое любимое слово или выражение."
+},
+{
+"fr": "Tous les projets reçus sont admissibles aux différents prix.",
+"ru": "Все полученные проекты допускаются к участию в конкурсе на различные призы."
+}
+]
+},
+{
+"id": "b1-u4-volonte-souhait",
+"level": "B1",
+"unit": 4,
+"category": "Temps et modes",
+"title_fr": "Exprimer la volonté et le souhait",
+"title_ru": "Выражение воли, желания и надежды",
+"summary_ru": "Глаголы воли, желания и предпочтения при несовпадении субъектов требуют Subjonctif. Главное исключение — глагол 'espérer que', который всегда требует Indicatif (настоящее или будущее время).",
+"triggers": [
+"j'aimerais (bien) que",
+"je souhaite que",
+"je souhaiterais que",
+"je voudrais que",
+"je veux que",
+"je préfère / préférerais que",
+"je rêve que",
+"ce serait bien que",
+"pourvu que",
+"j'espère que"
+],
+"formation_rule": "Constructions de souhait/volonté + subjonctif : J'aimerais que tu viennes, Je veux qu'il réussisse, Pourvu qu'il fasse beau. Exception fondamentale : Espérer que + indicatif (J'espère que tu viendras).",
+"key_exceptions": {
+"espérer": "J'espère que + INDICATIF (futur simple ou présent) : J'espère que vous viendrez nous rendre visite.",
+"nuance conditionnel/indicatif": "Pour un souhait poli/atténué : Je souhaiterais que / J'aimerais que. Pour une volonté ferme : Je souhaite que / Je veux que."
+},
+"authentic_examples": [
+{
+"fr": "J’aimerais trop que vous l’organisiez deux fois par an !",
+"ru": "Мне бы очень хотелось, чтобы вы организовывали это дважды в год!"
+},
+{
+"fr": "J’espère qu’on peut participer aux ateliers culinaires.",
+"ru": "Надеюсь, что мы можем принять участие в кулинарных мастер-классах."
+}
+]
+},
+{
+"id": "b1-u4-la-negation",
+"level": "B1",
+"unit": 4,
+"category": "Syntaxe et connecteurs",
+"title_fr": "La négation simple et complexe",
+"title_ru": "Отрицательные конструкции (двойные и тройные)",
+"summary_ru": "Французское отрицание включает базовые двухэлементные конструкции (ne... pas/plus/jamais/rien/personne/aucun) и сложные комбинированные трехэлементные структуры (ne... plus rien, ne... plus jamais, ne... pas encore, ne... ni... ni...).",
+"triggers": [
+"ne... pas",
+"ne... plus",
+"ne... jamais",
+"ne... rien",
+"personne ne...",
+"rien ne...",
+"ne... pas encore",
+"ne... plus rien",
+"ne... plus jamais",
+"ne... ni... ni"
+],
+"formation_rule": "2 éléments: ne + verbe + pas/plus/jamais/rien/aucun (Je n'ai jamais goûté). Personne/Rien sujets: Personne ne sait / Rien ne me plaît. 3 éléments: ne + verbe + plus jamais / plus rien / pas encore (Il n'y a plus rien dans le frigo). Négation multiple avec ni: Je n'aime ni le fromage ni le dessert.",
+"key_exceptions": {
+"article indéfini": "Un, une, des changent en de/d' après la négation (J'ai des amis -> Je n'ai pas d'amis), sauf avec le verbe être.",
+"personne": "Place aux temps composés : 'rien' et 'jamais' se placent entre auxiliaire et participe passé (Je n'ai rien vu), mais 'personne' se place après le participe passé (Je n'ai vu personne)."
+},
+"authentic_examples": [
+{
+"fr": "Elle ne savait rien de ce pays.",
+"ru": "Она ничего не знала об этой стране."
+},
+{
+"fr": "Ne commandez plus jamais au resto !",
+"ru": "Больше никогда не заказывайте еду в ресторане!"
+}
+]
+},
+{
+"id": "b1-u5-le-passif",
+"level": "B1",
+"unit": 5,
+"category": "Temps et modes",
+"title_fr": "La voix passive (Le passif)",
+"title_ru": "Пассивный залог (La voix passive)",
+"summary_ru": "Пассивный залог смещает фокус с исполнителя действия на объект или результат. Возможен только с переходными глаголами прямого действия (verbes transitifs directs avec COD).",
+"triggers": [
+"par + auteur de l'action",
+"être + participe passé",
+"se faire + infinitif",
+"se laisser + infinitif"
+],
+"formation_rule": "Sujet passif + auxiliaire 'être' (conjugué au même temps que le verbe actif) + participe passé (accordé en genre et nombre avec le sujet) + par + complément d'agent.",
+"key_exceptions": {
+"sujet pronom 'on'": "Si le sujet actif est 'on', on n'utilise pas 'par on' au passif (On a réparé le pont -> Le pont a été réparé).",
+"passif avec se faire / se laisser": "Les structures 'se faire' et 'se laisser' + infinitif ont un sens passif (Il s'est fait arrêter par la police; Elle s'est laissé convaincre)."
+},
+"authentic_examples": [
+{
+"fr": "La police a été alertée par une habitante.",
+"ru": "Полицию вызвала местная жительница (букв. Полиция была предупреждена жительницей)."
+},
+{
+"fr": "Une plainte à l'encontre des grimpeurs a été déposée.",
+"ru": "Жалоба в отношении скалолазов была подана."
+}
+]
+},
+{
+"id": "b1-u5-place-de-l-adjectif",
+"level": "B1",
+"unit": 5,
+"category": "Adjectifs et pronoms",
+"title_fr": "La place de l'adjectif",
+"title_ru": "Место прилагательного относительно существительного",
+"summary_ru": "В общем правиле прилагательные во французском языке ставятся ПОСЛЕ существительного (цвет, форма, национальность, стиль). Короткие частые прилагательные ставятся ПЕРЕД существительным. Ряд прилагательных меняет смысл в зависимости от позиции.",
+"triggers": [
+"beau",
+"bon",
+"joli",
+"petit",
+"grand",
+"autre",
+"même",
+"jeune",
+"vieux",
+"ancien",
+"nouveau",
+"prochain",
+"dernier"
+],
+"formation_rule": "Après le nom: adjectifs longs, couleurs, formes, nationalités (une rue étroite, un monument magnifique). Avant le nom: adjectifs courts fréquents (un bon architecte, un grand bâtiment). Prochain/Dernier: après le nom pour le temps (la semaine prochaine), avant le nom pour les séries/ordres (la prochaine visite).",
+"key_exceptions": {
+"changement de sens": "propre (ma propre voiture = моя собственная vs une voiture propre = чистая машина); ancien (un ancien bâtiment = бывшее здание vs un bâtiment ancien = старинное здание); grand (un grand homme = великий человек vs un homme grand = высокий человек); curieux (un curieux bâtiment = странное здание vs un homme curieux = любопытный человек).",
+"article 'des'": "L'article indéfini pluriel 'des' devient 'de' devant un adjectif placé avant le nom (de beaux monuments)."
+},
+"authentic_examples": [
+{
+"fr": "Nous sommes les premiers responsables de notre propre santé.",
+"ru": "Мы несем главную ответственность за наше собственное здоровье."
+},
+{
+"fr": "La rue sera fermée la semaine prochaine.",
+"ru": "Улица будет перекрыта на следующей неделе."
+}
+]
+},
+{
+"id": "b1-u5-nominalisation-adjectif",
+"level": "B1",
+"unit": 5,
+"category": "Morphologie et dérivation",
+"title_fr": "La nominalisation de l'adjectif",
+"title_ru": "Образование существительных от прилагательных (Номинализация)",
+"summary_ru": "Образование абстрактных существительных (обычно женского рода) от прилагательных с помощью суффиксов качества и состояния.",
+"triggers": [
+"-té / -ité",
+"-eur",
+"-ise / -isme",
+"-ance / -ence",
+"-esse",
+"-itude",
+"-tion",
+"-ie",
+"-erie"
+],
+"formation_rule": "Adjectif + suffixe -> Nom féminin (la plupart du temps). -té/-ité: bon -> la bonté, actif -> l'activité, seul -> la solitude. -eur: lent -> la lenteur, large -> la largeur. -ise/-isme: franc -> la franchise, humain -> l'humanisme. -ance/-ence: tolérant -> la tolérance, intelligent -> l'intelligence. -esse: gentil -> la gentillesse. -itude: exact -> l'exactitude. -erie: drôle -> la drôlerie.",
+"key_exceptions": {
+"dérivation inverse": "On peut former un adjectif à partir d'un nom avec le suffixe -eux/-euse (le danger -> dangereux / dangereuse, l'envie -> envieux / envieuse)."
+},
+"authentic_examples": [
+{
+"fr": "Hugo apprécie la gentillesse des habitants.",
+"ru": "Юго ценит доброту жителей."
+},
+{
+"fr": "Elle répond avec rapidité à tous ses clients.",
+"ru": "Она быстро (с быстротой) отвечает всем своим клиентам."
+}
+]
+},
+{
+"id": "b1-u6-concordance-passe-pqf",
+"level": "B1",
+"unit": 6,
+"category": "Temps et modes",
+"title_fr": "Le plus-que-parfait et la concordance des temps du passé",
+"title_ru": "Plus-que-parfait в системе прошедших времен и согласование времен",
+"summary_ru": "Plus-que-parfait обозначает предшествование (antériorité) по отношению к событиям, выраженным в Passé composé или Imparfait.",
+"triggers": [
+"avant de",
+"parce que",
+"quand",
+"lorsque",
+"déjà",
+"la veille",
+"l'année précédente"
+],
+"formation_rule": "Événement 1 (le plus ancien) = Plus-que-parfait. Événement 2 (postérieur) = Passé composé ou Imparfait. Structure : Sujet + avoir/être à l'imparfait + participe passé.",
+"key_exceptions": {
+"négation": "La négation encadre l'auxiliaire : Je n'avais pas vérifié les horaires.",
+"accord": "Mêmes règles d'accord du participe passé qu'au passé composé."
+},
+"authentic_examples": [
+{
+"fr": "Elle n’avait jamais beaucoup voyagé et elle a compris pourquoi j’aimais tant cela.",
+"ru": "Она никогда много не путешествовала и поняла, почему я так сильно это любил."
+},
+{
+"fr": "Comme nous n’avions pas réservé d’hébergement, nous avons dormi sous la tente.",
+"ru": "Так как мы не забронировали жилье, мы спали в палатке."
+}
+]
+},
+{
+"id": "b1-u6-indicateurs-temps-2",
+"level": "B1",
+"unit": 6,
+"category": "Syntaxe et connecteurs",
+"title_fr": "Les indicateurs de temps (2) : discours direct vs récit au passé",
+"title_ru": "Временные указатели (2): привязка к моменту речи против точки отсчета в прошлом",
+"summary_ru": "Временные маркеры меняются в зависимости от точки отсчета: привязка к текущему моменту речи (présent) или привязка к моменту в прошлом (récit au passé / discours indirect).",
+"triggers": [
+"hier / la veille",
+"aujourd'hui / ce jour-là",
+"demain / le lendemain",
+"la semaine dernière / la semaine précédente (d'avant)",
+"la semaine prochaine / la semaine suivante (d'après)",
+"le mois dernier / le mois précédent",
+"le mois prochain / le mois suivant"
+],
+"formation_rule": "Rapport au présent -> Rapport au passé : Hier -> La veille; Aujourd'hui -> Ce jour-là; Demain -> Le lendemain; La semaine dernière -> La semaine précédente / d'avant; La semaine prochaine -> La semaine suivante / d'après; Le mois dernier -> Le mois précédent; Le mois prochain -> Le mois suivant.",
+"key_exceptions": {
+"repères absolus": "Les dates calendaires précises ne changent pas (en 2022, le 15 août)."
+},
+"authentic_examples": [
+{
+"fr": "Au début du voyage, on s’était mariés l’année précédente.",
+"ru": "В начале путешествия они поженились годом ранее."
+},
+{
+"fr": "Elle a acheté ses billets et le lendemain elle était dans l’avion !",
+"ru": "Она купила билеты, и на следующий день уже была в самолете!"
+}
+]
+},
+{
+"id": "b1-u6-prepositions-adverbes-lieu",
+"level": "B1",
+"unit": 6,
+"category": "Adverbes et prépositions",
+"title_fr": "Les prépositions et adverbes de lieu",
+"title_ru": "Предлоги и наречия места",
+"summary_ru": "Предлоги места (prépositions) всегда вводят существительное или местоимение (dans, sous, sur, près de, au bout de, le long de). Наречия места (adverbes) используются самостоятельно и относятся к глаголу (dedans, dehors, dessus, dessous, ici, ailleurs, partout, nulle part, là-haut).",
+"triggers": [
+"dans / dedans",
+"sur / dessus",
+"sous / dessous",
+"devant",
+"derrière",
+"à côté de",
+"autour de",
+"au bout de",
+"le long de",
+"à travers",
+"partout",
+"nulle part",
+"ailleurs",
+"là-haut"
+],
+"formation_rule": "Préposition + Nom (ex. : dans le musée, sur la table, le long du fleuve, à côté de la gare). Verbe + Adverbe (ex. : regarde dedans, pose-le dessus, il est parti ailleurs, elle habite là-haut).",
+"key_exceptions": {
+"articles contractés": "de + le -> du (le long du canal), de + les -> des (à côté des arbres).",
+"devant / derrière": "Peuvent fonctionner comme préposition (devant l'hôtel) ou comme adverbe (il est garé derrière)."
+},
+"authentic_examples": [
+{
+"fr": "Le guide de voyage est sur la table ? Oui, il est dessus.",
+"ru": "Путеводитель на столе? Да, он на нем (сверху)."
+},
+{
+"fr": "Nous avons fait du vélo le long de la Loire.",
+"ru": "Мы катались на велосипедах вдоль Луары."
+}
+]
+},
+{
+"id": "b1-u7-pronoms-relatifs-simples",
+"level": "B1",
+"unit": 7,
+"category": "Adjectifs et pronoms",
+"title_fr": "Les pronoms relatifs simples : qui, que, dont, où",
+"title_ru": "Простые относительные местоимения: qui, que, dont, où",
+"summary_ru": "Служат для объединения двух предложений без повторения существительного. 'Qui' заменяет подлежащее (кто/что). 'Que' заменяет прямое дополнение (которого/которую/которых). 'Où' заменяет место или время (где/когда). 'Dont' заменяет дополнение с предлогом 'de' (о котором, чей, в котором нуждаются).",
+"triggers": [
+"qui (+ verbe)",
+"que (+ sujet)",
+"où (+ lieu / temps)",
+"dont (+ verbe avec de / complément du nom)"
+],
+"formation_rule": "Sujet -> QUI (Les étudiants qui habitent loin). COD -> QUE / QU' devant voyelle (Les cours qu'on met à disposition). Lieu ou Temps -> OÙ (La salle où ils travaillent; Le jour où j'ai commencé). Complément avec 'de' -> DONT (L'école dont les professeurs sont compétents; Le projet dont ils m'ont parlé).",
+"key_exceptions": {
+"accord du participe passé avec que": "Si la proposition avec 'que' est au passé composé, le participe passé s'accorde avec l'antécédent COD : Les compétences que j'ai acquises.",
+"inversion sujet-verbe": "Après que, dont et où, le sujet et le verbe peuvent être inversés : Les études que fait mon frère; L'entreprise dont m'ont parlé les anciens élèves."
+},
+"authentic_examples": [
+{
+"fr": "C’est une école dont les enseignants sont des universitaires.",
+"ru": "Это школа, преподаватели которой являются университетскими профессорами."
+},
+{
+"fr": "Le jour où j’ai commencé le stage, j’ai pu mettre en application la théorie.",
+"ru": "В день, когда я начал стажировку, я смог применить теорию на практике."
+}
+]
+},
+{
+"id": "b1-u7-exprimer-le-but",
+"level": "B1",
+"unit": 7,
+"category": "Syntaxe et connecteurs",
+"title_fr": "Exprimer le but : pour, afin de vs pour que, afin que",
+"title_ru": "Выражение цели (Exprimer le but)",
+"summary_ru": "Если субъект главного и придаточного предложения совпадает, используется инфинитивная конструкция (pour, afin de, mon objectif est de). Если субъекты разные, используется союзная конструкция с Subjonctif (pour que, afin que).",
+"triggers": [
+"pour + infinitif",
+"afin de + infinitif",
+"mon objectif est de + infinitif",
+"pour que + subjonctif",
+"afin que + subjonctif"
+],
+"formation_rule": "Même sujet : pour / afin de + infinitif (ex. : Elle s'est reconvertie pour / afin d'être actrice). Sujets différents : pour que / afin que + subjonctif (ex. : Elle s'est reconvertie pour que sa famille vive mieux).",
+"key_exceptions": {
+"registre": "'Afin de' et 'afin que' relèvent d'un registre plus soutenu et formel que 'pour' et 'pour que'."
+},
+"authentic_examples": [
+{
+"fr": "Les Français espèrent gagner en liberté afin de mieux concilier leur vie professionnelle et privée.",
+"ru": "Французы надеются обрести свободу, чтобы лучше совмещать профессиональную и личную жизнь."
+},
+{
+"fr": "Nous faisons un bilan avec le stagiaire afin qu’il nous dise ce qu’il a ressenti.",
+"ru": "Мы подводим итоги со стажером, чтобы он рассказал нам о своих впечатлениях."
+}
+]
+},
+{
+"id": "b1-u7-le-gerondif",
+"level": "B1",
+"unit": 7,
+"category": "Temps et modes",
+"title_fr": "Le gérondif",
+"title_ru": "Деепричастие (Le gérondif)",
+"summary_ru": "Неизменяемая форма глагола, выражающая одновременность двух действий одного субъекта, образ действия (способом/как) или условие (эквивалент 'si').",
+"triggers": [
+"en + participe présent",
+"en même temps",
+"comment ?",
+"si..."
+],
+"formation_rule": "Préposition 'en' + radical de la 1re personne du pluriel (nous) au présent + terminaison '-ant'. (ex. : nous parlons -> en parlant; nous fi-nissons -> en finissant; nous apprenons -> en apprenant).",
+"key_exceptions": {
+"irréguliers": "avoir -> en ayant; être -> en étant; savoir -> en sachant."
+},
+"authentic_examples": [
+{
+"fr": "Les speakers parlent d’eux en s’adressant directement au public.",
+"ru": "Спикеры рассказывают о себе, обращаясь напрямую к публике."
+},
+{
+"fr": "En travaillant tous les jours, on y arrive.",
+"ru": "Работая каждый день, можно добиться успеха."
+}
+]
+},
+{
+"id": "b1-u8-expression-opinion",
+"level": "B1",
+"unit": 8,
+"category": "Temps et modes",
+"title_fr": "L'expression de l'opinion : indicatif ou subjonctif",
+"title_ru": "Выражение мнения: Indicatif против Subjonctif",
+"summary_ru": "Глаголы мнения и уверенности в утвердительной форме требуют Indicatif (je pense que, je crois que, je suis sûr que, il est probable que). Глаголы сомнения, возможности, а также отрицательные формы глаголов мнения требуют Subjonctif (je doute que, je ne pense pas que, il est possible que).",
+"triggers": [
+"je pense que",
+"je crois que",
+"je trouve que",
+"il me semble que",
+"je suis sûr(e) / certain(e) / convaincu(e) que",
+"il est probable que",
+"je ne pense pas que",
+"je ne crois pas que",
+"je doute que",
+"il est possible que"
+],
+"formation_rule": "Certitude / Opinion affirmative / Probabilité forte -> INDICATIF : Je suis convaincu(e) que + indicatif; Il est probable que + indicatif. Doute / Négation d'opinion / Possibilité -> SUBJONCTIF : Je ne crois pas que + subjonctif; Je doute que + subjonctif; Il est possible que + subjonctif.",
+"key_exceptions": {
+"forme négative": "Penser que и Croire que в утвердительной форме идут с Indicatif (Je pense qu'il est compétent), но в отрицательной требуют Subjonctif (Je ne pense pas qu'il soit compétent)."
+},
+"authentic_examples": [
+{
+"fr": "Je suis convaincu(e) que la livraison collaborative va intéresser beaucoup de monde.",
+"ru": "Я убежден(а), что совместная доставка заинтересует многих."
+},
+{
+"fr": "Je doute que le maire veuille mettre en place un réseau d’auto-stop organisé.",
+"ru": "Я сомневаюсь, что мэр захочет внедрить организованную сеть автостопа."
+},
+{
+"fr": "Il est possible qu’on voie apparaître d’autres initiatives solidaires.",
+"ru": "Возможно, мы увидим появление других солидарных инициатив."
+}
+]
+},
+{
+"id": "b1-u8-pronoms-y-et-en",
+"level": "B1",
+"unit": 8,
+"category": "Adjectifs et pronoms",
+"title_fr": "Les pronoms adverbiaux Y et EN",
+"title_ru": "Местоимения Y и EN",
+"summary_ru": "Местоимение 'EN' заменяет неодушевленные дополнения с предлогом 'de', количество или целую инфинитивную фразу с 'de'. Местоимение 'Y' заменяет дополнения места (à, dans, sur, chez) или неодушевленные дополнения с предлогом 'à' (включая действия à + infinitif).",
+"triggers": [
+"verbe + à + chose / infinitif -> Y",
+"verbe + de + chose / infinitif -> EN",
+"lieu -> Y",
+"quantité -> EN"
+],
+"formation_rule": "Remplacement 'de' : avoir besoin de, parler de, être sûr de, se souvenir de -> EN (Tu as besoin de ce logiciel ? -> J'en ai besoin). Remplacement 'à' / lieu : penser à, s'intéresser à, réfléchir à, habiter à/en/dans -> Y (Tu penses à ton avenir ? -> J'y pense; Tu vas à Paris ? -> J'y vais).",
+"key_exceptions": {
+"personnes": "Pour les personnes, on n'utilise pas Y/EN avec les verbes de communication ou sentiment : on utilise les pronoms toniques ou COI (Je pense à Pierre -> Je pense à lui; Je parle de Sophie -> Je parle d'elle)."
+},
+"authentic_examples": [
+{
+"fr": "Les Français laissent leur téléphone au fond d’un tiroir : ils ne s’en servent plus et n’y pensent plus.",
+"ru": "Французы оставляют телефон на дне ящика: они им больше не пользуются и больше о нем не думают."
+},
+{
+"fr": "24 % des Français ne revendent pas leur téléphone. Ils y renoncent par crainte qu’il soit piraté.",
+"ru": "24% французов не перепродают свои телефоны. Они отказываются от этого из-за страха взлома."
+}
+]
+},
+{
+"id": "b1-u8-opposition-concession",
+"level": "B1",
+"unit": 8,
+"category": "Syntaxe et connecteurs",
+"title_fr": "L'opposition et la concession",
+"title_ru": "Противопоставление и уступка (Opposition et Concession)",
+"summary_ru": "Противопоставление (Opposition) сравнивает два независимых факта (alors que, tandis que, contrairement à, en revanche, par contre). Уступка (Concession) подчеркивает неожиданное последствие вопреки обстоятельствам (bien que + subj., même si + ind., malgré + nom, pourtant, cependant).",
+"triggers": [
+"mais",
+"par contre",
+"en revanche",
+"au contraire",
+"contrairement à",
+"alors que",
+"tandis que",
+"pourtant",
+"cependant",
+"malgré + nom",
+"bien que + subjonctif",
+"même si + indicatif"
+],
+"formation_rule": "Opposition : Connecteurs + indicatif (alors que / tandis que + indicatif); Prépositions + nom (contrairement à / à l'inverse de + nom); Adverbes (en revanche, par contre, au contraire). Concession : bien que + subjonctif (Bien qu'il pleuve...); même si + indicatif (Même s'il pleut...); malgré + nom (Malgré la pluie...); pourtant / cependant + phrase.",
+"key_exceptions": {
+"modes": "'Bien que' régit TOUJOURS le subjonctif, tandis que 'même si' régit TOUJOURS l'indicatif.",
+"par contre": "'Par contre' est très courant à l'oral mais à éviter dans les écrits formels (privilégier 'en revanche')."
+},
+"authentic_examples": [
+{
+"fr": "Bien que cela ne soit pas passionnant, il est grand temps de faire un ménage de printemps dans vos téléphones.",
+"ru": "Хотя это и не увлекательно, самое время провести весеннюю уборку в ваших телефонах."
+},
+{
+"fr": "Même s’il sait très bien qu’il faut nettoyer ses données, il ne le fait jamais.",
+"ru": "Даже если он отлично знает, что нужно чистить данные, он никогда этого не делает."
+},
+{
+"fr": "Malgré la pollution causée par Internet, le nombre d’internautes continue d’augmenter.",
+"ru": "Несмотря на загрязнение от интернета, число пользователей продолжает расти."
+}
+]
+},
+{
+"id": "b1-u9-condition-hypothese",
+"level": "B1",
+"unit": 9,
+"category": "Temps et modes",
+"title_fr": "La condition et l'hypothèse avec 'Si'",
+"title_ru": "Условие и гипотеза с союзом 'Si'",
+"summary_ru": "Условие выражает реальный, выполнимый факт в настоящем/будущем (Si + présent). Гипотеза выражает воображаемый, маловероятный или нереальный факт в настоящем/будущем (Si + imparfait -> conditionnel présent).",
+"triggers": [
+"si + présent -> présent / futur / impératif",
+"si + imparfait -> conditionnel présent"
+],
+"formation_rule": "1. Condition réalisable : Si + présent -> présent (Si vous voulez, je peux vous accompagner) / futur simple (Si on prend un taxi, nous serons à l'heure) / impératif (Si tu as peur, prends un taxi !). 2. Hypothèse irréalisable ou potentielle : Si + imparfait -> conditionnel présent (Si j'obtenais ce job, je pourrais financer mes études).",
+"key_exceptions": {
+"interdiction après 'si'": "On n'emploie JAMAIS le futur simple ni le conditionnel immédiatement après 'si' (dire 'si j'avais' et non 'si j'aurais')."
+},
+"authentic_examples": [
+{
+"fr": "Prenez-moi à l’essai, si vous avez des doutes.",
+"ru": "Возьмите меня на испытательный срок, если у вас есть сомнения."
+},
+{
+"fr": "Si vous deviez embaucher quelqu’un pour ce poste, quelles qualités rechercheriez-vous ?",
+"ru": "Если бы вам пришлось нанимать кого-то на эту должность, какие качества вы бы искали?"
+}
+]
+},
+{
+"id": "b1-u9-adverbes-en-ment",
+"level": "B1",
+"unit": 9,
+"category": "Morphologie et dérivation",
+"title_fr": "Les adverbes de manière en -ment",
+"title_ru": "Наречия образа действия на -ment",
+"summary_ru": "Образуются от прилагательных для характеристики действия глагола, признака прилагательного или другого наречия.",
+"triggers": [
+"-ment",
+"-emment",
+"-amment"
+],
+"formation_rule": "1. Règle générale (terminaison consonne) : Féminin de l'adjectif + -ment (seul -> seule -> seulement, concret -> concrète -> concrètement). 2. Terminaison voyelle au masculin : Masculin + -ment (vrai -> vraiment, simple -> simplement). 3. Adjectifs en -ant / -ent : -ant -> -amment (méchant -> méchamment); -ent -> -emment (fréquent -> fréquemment, évident -> évidemment).",
+"key_exceptions": {
+"irréguliers": "bref -> brièvement, gentil -> gentiment, énorme -> énormément, précis -> précisément, profond -> profondément, gai -> gaiement."
+},
+"authentic_examples": [
+{
+"fr": "Les étudiants développent concrètement leur aptitude à l’ouverture.",
+"ru": "Студенты на практике развивают свою способность к открытости."
+},
+{
+"fr": "Je me concentrerai exclusivement pour la réussite de ce projet.",
+"ru": "Я сосредоточусь исключительно на успехе этого проекта."
+}
+]
+},
+{
+"id": "b1-u9-anteriorite-simultaneite-posteriorite",
+"level": "B1",
+"unit": 9,
+"category": "Syntaxe et connecteurs",
+"title_fr": "L'antériorité, la simultanéité et la postériorité",
+"title_ru": "Предшествование, одновременность и следование во времени",
+"summary_ru": "Система временных союзов и предлогов для соотнесения действий во времени с использованием различных грамматических наклонений (Indicatif, Subjonctif, Infinitif).",
+"triggers": [
+"avant de + inf.",
+"avant que + subj.",
+"jusqu'à ce que + subj.",
+"en attendant que + subj.",
+"pendant que + ind.",
+"chaque fois que + ind.",
+"après + nom / passé",
+"après que + ind.",
+"dès que + ind.",
+"une fois que + ind."
+],
+"formation_rule": "Antériorité : avant + nom; avant de + infinitif; avant que / jusqu'à ce que / en attendant que + SUBJONCTIF. Simultanéité : pendant que / chaque fois que / au moment où + INDICATIF. Postériorité : après + nom; après + infinitif passé (après avoir/être + p.passé); après que / dès que / une fois que / depuis que + INDICATIF.",
+"key_exceptions": {
+"après que": "Selon la grammaire standard, 'après que' régit l'indicatif (l'action étant certaine et passée), contrairement à 'avant que' qui exige le subjonctif."
+},
+"authentic_examples": [
+{
+"fr": "Avant de consulter votre smartphone, posez-vous la question : est-ce vraiment nécessaire ?",
+"ru": "Прежде чем проверять смартфон, задайте себе вопрос: действительно ли это необходимо?"
+},
+{
+"fr": "Récompensez-vous avec des moments de détente après avoir terminé la tâche.",
+"ru": "Вознаградите себя моментами отдыха после завершения задачи."
+},
+{
+"fr": "Autorisez-vous des moments de vagabondage mental jusqu’à ce que vous trouviez une solution.",
+"ru": "Позвольте себе повитать в облаках, пока не найдете решение."
+}
+]
+},
+{
+"id": "b1-u10-discours-rapporte-present",
+"level": "B1",
+"unit": 10,
+"category": "Syntaxe et connecteurs",
+"title_fr": "Le discours rapporté au présent",
+"title_ru": "Косвенная речь с вводным глаголом в настоящем времени",
+"summary_ru": "Используется для передачи чужих слов без изменения времен глаголов, если вводный глагол стоит в настоящем времени (dire, expliquer, demander, affirmer...). Меняются только местоимения, лица глаголов и притяжательные прилагательные.",
+"triggers": [
+"il dit que",
+"il demande si",
+"il demande ce que",
+"il demande ce qui",
+"il demande de + inf."
+],
+"formation_rule": "Phrase affirmative : Verbe introducteur + QUE (Elle dit qu'elle est sportive). Question fermée (oui/non) : Verbe introducteur + SI (Il demande si vous venez). Question avec mot interrogatif (où/quand/comment/pourquoi) : Verbe + mot interrogatif (Nous voulons savoir comment ça marche). Qu'est-ce que / que -> CE QUE (Elle demande ce que nous faisons). Qu'est-ce qui -> CE QUI (Il veut savoir ce qui m'intéresse). Impératif -> DE + infinitif (Vous ordonnez de courir plus vite).",
+"key_exceptions": {
+"ponctuation": "Les guillemets, deux-points et points d'interrogation/exclamation disparaissent en discours rapporté."
+},
+"authentic_examples": [
+{
+"fr": "Yves Benchimol explique que cette application fonctionne quand nous marchons.",
+"ru": "Ив Беншимоль объясняет, что это приложение работает, когда мы ходим."
+},
+{
+"fr": "Le comité olympique se demande s'il doit intégrer le sport électronique aux Jeux olympiques.",
+"ru": "Олимпийский комитет задается вопросом, должен ли он включить киберспорт в Олимпийские игры."
+}
+]
+},
+{
+"id": "b1-u10-pronoms-relatifs-composes",
+"level": "B1",
+"unit": 10,
+"category": "Adjectifs et pronoms",
+"title_fr": "Les pronoms relatifs composés",
+"title_ru": "Сложные относительные местоимения (lequel, laquelle, lesquels, lesquelles)",
+"summary_ru": "Употребляются после предлогов (sur, sous, dans, avec, pour, devant, derrière, sans, chez...) для замены неодушевленных предметов (или лиц в формальном стиле), согласуясь в роде и числе с определяемым словом.",
+"triggers": [
+"dans lequel / laquelle / lesquels / lesquelles",
+"sur lequel / laquelle / lesquels / lesquelles",
+"avec lequel / laquelle / lesquels / lesquelles",
+"pour lequel / laquelle / lesquels / lesquelles",
+"sans lequel / laquelle / lesquels / lesquelles"
+],
+"formation_rule": "Masculin singulier : LEQUEL; Féminin singulier : LAQUELLE; Masculin pluriel : LESQUELS; Féminin pluriel : LESQUELLES. Structure : Préposition + pronom relatif composé (Le tableau devant lequel je me trouve).",
+"key_exceptions": {
+"personnes": "Quand le pronom désigne une ou plusieurs personnes, on utilise plus couramment 'qui' précédé de la préposition (avec qui, pour qui, chez qui) au lieu de 'avec lequel / pour laquelle'."
+},
+"authentic_examples": [
+{
+"fr": "Un HistoPad est une tablette sur laquelle on peut découvrir le château à l’époque de François Ier.",
+"ru": "HistoPad — это планшет, на котором можно увидеть замок во времена Франциска I."
+},
+{
+"fr": "C’est un assistant virtuel avec lequel on peut discuter.",
+"ru": "Это виртуальный помощник, с которым можно общаться."
+},
+{
+"fr": "Les jeux de société coopératifs, dans lesquels les joueurs ne sont pas des adversaires mais des coéquipiers, attirent de plus en plus.",
+"ru": "Кооперативные настольные игры, в которых игроки являются не соперниками, а партнерами по команде, привлекают все больше людей."
+}
+]
+},
+{
+"id": "b1-u10-conditionnel-information-incertaine",
+"level": "B1",
+"unit": 10,
+"category": "Temps et modes",
+"title_fr": "Le conditionnel et l'information incertaine",
+"title_ru": "Условное наклонение для передачи неподтвержденной информации",
+"summary_ru": "Широко используется в журналистике и новостной речи (conditionnel journalistique) для сообщения фактов, которые не были официально проверены, подтверждены или гарантированы.",
+"triggers": [
+"selon les sources",
+"d'après...",
+"il semblerait que",
+"aurait été",
+"serait"
+],
+"formation_rule": "Contexte présent/futur : Conditionnel présent (ex. : Le président visiterait la région demain). Contexte passé : Conditionnel passé = auxiliaire avoir/être au conditionnel présent + participe passé (ex. : L'artiste aurait vendu ses œuvres plus d'un million d'euros).",
+"key_exceptions": {
+"accord": "Les règles d'accord du participe passé au conditionnel passé sont identiques à celles des temps composés de l'indicatif."
+},
+"authentic_examples": [
+{
+"fr": "De grandes marques auraient déjà acheté des parcelles virtuelles dans le métavers.",
+"ru": "Крупные бренды якобы уже приобрели виртуальные участки в метавселенной."
+},
+{
+"fr": "Un enfant de 8 ans aurait gagné des milliers d'euros grâce au métavers.",
+"ru": "Восьмилетний ребенок, по неподтвержденным данным, выиграл тысячи евро благодаря метавселенной."
+}
+]
+},
+{
+"id": "b1-u11-comparatif-particularites",
+"level": "B1",
+"unit": 11,
+"category": "Adjectifs et pronoms",
+"title_fr": "Le comparatif et ses particularités",
+"title_ru": "Степени сравнения и нюансы интенсивности",
+"summary_ru": "Сравнение качеств (adjectifs/adverbes), количества (noms) и интенсивности действий (verbes) с добавлением оттенков градации (un peu plus, beaucoup moins, un petit peu mieux) и динамических тенденций (de plus en plus, de moins en moins).",
+"triggers": [
+"plus... que",
+"moins... que",
+"aussi... que",
+"autant de... que",
+"de plus en plus",
+"de moins en moins",
+"beaucoup plus / moins",
+"un peu plus / moins"
+],
+"formation_rule": "Rappel de base : Adjectif/adverbe = plus/aussi/moins + adj + que; Nom = plus de/autant de/moins de + nom + que; Verbe = verbe + plus/autant/moins + que. Nuances d'intensité : un peu / un petit peu / beaucoup + plus/moins/mieux. Évolution : de plus en plus / de moins en moins + adjectif/nom/verbe.",
+"key_exceptions": {
+"formes irrégulières": "bon(ne) -> meilleur(e) (et non 'plus bon'); bien -> mieux (et non 'plus bien'); mauvais(e) -> plus mauvais(e) ou pire; mal -> plus mal ou pire."
+},
+"authentic_examples": [
+{
+"fr": "De plus en plus de jeunes se mettent en scène sur les réseaux sociaux.",
+"ru": "Все больше и больше молодых людей выставляют себя напоказ в социальных сетях."
+},
+{
+"fr": "Mon travail de peinture est beaucoup moins discipliné.",
+"ru": "Моя работа над картинами гораздо менее дисциплинирована."
+}
+]
+},
+{
+"id": "b1-u11-discours-rapporte-passe",
+"level": "B1",
+"unit": 11,
+"category": "Temps et modes",
+"title_fr": "Le discours rapporté au passé (La concordance des temps)",
+"title_ru": "Косвенная речь в прошедшем времени (Согласование времен)",
+"summary_ru": "Когда вводный глагол стоит в прошедшем времени (il a dit, il a expliqué, il a demandé), время глагола в придаточном предложении трансформируется по строгим правилам согласования времен.",
+"triggers": [
+"il a dit que",
+"il m'a expliqué que",
+"il a demandé si",
+"elle a promis que",
+"ils ont affirmé que"
+],
+"formation_rule": "Discours direct -> Discours rapporté au passé : Présent -> Imparfait; Passé composé -> Plus-que-parfait; Futur simple -> Conditionnel présent; Futur proche (aller + inf.) -> Imparfait de aller + inf. (allait + inf.); Impératif -> de + infinitif; Imparfait -> Imparfait (invariable); Conditionnel -> Conditionnel (invariable).",
+"key_exceptions": {
+"vérités générales": "Les vérités générales ou faits toujours actuels peuvent exceptionnellement rester au présent."
+},
+"authentic_examples": [
+{
+"fr": "Je t’ai dit que je n’avais pas vu l’heure.",
+"ru": "Я сказал тебе, что не заметил времени (прямая речь: « Je n'ai pas vu l'heure »)."
+},
+{
+"fr": "Le radiologue m’a dit qu’elle ne devrait plus tarder à arriver.",
+"ru": "Рентгенолог сказал мне, что она уже с минуты на минуту должна появиться (прямая речь: « Elle ne devrait plus tarder »)."
+},
+{
+"fr": "Elle m’a promis qu’on continuerait bientôt notre discussion.",
+"ru": "Она пообещала мне, что скоро мы продолжим наше обсуждение (прямая речь: « On continuera bientôt »)."
+}
+]
+},
+{
+"id": "b1-u12-exprimer-le-futur",
+"level": "B1",
+"unit": 12,
+"category": "Temps et modes",
+"title_fr": "Exprimer le futur : futur proche, futur simple et présent",
+"title_ru": "Способы выражения будущего времени",
+"summary_ru": "Futur proche (aller + infinitif) выражает непосредственное будущее, намерение или событие с высокой степенью уверенности. Futur simple выражает более отдаленные события, прогнозы, программы и условия. Le présent с маркером времени выражает запланированное скорое действие или твердое решение.",
+"triggers": [
+"demain",
+"bientôt",
+"plus tard",
+"quand + futur",
+"lorsque + futur",
+"dès que + futur",
+"aussitôt que + futur"
+],
+"formation_rule": "Futur simple : Infinitif (ou radical irrégulier) + terminaisons -ai, -as, -a, -ons, -ez, -ont. Futur proche : aller au présent + infinitif. Présent à valeur de futur : verbe au présent + indicateur temporel (Nous commençons dans cinq minutes).",
+"key_exceptions": {
+"conjonctions temporelles": "Après quand, lorsque, dès que, aussitôt que, on emploie obligatoirement le Futur simple si l'action est à venir : Quand je serai grand, je comprendrai.",
+"radicaux irréguliers futur simple": "être (ser-), avoir (aur-), aller (ir-), faire (fer-), pouvoir (pourr-), devoir (devr-), voir (verr-), envoyer (enverr-), venir (viendr-)."
+},
+"authentic_examples": [
+{
+"fr": "Quand je repasserai sur la case départ, je toucherai la moitié de mon salaire.",
+"ru": "Когда я снова пройду через поле 'Старт', я получу половину своей зарплаты."
+},
+{
+"fr": "Notre association proposera des ateliers de sensibilisation dans les écoles.",
+"ru": "Наша ассоциация предложит просветительские семинары в школах."
+}
+]
+},
+{
+"id": "b1-u12-indicateurs-temps-3",
+"level": "B1",
+"unit": 12,
+"category": "Syntaxe et connecteurs",
+"title_fr": "Les indicateurs de temps (3) : projection dans l'avenir",
+"title_ru": "Временные указатели будущего (3)",
+"summary_ru": "Специальные временные маркеры (наречия, союзы, предлоги) для структурирования плана действий и указания временных рамок в будущем.",
+"triggers": [
+"d'ici + durée/date",
+"dès + nom/date",
+"à partir de",
+"dès que + indicatif",
+"aussitôt que + indicatif",
+"une fois que + indicatif",
+"après que + indicatif"
+],
+"formation_rule": "Adverbes : demain, après-demain, plus tard, bientôt. Conjonctions (+ indicatif) : dès que, aussitôt que, après que, une fois que, lorsque. Prépositions : dans + durée (dans deux ans), d'ici + date/durée (d'ici la fin du mois = до конца месяца / в пределах этого срока), dès + moment (dès cet été = уже этим летом), à partir de + point de départ.",
+"key_exceptions": {
+"d'ici": "'D'ici' indique la limite temporelle maximale avant laquelle l'action aura lieu : Présentez votre candidature d'ici la fin du mois."
+},
+"authentic_examples": [
+{
+"fr": "Vous voulez accueillir un(e) jeune chez vous dès cet été ?",
+"ru": "Вы хотите принять у себя подростка уже с этого лета?"
+},
+{
+"fr": "Présentez votre candidature d’ici la fin du mois de mars.",
+"ru": "Подайте заявку до конца марта."
+}
+]
+},
+{
+"id": "b1-u12-double-pronominalisation",
+"level": "B1",
+"unit": 12,
+"category": "Adjectifs et pronoms",
+"title_fr": "La double pronominalisation (L'ordre des pronoms compléments)",
+"title_ru": "Двойные приглагольные местоимения (Порядок местоимений-дополнений)",
+"summary_ru": "Правила комбинирования двух местоимений-дополнений (COD и COI) в одном предложении перед глаголом и в повелительном наклонении.",
+"triggers": [
+"me le / me la / me les",
+"te le / te la / te les",
+"le lui / la lui / les lui",
+"nous le / nous la / nous les",
+"vous le / vous la / vous les",
+"le leur / la leur / les leur",
+"lui en / leur en",
+"l'y / les y"
+],
+"formation_rule": "1. Devant le verbe : Sujet + (me/te/se/nous/vous) + (le/la/l'/les) + (lui/leur) + (y) + (en) + Verbe. Exemple : Je le lui donne. Il nous les apporte. Je lui en achète. 2. À l'impératif affirmatif : Verbe-COD-COI (avec traits d'union). Exemple : Donnez-le-moi ! Dis-le-leur ! 3. À l'impératif négatif : retour à l'ordre standard (Ne me le donne pas ! Ne le leur dis pas !).",
+"key_exceptions": {
+"3e personne": "Quand les deux pronoms sont à la 3e personne, le COD précède le COI : le/la/les + lui/leur (Je les leur prête). Avec les autres personnes, 1re/2e personne précède la 3e : me/te/nous/vous + le/la/les (Il me le rend)."
+},
+"authentic_examples": [
+{
+"fr": "Vous le lui donneriez le temps d’une élection ?",
+"ru": "Вы бы уступили ему свой голос на время выборов?"
+},
+{
+"fr": "Le collectif vous assigne un binôme et se charge de vous le faire rencontrer.",
+"ru": "Коллектив назначает вам напарника и берет на себя задачу организовать вашу с ним встречу."
+}
+]
 }
 ]
