@@ -26,15 +26,6 @@ export function isPushSupported(): boolean {
   )
 }
 
-export function registerServiceWorker(): void {
-  if (!isPushSupported()) return
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((e) => {
-      console.error('[push.register]', e)
-    })
-  })
-}
-
 export async function getPushState(): Promise<PushState> {
   if (!isPushSupported()) return 'unsupported'
   if (!VAPID_PUBLIC_KEY) return 'no-key'
