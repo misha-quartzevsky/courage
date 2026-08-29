@@ -72,8 +72,9 @@ wrangler secret put SUPABASE_SERVICE_ROLE_KEY # Supabase → Project Settings �
 Cron уже объявлен в `wrangler.toml` (`crons = ["0 * * * *"]`). Если секреты не
 заданы — `scheduled` просто выходит без рассылки.
 
-Таймзона напоминаний зафиксирована в `worker/worker.ts` (`TZ = 'Europe/Paris'`) —
-`reminder_hour` хранится как локальный час без tz.
+Таймзона напоминаний зафиксирована в `worker/worker.ts` (`TZ = 'Europe/Moscow'`) —
+`reminder_hour` хранится как локальный час без tz. Текст уведомления — там же,
+блок `PUSH_TITLE` / `PUSH_URL` / `pushBody()`.
 
 ## 4. Проверка
 

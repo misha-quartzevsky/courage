@@ -115,9 +115,24 @@ interface SubRow {
   auth: string
 }
 
-// Пользователей двое, оба в часовом поясе Европа/Париж — храним только час
-// (reminder_hour), таймзону не спрашиваем, а берём фиксированную.
-const TZ = 'Europe/Paris'
+// Пользователей двое — храним только час (reminder_hour), таймзону не
+// спрашиваем, а берём фиксированную. Список значений — IANA tz database
+// (напр. 'Europe/Moscow', 'Europe/Paris', 'Asia/Tbilisi').
+const TZ = 'Europe/Moscow'
+
+// ─────────────────────────────────────────────────────────────────────
+//  ТЕКСТ УВЕДОМЛЕНИЯ — меняй здесь.
+//  title — жирная строка, body — текст под ней, url — куда ведёт тап.
+// ─────────────────────────────────────────────────────────────────────
+const PUSH_TITLE = 'Courage'
+const PUSH_URL = '/'
+
+function pushBody(streakDays: number): string {
+  if (streakDays > 1) {
+    return `Серия ${streakDays} дней — не прерывай. 5 минут французского сейчас.`
+  }
+  return 'Пора позаниматься французским. Спринт на 5 минут.'
+}
 
 function partsInTz(d: Date): { hour: number; ymd: string } {
   const fmt = new Intl.DateTimeFormat('en-CA', {
@@ -185,11 +200,7 @@ async function sendReminders(env: Env): Promise<void> {
       { headers: sbHeaders },
     ).then((r) => r.json())
 
-    const streak = profile.streak_count ?? 0
-    const body =
-      streak > 1
-        ? `Серия ${streak} дней — не прерывай. 5 минут французского сейчас.`
-        : 'Пора позаниматься французским. Спринт на 5 минут.'
+    const body = pushBody(profile.streak_count ?? 0)
 
     let delivered = 0
     for (const sub of subs) {
@@ -200,7 +211,10 @@ async function sendReminders(env: Env): Promise<void> {
       }
       try {
         const payload = await buildPushPayload(
-          { data: { title: 'Courage', body, url: '/' }, options: { ttl: 43200 } },
+          {
+            data: { title: PUSH_TITLE, body, url: PUSH_URL },
+            options: { ttl: 43200 },
+          },
           subscription,
           vapid,
         )
