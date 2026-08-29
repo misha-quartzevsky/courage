@@ -1,7 +1,13 @@
 import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
 import { doneUnitIds } from '../lib/storage'
 import { nextUnit, type SyllabusUnit } from '../lib/syllabus'
-import { AlertIcon, ArrowRightIcon, FlameIcon, GearIcon } from '../lib/icons'
+import {
+  AlertIcon,
+  ArrowRightIcon,
+  BookIcon,
+  FlameIcon,
+  GearIcon,
+} from '../lib/icons'
 import { CourseMap } from './CourseMap'
 
 export type Mode = 'voice' | 'text'
@@ -21,6 +27,7 @@ interface CockpitProps {
   onStartNext: () => void
   onStartUnit: (u: SyllabusUnit) => void
   onOpenSettings: () => void
+  onOpenCodex: () => void
 }
 
 export function Cockpit({
@@ -38,6 +45,7 @@ export function Cockpit({
   onStartNext,
   onStartUnit,
   onOpenSettings,
+  onOpenCodex,
 }: CockpitProps) {
   const next = nextUnit(doneUnitIds(progress), level)
 
@@ -54,6 +62,14 @@ export function Cockpit({
               {streakDays} j
             </span>
           )}
+          <button
+            type="button"
+            className="btn-icon"
+            aria-label="Справочник"
+            onClick={onOpenCodex}
+          >
+            <BookIcon />
+          </button>
           <button
             type="button"
             className="btn-icon"

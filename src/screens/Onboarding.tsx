@@ -6,6 +6,19 @@ import { CloseIcon } from '../lib/icons'
 
 const LEVELS: CefrLevel[] = availableLevels()
 
+// Can-do самооценка: берём самый высокий отмеченный уровень.
+const ALL_CAN_DO: { text: string; level: CefrLevel }[] = [
+  { text: 'Могу представиться, назвать профессию и возраст', level: 'A1' },
+  { text: 'Свободно рассказываю о прошлом и привычках', level: 'A2' },
+  { text: 'Могу описать планы, условие, гипотезу («если бы…»)', level: 'B1' },
+  { text: 'Спорю, объясняю причины, строю сложные фразы', level: 'B1' },
+]
+const CAN_DO = ALL_CAN_DO.filter((s) => LEVELS.includes(s.level))
+
+function levelRank(l: CefrLevel): number {
+  return LEVELS.indexOf(l)
+}
+
 interface OnboardingProps {
   initialLevel: CefrLevel
   onSave: (persona: LearnerPersona, level: CefrLevel) => void | Promise<void>
@@ -15,10 +28,16 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
   const [text, setText] = useState('')
   const [analyzing, setAnalyzing] = useState(false)
   const [draft, setDraft] = useState<LearnerPersona | null>(null)
-  const [level, setLevel] = useState<CefrLevel>(
-    LEVELS.includes(initialLevel) ? initialLevel : 'A1',
+  const [checked, setChecked] = useState<Set<number>>(new Set())
+  const [manualLevel, setManualLevel] = useState<CefrLevel | null>(
+    LEVELS.includes(initialLevel) ? initialLevel : null,
   )
   const [saving, setSaving] = useState(false)
+
+  const suggested: CefrLevel = [...checked]
+    .map((i) => CAN_DO[i].level)
+    .sort((a, b) => levelRank(b) - levelRank(a))[0] ?? LEVELS[0]
+  const level = manualLevel ?? suggested
 
   const analyze = async () => {
     if (!text.trim() || analyzing) return
@@ -39,9 +58,17 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
   }
 
   const dropTag = (key: 'interestsFr' | 'domainTags', value: string) => {
-    setDraft((d) =>
-      d ? { ...d, [key]: d[key].filter((t) => t !== value) } : d,
-    )
+    setDraft((d) => (d ? { ...d, [key]: d[key].filter((t) => t !== value) } : d))
+  }
+
+  const toggleCanDo = (i: number) => {
+    setChecked((prev) => {
+      const next = new Set(prev)
+      if (next.has(i)) next.delete(i)
+      else next.add(i)
+      return next
+    })
+    setManualLevel(null)
   }
 
   const save = async () => {
@@ -53,7 +80,7 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
   return (
     <main className="screen">
       <header>
-        <p className="eyebrow">Bienvenue</p>
+        <p className="eyebrow">Знакомимся</p>
         <h1 className="screen-title serif">Ваш контекст</h1>
         <p className="muted">
           Спринты на 30% строятся вокруг вашей работы и увлечений. Опишите их
@@ -77,7 +104,7 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
             disabled={!text.trim() || analyzing}
             onClick={analyze}
           >
-            {analyzing ? 'On analyse…' : draft ? 'Analyser à nouveau' : 'Analyser'}
+            {analyzing ? 'Разбираем…' : draft ? 'Разобрать заново' : 'Разобрать'}
           </button>
         </div>
       </section>
@@ -91,7 +118,7 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
 
           {draft.interestsFr.length > 0 && (
             <>
-              <p className="eyebrow" style={{ marginTop: 16 }}>Intérêts</p>
+              <p className="eyebrow" style={{ marginTop: 16 }}>Интересы</p>
               <div className="learned">
                 {draft.interestsFr.map((t) => (
                   <button
@@ -109,7 +136,7 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
 
           {draft.domainTags.length > 0 && (
             <>
-              <p className="eyebrow" style={{ marginTop: 16 }}>Termes du métier</p>
+              <p className="eyebrow" style={{ marginTop: 16 }}>Термины профессии</p>
               <div className="learned">
                 {draft.domainTags.map((t) => (
                   <button
@@ -129,14 +156,35 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
       )}
 
       <section className="card">
-        <h2>Niveau visé</h2>
+        <h2>Ваш уровень французского</h2>
+        {CAN_DO.length > 0 && (
+          <ul className="can-do">
+            {CAN_DO.map((s, i) => (
+              <li key={i}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={checked.has(i)}
+                    onChange={() => toggleCanDo(i)}
+                  />
+                  <span>{s.text}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="muted section-hint">
+          {checked.size > 0 && !manualLevel
+            ? `Похоже, ваш уровень — ${suggested}. Можно поправить:`
+            : 'Или выберите уровень вручную:'}
+        </p>
         <div className="chips">
           {LEVELS.map((l) => (
             <button
               key={l}
               type="button"
               className={`chip${level === l ? ' chip--active' : ''}`}
-              onClick={() => setLevel(l)}
+              onClick={() => setManualLevel(l)}
             >
               {l}
             </button>
@@ -152,7 +200,7 @@ export function Onboarding({ initialLevel, onSave }: OnboardingProps) {
         disabled={!draft || saving}
         onClick={save}
       >
-        {saving ? 'On enregistre…' : 'Enregistrer et commencer'}
+        {saving ? 'Сохраняем…' : 'Сохранить и начать'}
       </button>
     </main>
   )

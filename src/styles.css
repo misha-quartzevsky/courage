@@ -1156,6 +1156,212 @@ button {
 }
 
 /* ------------------------------------------------------------
+   Rule card (введение в тему + справочник)
+   ------------------------------------------------------------ */
+.rule-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rule-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rule-title-fr {
+  font-size: var(--text-md);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.rule-title-ru {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.rule-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rule-block > p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rule-examples {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rule-examples li {
+  display: flex;
+  gap: var(--space-2);
+  align-items: start;
+  line-height: 1.5;
+}
+
+.rule-examples .btn-icon {
+  flex-shrink: 0;
+  min-width: 32px;
+  min-height: 32px;
+  margin-top: -4px;
+}
+
+.rule-exceptions {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rule-exceptions > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rule-exceptions dt {
+  font-size: 15px;
+  color: var(--text-strong);
+}
+
+.rule-exceptions dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.trigger-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Onboarding — can-do самооценка
+   ------------------------------------------------------------ */
+.can-do {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.can-do label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  line-height: 1.45;
+}
+
+.can-do input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------
+   Grammar codex (справочник)
+   ------------------------------------------------------------ */
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+.search-field .icon {
+  color: var(--faint);
+  flex-shrink: 0;
+}
+
+.search-field input {
+  flex: 1;
+  min-height: 46px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-base);
+}
+
+.search-field input:focus {
+  outline: none;
+}
+
+.codex-level {
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+.codex-unit {
+  margin-bottom: var(--space-4);
+}
+
+.codex-unit-title {
+  font-size: var(--text-sm);
+  margin: 0 0 var(--space-2);
+}
+
+.rule-row {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+}
+
+.rule-row > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+}
+
+.rule-row > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rule-row[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.rule-row-title {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.rule-row-fr {
+  font-size: var(--text-sm);
+}
+
+.rule-row .rule-card {
+  border: none;
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------
    Reduced motion
    ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {

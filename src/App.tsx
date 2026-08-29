@@ -27,10 +27,19 @@ import { Cockpit } from './screens/Cockpit'
 import { Login } from './screens/Login'
 import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
+import { LessonIntro } from './screens/LessonIntro'
+import { GrammarCodex } from './screens/GrammarCodex'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
-type Screen = 'onboarding' | 'cockpit' | 'settings' | 'sprint' | 'debrief'
+type Screen =
+  | 'onboarding'
+  | 'cockpit'
+  | 'settings'
+  | 'codex'
+  | 'lesson'
+  | 'sprint'
+  | 'debrief'
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
   if (!p?.profession_text) return null
@@ -56,6 +65,7 @@ export default function App() {
   const [level, setLevel] = useState<CefrLevel>('A1')
   const [mode, setMode] = useState<Mode>('voice')
   const [sprint, setSprint] = useState<SprintSession | null>(null)
+  const [activeUnit, setActiveUnit] = useState<SyllabusUnit | null>(null)
   const [retryExercises, setRetryExercises] = useState<SprintExercise[] | null>(
     null,
   )
@@ -140,30 +150,33 @@ export default function App() {
     [refreshProfile],
   )
 
-  const startUnit = useCallback(
-    async (unit: SyllabusUnit) => {
-      if (!persona) return
-      setLoading(true)
-      setAiError(false)
-      setRetryExercises(null)
-      try {
-        const s = await generateSprint(persona, level, unit)
-        setSprint(s)
-        setVerdicts([])
-        setScreen('sprint')
-      } catch {
-        setScreen('cockpit')
-        setAiError(true)
-      } finally {
-        setLoading(false)
-      }
-    },
-    [persona, level],
-  )
+  // Открыть юнит: сперва введение в тему, практика — уже оттуда.
+  const openUnit = useCallback((unit: SyllabusUnit) => {
+    setActiveUnit(unit)
+    setAiError(false)
+    setRetryExercises(null)
+    setScreen('lesson')
+  }, [])
+
+  const beginPractice = useCallback(async () => {
+    if (!persona || !activeUnit) return
+    setLoading(true)
+    setAiError(false)
+    try {
+      const s = await generateSprint(persona, level, activeUnit)
+      setSprint(s)
+      setVerdicts([])
+      setScreen('sprint')
+    } catch {
+      setAiError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [persona, level, activeUnit])
 
   const handleStartNext = useCallback(() => {
-    void startUnit(nextUnit(doneUnitIds(progress), level))
-  }, [startUnit, progress, level])
+    openUnit(nextUnit(doneUnitIds(progress), level))
+  }, [openUnit, progress, level])
 
   const handleFinish = useCallback(
     (vs: EvaluationVerdict[]) => {
@@ -191,6 +204,7 @@ export default function App() {
 
   const handleQuit = useCallback(() => {
     setSprint(null)
+    setActiveUnit(null)
     setVerdicts([])
     setRetryExercises(null)
     void refreshProfile()
@@ -231,6 +245,19 @@ export default function App() {
     )
   }
 
+  if (screen === 'lesson' && activeUnit) {
+    return (
+      <LessonIntro
+        unit={activeUnit}
+        loading={loading}
+        error={aiError}
+        onStart={() => void beginPractice()}
+        onSkip={() => void beginPractice()}
+        onClose={() => setScreen('cockpit')}
+      />
+    )
+  }
+
   if (screen === 'onboarding') {
     return (
       <Onboarding
@@ -248,6 +275,10 @@ export default function App() {
         }}
       />
     )
+  }
+
+  if (screen === 'codex') {
+    return <GrammarCodex onClose={() => setScreen('cockpit')} />
   }
 
   if (screen === 'settings') {
@@ -280,8 +311,9 @@ export default function App() {
       progress={progress}
       onMode={setMode}
       onStartNext={handleStartNext}
-      onStartUnit={(u) => void startUnit(u)}
+      onStartUnit={openUnit}
       onOpenSettings={() => setScreen('settings')}
+      onOpenCodex={() => setScreen('codex')}
     />
   )
 }

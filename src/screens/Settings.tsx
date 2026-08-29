@@ -52,14 +52,14 @@ export function Settings({
   return (
     <main className="screen">
       <header className="topbar">
-        <h1 className="app-title">Réglages</h1>
+        <h1 className="app-title">Настройки</h1>
         <button
           type="button"
           className="btn btn-secondary btn-tight"
           onClick={onClose}
         >
           <CloseIcon />
-          Fermer
+          Закрыть
         </button>
       </header>
 
@@ -99,7 +99,7 @@ export function Settings({
       </section>
 
       <section className="card">
-        <h2>Niveau visé</h2>
+        <h2>Ваш уровень</h2>
         <div className="chips">
           {LEVELS.map((l) => (
             <button
@@ -112,6 +112,9 @@ export function Settings({
             </button>
           ))}
         </div>
+        <p className="muted section-hint">
+          С какого уровня начинается курс. Юниты ниже остаются доступны в карте.
+        </p>
       </section>
 
       <div className="spacer" />
@@ -122,12 +125,12 @@ export function Settings({
         disabled={saving || !profession.trim()}
         onClick={save}
       >
-        {saving ? 'On enregistre…' : 'Enregistrer'}
+        {saving ? 'Сохраняем…' : 'Сохранить'}
       </button>
 
       {canSignOut && (
         <button type="button" className="btn btn-secondary" onClick={onSignOut}>
-          Se déconnecter
+          Выйти
         </button>
       )}
     </main>
