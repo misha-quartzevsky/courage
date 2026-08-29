@@ -1,87 +1,98 @@
-// Единственный риск-тест проекта (см. AGENTS.md §4):
-// парсинг JSON от Gemini — то, что ломается тихо и незаметно (EXP-001).
+// Риск-тест: парсинг JSON от Gemini — то, что ломается тихо (AGENTS.md §4).
 import { describe, expect, it } from 'vitest'
 import { sanitizeSprint, sanitizeVerdict, getFallbackSprint } from './gemini'
 import { DEMO_PERSONA } from './personas'
 import { SYLLABUS } from './syllabus'
 
+const OK_EXERCISES = [
+  {
+    kind: 'dialogue',
+    id: 'e1',
+    promptRu: 'Поздоровайтесь',
+    promptFr: 'Bonjour !',
+    expectedKeyPhrases: ['bonjour'],
+  },
+  {
+    kind: 'gap',
+    id: 'e2',
+    promptRu: 'Вставьте',
+    textFr: 'Je {} à Lyon.',
+    blanks: [{ answer: 'habite' }],
+  },
+  {
+    kind: 'choice',
+    id: 'e3',
+    promptRu: 'Выберите',
+    promptFr: 'Il ___ parti.',
+    options: ['a', 'est'],
+    answerIndex: 1,
+  },
+]
+
+function sprintJson(exercises: unknown[]): string {
+  return JSON.stringify({
+    durationMinutes: 5,
+    situation: { titleFr: 'À la banque', contextFr: 'Вы в банке' },
+    exercises,
+  })
+}
+
 describe('sanitizeSprint', () => {
-  it('принимает чистый валидный JSON', () => {
-    const text = JSON.stringify({
-      unitId: 'a1-u2-a-la-banque',
-      unitTitleFr: 'Ouvrir un compte',
-      level: 'A1',
-      durationMinutes: 5,
-      situation: { titleFr: 'À la banque', contextFr: 'Вы в банке' },
-      exercises: [
-        {
-          id: 'ex-1',
-          promptFr: 'Bonjour, je peux vous aider ?',
-          promptRu: 'Поздоровайтесь и представьтесь',
-          expectedKeyPhrases: ['Je m\'appelle', 'Bonjour'],
-        },
-      ],
-    })
-    const sprint = sanitizeSprint(text)
+  it('принимает валидный JSON со смешанными типами упражнений', () => {
+    const sprint = sanitizeSprint(sprintJson(OK_EXERCISES))
     expect(sprint).not.toBeNull()
-    expect(sprint?.exercises).toHaveLength(1)
-    expect(sprint?.level).toBe('A1')
+    expect(sprint?.exercises).toHaveLength(3)
+    expect(sprint?.exercises.map((e) => e.kind)).toEqual([
+      'dialogue',
+      'gap',
+      'choice',
+    ])
   })
 
-  it('вырезает ```json-обёртку и текст вокруг (характерно для Gemini)', () => {
-    const wrapped = 'Вот ваш спринт:\n```json\n{"unitId":"a1-u3","unitTitleFr":"Au restaurant","level":"A2","durationMinutes":6,"situation":{"titleFr":"Au restaurant","contextFr":"Вы в ресторане"},"exercises":[{"id":"ex-1","promptFr":"Vous désirez ?","promptRu":"Сделайте заказ","expectedKeyPhrases":["Je voudrais"]}]}\n```\nПриятной практики!'
+  it('вырезает ```json-обёртку и текст вокруг', () => {
+    const wrapped = `Вот спринт:\n\`\`\`json\n${sprintJson(OK_EXERCISES)}\n\`\`\`\nУдачи!`
     const sprint = sanitizeSprint(wrapped)
-    expect(sprint?.unitId).toBe('a1-u3')
-    expect(sprint?.exercises[0].expectedKeyPhrases).toEqual(['Je voudrais'])
+    expect(sprint?.exercises).toHaveLength(3)
   })
 
-  it('валиден без unitId/unitTitleFr — их подставляет каталог', () => {
-    const text = JSON.stringify({
-      durationMinutes: 5,
-      situation: { titleFr: 'Au marché', contextFr: 'Вы на рынке' },
-      exercises: [
-        { id: 'ex-1', promptFr: 'Vous désirez ?', promptRu: 'Закажите', expectedKeyPhrases: ['Je voudrais'] },
-      ],
-    })
-    const sprint = sanitizeSprint(text)
-    expect(sprint).not.toBeNull()
+  it('unitId/unitTitleFr не обязательны — их ставит каталог', () => {
+    const sprint = sanitizeSprint(sprintJson(OK_EXERCISES))
     expect(sprint?.unitId).toBe('')
-    expect(sprint?.exercises).toHaveLength(1)
   })
 
-  it('отбрасывает невалидный JSON (галлюцинация/обрыв модели) — null', () => {
-    expect(sanitizeSprint('К сожалению, произошла ошибка.')).toBeNull()
-    expect(sanitizeSprint('{ "unitId": "без закрывающей скобки"')).toBeNull()
+  it('отбрасывает невалидный JSON', () => {
+    expect(sanitizeSprint('К сожалению, ошибка.')).toBeNull()
+    expect(sanitizeSprint('{ "durationMinutes": 5')).toBeNull()
     expect(sanitizeSprint('')).toBeNull()
   })
 
-  it('отбрасывает объект с галлюцинированной схемой (нет упражнений)', () => {
-    const text = JSON.stringify({
-      unitId: 'a1-u1-se-presenter',
-      unitTitleFr: 'Se présenter',
-      level: 'A1',
-      durationMinutes: 5,
-      situation: { titleFr: 'X', contextFr: 'Y' },
-      exercises: [],
-    })
-    expect(sanitizeSprint(text)).toBeNull()
+  it('меньше 3 валидных упражнений — null', () => {
+    expect(sanitizeSprint(sprintJson([]))).toBeNull()
+    expect(sanitizeSprint(sprintJson(OK_EXERCISES.slice(0, 2)))).toBeNull()
   })
 
-  it('фильтрует упражнения с мусорными полями', () => {
-    const text = JSON.stringify({
-      unitId: 'a1-u1-se-presenter',
-      unitTitleFr: 'Se présenter',
-      level: 'A1',
-      durationMinutes: 5,
-      situation: { titleFr: 'X', contextFr: 'Y' },
-      exercises: [
-        { id: 'ex-1', promptFr: 'A', promptRu: 'B', expectedKeyPhrases: ['x'] },
-        { id: 'bad', promptFr: 42, promptRu: 'B', expectedKeyPhrases: [] },
-      ],
-    })
-    const sprint = sanitizeSprint(text)
-    expect(sprint?.exercises).toHaveLength(1)
-    expect(sprint?.exercises[0].id).toBe('ex-1')
+  it('фильтрует битые упражнения по kind', () => {
+    const sprint = sanitizeSprint(
+      sprintJson([
+        ...OK_EXERCISES,
+        { kind: 'gap', id: 'bad', promptRu: 'x', textFr: 'нет пропуска', blanks: [{ answer: 'a' }] },
+        { kind: 'choice', id: 'bad2', promptRu: 'x', promptFr: 'y', options: ['a'], answerIndex: 5 },
+        { kind: 'unknown', id: 'bad3', promptRu: 'x' },
+      ]),
+    )
+    expect(sprint?.exercises).toHaveLength(3)
+    expect(sprint?.exercises.every((e) => e.id.startsWith('e'))).toBe(true)
+  })
+
+  it('order и match парсятся', () => {
+    const sprint = sanitizeSprint(
+      sprintJson([
+        OK_EXERCISES[0],
+        { kind: 'order', id: 'o', promptRu: 'соберите', tokens: ['je', 'fais', 'du', 'ski'], answer: 'Je fais du ski' },
+        { kind: 'match', id: 'm', promptRu: 'соедините', pairs: [{ fr: 'la boxe', ru: 'бокс' }, { fr: 'le ski', ru: 'лыжи' }] },
+      ]),
+    )
+    expect(sprint?.exercises.map((e) => e.kind)).toEqual(['dialogue', 'order', 'match'])
   })
 })
 
@@ -130,12 +141,18 @@ describe('sanitizeVerdict', () => {
 })
 
 describe('getFallbackSprint', () => {
-  it('всегда возвращает валидную сессию на 3 упражнения без сети', () => {
+  it('валидная сессия из 3–6 упражнений без сети', () => {
     const sprint = getFallbackSprint(DEMO_PERSONA, 'A1', SYLLABUS[0])
-    expect(sprint.exercises).toHaveLength(3)
+    expect(sprint.exercises.length).toBeGreaterThanOrEqual(3)
+    expect(sprint.exercises.length).toBeLessThanOrEqual(6)
     expect(sprint.unitId).toBe(SYLLABUS[0].id)
-    expect(sprint.unitTitleFr).toBeTruthy()
     expect(sprint.level).toBe('A1')
     expect(sanitizeSprint(JSON.stringify(sprint))).not.toBeNull()
+  })
+
+  it('первые два упражнения — диалоговые', () => {
+    const sprint = getFallbackSprint(DEMO_PERSONA, 'A2', SYLLABUS[13])
+    expect(sprint.exercises[0].kind).toBe('dialogue')
+    expect(sprint.exercises[1].kind).toBe('dialogue')
   })
 })

@@ -15,6 +15,7 @@ import type {
   VerdictDraft,
 } from './types'
 import type { SyllabusUnit } from './syllabus'
+import { rulesForUnit, type GrammarRule } from './grammar'
 
 // Транспорт: запросы идут через Cloudflare Worker-прокси (ключ — секрет
 // Worker'а, фронтенд его не видит). Без VITE_GEMINI_WORKER_URL — демо-режим.
@@ -46,7 +47,7 @@ async function callGemini(
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: systemPrompt }] },
       contents: [{ role: 'user', parts }],
-      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 },
+      generationConfig: { temperature: 0.7, maxOutputTokens: 4096 },
     }),
   })
 
@@ -110,6 +111,75 @@ function clampScore(v: unknown): number {
   return Math.min(100, Math.max(0, Math.round(v)))
 }
 
+function strArr(v: unknown): string[] | null {
+  return Array.isArray(v) && v.every(isStr) ? (v as string[]) : null
+}
+
+// Разбор одного упражнения по kind. Невалидное — null (отбрасывается).
+function parseExercise(e: unknown, i: number): SprintExercise | null {
+  if (!e || typeof e !== 'object') return null
+  const x = e as Record<string, unknown>
+  const id = isStr(x.id) ? x.id : `ex-${i + 1}`
+  if (!isStr(x.promptRu)) return null
+  const base = { id, promptRu: x.promptRu }
+
+  switch (x.kind) {
+    case 'dialogue': {
+      const keys = strArr(x.expectedKeyPhrases)
+      if (!isStr(x.promptFr) || !keys) return null
+      return { ...base, kind: 'dialogue', promptFr: x.promptFr, expectedKeyPhrases: keys }
+    }
+    case 'gap': {
+      if (!isStr(x.textFr) || !Array.isArray(x.blanks)) return null
+      const blanks: { answer: string; alts?: string[] }[] = []
+      for (const b of x.blanks) {
+        const bo = b as Record<string, unknown>
+        if (!isStr(bo.answer)) return null
+        const alts = strArr(bo.alts)
+        blanks.push(alts ? { answer: bo.answer, alts } : { answer: bo.answer })
+      }
+      const holes = (x.textFr.match(/\{\}/g) ?? []).length
+      if (blanks.length === 0 || blanks.length !== holes) return null
+      return { ...base, kind: 'gap', textFr: x.textFr, blanks }
+    }
+    case 'choice': {
+      const options = strArr(x.options)
+      if (!isStr(x.promptFr) || !options || options.length < 2) return null
+      const ai = x.answerIndex
+      if (typeof ai !== 'number' || ai < 0 || ai >= options.length) return null
+      return { ...base, kind: 'choice', promptFr: x.promptFr, options, answerIndex: Math.round(ai) }
+    }
+    case 'order': {
+      const tokens = strArr(x.tokens)
+      if (!tokens || tokens.length < 2 || !isStr(x.answer)) return null
+      return { ...base, kind: 'order', tokens, answer: x.answer }
+    }
+    case 'transform': {
+      if (!isStr(x.sourceFr) || !isStr(x.answer)) return null
+      return {
+        ...base,
+        kind: 'transform',
+        sourceFr: x.sourceFr,
+        answer: x.answer,
+        alts: strArr(x.alts) ?? undefined,
+      }
+    }
+    case 'match': {
+      if (!Array.isArray(x.pairs)) return null
+      const pairs = x.pairs
+        .map((p) => {
+          const po = p as Record<string, unknown>
+          return isStr(po.fr) && isStr(po.ru) ? { fr: po.fr, ru: po.ru } : null
+        })
+        .filter((p): p is { fr: string; ru: string } => p !== null)
+      if (pairs.length < 2 || pairs.length > 5) return null
+      return { ...base, kind: 'match', pairs }
+    }
+    default:
+      return null
+  }
+}
+
 export function sanitizeSprint(text: string): SprintDraft | null {
   const raw = extractJson(text)
   if (!raw || typeof raw !== 'object') return null
@@ -130,27 +200,10 @@ export function sanitizeSprint(text: string): SprintDraft | null {
   if (!isStr(sit.titleFr) || !isStr(sit.contextFr)) return null
 
   const exercises = r.exercises
-    .map((e) => {
-      const ex = e as Record<string, unknown>
-      if (
-        !isStr(ex.id) ||
-        !isStr(ex.promptFr) ||
-        !isStr(ex.promptRu) ||
-        !Array.isArray(ex.expectedKeyPhrases) ||
-        !(ex.expectedKeyPhrases as unknown[]).every(isStr)
-      ) {
-        return null
-      }
-      return {
-        id: ex.id,
-        promptFr: ex.promptFr,
-        promptRu: ex.promptRu,
-        expectedKeyPhrases: ex.expectedKeyPhrases as string[],
-      } satisfies SprintExercise
-    })
+    .map((e, i) => parseExercise(e, i))
     .filter((e): e is SprintExercise => e !== null)
 
-  if (exercises.length === 0) return null
+  if (exercises.length < 3) return null
 
   return {
     unitId: isStr(r.unitId) ? r.unitId : '',
@@ -215,14 +268,102 @@ export function sanitizeVerdict(text: string): VerdictDraft | null {
 // оффлайн / при невалидном JSON. Юнит берётся из каталога (syllabus.ts),
 // упражнения — шаблонные под тему и контекст пользователя.
 // ------------------------------------------------------------
+const TOKEN_RE = /[\s'’]+/
+
+// Детерминированные упражнения из данных правил юнита. Не «фейк-гейтвей», а
+// гарантия 6 заданий разных типов даже оффлайн / при битом ответе модели.
+export function fallbackExercises(
+  persona: LearnerPersona,
+  unit: SyllabusUnit,
+): SprintExercise[] {
+  const rules = rulesForUnit(unit.ruleIds)
+  const examples = rules.flatMap((r) => r.examples)
+  const target = persona.domainTags[0] ?? 'votre métier'
+  const out: SprintExercise[] = []
+
+  out.push({
+    id: 'fb-d1',
+    kind: 'dialogue',
+    promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous, que faites-vous ?`,
+    promptRu: 'Поздоровайтесь, представьтесь и скажите, кем работаете.',
+    expectedKeyPhrases: ['je suis', "je m'appelle", 'enchanté', 'bonjour'],
+  })
+  out.push({
+    id: 'fb-d2',
+    kind: 'dialogue',
+    promptFr: `Parlez-moi de votre métier : qu'est-ce que vous faites exactement ?`,
+    promptRu: `Расскажите о работе, используйте слово «${target}».`,
+    expectedKeyPhrases: ['je fais', 'je travaille', "c'est", "j'aime"],
+  })
+
+  // gap — из первого примера: спрятать самое длинное слово.
+  const ex0 = examples[0]
+  if (ex0) {
+    const words = ex0.fr.split(TOKEN_RE).filter(Boolean)
+    const hidden = [...words].sort((a, b) => b.length - a.length)[0]
+    if (hidden && words.length > 2) {
+      out.push({
+        id: 'fb-gap',
+        kind: 'gap',
+        promptRu: `Вставьте пропущенное слово. Перевод: ${ex0.ru}`,
+        textFr: ex0.fr.replace(hidden, '{}'),
+        blanks: [{ answer: hidden.replace(/[.,!?;:]$/, '') }],
+      })
+    }
+  }
+
+  // order — из второго примера (или первого).
+  const exOrd = examples[1] ?? examples[0]
+  if (exOrd) {
+    const toks = exOrd.fr
+      .replace(/[.!?]$/, '')
+      .split(TOKEN_RE)
+      .filter(Boolean)
+    if (toks.length >= 3 && toks.length <= 8) {
+      out.push({
+        id: 'fb-order',
+        kind: 'order',
+        promptRu: `Соберите фразу. Перевод: ${exOrd.ru}`,
+        tokens: [...toks].sort(() => Math.random() - 0.5),
+        answer: exOrd.fr.replace(/[.!?]$/, ''),
+      })
+    }
+  }
+
+  // match — из первых пар примеров.
+  const pairSrc = examples.slice(0, 3)
+  if (pairSrc.length >= 2) {
+    out.push({
+      id: 'fb-match',
+      kind: 'match',
+      promptRu: 'Соедините французскую фразу с переводом.',
+      pairs: pairSrc.map((e) => ({ fr: e.fr, ru: e.ru })),
+    })
+  }
+
+  // choice — из key_exceptions или запасной.
+  const exc = rules.flatMap((r) => Object.entries(r.keyExceptions))[0]
+  out.push({
+    id: 'fb-choice',
+    kind: 'choice',
+    promptRu: exc
+      ? `Что верно про «${exc[0]}»?`
+      : 'Выберите грамматически верную фразу.',
+    promptFr: exc ? exc[0] : 'Je ___ étudiant.',
+    options: exc
+      ? [exc[1].slice(0, 80), 'Такого правила нет', 'Всегда без изменений']
+      : ['suis', 'ai', 'est'],
+    answerIndex: 0,
+  })
+
+  return out
+}
+
 export function getFallbackSprint(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
 ): SprintSession {
-  const target = persona.domainTags[0] ?? 'votre métier'
-  const hobby = persona.interestsFr[0] ?? 'le sport'
-
   return {
     id: makeId(),
     unitId: unit.id,
@@ -231,31 +372,35 @@ export function getFallbackSprint(
     durationMinutes: 5,
     situation: {
       titleFr: unit.titleFr,
-      contextFr: `Отработка темы «${unit.titleRu}» в бытовом диалоге. Отвечайте собеседнику по-французски.`,
+      contextFr: `Отработка темы «${unit.titleRu}». Отвечайте по-французски.`,
     },
-    exercises: [
-      {
-        id: 'ex-1',
-        promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous, que faites-vous ?`,
-        promptRu:
-          'Поздоровайтесь, представьтесь и коротко скажите, кем работаете.',
-        expectedKeyPhrases: ['je m\'appelle', 'je suis', 'enchanté', 'bonjour'],
-      },
-      {
-        id: 'ex-2',
-        promptFr: `Parlez-moi de votre métier : qu'est-ce que vous faites exactement ?`,
-        promptRu: `Расскажите о работе. Используйте термин «${target}» и добавьте, что это сложно, но вам нравится.`,
-        expectedKeyPhrases: ['je fais', 'je travaille', 'c\'est difficile', 'j\'aime'],
-      },
-      {
-        id: 'ex-3',
-        promptFr: `Avez-vous des loisirs ? Moi, j'aime ${hobby}.`,
-        promptRu: `Ответьте про увлечения: упомяните «${hobby}» и ещё одно занятие.`,
-        expectedKeyPhrases: ['je fais', 'aussi', 'j\'aime'],
-      },
-    ],
+    exercises: fallbackExercises(persona, unit).slice(0, 6),
     createdAt: new Date().toISOString(),
   }
+}
+
+function ruleDigest(rules: GrammarRule[]): string {
+  return rules
+    .map((r) => {
+      const exc = Object.entries(r.keyExceptions)
+        .slice(0, 3)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join('; ')
+      const ex = r.examples
+        .slice(0, 2)
+        .map((e) => `«${e.fr}» — ${e.ru}`)
+        .join(' / ')
+      return [
+        `• ${r.titleFr} (${r.titleRu}).`,
+        `  Суть: ${r.summaryRu}`,
+        `  Образование: ${r.formationRule.replace(/\n+/g, ' ')}`,
+        exc ? `  Исключения: ${exc}` : '',
+        `  Примеры: ${ex}`,
+      ]
+        .filter(Boolean)
+        .join('\n')
+    })
+    .join('\n')
 }
 
 function makeId(): string {
@@ -272,38 +417,46 @@ function buildSprintSystemPrompt(
   level: CefrLevel,
   unit: SyllabusUnit,
 ): string {
+  const digest = ruleDigest(rulesForUnit(unit.ruleIds))
   return [
     'Ты — дидакт французского по методу Édito (CEFR).',
     `Уровень ученика: ${level}.`,
     `Профиль: ${persona.professionFr}. Интересы: ${persona.interestsFr.join(', ')}.`,
     `Узкие термины: ${persona.domainTags.join(', ')}.`,
     `Юнит Édito: ${unit.id} — «${unit.titleFr}» (${unit.titleRu}).`,
-    'Построй бытовую ситуацию, в которой эта грамматическая тема реально нужна.',
     '',
-    'Правило 70/30: 70% — академическая база Édito (быт/реальная жизнь), 30% — контекст профиля.',
-    'Запрещено выдумывать жаргон: только реальные термины из области пользователя.',
+    'ПРАВИЛА ЮНИТА (упражнения должны отрабатывать именно их):',
+    digest,
     '',
-    'Сгенерируй спринт на 4–6 минут: ситуация + ровно 3 упражнения-реплики диалога.',
-    'unitId и unitTitleFr не указывай — их подставит система.',
-    'Верни ТОЛЬКО JSON без markdown-обёрток, по схеме:',
+    'Правило 70/30: 70% — база Édito (быт/реальная жизнь), 30% — контекст профиля.',
+    'Только реальная лексика, без выдуманного жаргона.',
+    '',
+    'Сгенерируй РОВНО 6 упражнений РАЗНЫХ типов на эту грамматику. Не более 2 подряд',
+    `одного типа. ${level === 'A1' ? 'Больше выбора и пропусков.' : ''}`,
+    persona && 'Диалоговых (kind:"dialogue") — 2 штуки.',
+    '',
+    'Верни ТОЛЬКО JSON без markdown, по схеме (у каждого упражнения свой kind):',
     '{',
     '  "durationMinutes": 5,',
-    '  "situation": { "titleFr": "string", "contextFr": "string на русском — что от ученика хотят" },',
+    '  "situation": { "titleFr": "string", "contextFr": "string на русском" },',
     '  "exercises": [',
-    '    {',
-    '      "id": "ex-1",',
-    '      "promptFr": "реплика собеседника на французском",',
-    '      "promptRu": "то же по-русски: что от пользователя хотят услышать",',
-    '      "expectedKeyPhrases": ["фразы-кандидаты корректного ответа"]',
-    '    }',
+    '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "expectedKeyPhrases":["ориентиры"] },',
+    '    { "kind":"gap", "id":"e2", "promptRu":"инструкция", "textFr":"Je {} à Paris et il {} ici.", "blanks":[{"answer":"vais","alts":[]},{"answer":"vit"}] },',
+    '    { "kind":"choice", "id":"e3", "promptRu":"вопрос", "promptFr":"Il ___ parti hier.", "options":["a","est","ont"], "answerIndex":1 },',
+    '    { "kind":"order", "id":"e4", "promptRu":"соберите фразу (перевод)", "tokens":["ski","du","fais","je"], "answer":"Je fais du ski" },',
+    '    { "kind":"transform", "id":"e5", "promptRu":"поставьте в passé composé", "sourceFr":"Je mange une pomme.", "answer":"J\'ai mangé une pomme.", "alts":[] },',
+    '    { "kind":"match", "id":"e6", "promptRu":"соедините фразу с переводом", "pairs":[{"fr":"la boxe","ru":"бокс"},{"fr":"le ski","ru":"лыжи"}] }',
     '  ]',
     '}',
-  ].join('\n')
+    'В "textFr" для gap число "{}" = длине "blanks". Для order "tokens" — перемешанные слова "answer".',
+  ]
+    .filter(Boolean)
+    .join('\n')
 }
 
 function buildVerdictSystemPrompt(
   sprint: SprintSession,
-  exercise: SprintExercise,
+  exercise: Extract<SprintExercise, { kind: 'dialogue' }>,
 ): string {
   return [
     'Ты — преподаватель французского. Оцени ответ ученика на одно упражнение спринта.',
@@ -353,9 +506,24 @@ export async function generateSprint(
   const draft = sanitizeSprint(text)
   if (!draft) return getFallbackSprint(persona, level, unit)
 
+  // Добираем до 6 упражнений из детерминированного пула (если модель дала меньше).
+  let exercises = draft.exercises
+  if (exercises.length < 6) {
+    const have = new Set(exercises.map((e) => e.kind))
+    for (const fb of fallbackExercises(persona, unit)) {
+      if (exercises.length >= 6) break
+      if (!have.has(fb.kind) || exercises.length < 4) {
+        exercises = [...exercises, fb]
+        have.add(fb.kind)
+      }
+    }
+  }
+  exercises = exercises.slice(0, 6)
+
   // unitId / unitTitleFr / level — из каталога, не из ответа модели.
   return {
     ...draft,
+    exercises,
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
     level,
@@ -428,7 +596,7 @@ export async function extractPersona(text: string): Promise<PersonaExtract> {
 
 export async function evaluateAnswer(
   sprint: SprintSession,
-  exercise: SprintExercise,
+  exercise: Extract<SprintExercise, { kind: 'dialogue' }>,
   answer:
     | { type: 'voice'; audioBase64: string; mimeType: string }
     | { type: 'text'; text: string },

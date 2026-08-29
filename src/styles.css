@@ -1156,6 +1156,137 @@ button {
 }
 
 /* ------------------------------------------------------------
+   Exercises (типы упражнений в спринте)
+   ------------------------------------------------------------ */
+.exercise-prompt {
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+.exercise-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.gap-text {
+  font-size: var(--text-md);
+  line-height: 2;
+  margin: 0;
+}
+
+.gap-input {
+  display: inline-block;
+  min-width: 90px;
+  padding: 2px 8px;
+  margin: 0 2px;
+  background: var(--bg);
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  color: var(--text);
+  font: inherit;
+  font-family: var(--font-serif);
+  text-align: center;
+}
+
+.gap-input:focus {
+  outline: none;
+  background: var(--accent-bg);
+}
+
+.choice-prompt,
+.transform-source {
+  font-size: var(--text-md);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.order-line {
+  min-height: 52px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.order-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.token {
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+
+.token:hover {
+  background: var(--surface);
+}
+
+.token--picked {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.match-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.match-cell {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.match-cell:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.match-cell--sel {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.match-cell--done {
+  border-color: var(--ok);
+}
+
+.match-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.match-actions .btn {
+  flex: 1;
+}
+
+/* ------------------------------------------------------------
    Rule card (введение в тему + справочник)
    ------------------------------------------------------------ */
 .rule-card {

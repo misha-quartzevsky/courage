@@ -12,13 +12,47 @@ export interface LearnerPersona {
   domainTags: string[] // 3–6 узких терминов
 }
 
-// SprintExercise — одно задание внутри спринта.
-export interface SprintExercise {
+// SprintExercise — одно задание внутри спринта. Размеченное объединение по kind.
+// dialogue судит Gemini (и только он умеет голос); остальные проверяются локально.
+interface ExerciseCommon {
   id: string
-  promptFr: string // ситуация/реплика на французском
-  promptRu: string // контекст по-русски — пользователь знает, что ответить
-  expectedKeyPhrases: string[] // фразы, которые модель считает корректными
+  promptRu: string // что нужно сделать, по-русски
 }
+
+export type SprintExercise =
+  | (ExerciseCommon & {
+      kind: 'dialogue'
+      promptFr: string // реплика собеседника
+      expectedKeyPhrases: string[]
+    })
+  | (ExerciseCommon & {
+      kind: 'gap'
+      textFr: string // с плейсхолдерами {} по числу blanks
+      blanks: { answer: string; alts?: string[] }[]
+    })
+  | (ExerciseCommon & {
+      kind: 'choice'
+      promptFr: string
+      options: string[]
+      answerIndex: number
+    })
+  | (ExerciseCommon & {
+      kind: 'order'
+      tokens: string[] // слова в перемешанном порядке
+      answer: string // правильная фраза целиком
+    })
+  | (ExerciseCommon & {
+      kind: 'transform'
+      sourceFr: string // исходная фраза
+      answer: string
+      alts?: string[]
+    })
+  | (ExerciseCommon & {
+      kind: 'match'
+      pairs: { fr: string; ru: string }[] // 2–5 пар, справа перемешиваются
+    })
+
+export type ExerciseKind = SprintExercise['kind']
 
 // SprintSession — aggregate root из ARCHITECTURE.md.
 export interface SprintSession {
