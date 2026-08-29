@@ -2,6 +2,7 @@
 // Пока это единственное, что мы сохраняем на устройстве (LocalStorage).
 
 import type { ProgressState } from './types'
+import { updateProgress } from './supabase'
 
 const KEY = 'courage:progress'
 
@@ -71,5 +72,14 @@ export function recordCompletion(
     updatedAt: now.toISOString(),
   }
   saveProgress(next)
+
+  // Оффлайн-кэш сохранён. Параллельно синхронизируем стрик/балл в Supabase
+  // (ошибки глушатся внутри updateProgress — оффлайн не должен ломать спринт).
+  void updateProgress({
+    streakDays: next.streakDays,
+    bestAccuracy: next.bestAccuracy,
+    lastCompletedAt: next.updatedAt,
+  })
+
   return next
 }

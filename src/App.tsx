@@ -1,21 +1,39 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import type { Session } from '@supabase/supabase-js'
 import type {
   CefrLevel,
   EvaluationVerdict,
   LearnerPersona,
+  ProfessionId,
   SprintExercise,
   SprintSession,
+  SupabaseProfile,
 } from './lib/types'
 import { generateSprint } from './lib/gemini'
+import { PERSONAS } from './lib/personas'
 import { loadProgress, recordCompletion } from './lib/storage'
+import {
+  getSession,
+  loadPartnerStreak,
+  loadProfile,
+  onAuthChange,
+  supabase,
+  updateProfile,
+} from './lib/supabase'
 import type { Mode } from './screens/Cockpit'
 import { Cockpit } from './screens/Cockpit'
+import { Login } from './screens/Login'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
 type Screen = 'cockpit' | 'sprint' | 'debrief'
 
 export default function App() {
+  const [booted, setBooted] = useState(false)
+  const [session, setSession] = useState<Session | null>(null)
+  const [profile, setProfile] = useState<SupabaseProfile | null>(null)
+  const [partnerStreak, setPartnerStreak] = useState<number | null>(null)
+
   const [screen, setScreen] = useState<Screen>('cockpit')
   const [persona, setPersona] = useState<LearnerPersona | null>(null)
   const [level, setLevel] = useState<CefrLevel>('A2')
@@ -27,6 +45,68 @@ export default function App() {
   const [verdicts, setVerdicts] = useState<EvaluationVerdict[]>([])
   const [loading, setLoading] = useState(false)
   const [aiError, setAiError] = useState(false)
+
+  // Применить сессию: загрузить профиль и стрик партнёра (один запрос).
+  const applySession = useCallback(async (s: Session | null) => {
+    setSession(s)
+    if (!s) {
+      setProfile(null)
+      setPartnerStreak(null)
+      setPersona(null)
+      return
+    }
+    const p = await loadProfile()
+    setProfile(p)
+    if (p) {
+      if (p.profession) {
+        const persona = PERSONAS[p.profession as ProfessionId] ?? null
+        if (persona) setPersona(persona)
+      }
+      if (p.target_level) setLevel(p.target_level)
+      if (p.partner_id) {
+        const ps = await loadPartnerStreak(p.partner_id)
+        setPartnerStreak(ps)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    let active = true
+    async function boot() {
+      if (!supabase) {
+        // Supabase не настроен (нет VITE_SUPABASE_URL/ANON_KEY) — демо-режим.
+        if (active) setBooted(true)
+        return
+      }
+      await applySession(await getSession())
+      if (active) setBooted(true)
+    }
+    void boot()
+    const unsub = onAuthChange((s) => void applySession(s))
+    return () => {
+      active = false
+      unsub()
+    }
+  }, [applySession])
+
+  // Запись профессии/уровня в Supabase при выборе в Cockpit.
+  const handlePersona = useCallback(
+    (p: LearnerPersona) => {
+      setPersona(p)
+      if (supabase) void updateProfile({ profession: p.id, target_level: level })
+    },
+    [level],
+  )
+
+  const handleLevel = useCallback(
+    (l: CefrLevel) => {
+      setLevel(l)
+      if (supabase && persona) {
+        void updateProfile({ profession: persona.id, target_level: l })
+      }
+    },
+    [persona],
+  )
 
   const handleStart = useCallback(async () => {
     if (!persona) return
@@ -70,12 +150,24 @@ export default function App() {
     setScreen('sprint')
   }, [sprint, verdicts])
 
+  // Перечитать профиль (после спринта стрик в Supabase обновился).
+  const refreshProfile = useCallback(async () => {
+    if (!session || !supabase) return
+    const p = await loadProfile()
+    setProfile(p)
+    if (p?.partner_id) {
+      const ps = await loadPartnerStreak(p.partner_id)
+      setPartnerStreak(ps)
+    }
+  }, [session])
+
   const handleQuit = useCallback(() => {
     setSprint(null)
     setVerdicts([])
     setRetryExercises(null)
+    void refreshProfile()
     setScreen('cockpit')
-  }, [])
+  }, [refreshProfile])
 
   if (screen === 'sprint' && sprint) {
     return (
@@ -100,6 +192,24 @@ export default function App() {
     )
   }
 
+  if (!booted) {
+    return (
+      <main className="screen">
+        <p className="muted">Загрузка…</p>
+      </main>
+    )
+  }
+
+  // Авторизация прежде всего: нет сессии → экран входа.
+  if (supabase && !session) {
+    return <Login />
+  }
+
+  const streakDays =
+    session !== null && profile !== null
+      ? profile.streak_count
+      : loadProgress()?.streakDays ?? 0
+
   return (
     <Cockpit
       persona={persona}
@@ -107,9 +217,10 @@ export default function App() {
       mode={mode}
       loading={loading}
       error={aiError}
-      streakDays={loadProgress()?.streakDays ?? 0}
-      onPersona={setPersona}
-      onLevel={setLevel}
+      streakDays={streakDays}
+      partnerStreak={partnerStreak}
+      onPersona={handlePersona}
+      onLevel={handleLevel}
       onMode={setMode}
       onStart={() => void handleStart()}
     />

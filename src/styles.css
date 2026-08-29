@@ -158,6 +158,12 @@ button {
   font-size: 28px;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .badge {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -359,6 +365,27 @@ button {
 }
 
 .text-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.text-form label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.text-form input {
+  min-height: 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  padding: 0 14px;
+}
+
+.text-form input:focus {
   outline: 2px solid var(--accent);
   outline-offset: -1px;
 }

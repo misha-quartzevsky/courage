@@ -71,3 +71,17 @@ export interface ProgressState {
   bestAccuracy: number
   updatedAt: string
 }
+
+// Строка таблицы profiles в Supabase (RLS: своя + партнёр).
+export interface SupabaseProfile {
+  id: string
+  user_id: string
+  profession: ProfessionId | null
+  target_level: CefrLevel | null
+  streak_count: number
+  best_accuracy: number
+  last_completed_at: string | null
+  partner_id: string | null
+  created_at: string
+  updated_at: string
+}
