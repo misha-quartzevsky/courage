@@ -1,0 +1,468 @@
+/* ============================================================
+   Courage — Dark Slate Design Tokens (Swiss-Editorial / iOS)
+   ============================================================ */
+:root {
+  --bg: #0c0d0e;
+  --surface: #16181a;
+  --border: #26292b;
+  --text: #ededed;
+  --muted: #889096;
+  --accent: #2454ff;
+  --accent-pressed: #1b3fd6;
+  --success: #2d5a43;
+  --error: #5a2d2d;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+    system-ui, sans-serif;
+  --font-serif: 'Newsreader', 'New York', Georgia, serif;
+
+  /* iOS Safe Area insets (Dynamic Island / Home Indicator / бока) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  --touch: 44px;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ------------------------------------------------------------
+   Base layout & shared components
+   ------------------------------------------------------------ */
+.screen {
+  min-height: 100dvh;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + 16px) var(--safe-right)
+    calc(var(--safe-bottom) + 16px) var(--safe-left);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.card h2,
+.card h3 {
+  margin: 0 0 8px;
+}
+
+.btn {
+  min-height: var(--touch);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease;
+}
+
+.btn:active {
+  background: var(--accent-pressed);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:active {
+  background: var(--surface);
+}
+
+.btn-tight {
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 15px;
+}
+
+.btn-icon {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   Cockpit
+   ------------------------------------------------------------ */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar h1 {
+  font-size: 28px;
+}
+
+.badge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.option-btn {
+  min-height: var(--touch);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+
+.option-btn--active {
+  border-color: var(--accent);
+}
+
+.option-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chip {
+  min-height: var(--touch);
+  padding: 0 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chip--active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.mode-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-top: 8px;
+}
+
+.seg {
+  flex: 1;
+  min-height: var(--touch);
+  border: none;
+  border-radius: calc(var(--radius) - 4px);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seg--active {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.hero p.serif {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.error {
+  color: #f2a3a3;
+  background: var(--error);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Sprint
+   ------------------------------------------------------------ */
+.serif {
+  font-family: var(--font-serif);
+}
+
+.dialogue {
+  font-size: 24px;
+  line-height: 1.35;
+  margin: 8px 0;
+}
+
+.situation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.answer-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  justify-content: center;
+}
+
+.voice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 56px;
+}
+
+.wave-bar {
+  width: 4px;
+  height: 44px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: center;
+  transition: transform 80ms linear;
+}
+
+.mic-btn {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-btn--live {
+  background: var(--error);
+}
+
+.text-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-form textarea {
+  min-height: 96px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  padding: 14px;
+  resize: vertical;
+}
+
+.text-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feedback-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.ok {
+  color: #7fd4a5;
+  font-weight: 600;
+}
+
+.warn {
+  color: #e8b860;
+  font-weight: 600;
+}
+
+.strike {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+.issues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.issues li {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.learned {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ------------------------------------------------------------
+   Debrief
+   ------------------------------------------------------------ */
+.score-card {
+  align-items: center;
+  text-align: center;
+}
+
+.score {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.issue-block {
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.issue-block:first-of-type {
+  border-top: none;
+}
+
+.issue-block p {
+  margin: 4px 0;
+  line-height: 1.5;
+}
+
+.words {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.words li {
+  min-height: var(--touch);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.words li:first-child {
+  border-top: none;
+}
+
+.words .serif {
+  font-size: 18px;
+  flex: 1;
+}

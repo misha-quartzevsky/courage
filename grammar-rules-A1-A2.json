@@ -1,0 +1,1654 @@
+[
+{
+"id": "a1-u1-verbes-etre-avoir",
+"level": "A1",
+"unit": 1,
+"category": "Conjugaison",
+"title_fr": "Les verbes Être et Avoir au présent",
+"title_ru": "Глаголы Être (быть) и Avoir (иметь) в настоящем времени",
+"summary_ru": "Ключевые неправильные глаголы. Être используется для описания профессии, национальности и состояний. Avoir — для возраста и владения.",
+"triggers": [],
+"formation_rule": "Спряжение нужно выучить наизусть, так как глаголы неправильные.",
+"key_exceptions": {
+"être": "je suis, tu es, il est, nous sommes, vous êtes, ils sont",
+"avoir": "j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont"
+},
+"authentic_examples": [
+{
+"fr": "Je suis italien et j'ai 44 ans.",
+"ru": "Я итальянец, и мне 44 года."
+},
+{
+"fr": "Vous avez quel âge ?",
+"ru": "Сколько вам лет?"
+}
+]
+},
+{
+"id": "a1-u1-adjectifs-nationalite",
+"level": "A1",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "Les adjectifs de nationalité",
+"title_ru": "Прилагательные, обозначающие национальность",
+"summary_ru": "Прилагательные национальности согласуются в роде с существительным (лицом), к которому они относятся.",
+"triggers": ["être + nationalité"],
+"formation_rule": "Для образования женского рода к форме мужского рода добавляется буква 'e'. Если мужской род оканчивается на '-ien' или '-éen', в женском роде удваивается 'n' -> '-ne'.",
+"key_exceptions": {
+"Мужской род на 'e'": "Не меняется в женском роде (belge -> belge, russe -> russe).",
+"grec": "grecque",
+"turc": "turque"
+},
+"authentic_examples": [
+{
+"fr": "Il est français, elle est française.",
+"ru": "Он француз, она француженка."
+},
+{
+"fr": "Je suis italien, et toi, tu es italienne ?",
+"ru": "Я итальянец, а ты итальянка?"
+}
+]
+},
+{
+"id": "a1-u1-articles-definis",
+"level": "A1",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "Les articles définis",
+"title_ru": "Определенные артикли",
+"summary_ru": "Определенные артикли (le, la, l', les) используются для обозначения конкретных, известных предметов, явлений или понятий в общем смысле.",
+"triggers": ["le", "la", "l'", "les", "aimer", "détester", "adorer"],
+"formation_rule": "Ед. число м.р. -> le. Ед. число ж.р. -> la. Ед. число перед гласной или немым 'h' -> l'. Множественное число (для обоих родов) -> les.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "J'aime le cinéma et la musique.",
+"ru": "Я люблю кино и музыку."
+},
+{
+"fr": "Il aime l'art et les langues.",
+"ru": "Он любит искусство и языки."
+}
+]
+},
+{
+"id": "a1-u1-prepositions-villes-pays",
+"level": "A1",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "Les prépositions devant les noms de villes et de pays",
+"title_ru": "Предлоги перед названиями городов и стран",
+"summary_ru": "В зависимости от рода страны или типа географического названия используются разные предлоги для обозначения местонахождения или направления (в/во).",
+"triggers": ["habiter", "aller", "être né"],
+"formation_rule": "Перед городами ставится 'à'. Перед странами ж.р. (оканчиваются на -e) или начинающимися с гласной -> 'en'. Перед странами м.р. -> 'au'. Перед странами во мн.ч. -> 'aux'.",
+"key_exceptions": {
+"Страны-исключения на -e (м.р.)": "le Mexique (au Mexique), le Mozambique (au Mozambique), le Cambodge (au Cambodge), le Zimbabwe."
+},
+"authentic_examples": [
+{
+"fr": "J'habite à Philadelphie, aux États-Unis.",
+"ru": "Я живу в Филадельфии, в США."
+},
+{
+"fr": "Elle est née au Japon et elle habite en Suisse.",
+"ru": "Она родилась в Японии и живет в Швейцарии."
+}
+]
+},
+{
+"id": "a1-u1-adjectif-quel",
+"level": "A1",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "L'adjectif interrogatif quel",
+"title_ru": "Вопросительное прилагательное quel (какой)",
+"summary_ru": "Используется для построения вопроса и согласуется в роде и числе с существительным, к которому относится. Все 4 формы произносятся одинаково.",
+"triggers": ["quel", "quelle", "quels", "quelles"],
+"formation_rule": "М.р. ед.ч.: quel. Ж.р. ед.ч.: quelle. М.р. мн.ч.: quels. Ж.р. мн.ч.: quelles.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Quel est ton numéro de téléphone ?",
+"ru": "Какой у тебя номер телефона?"
+},
+{
+"fr": "Tu parles quelles langues ?",
+"ru": "На каких языках ты говоришь?"
+}
+]
+},
+{
+"id": "a1-u2-articles-indefinis",
+"level": "A1",
+"unit": 2,
+"category": "Grammaire",
+"title_fr": "Les articles indéfinis",
+"title_ru": "Неопределенные артикли",
+"summary_ru": "Неопределенные артикли (un, une, des) используются для указания на предметы или лица, которые не определены, неизвестны или упоминаются впервые.",
+"triggers": ["un", "une", "des", "c'est", "il y a"],
+"formation_rule": "Ед. число м.р. -> un. Ед. число ж.р. -> une. Множественное число (для обоих родов) -> des.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "J'habite dans un quartier sympa.",
+"ru": "Я живу в хорошем районе."
+},
+{
+"fr": "Ce sont des instruments de musique.",
+"ru": "Это музыкальные инструменты."
+}
+]
+},
+{
+"id": "a1-u2-verbes-er-present",
+"level": "A1",
+"unit": 2,
+"category": "Conjugaison",
+"title_fr": "Les verbes en -er au présent",
+"title_ru": "Глаголы на -er в настоящем времени (1-я группа)",
+"summary_ru": "Самая большая группа глаголов во французском языке. Они спрягаются по строгому правилу путем замены окончания инфинитива.",
+"triggers": ["-er"],
+"formation_rule": "Отбросить окончание -er и добавить: -e (je), -es (tu), -e (il/elle/on), -ons (nous), -ez (vous), -ent (ils/elles).",
+"key_exceptions": {
+"aller": "Глагол aller (идти/ехать) заканчивается на -er, но является полностью неправильным (3 группа)."
+},
+"authentic_examples": [
+{
+"fr": "J'habite à Lyon, tu habites à Nice.",
+"ru": "Я живу в Лионе, ты живешь в Ницце."
+},
+{
+"fr": "Nous aimons le cinéma, ils détestent skier.",
+"ru": "Мы любим кино, они ненавидят кататься на лыжах."
+}
+]
+},
+{
+"id": "a1-u2-adjectifs-possessifs",
+"level": "A1",
+"unit": 2,
+"category": "Grammaire",
+"title_fr": "Les adjectifs possessifs",
+"title_ru": "Притяжательные прилагательные (мой, твой, его...)",
+"summary_ru": "Выражают принадлежность. Согласуются с обладателем и с родом/числом самого предмета (а не владельца, как в русском!).",
+"triggers": ["mon", "ma", "mes", "ton", "son", "notre", "votre", "leur"],
+"formation_rule": "Je: mon/ma/mes. Tu: ton/ta/tes. Il/Elle: son/sa/ses. Nous: notre/nos. Vous: votre/vos. Ils/Elles: leur/leurs.",
+"key_exceptions": {
+"Перед гласной и немым h (для ж.р.)": "Вместо ma, ta, sa используются формы м.р.: mon, ton, son (mon amie, ton école, son université)."
+},
+"authentic_examples": [
+{
+"fr": "J'invite mes parents et ma tante.",
+"ru": "Я приглашаю своих родителей и тетю."
+},
+{
+"fr": "C'est son mari et leurs enfants.",
+"ru": "Это её муж и их дети."
+}
+]
+},
+{
+"id": "a1-u2-masculin-feminin-professions",
+"level": "A1",
+"unit": 2,
+"category": "Grammaire",
+"title_fr": "Le masculin et le féminin des professions",
+"title_ru": "Мужской и женский род названий профессий",
+"summary_ru": "Большинство профессий имеют формы мужского и женского рода. Правила образования зависят от окончания в мужском роде.",
+"triggers": [],
+"formation_rule": "-e -> -e (fleuriste -> fleuriste); -er -> -ère (infirmier -> infirmière); -eur -> -euse (coiffeur -> coiffeuse); -teur -> -trice (acteur -> actrice); -ien -> -ienne (informaticien -> informaticienne); +e (étudiant -> étudiante).",
+"key_exceptions": {
+"professeur": "Может быть 'le professeur' (м.р.) или 'la professeure' (ж.р.)."
+},
+"authentic_examples": [
+{
+"fr": "Mon père est informaticien et ma mère est professeure.",
+"ru": "Мой отец программист, а мама преподаватель."
+},
+{
+"fr": "Thomas est coiffeur, sa sœur est actrice.",
+"ru": "Томас парикмахер, его сестра актриса."
+}
+]
+},
+{
+"id": "a1-u3-singulier-pluriel-noms",
+"level": "A1",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "Le singulier et le pluriel des noms",
+"title_ru": "Единственное и множественное число существительных",
+"summary_ru": "Во французском языке множественное число существительных в основном образуется добавлением непроизносимой буквы 's'.",
+"triggers": [],
+"formation_rule": "К форме единственного числа добавляется буква 's' (un panier -> des paniers).",
+"key_exceptions": {
+"-eau / -au / -eu": "Принимают окончание 'x' во множественном числе (un morceau -> des morceaux, un jeu -> des jeux)."
+},
+"authentic_examples": [
+{
+"fr": "Nous proposons des paniers avec des fruits et des légumes.",
+"ru": "Мы предлагаем корзины с фруктами и овощами."
+},
+{
+"fr": "Vous avez deux bouteilles de jus.",
+"ru": "У вас есть две бутылки сока."
+}
+]
+},
+{
+"id": "a1-u3-articles-partitifs",
+"level": "A1",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "La quantité non définie (les partitifs)",
+"title_ru": "Частичные артикли (неопределенное количество)",
+"summary_ru": "Используются перед неисчисляемыми существительными (еда, жидкости, абстрактные понятия), чтобы указать на 'какую-то часть' целого.",
+"triggers": ["du", "de la", "de l'", "des", "pas de"],
+"formation_rule": "М.р. -> du, Ж.р. -> de la, Перед гласной -> de l', Мн.ч. -> des. При указании конкретного количества (un peu, beaucoup) или при отрицании (ne... pas) ставится просто 'de/d''.",
+"key_exceptions": {
+"Отрицание": "Je mange du poisson. -> Je ne mange pas de poisson.",
+"Количественные слова": "beaucoup de poivre, un pot de crème, un kilo de raisin."
+},
+"authentic_examples": [
+{
+"fr": "Je mange de la viande ou du poisson avec des légumes.",
+"ru": "Я ем мясо или рыбу с овощами."
+},
+{
+"fr": "On n'a pas de tomates.",
+"ru": "У нас нет помидоров."
+}
+]
+},
+{
+"id": "a1-u3-prepositions-lieu-1",
+"level": "A1",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "Les prépositions de lieu : chez, à, au, aux",
+"title_ru": "Предлоги места: chez (у кого-то) и à/au/aux (в/на)",
+"summary_ru": "Во французском предлоги строго делятся в зависимости от того, идете ли вы к человеку (профессия) или в заведение (место).",
+"triggers": ["chez", "au", "à la", "à l'", "aux"],
+"formation_rule": "'chez' используется перед людьми и профессиями (chez le poissonnier, chez moi). 'à' (+ артикль: au, à la, à l', aux) используется перед неодушевленными местами и заведениями (au marché, à la boulangerie).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "On achète le pain à la boulangerie.",
+"ru": "Мы покупаем хлеб в пекарне."
+},
+{
+"fr": "Pour le poisson, on va chez le poissonnier.",
+"ru": "За рыбой мы идем к торговцу рыбой."
+}
+]
+},
+{
+"id": "a1-u4-c-est-il-est",
+"level": "A1",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "C'est vs Il est / Elle est",
+"title_ru": "Разница между C'est и Il/Elle est",
+"summary_ru": "C'est используется для идентификации (это есть...), Il/Elle est — для описания характеристик уже упомянутого предмета или человека.",
+"triggers": ["c'est", "ce sont", "il est", "elle est"],
+"formation_rule": "C'est + существительное с артиклем (C'est un artiste, C'est le quartier). Il/Elle est + прилагательное (или профессия/национальность без артикля) (Il est grenoblois, Elle est calme). Множественное число: Ce sont + существительное, Ils/Elles sont + прилагательное.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "J'adore mon quartier. Il est dynamique.",
+"ru": "Я обожаю свой район. Он динамичный."
+},
+{
+"fr": "Snek, c'est un artiste.",
+"ru": "Снек — это художник."
+}
+]
+},
+{
+"id": "a1-u4-frequence-1",
+"level": "A1",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "La fréquence : jamais, souvent, toujours",
+"title_ru": "Наречия частоты (никогда, часто, всегда)",
+"summary_ru": "Эти наречия указывают, как часто происходит действие. Они ставятся сразу после спрягаемого глагола.",
+"triggers": ["jamais", "souvent", "toujours", "parfois", "rarement"],
+"formation_rule": "Место в предложении: Подлежащее + Глагол + Наречие частоты. Для 'jamais' используется конструкция 'ne... jamais' (слово 'pas' не ставится).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Je vais souvent dans les jardins.",
+"ru": "Я часто хожу в сады."
+},
+{
+"fr": "Je ne vais jamais au théâtre.",
+"ru": "Я никогда не хожу в театр."
+}
+]
+},
+{
+"id": "a1-u4-imperatif",
+"level": "A1",
+"unit": 4,
+"category": "Conjugaison",
+"title_fr": "L'impératif",
+"title_ru": "Повелительное наклонение (Императив)",
+"summary_ru": "Используется для приказов, инструкций и советов. Имеет только три формы (ты, мы, вы) и употребляется без местоимения-подлежащего.",
+"triggers": [],
+"formation_rule": "Образуется от форм настоящего времени для 'tu', 'nous', 'vous'. У глаголов 1-й группы (на -er) в форме 'tu' отбрасывается конечная 's' (Tu regardes -> Regarde !).",
+"key_exceptions": {
+"aller": "va (но: vas-y), allons, allez",
+"être": "sois, soyons, soyez",
+"avoir": "aie, ayons, ayez"
+},
+"authentic_examples": [
+{
+"fr": "Montez dans le bus.",
+"ru": "Садитесь в автобус."
+},
+{
+"fr": "Regarde sur ton téléphone !",
+"ru": "Посмотри в свой телефон!"
+}
+]
+},
+{
+"id": "a1-u4-connecteurs",
+"level": "A1",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "Les connecteurs (pour, parce que, mais, avec, sans)",
+"title_ru": "Союзы и предлоги связи",
+"summary_ru": "Связующие слова: pour (цель), parce que (причина), mais (противопоставление), avec (наличие/с), sans (отсутствие/без).",
+"triggers": ["pour", "parce que", "mais", "avec", "sans"],
+"formation_rule": "'pour' + инфинитив (цель). 'parce que' + фраза с подлежащим и сказуемым. 'mais' + фраза (противопоставление). 'avec'/'sans' + существительное.",
+"key_exceptions": {
+"parce que + гласная": "сокращается до parce qu' (parce qu'il...)"
+},
+"authentic_examples": [
+{
+"fr": "Pour aller au centre-ville, prenez le tram.",
+"ru": "Чтобы поехать в центр, садитесь на трамвай."
+},
+{
+"fr": "J'utilise le vélo parce que c'est écologique.",
+"ru": "Я использую велосипед, потому что это экологично."
+}
+]
+},
+{
+"id": "a1-u5-adjectifs-genre-nombre-place",
+"level": "A1",
+"unit": 5,
+"category": "Grammaire",
+"title_fr": "Le genre, le nombre et la place des adjectifs",
+"title_ru": "Род, число и место прилагательных",
+"summary_ru": "Прилагательные согласуются в роде и числе с существительным. В основном они ставятся после существительного, но есть группа коротких частых прилагательных, которые ставятся перед ним.",
+"triggers": [],
+"formation_rule": "Женский род: + 'e'. Множественное число: + 's'. Короткие прилагательные (petit, grand, beau, bon, joli) ставятся ПЕРЕД существительным. Цвета и национальности — всегда ПОСЛЕ.",
+"key_exceptions": {
+"blanc": "blanche (ж.р.)",
+"long": "longue (ж.р.)",
+"beau": "belle (ж.р.), beaux (мн.ч. м.р.)",
+"bon": "bonne (ж.р.)"
+},
+"authentic_examples": [
+{
+"fr": "Il porte un jean noir avec un joli tee-shirt.",
+"ru": "Он носит черные джинсы с красивой футболкой."
+},
+{
+"fr": "Ce sont de beaux sacs.",
+"ru": "Это красивые сумки."
+}
+]
+},
+{
+"id": "a1-u5-futur-proche",
+"level": "A1",
+"unit": 5,
+"category": "Conjugaison",
+"title_fr": "Le futur proche",
+"title_ru": "Ближайшее будущее время",
+"summary_ru": "Используется для выражения действий, которые произойдут в ближайшем или запланированном будущем.",
+"triggers": ["demain", "ce soir", "lundi prochain"],
+"formation_rule": "Спрягаемый глагол 'aller' в настоящем времени + Инфинитив смыслового глагола (Je vais manger, Tu vas partir).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Vous allez apprendre à faire des vêtements.",
+"ru": "Вы научитесь шить одежду."
+},
+{
+"fr": "Demain soir, je vais finir la robe.",
+"ru": "Завтра вечером я закончу (дошью) платье."
+}
+]
+},
+{
+"id": "a1-u5-adjectif-demonstratif",
+"level": "A1",
+"unit": 5,
+"category": "Grammaire",
+"title_fr": "L'adjectif démonstratif",
+"title_ru": "Указательные прилагательные (этот, эта, эти)",
+"summary_ru": "Используются для указания на конкретный предмет или лицо ('этот самый'). Ставятся вместо артикля.",
+"triggers": ["ce", "cet", "cette", "ces"],
+"formation_rule": "М.р. ед.ч. -> ce (ce sac). Ж.р. ед.ч. -> cette (cette robe). Мн.ч. (любой род) -> ces (ces objets).",
+"key_exceptions": {
+"М.р. перед гласной или h немым": "используется 'cet' (cet étui, cet ordinateur, cet homme)."
+},
+"authentic_examples": [
+{
+"fr": "Cette coque de téléphone et ce sac à dos sont originaux.",
+"ru": "Этот чехол для телефона и этот рюкзак — оригинальные."
+},
+{
+"fr": "J'adore cet ordinateur !",
+"ru": "Я обожаю этот компьютер!"
+}
+]
+},
+{
+"id": "a1-u6-verbes-pronominaux-present",
+"level": "A1",
+"unit": 6,
+"category": "Conjugaison",
+"title_fr": "Les verbes pronominaux au présent",
+"title_ru": "Возвратные глаголы в настоящем времени",
+"summary_ru": "Глаголы с частицей 'se' (умываться, просыпаться). Возвратное местоимение меняется в зависимости от подлежащего.",
+"triggers": ["se réveiller", "s'habiller", "se doucher", "se lever"],
+"formation_rule": "Частица меняется: je me, tu te, il/elle se, nous nous, vous vous, ils/elles se. При отрицании 'ne' ставится ПЕРЕД возвратным местоимением: Je ne me lève pas.",
+"key_exceptions": {
+"Перед гласной или h немым": "me -> m', te -> t', se -> s' (je m'habille, tu t'occupes)."
+},
+"authentic_examples": [
+{
+"fr": "Je me réveille, je me douche et je m'habille.",
+"ru": "Я просыпаюсь, принимаю душ и одеваюсь."
+},
+{
+"fr": "Nous ne nous couchons pas à la même heure.",
+"ru": "Мы ложимся спать в разное время."
+}
+]
+},
+{
+"id": "a1-u6-passe-recent",
+"level": "A1",
+"unit": 6,
+"category": "Conjugaison",
+"title_fr": "Le passé récent",
+"title_ru": "Недавнее прошедшее время",
+"summary_ru": "Обозначает действие, которое произошло только что, буквально перед моментом речи.",
+"triggers": ["venir de"],
+"formation_rule": "Спрягаемый глагол 'venir' в настоящем времени + 'de' (или d') + Инфинитив смыслового глагола (Je viens de finir).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Je viens de faire la vaisselle.",
+"ru": "Я только что помыл посуду."
+},
+{
+"fr": "Nous venons de regarder un épisode.",
+"ru": "Мы только что посмотрели серию."
+}
+]
+},
+{
+"id": "a1-u7-passe-compose-avoir",
+"level": "A1",
+"unit": 7,
+"category": "Conjugaison",
+"title_fr": "Le passé composé avec 'avoir'",
+"title_ru": "Прошедшее время Passé composé со вспомогательным глаголом 'avoir'",
+"summary_ru": "Основное прошедшее завершенное время. Большинство глаголов спрягается со вспомогательным глаголом avoir.",
+"triggers": ["hier", "la semaine dernière", "il y a dix jours"],
+"formation_rule": "Вспомогательный глагол 'avoir' (в настоящем времени) + Participe passé (причастие прошедшего времени). Для 1-й группы (-er) причастие оканчивается на '-é' (trouver -> trouvé, acheter -> acheté).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Nous avons acheté une maison.",
+"ru": "Мы купили дом."
+},
+{
+"fr": "Ils ont décoré leur chambre la semaine dernière.",
+"ru": "Они украсили свою комнату на прошлой неделе."
+}
+]
+},
+{
+"id": "a1-u7-prepositions-lieu-2",
+"level": "A1",
+"unit": 7,
+"category": "Grammaire",
+"title_fr": "Les prépositions de lieu (2)",
+"title_ru": "Предлоги места (продвинутые)",
+"summary_ru": "Предлоги и предложные конструкции для точного указания местоположения в пространстве.",
+"triggers": [],
+"formation_rule": "sur (на), sous (под), devant (перед), derrière (за), entre (между). Конструкции с 'de': à gauche de, à droite de, à côté de, en face de. Внимание: de + le = du, de + les = des.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Je place la table basse devant le canapé.",
+"ru": "Я ставлю журнальный столик перед диваном."
+},
+{
+"fr": "On peut mettre une lampe à droite du canapé.",
+"ru": "Можно поставить лампу справа от дивана."
+}
+]
+},
+{
+"id": "a1-u7-pronoms-cod-1",
+"level": "A1",
+"unit": 7,
+"category": "Grammaire",
+"title_fr": "Les pronoms COD (le, la, l', les)",
+"title_ru": "Прямые местоимения-дополнения (COD)",
+"summary_ru": "Заменяют существительное (человека или вещь) без предлога (отвечают на вопрос Кого? Что?), чтобы избежать повторений.",
+"triggers": [],
+"formation_rule": "le (м.р.), la (ж.р.), l' (перед гласной), les (мн.ч.). Местоимение ставится ПЕРЕД глаголом (Je le connais). При отрицании: Je ne le connais pas.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Tu as tes clés ? – Non, je les oublie souvent.",
+"ru": "У тебя есть ключи? – Нет, я их часто забываю."
+},
+{
+"fr": "Ma voisine ? Je la connais bien.",
+"ru": "Моя соседка? Я её хорошо знаю."
+}
+]
+},
+{
+"id": "a1-u8-passe-compose-etre",
+"level": "A1",
+"unit": 8,
+"category": "Conjugaison",
+"title_fr": "Le passé composé avec 'être' et participes irréguliers",
+"title_ru": "Passé composé со вспомогательным 'être' и неправильные причастия",
+"summary_ru": "Глаголы движения и изменения состояния спрягаются с 'être'. В этом случае причастие (participe passé) согласуется в роде и числе с подлежащим.",
+"triggers": ["aller", "venir", "entrer", "sortir", "partir", "arriver"],
+"formation_rule": "'être' (в наст. времени) + Participe passé. Согласование: +e (ж.р.), +s (мн.ч.), +es (ж.р. мн.ч.). Неправильные причастия (для avoir): être->été, avoir->eu, faire->fait, pouvoir->pu, prendre->pris, voir->vu, boire->bu.",
+"key_exceptions": {
+"aller": "je suis allé(e), nous sommes allé(e)s"
+},
+"authentic_examples": [
+{
+"fr": "Je suis allée chez le médecin.",
+"ru": "Я (женщина) ходила к врачу."
+},
+{
+"fr": "J'ai eu de la fièvre et j'ai pris des médicaments.",
+"ru": "У меня была температура, и я принял лекарства."
+}
+]
+},
+{
+"id": "a1-u8-pronom-y",
+"level": "A1",
+"unit": 8,
+"category": "Grammaire",
+"title_fr": "Le pronom Y",
+"title_ru": "Местоимение Y (туда, там)",
+"summary_ru": "Заменяет место (дополнение места), введенное предлогами 'à', 'en', 'au', 'aux', 'dans' и т.д., чтобы избежать повторения.",
+"triggers": ["à", "au", "aux", "dans", "en", "chez"],
+"formation_rule": "Ставится ПЕРЕД глаголом. В отрицании 'ne' и 'y' сливаются: n'y (Je n'y vais pas).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Quand je vais à la pharmacie, j'y vais en bus.",
+"ru": "Когда я езжу в аптеку, я езжу туда на автобусе."
+},
+{
+"fr": "Et toi à l'hôpital, ça se passe bien ? - Oui, j'y travaille cinq jours.",
+"ru": "А у тебя в больнице всё хорошо? - Да, я работаю там пять дней."
+}
+]
+},
+{
+"id": "a1-u8-obligation-devoir",
+"level": "A1",
+"unit": 8,
+"category": "Grammaire",
+"title_fr": "L'obligation : devoir et il faut",
+"title_ru": "Выражение обязанности и совета (devoir, il faut)",
+"summary_ru": "'Il faut' (нужно) — безличная конструкция для общих правил. Глагол 'devoir' (быть должным) спрягается по лицам.",
+"triggers": ["il faut", "devoir"],
+"formation_rule": "Il faut + инфинитив. Devoir (je dois, tu dois, il doit, nous devons, vous devez, ils doivent) + инфинитив. В отрицательной форме они выражают запрет.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Il faut éteindre les appareils.",
+"ru": "Нужно выключать приборы."
+},
+{
+"fr": "Je ne dois pas manger de produits gras.",
+"ru": "Я не должен есть жирные продукты."
+}
+]
+},
+{
+"id": "a1-u9-comparaison",
+"level": "A1",
+"unit": 9,
+"category": "Grammaire",
+"title_fr": "La comparaison",
+"title_ru": "Степени сравнения",
+"summary_ru": "Используются для сравнения качеств (прилагательных) или количества (существительных).",
+"triggers": ["plus", "moins", "aussi", "que"],
+"formation_rule": "С прилагательными: plus/moins/aussi + adjectif + que. С существительными: plus de/moins de + nom + que (равенство с существительными изучается позже). 'que' перед гласной -> 'qu''.",
+"key_exceptions": {
+"bon / bonne": "нельзя сказать 'plus bon', используется 'meilleur' / 'meilleure'."
+},
+"authentic_examples": [
+{
+"fr": "Le vélo est plus écologique que l'avion.",
+"ru": "Велосипед экологичнее самолета."
+},
+{
+"fr": "À la campagne, on voit plus d'animaux.",
+"ru": "В деревне мы видим больше животных."
+}
+]
+},
+{
+"id": "a1-u9-imparfait-impersonnel",
+"level": "A1",
+"unit": 9,
+"category": "Conjugaison",
+"title_fr": "Les verbes impersonnels à l'imparfait",
+"title_ru": "Безличные глаголы в прошедшем времени Imparfait (описания)",
+"summary_ru": "Imparfait используется для описания фона, погоды и обстановки в прошлом. Безличные обороты имеют только одну форму (для 'il').",
+"triggers": ["c'est", "il y a", "il fait"],
+"formation_rule": "C'est -> c'était (это было), Il y a -> il y avait (там было / находилось), Il fait (погода) -> il faisait.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Hier, il ne faisait pas beau. Il y avait des nuages.",
+"ru": "Вчера была плохая погода. Были облака."
+},
+{
+"fr": "J'ai visité le Mucem. C'était très intéressant !",
+"ru": "Я посетил Мусем. Это было очень интересно!"
+}
+]
+},
+{
+"id": "a1-u10-pronoms-cod-2",
+"level": "A1",
+"unit": 10,
+"category": "Grammaire",
+"title_fr": "Les pronoms COD (me, te, nous, vous)",
+"title_ru": "Личные местоимения в роли прямого дополнения (меня, тебя, нас, вас)",
+"summary_ru": "Обозначают лицо, на которое направлено действие, без предлога (Вижу КОГО? Тебя).",
+"triggers": [],
+"formation_rule": "me (меня), te (тебя), nous (нас), vous (вас). Ставятся ПЕРЕД глаголом. Перед гласной: me -> m', te -> t'.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Les futurs étudiants nous interrogent.",
+"ru": "Будущие студенты спрашивают нас."
+},
+{
+"fr": "Le professeur me regarde et je te comprends.",
+"ru": "Преподаватель смотрит на меня, и я тебя понимаю."
+}
+]
+},
+{
+"id": "a1-u10-pronoms-relatifs",
+"level": "A1",
+"unit": 10,
+"category": "Grammaire",
+"title_fr": "Les pronoms relatifs qui et que",
+"title_ru": "Относительные местоимения qui (который - подлежащее) и que (которого - дополнение)",
+"summary_ru": "Связывают два простых предложения в одно сложное, избегая повторов.",
+"triggers": ["qui", "que", "qu'"],
+"formation_rule": "'qui' заменяет подлежащее (за ним сразу идет глагол). 'que' заменяет прямое дополнение (за ним идет подлежащее + глагол). 'que' перед гласной сокращается до 'qu''.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "J'ai un travail qui est intéressant.",
+"ru": "У меня есть работа, которая интересна."
+},
+{
+"fr": "C'est un métier que j'adore.",
+"ru": "Это профессия, которую я обожаю."
+}
+]
+},
+{
+"id": "a1-u11-duree-continuation",
+"level": "A1",
+"unit": 11,
+"category": "Grammaire",
+"title_fr": "La durée et la continuation (pendant, longtemps, toujours)",
+"title_ru": "Продолжительность и длительность",
+"summary_ru": "Предлоги и наречия для выражения времени протекания действия.",
+"triggers": ["pendant", "longtemps", "toujours"],
+"formation_rule": "'pendant' + существительное (ограниченный срок: pendant deux ans). 'longtemps' (долго, без точного срока). 'toujours' + настоящее время (действие началось в прошлом и всё ещё продолжается).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Je vais partir aux États-Unis pendant deux ans.",
+"ru": "Я уеду в США на два года."
+},
+{
+"fr": "Je n'ai pas fini mon master, je suis toujours à l'université.",
+"ru": "Я еще не закончил магистратуру, я всё ещё в университете."
+}
+]
+},
+{
+"id": "a1-u12-pronoms-coi-lui-leur",
+"level": "A1",
+"unit": 12,
+"category": "Grammaire",
+"title_fr": "Les pronoms COI : lui et leur",
+"title_ru": "Косвенные местоимения-дополнения (ему/ей, им)",
+"summary_ru": "Заменяют одушевленные существительные (людей), которые вводятся предлогом 'à' (отвечают на вопрос Кому?).",
+"triggers": ["parler à", "téléphoner à", "dire à", "donner à"],
+"formation_rule": "'lui' заменяет ед. число (и мужской, и женский род — ему, ей). 'leur' заменяет мн. число (им). Ставятся ПЕРЕД глаголом.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Je parle à un médecin -> Je lui parle.",
+"ru": "Я говорю с врачом -> Я ему говорю."
+},
+{
+"fr": "Je donne des conseils à mes amis -> Je leur donne des conseils.",
+"ru": "Я даю советы своим друзьям -> Я им даю советы."
+}
+]
+},
+{
+"id": "a2-u1-passe-compose",
+"level": "A2",
+"unit": 1,
+"category": "Conjugaison",
+"title_fr": "Le passé composé (synthèse et accords)",
+"title_ru": "Прошедшее время Passé composé: образование и согласование",
+"summary_ru": "Используется для обозначения однократных, завершенных действий в прошлом. Большинство глаголов спрягается с avoir, 17 глаголов движения/изменения состояния и все возвратные глаголы — с être.",
+"triggers": ["hier", "l'année dernière", "en 2018", "il y a deux ans"],
+"formation_rule": "Вспомогательный глагол avoir или être в présent + participe passé. С être причастие согласуется с подлежащим в роде (+e) и числе (+s).",
+"key_exceptions": {
+"17 глаголов с être": "aller, arriver, descendre, devenir, entrer, monter, mourir, naître, partir, passer, rentrer, rester, retourner, revenir, sortir, tomber, venir.",
+"Неправильные причастия": "avoir -> eu, être -> été, faire -> fait, prendre -> pris, mettre -> mis, écrire -> écrit, dire -> dit, voir -> vu, lire -> lu, pouvoir -> pu, devoir -> dû, vouloir -> voulu, naître -> mort/né, vivre -> vécu."
+},
+"authentic_examples": [
+{
+"fr": "Elle est rentrée à Rome pour finir ses études.",
+"ru": "Она вернулась в Рим, чтобы закончить учебу."
+},
+{
+"fr": "Ils se sont mariés deux ans après leur rencontre.",
+"ru": "Они поженились через два года после знакомства."
+}
+]
+},
+{
+"id": "a2-u1-phrase-negative",
+"level": "A2",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "La phrase négative (ne... rien, personne, jamais, plus)",
+"title_ru": "Отрицательные конструкции: ne... rien, personne, jamais, plus",
+"summary_ru": "Специальные отрицания заменяют 'ne... pas'. Каждое отрицание является антонимом утвердительного слова (quelque chose -> rien, quelqu'un -> personne, toujours/souvent/déjà -> jamais, encore/toujours -> plus).",
+"triggers": ["quelque chose", "quelqu'un", "tout le monde", "déjà", "souvent", "encore"],
+"formation_rule": "В Présent: ne + verbe + rien/personne/jamais/plus. В Passé composé: rien, jamais, plus ставятся между вспомогательным глаголом и причастием (ne... pas/rien/jamais/plus + participe passé). Исключение: personne ставится ПОСЛЕ причастия.",
+"key_exceptions": {
+"Personne в роли подлежащего": "Personne ne / n' + verbe (Personne n'est venu).",
+"Rien в роли подлежащего": "Rien ne / n' + verbe (Rien n'est facile).",
+"Замена артиклей": "Неопределенные и частичные артикли (un, une, des, du, de la, de l') после отрицания переходят в de/d'."
+},
+"authentic_examples": [
+{
+"fr": "Je n'ai rien fait de spécial ce week-end.",
+"ru": "Я ничего особенного не делал в эти выходные."
+},
+{
+"fr": "Ils ne voient personne et ne veulent plus sortir.",
+"ru": "Они никого не видят и больше не хотят выходить."
+},
+{
+"fr": "Je ne suis jamais allé à ce festival.",
+"ru": "Я никогда не был на этом фестивале."
+}
+]
+},
+{
+"id": "a2-u1-indicateurs-temps",
+"level": "A2",
+"unit": 1,
+"category": "Grammaire",
+"title_fr": "Les indicateurs de temps : il y a, pendant, depuis",
+"title_ru": "Временные указатели: il y a, pendant, depuis",
+"summary_ru": "'Il y a' указывает на момент в прошлом ('тому назад'). 'Pendant' выражает полную продолжительность завершенного действия ('в течение'). 'Depuis' обозначает действие, начавшееся в прошлом и продолжающееся в настоящем ('с/уже как').",
+"triggers": ["il y a", "pendant", "depuis"],
+"formation_rule": "'Il y a' + отрезок времени (используется с Passé composé). 'Pendant' + отрезок времени (с любым временем, действие ограничено во времени). 'Depuis' + отрезок времени или момент начала (используется с Présent).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "J'ai fait ma première compétition il y a onze ans.",
+"ru": "Я участвовал в своих первых соревнованиях одиннадцать лет назад."
+},
+{
+"fr": "Pendant deux semaines, j'ai fait la connaissance de beaucoup d'athlètes.",
+"ru": "В течение двух недель я познакомился со многими спортсменами."
+},
+{
+"fr": "Les places sont en vente depuis hier.",
+"ru": "Билеты в продаже со вчерашнего дня."
+}
+]
+},
+{
+"id": "a2-u2-imparfait",
+"level": "A2",
+"unit": 2,
+"category": "Conjugaison",
+"title_fr": "L'imparfait (formation et emploi)",
+"title_ru": "Прошедшее незаконченное время Imparfait",
+"summary_ru": "Используется для описания обстановки, состояний, погоды, внешности, а также для выражения повторяющихся, привычных действий в прошлом.",
+"triggers": ["avant", "à cette époque", "tous les jours", "souvent", "quand j'étais petit"],
+"formation_rule": "Основа формы 'nous' в настоящем времени + окончания: -ais, -ais, -ait, -ions, -iez, -aient.",
+"key_exceptions": {
+"être": "Основа ét- : j'étais, tu étais, il était, nous étions, vous étiez, ils étaient.",
+"Глаголы на -cer / -ger": "nous commencions / je commençais (ç перед a/o), nous mangions / je mangeais (e перед a/o)."
+},
+"authentic_examples": [
+{
+"fr": "Quand j'étais petit, ma grand-mère nous préparait des gâteaux.",
+"ru": "Когда я был маленьким, бабушка готовила нам пирожные."
+},
+{
+"fr": "À cette époque, on prenait le bus et on traversait tout Paris.",
+"ru": "В то время мы садились на автобус и пересекали весь Париж."
+}
+]
+},
+{
+"id": "a2-u2-pronoms-y-en-lieu",
+"level": "A2",
+"unit": 2,
+"category": "Grammaire",
+"title_fr": "Les pronoms de lieu Y et EN",
+"title_ru": "Местоимения места Y (туда/там) и EN (оттуда)",
+"summary_ru": "'Y' заменяет обстоятельства места с предлогами направления или нахождения (à, en, dans, sur, sous, chez). 'EN' заменяет обстоятельства места с предлогом происхождения/исхода 'de' (откуда).",
+"triggers": ["à", "en", "dans", "sur", "chez", "de", "d'"],
+"formation_rule": "Оба местоимения ставятся ПЕРЕД спрягаемым глаголом (или перед инфинитивом при наличии двух глаголов). В Passé composé — перед вспомогательным глаголом.",
+"key_exceptions": {
+"Отрицание": "Je n'y vais pas / Je n'en viens pas."
+},
+"authentic_examples": [
+{
+"fr": "Tu vas à la montagne ? — Oui, j'y vais souvent.",
+"ru": "Ты едешь в горы? — Да, я часто туда езжу."
+},
+{
+"fr": "Vous revenez de Nice ? — Oui, nous en revenons enchantés.",
+"ru": "Вы возвращаетесь из Ниццы? — Да, мы возвращаемся оттуда в восторге."
+}
+]
+},
+{
+"id": "a2-u2-place-adjectif",
+"level": "A2",
+"unit": 2,
+"category": "Grammaire",
+"title_fr": "La place de l'adjectif qualificatif",
+"title_ru": "Положение качественного прилагательного",
+"summary_ru": "Большинство французских прилагательных ставится ПОСЛЕ существительного. Небольшая группа коротких и частотных прилагательных ставится ПЕРЕД существительным.",
+"triggers": [],
+"formation_rule": "ПОСЛЕ существительного: цвет, форма, национальность, стиль, длинные прилагательные. ПЕРЕД существительным: короткие прилагательные оценки, возраста, размера (beau, bon, grand, petit, jeune, vieux, joli, gros, mauvais, nouveau).",
+"key_exceptions": {
+"Изменение значения от места": "un homme grand (высокий человек) vs un grand homme (великий человек); mon propre mug (мой собственный) vs un mug propre (чистая кружка).",
+"des -> de перед прилагательным": "Если прилагательное стоит перед существительным во мн.ч., 'des' заменяется на 'de/d'' (de jolies affiches, d'excellentes épices)."
+},
+"authentic_examples": [
+{
+"fr": "C'est une jolie paire d'espadrilles et un grand plat marocain.",
+"ru": "Это красивая пара эспадрилий и большое марокканское блюдо."
+},
+{
+"fr": "Ils ont acheté d'excellentes épices dans cette petite boutique.",
+"ru": "Они купили отличные специи в этом маленьком магазинчике."
+}
+]
+},
+{
+"id": "a2-u3-pronoms-relatifs-qui-que-ou",
+"level": "A2",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "Les pronoms relatifs : qui, que, où",
+"title_ru": "Относительные местоимения: qui, que, où",
+"summary_ru": "Служат для соединения двух простых предложений в одно сложное без повтора существительного. 'Qui' заменяет подлежащее, 'que' — прямое дополнение, 'où' — место или время.",
+"triggers": ["qui", "que", "qu'", "où"],
+"formation_rule": "Антецедент + QUI + глагол (qui не сокращается перед гласной). Антецедент + QUE/QU' + подлежащее + глагол. Антецедент (место/время) + OÙ + подлежащее + глагол.",
+"key_exceptions": {
+"Элизия": "que становится qu' перед гласной/немым h, но qui ВСЕГДА остается qui (l'homme qui arrive)."
+},
+"authentic_examples": [
+{
+"fr": "J'habite dans une maison qui a un grand jardin.",
+"ru": "Я живу в доме, в котором есть большой сад."
+},
+{
+"fr": "C'est un appartement que j'aime beaucoup.",
+"ru": "Это квартира, которую я очень люблю."
+},
+{
+"fr": "Ce sont des lieux agréables où on trouve beaucoup de jeunes.",
+"ru": "Это приятные места, где можно встретить много молодежи."
+}
+]
+},
+{
+"id": "a2-u3-comparaison-adverbe-adjectif-verbe-nom",
+"level": "A2",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "La comparaison (adjectifs, adverbes, verbes, noms)",
+"title_ru": "Сравнительная степень (прилагательные, наречия, глаголы, существительные)",
+"summary_ru": "Сравнение строится по-разному в зависимости от того, что именно сравнивается: качество (прилагательное/наречие), действие (глагол) или количество предметов (существительное).",
+"triggers": ["plus... que", "moins... que", "aussi... que", "autant... que", "autant de... que"],
+"formation_rule": "С прил./наречием: plus / aussi / moins + adj/adv + que. С глаголом: verbe + plus / autant / moins + que. С существительным: plus de / autant de / moins de + nom + que.",
+"key_exceptions": {
+"bon -> meilleur": "plus bon не существует -> meilleur(e)(s)",
+"bien -> mieux": "plus bien не существует -> mieux",
+"mauvais -> pire / plus mauvais": "выражает худшее качество",
+"mal -> plus mal / pire": "хуже (о действии/состоянии)"
+},
+"authentic_examples": [
+{
+"fr": "La cabine est plus grande que sur les photos.",
+"ru": "Каюта больше, чем на фотографиях."
+},
+{
+"fr": "On a autant de pièces que dans notre ancien appartement.",
+"ru": "У нас столько же комнат, сколько в нашей прежней квартире."
+},
+{
+"fr": "On sort plus qu'avant et on vit bien mieux ici.",
+"ru": "Мы выходим чаще, чем раньше, и живем здесь намного лучше."
+}
+]
+},
+{
+"id": "a2-u3-condition-si-present",
+"level": "A2",
+"unit": 3,
+"category": "Grammaire",
+"title_fr": "L'expression de la condition avec si (1)",
+"title_ru": "Условие с союзом si (настоящее время и императив)",
+"summary_ru": "Выражает реальное условие и его следствие в настоящем времени или в виде указания/совета.",
+"triggers": ["si", "s'il"],
+"formation_rule": "1) Si + présent, présent (Si je veux lire, je vais à la bibliothèque). 2) Si + présent, impératif (Si tu es malade, va chez le médecin !).",
+"key_exceptions": {
+"Элизия si": "si + il -> s'il, si + ils -> s'ils. Перед elle/elles/on элизия НЕ происходит (si elle, si on)."
+},
+"authentic_examples": [
+{
+"fr": "Si tu es disponible, tu peux passer chez moi ce soir.",
+"ru": "Если ты свободен, можешь зайти ко мне сегодня вечером."
+},
+{
+"fr": "Si vous voyez mon chat, contactez-moi s'il vous plaît !",
+"ru": "Если вы увидите моего кота, свяжитесь со мной, пожалуйста!"
+}
+]
+},
+{
+"id": "a2-u4-comparaison-equivalence",
+"level": "A2",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "La comparaison : l'équivalence et la ressemblance",
+"title_ru": "Сравнение: сходство и эквивалентность",
+"summary_ru": "Для выражения равенства и сходства используются конструкции aussi... que, autant (de)... que, le/la/les même(s)... que, а также прилагательное pareil(le)(s).",
+"triggers": ["le même", "la même", "les mêmes", "pareil", "pareille", "aussi", "autant"],
+"formation_rule": "le/la/les même(s) + nom (+ que). aussi + adjectif/adverbe + que. autant de + nom + que. Pareil/pareille(s) — предикативное прилагательное, ставится отдельно (Ils sont pareils).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Il a la même physionomie et le même visage rond que son père.",
+"ru": "У него такое же телосложение и такое же круглое лицо, как у отца."
+},
+{
+"fr": "Ces deux robes sont pareilles.",
+"ru": "Эти два платья одинаковые."
+},
+{
+"fr": "Il ne ressemble plus autant qu'avant à l'empereur.",
+"ru": "Он уже не так сильно похож на императора, как раньше."
+}
+]
+},
+{
+"id": "a2-u4-adjectifs-indefinis",
+"level": "A2",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "Les adjectifs indéfinis : chaque, tout, toute, tous, toutes",
+"title_ru": "Неопределенные прилагательные: chaque, tout, toute, tous, toutes",
+"summary_ru": "'Chaque' обозначает 'каждый по отдельности' и употребляется только в единственном числе без артикля. 'Tout' обозначает совокупность или целостность и согласуется в роде и числе с артиклем.",
+"triggers": ["chaque", "tout", "toute", "tous", "toutes"],
+"formation_rule": "Chaque + существительное в ед.ч. (Chaque corps est unique). Tout + le + сущ. м.р. ед.ч. Toute + la + сущ. ж.р. ед.ч. Tous + les + сущ. м.р. мн.ч. (s на конце tous не читается как прил., читается [tus] как местоимение). Toutes + les + сущ. ж.р. мн.ч.",
+"key_exceptions": {
+"Tout как местоимение": "Tout va bien (всё в порядке — неизменяемое среднее местоимение)."
+},
+"authentic_examples": [
+{
+"fr": "Chaque corps est unique et tout le monde a des qualités.",
+"ru": "Каждое тело уникально, и у всех есть достоинства."
+},
+{
+"fr": "Tous les traits de caractère peuvent être utiles dans toutes les situations.",
+"ru": "Все черты характера могут быть полезны в любых ситуациях."
+}
+]
+},
+{
+"id": "a2-u4-pronoms-possessifs",
+"level": "A2",
+"unit": 4,
+"category": "Grammaire",
+"title_fr": "Les pronoms possessifs",
+"title_ru": "Притяжательные местоимения (мой, твой, наш...)",
+"summary_ru": "Заменяют существительное с притяжательным прилагательным (mon sac -> le mien), чтобы избежать повтора. Обязательно включают определенный артикль.",
+"triggers": ["le mien", "la mienne", "les miens", "le tien", "le sien", "le nôtre", "le vôtre", "le leur"],
+"formation_rule": "М.р. ед.ч. / Ж.р. ед.ч. / М.р. мн.ч. / Ж.р. мн.ч.:\n- je: le mien, la mienne, les miens, les miennes\n- tu: le tien, la tienne, les tiens, les tiennes\n- il/elle: le sien, la sienne, les siens, les siennes\n- nous: le nôtre, la nôtre, les nôtres\n- vous: le vôtre, la vôtre, les vôtres\n- ils/elles: le leur, la leur, les leurs",
+"key_exceptions": {
+"Циркумфлекс": "В формах 'le nôtre/le vôtre' пишется акцент циркумфлекс (в отличие от притяжательных прилагательных 'notre/votre')."
+},
+"authentic_examples": [
+{
+"fr": "Voici mes photos, ce sont les miennes. Où sont les vôtres ?",
+"ru": "Вот мои фотографии, это мои. А где ваши?"
+},
+{
+"fr": "Il a changé sa photo de profil, et elle a gardé la sienne.",
+"ru": "Он поменял свое фото профиля, а она оставила своё."
+}
+]
+},
+{
+"id": "a2-u5-futur-simple",
+"level": "A2",
+"unit": 5,
+"category": "Conjugaison",
+"title_fr": "Le futur simple",
+"title_ru": "Простое будущее время (Futur simple)",
+"summary_ru": "Употребляется для выражения планов, прогнозов, обещаний и событий в отдаленном будущем.",
+"triggers": ["dans le futur", "en 2050", "un jour", "bientôt", "l'année prochaine"],
+"formation_rule": "Инфинитив глагола (для глаголов на -re отбрасывается конечная 'e') + окончания глагола avoir: -ai, -as, -a, -ons, -ez, -ont.",
+"key_exceptions": {
+"Неправильные основы": "être -> ser-, avoir -> aur-, aller -> ir-, faire -> fer-, voir -> verr-, pouvoir -> pourr-, devoir -> devr-, savoir -> saur-, vouloir -> voudr-, venir -> viendr-, falloir -> il faudra, pleuvoir -> il pleuvra."
+},
+"authentic_examples": [
+{
+"fr": "Dans le futur, nous nous déplacerons en voitures autonomes.",
+"ru": "В будущем мы будем передвигаться на беспилотных автомобилях."
+},
+{
+"fr": "Un jour, les robots feront le ménage et cuisineront pour nous.",
+"ru": "Однажды роботы будут делать уборку и готовить для нас."
+}
+]
+},
+{
+"id": "a2-u5-condition-si-futur-quand",
+"level": "A2",
+"unit": 5,
+"category": "Grammaire",
+"title_fr": "La condition avec si (2) et la certitude avec quand",
+"title_ru": "Условие с si и временное придаточное с quand в будущем",
+"summary_ru": "Правило 'Si' не терпит после себя будущего времени: после 'si' ставится Présent, а в главном предложении — Futur simple. Союз 'quand' для будущих событий требует Futur simple в обеих частях.",
+"triggers": ["si", "quand"],
+"formation_rule": "Условие: Si + présent, futur simple (Si tu étudies, tu réussiras). Временная связь в будущем: Quand + futur simple, futur simple (Quand tu seras grand, tu comprendras).",
+"key_exceptions": {
+"Запрет на futur после si": "Никогда не использовать Futur simple сразу после союза Si (Si j'aurai -> НЕВЕРНО, Si j'ai -> ВЕРНО)."
+},
+"authentic_examples": [
+{
+"fr": "Si vous achetez cet ordinateur, vous pourrez installer des logiciels puissants.",
+"ru": "Если вы купите этот компьютер, вы сможете установить мощные программы."
+},
+{
+"fr": "Quand j'aurai cette imprimante 3D, je fabriquerai des objets originaux.",
+"ru": "Когда у меня будет этот 3D-принтер, я буду создавать оригинальные вещи."
+}
+]
+},
+{
+"id": "a2-u5-pronom-on",
+"level": "A2",
+"unit": 5,
+"category": "Grammaire",
+"title_fr": "Les valeurs du pronom on",
+"title_ru": "Значения неопределенно-личного местоимения on",
+"summary_ru": "Местоимение 'on' всегда согласуется с глаголом в 3 лице единственного числа (как il/elle), но может иметь 3 разных значения по смыслу: 'мы' (разговорное nous), 'люди вообще' (les gens) или 'кто-то' (quelqu'un).",
+"triggers": ["on"],
+"formation_rule": "On + глагол в 3 лице ед. ч. При значении 'мы' причастия и прилагательные могут согласовываться во мн.ч.: On est partis à Paris.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "On va au salon des innovations demain ? (= Nous)",
+"ru": "Мы пойдем завтра на выставку инноваций?"
+},
+{
+"fr": "Dans ce pays, on aime beaucoup la technologie. (= Les gens)",
+"ru": "В этой стране люди очень любят технологии."
+},
+{
+"fr": "On a volé mon smartphone dans le métro ! (= Quelqu'un)",
+"ru": "Кто-то украл мой смартфон в метро!"
+}
+]
+},
+{
+"id": "a2-u6-pronom-en-quantite",
+"level": "A2",
+"unit": 6,
+"category": "Grammaire",
+"title_fr": "Le pronom EN et l'expression de la quantité",
+"title_ru": "Местоимение EN для замены количества и частичного артикля",
+"summary_ru": "Заменяет существительные с частичным артиклем (du, de la, de l', des), неопределенным артиклем (un, une, des) или количественными наречиями/числами. Само количество сохраняется в конце фразы.",
+"triggers": ["du", "de la", "des", "un", "une", "beaucoup de", "un kilo de", "trois"],
+"formation_rule": "Ставится перед глаголом (в Passé composé — перед avoir/être). Формула с числом/наречием: Sujet + (ne) + EN + verbe + (pas) + число/количественное слово (J'en prends deux. / Je n'en ai pas beaucoup).",
+"key_exceptions": {
+"При отрицании точного числа": "un/une отбрасывается: Tu as une voiture ? — Non, je n'en ai pas (слово 'une' не ставится)."
+},
+"authentic_examples": [
+{
+"fr": "Tu manges de la viande ? — Non, je n'en mange pas.",
+"ru": "Ты ешь мясо? — Нет, я его не ем."
+},
+{
+"fr": "Des tomates, j'en consomme beaucoup.",
+"ru": "Помидоры — я их потребляю много."
+},
+{
+"fr": "Il y a des oignons ? — Oui, j'en ai acheté un kilo.",
+"ru": "Есть лук? — Да, я купил один килограмм."
+}
+]
+},
+{
+"id": "a2-u6-obligation-interdiction",
+"level": "A2",
+"unit": 6,
+"category": "Grammaire",
+"title_fr": "L'obligation et l'interdiction",
+"title_ru": "Выражение обязательства и запрета",
+"summary_ru": "Обязательство и запрет выражаются личными глаголами (devoir), безличными оборотами (il faut, il est interdit de) или повелительным наклонением.",
+"triggers": ["il faut", "il est interdit de", "il est obligatoire de", "il est défendu de", "devoir"],
+"formation_rule": "Обязательство: Il faut + inf., Il est nécessaire/indispensable/obligatoire de + inf., Vous devez + inf., Impératif affirmatif. Запрет: Il ne faut pas + inf., Il est interdit/défendu de + inf., Vous ne devez pas + inf., Impératif négatif.",
+"key_exceptions": {
+"Императив возвратных глаголов": "Утвердительный: Lavez-vous les mains ! Отрицательный: Ne vous lavez pas les mains !"
+},
+"authentic_examples": [
+{
+"fr": "Il est interdit de vendre vos plats de manière régulière.",
+"ru": "Запрещено продавать свои блюда на регулярной основе."
+},
+{
+"fr": "Vous devez cuisiner des produits frais et de qualité.",
+"ru": "Вы обязаны готовить из свежих и качественных продуктов."
+}
+]
+},
+{
+"id": "a2-u6-restriction-ne-que",
+"level": "A2",
+"unit": 6,
+"category": "Grammaire",
+"title_fr": "La restriction : ne... que",
+"title_ru": "Ограничительный оборот ne... que (только, всего лишь)",
+"summary_ru": "Оборот 'ne... que' не является отрицанием, а выражает ограничение ('только', 'исключительно', 'всего'). Синоним наречий seulement, uniquement, juste.",
+"triggers": ["seulement", "uniquement", "juste", "ne... que"],
+"formation_rule": "'ne/n'' ставится перед глаголом, а 'que/qu'' ставится непосредственно перед тем словом, к которому относится ограничение.",
+"key_exceptions": {
+"Отличие от ne... pas que": "ne... pas que означает 'не только' (Elle n'achète pas que des légumes = Она покупает не только овощи)."
+},
+"authentic_examples": [
+{
+"fr": "Je ne mange que des légumes de mon potager.",
+"ru": "Я ем только овощи из своего огорода."
+},
+{
+"fr": "Il ne me reste qu'un gâteau.",
+"ru": "У меня остался всего один торт."
+}
+]
+},
+{
+"id": "a2-u7-pronoms-cod-coi",
+"level": "A2",
+"unit": 7,
+"category": "Grammaire",
+"title_fr": "Les pronoms COD et COI",
+"title_ru": "Прямые (COD) и косвенные (COI) местоимения-дополнения",
+"summary_ru": "COD заменяют дополнения без предлога (кого? что?). COI заменяют одушевленные дополнения с предлогом 'à' (кому?). Формы 1 и 2 лица совпадают, 3 лицо различается (le/la/les vs lui/leur).",
+"triggers": ["lui", "leur", "le", "la", "les", "me", "te", "nous", "vous"],
+"formation_rule": "COD: me, te, le/la/l', nous, vous, les. COI: me, te, lui, nous, vous, leur. Место в предложении: всегда ПЕРЕД спрягаемым глаголом (Je lui donne un conseil / Je ne l'écoute pas).",
+"key_exceptions": {
+"Глаголы управления COI": "parler à, téléphoner à, demander à, donner à, écrire à, expliquer à, offrir à, conseiller à, répondre à."
+},
+"authentic_examples": [
+{
+"fr": "Tu donnes des conseils à tes enfants ? — Oui, je leur donne des conseils.",
+"ru": "Ты даешь советы своим детям? — Да, я даю им советы."
+},
+{
+"fr": "Je vous recommande cet oreiller : placez-le sous votre tête.",
+"ru": "Я рекомендую вам эту подушку: положите её под голову."
+}
+]
+},
+{
+"id": "a2-u7-superlatif",
+"level": "A2",
+"unit": 7,
+"category": "Grammaire",
+"title_fr": "Le superlatif",
+"title_ru": "Превосходная степень (самый / наименее)",
+"summary_ru": "Используется для выделения высшей или низшей степени качества среди группы предметов или лиц.",
+"triggers": ["le plus", "la plus", "les plus", "le moins", "la moins", "les moins"],
+"formation_rule": "Превосходство: le / la / les + plus + adjectif (+ de...). Неполнота: le / la / les + moins + adjectif (+ de...).",
+"key_exceptions": {
+"bon -> le meilleur / la meilleure / les meilleurs / les meilleures": "самый лучший (прилагательное, согласуется с существительным)",
+"bien -> le mieux": "лучше всего (наречие, неизменяемое)"
+},
+"authentic_examples": [
+{
+"fr": "L'eucalyptus est la plante la plus efficace contre le rhume.",
+"ru": "Эвкалипт — самое эффективное растение против простуды."
+},
+{
+"fr": "C'est ce remède qui fonctionne le mieux.",
+"ru": "Именно это средство помогает лучше всего."
+}
+]
+},
+{
+"id": "a2-u7-pronoms-interrogatifs-lequel",
+"level": "A2",
+"unit": 7,
+"category": "Grammaire",
+"title_fr": "Les pronoms interrogatifs (lequel, laquelle, lesquels, lesquelles)",
+"title_ru": "Вопросительные местоимения: lequel, laquelle, lesquels, lesquelles",
+"summary_ru": "Заменяют существительное с вопросительным прилагательным 'quel' при выборе из нескольких уже названных предметов или лиц ('который из них?').",
+"triggers": ["lequel", "laquelle", "lesquels", "lesquelles"],
+"formation_rule": "М.р. ед.ч.: lequel. Ж.р. ед.ч.: laquelle. М.р. мн.ч.: lesquels. Ж.р. мн.ч.: lesquelles. Согласуются в роде и числе с заменяемым словом.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Voici trois numéros d'urgence, lequel composez-vous ?",
+"ru": "Вот три номера экстренных служб, какой из них вы наберете?"
+},
+{
+"fr": "Tu as vu ces tisanes ? Laquelle choisis-tu ?",
+"ru": "Ты видел эти травяные чаи? Который из них ты выбираешь?"
+}
+]
+},
+{
+"id": "a2-u8-cause-consequence",
+"level": "A2",
+"unit": 8,
+"category": "Grammaire",
+"title_fr": "La cause et la conséquence",
+"title_ru": "Выражение причины и следствия",
+"summary_ru": "Причина объясняет мотив действия (почему?), следствие показывает результат действия (что из этого следует?).",
+"triggers": ["parce que", "car", "grâce à", "à cause de", "donc", "alors", "c'est pourquoi", "c'est pour cela que"],
+"formation_rule": "Причина: parce que / car + фраза; grâce à + существительное (позитивная причина); à cause de + существительное (негативная причина). Следствие: donc / alors / c'est pourquoi / c'est pour cela que + фраза.",
+"key_exceptions": {
+"Слияние с артиклями": "grâce au / aux, à cause du / des."
+},
+"authentic_examples": [
+{
+"fr": "J'aime lire la presse en ligne parce que c'est plus rapide.",
+"ru": "Мне больше нравится читать прессу онлайн, потому что это быстрее."
+},
+{
+"fr": "Grâce aux réseaux sociaux, les scientifiques peuvent partager leurs projets.",
+"ru": "Благодаря социальным сетям ученые могут делиться своими проектами."
+},
+{
+"fr": "Les articles sont trop longs, c'est pourquoi je ne lis que les titres.",
+"ru": "Статьи слишком длинные, поэтому я читаю только заголовки."
+}
+]
+},
+{
+"id": "a2-u8-subjonctif-present",
+"level": "A2",
+"unit": 8,
+"category": "Conjugaison",
+"title_fr": "Le subjonctif présent (nécessité, opinion)",
+"title_ru": "Сослагательное наклонение Subjonctif (необходимость, суждение)",
+"summary_ru": "Употребляется в придаточных предложениях после союза 'que' после безличных выражений необходимости (il faut que, il est important que) и оценочных суждений (c'est bien que, c'est normal que).",
+"triggers": ["il faut que", "il est important que", "il est indispensable que", "c'est bien que", "c'est normal que"],
+"formation_rule": "Для je, tu, il/elle/on, ils/elles: основа 3 лица мн.ч. Présent (ils) + окончания -e, -es, -e, -ent. Для nous, vous: формы совпадают с Imparfait (-ions, -iez).",
+"key_exceptions": {
+"être": "que je sois, tu sois, il soit, nous soyons, vous soyez, ils soient",
+"avoir": "que j'aie, tu aies, il ait, nous ayons, vous ayez, ils aient",
+"aller": "que j'aille, tu ailles, il aille, nous allions, vous alliez, ils aillent",
+"faire": "que je fasse, tu fasses, il fasse, nous fassions, vous fassiez, ils fassent"
+},
+"authentic_examples": [
+{
+"fr": "Il faut que les réseaux sociaux s'adaptent aux différents publics.",
+"ru": "Нужно, чтобы социальные сети адаптировались к разной аудитории."
+},
+{
+"fr": "C'est très bien que les personnes âgées soient plus connectées.",
+"ru": "Очень хорошо, что пожилые люди больше пользуются интернетом."
+}
+]
+},
+{
+"id": "a2-u8-place-pronoms-cod-coi",
+"level": "A2",
+"unit": 8,
+"category": "Grammaire",
+"title_fr": "La place des pronoms COD et COI",
+"title_ru": "Местоимения COD и COI: положение в различных временах",
+"summary_ru": "Положение местоимения в предложении зависит от грамматической конструкции: простое время, сложное время (с причастием) или конструкция с инфинитивом.",
+"triggers": [],
+"formation_rule": "1) В простых временах (Présent, Imparfait, Futur simple): перед спрягаемым глаголом (Je le regarde). 2) В сложных временах (Passé composé): перед вспомогательным глаголом (Je l'ai regardé / Je ne lui ai pas parlé). 3) С инфинитивом (Futur proche, Passé récent, глаголы pouvoir/vouloir): непосредственно ПЕРЕД инфинитивом (Je vais le regarder / Je viens de lui écrire).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Ce film, je le conseille à tous mes amis.",
+"ru": "Этот фильм я советую всем своим друзьям."
+},
+{
+"fr": "Les premières scènes, je les ai trouvées un peu lentes.",
+"ru": "Первые сцены я нашел немного затянутыми."
+},
+{
+"fr": "Cette chaîne ne va pas la diffuser ce soir.",
+"ru": "Этот канал не будет транслировать её сегодня вечером."
+}
+]
+},
+{
+"id": "a2-u9-conditionnel-present",
+"level": "A2",
+"unit": 9,
+"category": "Conjugaison",
+"title_fr": "Le conditionnel présent (politesse, conseil, souhait, imaginaire)",
+"title_ru": "Условное наклонение (Conditionnel présent)",
+"summary_ru": "Используется для вежливых просьб (vouloir, pouvoir), выражения желаний/мечты (aimer, souhaiter), дачи советов (devoir) и описания воображаемых гипотетических ситуаций.",
+"triggers": ["je voudrais", "j'aimerais", "tu devrais", "on pourrait", "dans un monde idéal"],
+"formation_rule": "Основа Futur simple + окончания Imparfait (-ais, -ais, -ait, -ions, -iez, -aient).",
+"key_exceptions": {
+"Основы неправильных глаголов": "aimer -> j'aimerais, devoir -> tu devrais, pouvoir -> on pourrait, vouloir -> je voudrais, être -> ce serait, avoir -> il y aurait, faire -> on ferait, aller -> j'irais."
+},
+"authentic_examples": [
+{
+"fr": "Pourriez-vous m'expliquer comment fonctionne votre atelier ?",
+"ru": "Не могли бы вы объяснить мне, как работает ваша мастерская?"
+},
+{
+"fr": "Tu devrais refaire les photos pour avoir une meilleure lumière.",
+"ru": "Тебе следовало бы переделать фотографии, чтобы был лучший свет."
+},
+{
+"fr": "Dans un monde idéal, tout le monde ferait du troc et tout serait gratuit.",
+"ru": "В идеальном мире все занимались бы бартером и всё было бы бесплатно."
+}
+]
+},
+{
+"id": "a2-u9-gerondif",
+"level": "A2",
+"unit": 9,
+"category": "Conjugaison",
+"title_fr": "Le gérondif",
+"title_ru": "Деепричастие (Le gérondif)",
+"summary_ru": "Выражает одновременность двух действий, совершаемых одним субъектом, а также образ действия (отвечает на вопрос 'как?', 'каким образом?').",
+"triggers": ["en + participe présent"],
+"formation_rule": "Предлог 'en' + основа формы 'nous' в настоящем времени + суффикс '-ant' (nous regardons -> en regardant; nous faisons -> en faisant).",
+"key_exceptions": {
+"être": "en étant",
+"avoir": "en ayant",
+"savoir": "en sachant",
+"Местоимения": "Местоимения ставятся МЕЖДУ 'en' и деепричастием: en lui parlant, en les réparant."
+},
+"authentic_examples": [
+{
+"fr": "Elles cuisinent en écoutant de la musique.",
+"ru": "Они готовят, слушая музыку."
+},
+{
+"fr": "On peut faire des économies en réparant soi-même ses appareils.",
+"ru": "Можно сэкономить деньги, ремонтируя свои приборы самостоятельно."
+}
+]
+},
+{
+"id": "a2-u10-passe-compose-imparfait-recit",
+"level": "A2",
+"unit": 10,
+"category": "Grammaire",
+"title_fr": "Le passé composé et l'imparfait dans le récit",
+"title_ru": "Passé composé и Imparfait в связном повествовании",
+"summary_ru": "В рассказе о прошлом Imparfait описывает фон, длящееся действие или контекст (декорации), а Passé composé вводит внезапные, конкретные события, двигающие сюжет вперед.",
+"triggers": ["soudain", "tout à coup", "quand", "pendant que", "alors"],
+"formation_rule": "Контекст/длительность/описание -> Imparfait. Внезапное действие/изменение ситуации -> Passé composé. Схема: 'Je faisais... quand soudain j'ai vu...'",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Il était en route vers le Mexique quand il a eu l'idée de créer cette plateforme.",
+"ru": "Он был на пути в Мексику, когда ему пришла идея создать эту платформу."
+},
+{
+"fr": "Nous étions sur la plage quand soudain un orage a éclaté.",
+"ru": "Мы были на пляже, когда внезапно разразилась гроза."
+}
+]
+},
+{
+"id": "a2-u10-accord-participe-passe",
+"level": "A2",
+"unit": 10,
+"category": "Grammaire",
+"title_fr": "L'accord du participe passé avec avoir et être",
+"title_ru": "Согласование причастия прошедшего времени (Participe passé)",
+"summary_ru": "С глаголом être причастие всегда согласуется с подлежащим. С глаголом avoir причастие согласуется с прямым дополнением (COD) ТОЛЬКО если это дополнение стоит ПЕРЕД глаголом (в виде que, le/la/les, quel).",
+"triggers": ["que", "l'", "les", "laquelle"],
+"formation_rule": "1) С être: accord avec le sujet (+e, +s, +es). 2) С avoir + COD après le verbe: Pas d'accord (J'ai visité les villes). 3) С avoir + COD avant le verbe: Accord avec le COD (Les villes que j'ai visitées / Je les ai visitées).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "C'est une visite de Paris que nous avons adorée !",
+"ru": "Это экскурсия по Парижу, которая нам безумно понравилась!"
+},
+{
+"fr": "Les informations sur la ville, on les a eues grâce à notre guide.",
+"ru": "Информацию о городе мы получили благодаря нашему гиду."
+}
+]
+},
+{
+"id": "a2-u10-pronoms-demonstratifs",
+"level": "A2",
+"unit": 10,
+"category": "Grammaire",
+"title_fr": "Les pronoms démonstratifs (celui, celle, ceux, celles)",
+"title_ru": "Указательные местоимения (тот, та, те)",
+"summary_ru": "Заменяют существительное с указательным прилагательным (ce, cette, ces), чтобы избежать повтора. Часто сопровождаются частицами -ci/-là или относительными местоимениями qui/que/où.",
+"triggers": ["celui", "celle", "ceux", "celles", "celui-ci", "celui-là"],
+"formation_rule": "М.р. ед.ч.: celui (-ci/-là). Ж.р. ед.ч.: celle (-ci/-là). М.р. мн.ч.: ceux (-ci/-là). Ж.р. мн.ч.: celles (-ci/-là). -ci указывает на более близкий предмет, -là — на более далекий.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Tu as vu ce bâtiment ? Et celui-ci, il est magnifique !",
+"ru": "Ты видел это здание? А вот это — оно великолепно!"
+},
+{
+"fr": "Mes photos sont moins belles que celles de ma sœur.",
+"ru": "Мои фотографии менее красивые, чем фотографии моей сестры."
+}
+]
+},
+{
+"id": "a2-u11-mise-en-relief",
+"level": "A2",
+"unit": 11,
+"category": "Grammaire",
+"title_fr": "La mise en relief (c'est... qui / c'est... que)",
+"title_ru": "Выделительные конструкции (C'est... qui / C'est... que)",
+"summary_ru": "Используются для логического выделения и смыслового акцентирования определенного элемента предложения (подлежащего, дополнения или обстоятельства).",
+"triggers": ["c'est... qui", "c'est... que", "ce sont... qui", "ce qui... c'est", "ce que... c'est"],
+"formation_rule": "Выделение подлежащего: C'est / Ce sont + nom/pronom tonique + QUI + verbe. Выделение дополнения: C'est / Ce sont + nom/pronom tonique + QUE + sujet + verbe. Вынесение в начало: Ce qui (подлежащее) / Ce que (дополнение) + ... + c'est / ce sont + ...",
+"key_exceptions": {
+"Согласование глагола с ударным местоимением": "C'est moi qui AI raison (глагол согласуется с moi -> 1 л. ед.ч.), C'est vous qui AVEZ fait cela."
+},
+"authentic_examples": [
+{
+"fr": "C'est ce professeur qui a changé ma vie.",
+"ru": "Именно этот учитель изменил мою жизнь."
+},
+{
+"fr": "L'ambiance, c'est ce que j'ai préféré au lycée.",
+"ru": "Атмосфера — это то, что мне больше всего понравилось в лицее."
+},
+{
+"fr": "Ce sont eux qui m'ont permis d'avancer.",
+"ru": "Именно они позволили мне двигаться вперед."
+}
+]
+},
+{
+"id": "a2-u11-discours-rapporte-present",
+"level": "A2",
+"unit": 11,
+"category": "Grammaire",
+"title_fr": "Le discours rapporté au présent",
+"title_ru": "Косвенная речь в настоящем времени",
+"summary_ru": "Используется для передачи чужих слов или вопросов без изменений времен глаголов, если вводящий глагол стоит в Présent.",
+"triggers": ["il dit que", "elle demande si", "ils affirment que", "on se demande ce que"],
+"formation_rule": "Утверждение: dire / affirmer / expliquer + que. Общий вопрос (Est-ce que... / инверсия): demander + si. Вопрос к неодушевленному (Qu'est-ce que...): demander + ce que. Вопрос к подлежащему (Qu'est-ce qui...): demander + ce qui. Специальный вопрос (où, quand, comment, etc.): сохранить вопросительное слово.",
+"key_exceptions": {
+"Смена местоимений": "Обязательно менять лица и притяжательные местоимения (Il me dit : « Je veux ton CV » -> Il me dit qu'il veut mon CV)."
+},
+"authentic_examples": [
+{
+"fr": "Ils disent que c'est plus facile d'avoir un CV d'une page.",
+"ru": "Они говорят, что проще иметь резюме на одну страницу."
+},
+{
+"fr": "Elle me demande si le CV est encore utile.",
+"ru": "Она спрашивает меня, полезно ли еще резюме."
+},
+{
+"fr": "On vous demande ce que vous pouvez apporter à l'entreprise.",
+"ru": "Вас спрашивают, что вы можете принести компании."
+}
+]
+},
+{
+"id": "a2-u11-pronom-coi-y",
+"level": "A2",
+"unit": 11,
+"category": "Grammaire",
+"title_fr": "Le pronom COI Y (verbes avec à + chose/idée)",
+"title_ru": "Местоимение Y для косвенного дополнения (глаголы с à + неодушевленное)",
+"summary_ru": "'Y' заменяет не только место, но и неодушевленные дополнения (идеи, концепции, вещи), вводимые предлогом 'à' после таких глаголов, как penser à, réfléchir à, s'intéresser à, faire attention à.",
+"triggers": ["penser à", "réfléchir à", "s'intéresser à", "répondre à", "s'habituer à"],
+"formation_rule": "Verbe + à + chose / idée -> Y + verbe (Tu penses à ton avenir ? -> J'y pense).",
+"key_exceptions": {
+"Одушевленные лица": "Если после глагола стоит человек, 'Y' использовать НЕЛЬЗЯ: ставится предлог 'à' + ударное местоимение (Je pense à mon ami -> Je pense à lui)."
+},
+"authentic_examples": [
+{
+"fr": "Vous pensez à changer de métier ? — Oui, j'y pense souvent.",
+"ru": "Вы думаете о смене профессии? — Да, я часто об этом думаю."
+},
+{
+"fr": "Tu as bien réfléchi à cette proposition ? — Oui, j'y ai bien réfléchi.",
+"ru": "Ты хорошо подумал над этим предложением? — Да, я хорошо над ним подумал."
+}
+]
+},
+{
+"id": "a2-u12-imperatif-pronoms",
+"level": "A2",
+"unit": 12,
+"category": "Grammaire",
+"title_fr": "L'impératif avec les pronoms",
+"title_ru": "Повелительное наклонение с местоимениями",
+"summary_ru": "Положение и форма местоимений зависят от того, утвердительный или отрицательный императив используется.",
+"triggers": [],
+"formation_rule": "1) В утвердительном императиве: глагол + дефис + местоимение (Regarde-le !). Местоимения 'me/te' переходят в 'moi/toi' (Lève-toi !). С местоимениями 'en' и 'y' у глаголов на -er возвращается буква 's' (Manges-en ! Penses-y !). 2) В отрицательном императиве: ne + местоимение + глагол + pas (Ne le regarde pas ! Ne te lève pas !).",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Ce sont de petits gestes : multiplions-les !",
+"ru": "Это простые действия: давайте множить их!"
+},
+{
+"fr": "Ne jetez pas les appareils cassés, réparez-les !",
+"ru": "Не выбрасывайте сломанные приборы, ремонтируйте их!"
+},
+{
+"fr": "Les animaux ont peur, ne leur faites pas de mal.",
+"ru": "Животные боятся, не делайте им больно."
+}
+]
+},
+{
+"id": "a2-u12-expression-du-but",
+"level": "A2",
+"unit": 12,
+"category": "Grammaire",
+"title_fr": "L'expression du but : pour + infinitif vs pour que + subjonctif",
+"title_ru": "Выражение цели: pour + инфинитив и pour que + Subjonctif",
+"summary_ru": "Выбор союза зависит от субъектов действия в главном и придаточном предложениях.",
+"triggers": ["pour", "pour que", "afin de", "afin que"],
+"formation_rule": "1) Одинаковое подлежащее: POUR + инфинитив (в отрицании: pour ne pas + inf.). 2) Разные подлежащие: POUR QUE + глагол в Subjonctif.",
+"key_exceptions": {},
+"authentic_examples": [
+{
+"fr": "Le coq chante pour informer en cas d'urgence.",
+"ru": "Петух поет, чтобы предупредить в случае опасности."
+},
+{
+"fr": "La poule crie pour que ses camarades sachent qu'il y a un danger.",
+"ru": "Курица кричит, чтобы ее сородичи знали об опасности."
+}
+]
+},
+{
+"id": "a2-u12-forme-passive",
+"level": "A2",
+"unit": 12,
+"category": "Grammaire",
+"title_fr": "La forme passive",
+"title_ru": "Пассивный (страдательный) залог",
+"summary_ru": "Используется для смещения акцента с исполнителя действия на объект или результат действия.",
+"triggers": ["par", "a été", "est + participe passé"],
+"formation_rule": "Вспомогательный глагол ÊTRE (в нужном времени) + Participe passé + предлог PAR + исполнитель (complément d'agent). Причастие ВСЕГДА согласуется в роде и числе с новым подлежащим.",
+"key_exceptions": {
+"Времена глагола être": "Présent: La méthode est développée. Passé composé: La méthode a été développée. Futur simple: La méthode sera développée."
+},
+"authentic_examples": [
+{
+"fr": "Le site a été créé par une jeune passionnée de nature.",
+"ru": "Сайт был создан молодой любительницей природы."
+},
+{
+"fr": "Des milliers d'arbres seront plantés par notre association.",
+"ru": "Тысячи деревьев будут посажены нашей ассоциацией."
+}
+]
+}
+]
