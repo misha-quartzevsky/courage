@@ -2,40 +2,150 @@ import { useState } from 'react'
 import type { CefrLevel, ProgressState } from '../lib/types'
 import {
   isBelowLevel,
-  nextUnit,
+  nextSession,
+  sessionsForUnit,
   syllabusByLevel,
+  unitProgress,
+  type SyllabusSession,
   type SyllabusUnit,
 } from '../lib/syllabus'
-import { doneUnitIds } from '../lib/storage'
+import { doneRuleIds } from '../lib/storage'
 import { ArrowRightIcon, CheckIcon, ChevronIcon } from '../lib/icons'
 
 interface CourseMapProps {
   progress: ProgressState | null
   level: CefrLevel
-  onStartUnit: (u: SyllabusUnit) => void
+  onOpenSession: (s: SyllabusSession) => void
+}
+
+interface UnitRowProps {
+  unit: SyllabusUnit
+  doneR: Set<string>
+  nextRuleId: string
+  progress: ProgressState | null
+  onOpenSession: (s: SyllabusSession) => void
+}
+
+function UnitRow({
+  unit,
+  doneR,
+  nextRuleId,
+  progress,
+  onOpenSession,
+}: UnitRowProps) {
+  const [open, setOpen] = useState(false)
+  const { done, total } = unitProgress(unit.id, doneR)
+  const isDone = total > 0 && done === total
+  const isPartial = done > 0 && done < total
+  const hasNext = unit.ruleIds.includes(nextRuleId)
+  const rec = progress?.units[unit.id]
+  const sessions = sessionsForUnit(unit.id)
+
+  return (
+    <li>
+      <button
+        type="button"
+        className={`unit-row${hasNext && !isDone ? ' unit-row--next' : ''}`}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <ChevronIcon className="icon chevron" />
+        <span
+          className={`unit-mark${
+            isDone
+              ? ' unit-mark--done'
+              : hasNext
+                ? ' unit-mark--next'
+                : isPartial
+                  ? ' unit-mark--partial'
+                  : ''
+          }`}
+        >
+          {isDone ? <CheckIcon /> : hasNext ? <ArrowRightIcon /> : null}
+        </span>
+        <span className="unit-label">
+          <span className="unit-title-ru">
+            <span className="unit-no">U{unit.unit}</span>
+            <span className="unit-title-text">{unit.titleRu}</span>
+          </span>
+          <span className="unit-sub">{unit.titleFr}</span>
+        </span>
+        <span className="unit-frac">
+          {isDone && rec ? (
+            <>
+              <CheckIcon /> {rec.bestAccuracy}%
+            </>
+          ) : (
+            `${done}/${total}`
+          )}
+        </span>
+      </button>
+
+      {open && (
+        <ul className="session-list">
+          {sessions.map((s) => {
+            const sDone = doneR.has(s.ruleId)
+            const sNext = !sDone && s.ruleId === nextRuleId
+            const srec = progress?.rules[s.ruleId]
+            return (
+              <li key={s.ruleId}>
+                <button
+                  type="button"
+                  className={`session-row${sNext ? ' session-row--next' : ''}`}
+                  onClick={() => onOpenSession(s)}
+                >
+                  <span
+                    className={`session-mark${
+                      sDone
+                        ? ' session-mark--done'
+                        : sNext
+                          ? ' session-mark--next'
+                          : ''
+                    }`}
+                  >
+                    {sDone ? <CheckIcon /> : sNext ? <ArrowRightIcon /> : null}
+                  </span>
+                  <span className="session-label">
+                    <span className="session-title-ru">{s.ruleTitleRu}</span>
+                    <span className="session-sub">{s.ruleTitleFr}</span>
+                  </span>
+                  {sDone && srec && (
+                    <span className="session-score">{srec.bestAccuracy}%</span>
+                  )}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </li>
+  )
 }
 
 interface LevelSectionProps {
   group: { level: CefrLevel; units: SyllabusUnit[] }
-  done: Set<string>
-  nextId: string
+  doneR: Set<string>
+  nextRuleId: string
   below: boolean
   defaultOpen: boolean
   progress: ProgressState | null
-  onStartUnit: (u: SyllabusUnit) => void
+  onOpenSession: (s: SyllabusSession) => void
 }
 
 function LevelSection({
   group,
-  done,
-  nextId,
+  doneR,
+  nextRuleId,
   below,
   defaultOpen,
   progress,
-  onStartUnit,
+  onOpenSession,
 }: LevelSectionProps) {
   const [open, setOpen] = useState(defaultOpen)
-  const doneCount = group.units.filter((u) => done.has(u.id)).length
+  const doneCount = group.units.filter((u) => {
+    const p = unitProgress(u.id, doneR)
+    return p.total > 0 && p.done === p.total
+  }).length
   const complete = doneCount === group.units.length
 
   return (
@@ -63,74 +173,42 @@ function LevelSection({
 
       {open && (
         <ul className="unit-list">
-          {group.units.map((u) => {
-            const isDone = done.has(u.id)
-            const isNext = !isDone && u.id === nextId
-            const rec = progress?.units[u.id]
-            return (
-              <li key={u.id}>
-                <button
-                  type="button"
-                  className={`unit-row${isNext ? ' unit-row--next' : ''}`}
-                  onClick={() => onStartUnit(u)}
-                >
-                  <span
-                    className={`unit-mark${
-                      isDone
-                        ? ' unit-mark--done'
-                        : isNext
-                          ? ' unit-mark--next'
-                          : ''
-                    }`}
-                  >
-                    {isDone ? (
-                      <CheckIcon />
-                    ) : isNext ? (
-                      <ArrowRightIcon />
-                    ) : null}
-                  </span>
-                  <span className="unit-label">
-                    <span className="unit-text">
-                      <span className="unit-title-ru">
-                        <span className="unit-no">U{u.unit}</span>
-                        {u.titleRu}
-                      </span>
-                      <span className="unit-sub">{u.titleFr}</span>
-                    </span>
-                  </span>
-                  {isDone && rec && (
-                    <span className="unit-score">{rec.bestAccuracy}%</span>
-                  )}
-                </button>
-              </li>
-            )
-          })}
+          {group.units.map((u) => (
+            <UnitRow
+              key={u.id}
+              unit={u}
+              doneR={doneR}
+              nextRuleId={nextRuleId}
+              progress={progress}
+              onOpenSession={onOpenSession}
+            />
+          ))}
         </ul>
       )}
     </section>
   )
 }
 
-export function CourseMap({ progress, level, onStartUnit }: CourseMapProps) {
-  const done = doneUnitIds(progress)
-  const next = nextUnit(done, level)
+export function CourseMap({ progress, level, onOpenSession }: CourseMapProps) {
+  const doneR = doneRuleIds(progress)
+  const ns = nextSession(doneR, level)
   const groups = syllabusByLevel()
 
   return (
     <div className="course-map">
       {groups.map((group) => {
         const below = isBelowLevel(group.units[0], level)
-        const hasNext = group.units.some((u) => u.id === next.id)
+        const hasNext = group.units.some((u) => u.id === ns.unitId)
         return (
           <LevelSection
             key={group.level}
             group={group}
-            done={done}
-            nextId={next.id}
+            doneR={doneR}
+            nextRuleId={ns.ruleId}
             below={below}
             defaultOpen={group.level === level || hasNext}
             progress={progress}
-            onStartUnit={onStartUnit}
+            onOpenSession={onOpenSession}
           />
         )
       })}

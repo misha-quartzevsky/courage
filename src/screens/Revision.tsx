@@ -1,5 +1,5 @@
-import type { ProgressState, UnitRecord } from '../lib/types'
-import { weakUnits } from '../lib/storage'
+import type { ProgressState, RuleRecord } from '../lib/types'
+import { weakRules } from '../lib/storage'
 import { AlertIcon, RefreshIcon } from '../lib/icons'
 
 interface RevisionProps {
@@ -11,7 +11,7 @@ interface RevisionProps {
 
 export function Revision({ progress, loading, error, onStart }: RevisionProps) {
   const words = progress?.words ?? []
-  const weak: UnitRecord | undefined = weakUnits(progress)[0]
+  const weak: RuleRecord | undefined = weakRules(progress)[0]
   const ready = words.length >= 8 || !!weak
 
   return (

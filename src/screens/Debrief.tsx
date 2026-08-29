@@ -1,5 +1,6 @@
 import type { CefrLevel, EvaluationVerdict, SprintSession } from '../lib/types'
-import { unitById, type SyllabusUnit } from '../lib/syllabus'
+import { getRule } from '../lib/grammar'
+import type { SyllabusSession } from '../lib/syllabus'
 import { speakFr } from '../lib/speech'
 import { SpeakerIcon } from '../lib/icons'
 
@@ -7,7 +8,7 @@ interface DebriefProps {
   sprint: SprintSession
   verdicts: EvaluationVerdict[]
   milestone: { level: CefrLevel; text: string } | null
-  next: SyllabusUnit | null
+  next: SyllabusSession | null
   onRetry: () => void
   onHome: () => void
 }
@@ -34,7 +35,7 @@ export function Debrief({
         : 'Нужно повторить'
   const titleRu = sprint.revision
     ? 'Повторение'
-    : unitById(sprint.unitId)?.titleRu ?? sprint.unitTitleFr
+    : getRule(sprint.ruleId)?.titleRu ?? sprint.ruleTitleFr
   const encouragement =
     band === 'ok'
       ? 'Тема уверенно закрыта — можно двигаться дальше.'
@@ -52,7 +53,7 @@ export function Debrief({
         <h1 className="screen-title">{titleRu}</h1>
         <p className="muted">
           {sprint.level}
-          {!sprint.revision && ` · ${sprint.unitTitleFr}`}
+          {!sprint.revision && ` · ${sprint.ruleTitleFr}`}
         </p>
       </header>
 
@@ -123,7 +124,7 @@ export function Debrief({
 
       {next && (
         <p className="muted section-hint">
-          Дальше — {next.level} · Юнит {next.unit}: {next.titleRu}
+          Дальше — {next.level} · Юнит {next.unit}: {next.ruleTitleRu}
         </p>
       )}
 

@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { Session } from '@supabase/supabase-js'
 import type {
   CefrLevel,
+  RuleRecord,
   SupabaseProfile,
   UnitRecord,
   WordRecord,
@@ -132,6 +133,7 @@ export async function updateProgress(progress: {
   bestAccuracy: number
   lastCompletedAt: string
   units: Record<string, UnitRecord>
+  rules: Record<string, RuleRecord>
   words: WordRecord[]
 }): Promise<boolean> {
   if (!supabase) return false
@@ -143,7 +145,11 @@ export async function updateProgress(progress: {
       streak_count: progress.streakDays,
       best_accuracy: progress.bestAccuracy,
       last_completed_at: progress.lastCompletedAt,
-      progress: { units: progress.units, words: progress.words },
+      progress: {
+        units: progress.units,
+        rules: progress.rules,
+        words: progress.words,
+      },
       updated_at: new Date().toISOString(),
     })
     .eq('user_id', userId)

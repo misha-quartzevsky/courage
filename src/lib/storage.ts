@@ -3,13 +3,15 @@
 // дублируется в profiles.progress (jsonb): { units, words }.
 
 import type {
+  CefrLevel,
   LearnedWord,
   ProgressState,
-  SprintSession,
+  RuleRecord,
   UnitRecord,
   WordRecord,
 } from './types'
-import { unitById } from './syllabus'
+import { getRule } from './grammar'
+import { SYLLABUS, unitById } from './syllabus'
 import { updateProgress } from './supabase'
 
 const KEY = 'courage:progress'
@@ -17,6 +19,7 @@ const WORDS_CAP = 120
 
 const EMPTY: ProgressState = {
   units: {},
+  rules: {},
   words: [],
   streakDays: 0,
   bestAccuracy: 0,
@@ -32,6 +35,68 @@ interface LegacyProgress {
 
 function asUnits(v: unknown): Record<string, UnitRecord> {
   return v && typeof v === 'object' ? (v as Record<string, UnitRecord>) : {}
+}
+
+function asRules(v: unknown): Record<string, RuleRecord> {
+  return v && typeof v === 'object' ? (v as Record<string, RuleRecord>) : {}
+}
+
+// Развернуть карту пройденных юнитов в записи по каждому их правилу.
+// Используется миграцией и мержем с сервером (старый формат без rules).
+function seedRulesFromUnits(
+  units: Record<string, UnitRecord>,
+): Record<string, RuleRecord> {
+  const rules: Record<string, RuleRecord> = {}
+  for (const [unitId, urec] of Object.entries(units)) {
+    for (const ruleId of unitById(unitId)?.ruleIds ?? []) {
+      rules[ruleId] = {
+        ruleId,
+        unitId,
+        level: urec.level,
+        titleFr: getRule(ruleId)?.titleFr ?? urec.titleFr,
+        bestAccuracy: urec.bestAccuracy,
+        attempts: urec.attempts,
+        lastCompletedAt: urec.lastCompletedAt,
+      }
+    }
+  }
+  return rules
+}
+
+// Кэш-запись юнита: null, если пройдены не все его правила.
+function deriveUnitRecord(
+  unitId: string,
+  rules: Record<string, RuleRecord>,
+): UnitRecord | null {
+  const unit = unitById(unitId)
+  if (!unit) return null
+  const recs = unit.ruleIds.map((id) => rules[id])
+  if (recs.some((r) => !r)) return null
+  const present = recs as RuleRecord[]
+  return {
+    unitId,
+    level: unit.level,
+    titleFr: unit.titleFr,
+    bestAccuracy: Math.round(
+      present.reduce((a, r) => a + r.bestAccuracy, 0) / present.length,
+    ),
+    attempts: Math.max(...present.map((r) => r.attempts)),
+    lastCompletedAt: present
+      .map((r) => r.lastCompletedAt)
+      .reduce((a, b) => (a > b ? a : b)),
+  }
+}
+
+// Пересобрать кэш units целиком из карты правил.
+function rebuildUnits(
+  rules: Record<string, RuleRecord>,
+): Record<string, UnitRecord> {
+  const units: Record<string, UnitRecord> = {}
+  for (const u of SYLLABUS) {
+    const rec = deriveUnitRecord(u.id, rules)
+    if (rec) units[u.id] = rec
+  }
+  return units
 }
 
 function asWords(v: unknown): WordRecord[] {
@@ -67,10 +132,25 @@ function migrate(raw: unknown): ProgressState | null {
   const updatedAt =
     typeof p.updatedAt === 'string' ? p.updatedAt : new Date().toISOString()
 
-  // Текущий формат.
-  if (p.units && typeof p.units === 'object') {
+  // Новейший формат — есть карта rules.
+  if (p.rules && typeof p.rules === 'object') {
+    const rules = asRules(p.rules)
     return {
       units: asUnits(p.units),
+      rules,
+      words: asWords(p.words),
+      streakDays,
+      bestAccuracy,
+      updatedAt,
+    }
+  }
+
+  // Прежний формат: { units, words } без rules — сидируем правила из юнитов.
+  if (p.units && typeof p.units === 'object') {
+    const units = asUnits(p.units)
+    return {
+      units,
+      rules: seedRulesFromUnits(units),
       words: asWords(p.words),
       streakDays,
       bestAccuracy,
@@ -94,7 +174,14 @@ function migrate(raw: unknown): ProgressState | null {
         lastCompletedAt: updatedAt,
       }
     }
-    return { units, words: [], streakDays, bestAccuracy, updatedAt }
+    return {
+      units,
+      rules: seedRulesFromUnits(units),
+      words: [],
+      streakDays,
+      bestAccuracy,
+      updatedAt,
+    }
   }
 
   return null
@@ -129,9 +216,17 @@ function nextStreak(prev: ProgressState | null, now: Date): number {
   return prevKey === dayKey(yesterday) ? prev.streakDays + 1 : 1
 }
 
-// Записать прохождение спринта: история юнита (если не повторение), слова, стрик.
-export function recordCompletion(
-  sprint: SprintSession,
+interface SessionRef {
+  ruleId: string
+  unitId: string
+  level: CefrLevel
+  ruleTitleFr: string
+}
+
+// Записать прохождение сессии-практики: история правила, кэш юнита, слова, стрик.
+// session === null — повторение (rules/units не трогаем, пишем только слова и стрик).
+export function recordSessionCompletion(
+  session: SessionRef | null,
   avgAccuracy: number,
   learnedWords: LearnedWord[] = [],
 ): ProgressState {
@@ -144,24 +239,31 @@ export function recordCompletion(
     learnedWords.map((w) => ({ fr: w.fr, ru: w.ru, addedAt: nowIso })),
   )
 
+  let rules = prev?.rules ?? {}
   let units = prev?.units ?? {}
-  if (!sprint.revision) {
-    const prevUnit = units[sprint.unitId]
-    units = {
-      ...units,
-      [sprint.unitId]: {
-        unitId: sprint.unitId,
-        level: sprint.level,
-        titleFr: sprint.unitTitleFr,
-        bestAccuracy: Math.max(prevUnit?.bestAccuracy ?? 0, avgAccuracy),
-        attempts: (prevUnit?.attempts ?? 0) + 1,
+  if (session) {
+    const prevRule = rules[session.ruleId]
+    rules = {
+      ...rules,
+      [session.ruleId]: {
+        ruleId: session.ruleId,
+        unitId: session.unitId,
+        level: session.level,
+        titleFr: session.ruleTitleFr || prevRule?.titleFr || session.ruleId,
+        bestAccuracy: Math.max(prevRule?.bestAccuracy ?? 0, avgAccuracy),
+        attempts: (prevRule?.attempts ?? 0) + 1,
         lastCompletedAt: nowIso,
       },
     }
+    const derived = deriveUnitRecord(session.unitId, rules)
+    units = { ...units }
+    if (derived) units[session.unitId] = derived
+    else delete units[session.unitId]
   }
 
   const next: ProgressState = {
     units,
+    rules,
     words,
     streakDays: nextStreak(prev, now),
     bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, avgAccuracy),
@@ -174,14 +276,42 @@ export function recordCompletion(
     bestAccuracy: next.bestAccuracy,
     lastCompletedAt: next.updatedAt,
     units: next.units,
+    rules: next.rules,
     words: next.words,
   })
 
   return next
 }
 
-// Мерж прогресса с сервера в локальный. serverProgress — { units, words } или
-// легаси-карта UnitRecord.
+// Лёгкий режим (разминка без практики): держим стрик живым, ничего больше не трогаем.
+export function recordLightSession(): ProgressState {
+  const prev = loadProgress()
+  const now = new Date()
+  const next: ProgressState = {
+    units: prev?.units ?? {},
+    rules: prev?.rules ?? {},
+    words: prev?.words ?? [],
+    streakDays: nextStreak(prev, now),
+    bestAccuracy: prev?.bestAccuracy ?? 0,
+    updatedAt: now.toISOString(),
+  }
+  saveProgress(next)
+
+  void updateProgress({
+    streakDays: next.streakDays,
+    bestAccuracy: next.bestAccuracy,
+    lastCompletedAt: next.updatedAt,
+    units: next.units,
+    rules: next.rules,
+    words: next.words,
+  })
+
+  return next
+}
+
+// Мерж прогресса с сервера в локальный. serverProgress — { units, rules, words },
+// прежний { units, words } или легаси-карта UnitRecord. Карта rules — источник
+// истины; units после мержа целиком пересобирается из неё.
 export function mergeServerProgress(
   serverProgress: unknown,
   serverStreak: number,
@@ -195,15 +325,18 @@ export function mergeServerProgress(
       ? asUnits(raw.units)
       : asUnits(serverProgress)
   const serverWords = asWords(raw.words)
+  const serverRules =
+    raw.rules && typeof raw.rules === 'object'
+      ? asRules(raw.rules)
+      : seedRulesFromUnits(serverUnits)
 
-  const units: Record<string, UnitRecord> = { ...local.units }
-  for (const [id, srv] of Object.entries(serverUnits)) {
-    const loc = units[id]
+  const rules: Record<string, RuleRecord> = { ...local.rules }
+  for (const [id, srv] of Object.entries(serverRules)) {
+    const loc = rules[id]
     if (!loc || srv.lastCompletedAt > loc.lastCompletedAt) {
-      units[id] = srv
+      rules[id] = { ...srv, bestAccuracy: Math.max(srv.bestAccuracy, loc?.bestAccuracy ?? 0) }
     } else {
-      units[id] = {
-        ...srv,
+      rules[id] = {
         ...loc,
         bestAccuracy: Math.max(srv.bestAccuracy, loc.bestAccuracy),
       }
@@ -211,7 +344,8 @@ export function mergeServerProgress(
   }
 
   const merged: ProgressState = {
-    units,
+    units: rebuildUnits(rules),
+    rules,
     words: mergeWords(local.words, serverWords),
     streakDays: Math.max(local.streakDays, serverStreak),
     bestAccuracy: Math.max(local.bestAccuracy, serverBest),
@@ -221,14 +355,19 @@ export function mergeServerProgress(
   return merged
 }
 
-// Множество пройденных unitId — для карты курса и nextUnit().
+// Множество пройденных unitId — для карты курса.
 export function doneUnitIds(progress: ProgressState | null): Set<string> {
   return new Set(Object.keys(progress?.units ?? {}))
 }
 
-// Пройденные, но слабые юниты (для Révision).
-export function weakUnits(progress: ProgressState | null): UnitRecord[] {
-  return Object.values(progress?.units ?? {})
-    .filter((u) => u.bestAccuracy < 70)
+// Множество пройденных ruleId — для nextSession / courseProgress / карты курса.
+export function doneRuleIds(progress: ProgressState | null): Set<string> {
+  return new Set(Object.keys(progress?.rules ?? {}))
+}
+
+// Пройденные, но слабые правила (для Révision).
+export function weakRules(progress: ProgressState | null): RuleRecord[] {
+  return Object.values(progress?.rules ?? {})
+    .filter((r) => r.bestAccuracy < 70)
     .sort((a, b) => a.bestAccuracy - b.bestAccuracy)
 }

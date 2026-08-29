@@ -208,6 +208,8 @@ export function sanitizeSprint(text: string): SprintDraft | null {
   return {
     unitId: isStr(r.unitId) ? r.unitId : '',
     unitTitleFr: isStr(r.unitTitleFr) ? r.unitTitleFr : '',
+    ruleId: isStr(r.ruleId) ? r.ruleId : '',
+    ruleTitleFr: isStr(r.ruleTitleFr) ? r.ruleTitleFr : '',
     level: CEFR_LEVELS.includes(r.level as CefrLevel)
       ? (r.level as CefrLevel)
       : 'A1',
@@ -275,8 +277,9 @@ const TOKEN_RE = /[\s'’]+/
 export function fallbackExercises(
   persona: LearnerPersona,
   unit: SyllabusUnit,
+  rule?: GrammarRule,
 ): SprintExercise[] {
-  const rules = rulesForUnit(unit.ruleIds)
+  const rules = rule ? [rule] : rulesForUnit(unit.ruleIds)
   const examples = rules.flatMap((r) => r.examples)
   const target = persona.domainTags[0] ?? 'votre métier'
   const out: SprintExercise[] = []
@@ -363,18 +366,21 @@ export function getFallbackSprint(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
+  rule?: GrammarRule,
 ): SprintSession {
   return {
     id: makeId(),
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
+    ruleId: rule?.id ?? '',
+    ruleTitleFr: rule?.titleFr ?? '',
     level,
-    durationMinutes: 5,
+    durationMinutes: 4,
     situation: {
-      titleFr: unit.titleFr,
-      contextFr: `Отработка темы «${unit.titleRu}». Отвечайте по-французски.`,
+      titleFr: rule?.titleFr ?? unit.titleFr,
+      contextFr: `Отработка темы «${rule?.titleRu ?? unit.titleRu}». Отвечайте по-французски.`,
     },
-    exercises: fallbackExercises(persona, unit).slice(0, 6),
+    exercises: fallbackExercises(persona, unit, rule).slice(0, 4),
     createdAt: new Date().toISOString(),
   }
 }
@@ -425,9 +431,10 @@ function buildSprintSystemPrompt(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
+  rule: GrammarRule,
   priorBest?: number,
 ): string {
-  const digest = ruleDigest(rulesForUnit(unit.ruleIds))
+  const digest = ruleDigest([rule])
   const diff = difficultyNote(priorBest)
   return [
     'Ты — дидакт французского по методу Édito (CEFR).',
@@ -435,17 +442,18 @@ function buildSprintSystemPrompt(
     `Профиль: ${persona.professionFr}. Интересы: ${persona.interestsFr.join(', ')}.`,
     `Узкие термины: ${persona.domainTags.join(', ')}.`,
     `Юнит Édito: ${unit.id} — «${unit.titleFr}» (${unit.titleRu}).`,
+    `Правило-фокус: «${rule.titleFr}» (${rule.titleRu}).`,
     diff,
     '',
-    'ПРАВИЛА ЮНИТА (упражнения должны отрабатывать именно их):',
+    'ПРАВИЛО (все упражнения должны отрабатывать именно его):',
     digest,
     '',
     'Правило 70/30: 70% — база Édito (быт/реальная жизнь), 30% — контекст профиля.',
     'Только реальная лексика, без выдуманного жаргона.',
     '',
-    'Сгенерируй РОВНО 6 упражнений РАЗНЫХ типов на эту грамматику. Не более 2 подряд',
+    'Сгенерируй РОВНО 4 упражнения РАЗНЫХ типов на эту грамматику. Не более 2 подряд',
     `одного типа. ${level === 'A1' ? 'Больше выбора и пропусков.' : ''}`,
-    persona && 'Диалоговых (kind:"dialogue") — 2 штуки.',
+    persona && 'Диалоговых (kind:"dialogue") — 1 штука.',
     '',
     'Верни ТОЛЬКО JSON без markdown, по схеме (у каждого упражнения свой kind):',
     '{',
@@ -499,17 +507,18 @@ export async function generateSprint(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
+  rule: GrammarRule,
   priorBest?: number,
 ): Promise<SprintSession> {
   if (!WORKER_URL) {
-    // Без адреса прокси — детерминированный демо-спринт по выбранному юниту.
-    return getFallbackSprint(persona, level, unit)
+    // Без адреса прокси — детерминированный демо-спринт по правилу-фокусу.
+    return getFallbackSprint(persona, level, unit, rule)
   }
 
   let text: string
   try {
     text = await callGemini(
-      buildSprintSystemPrompt(persona, level, unit, priorBest),
+      buildSprintSystemPrompt(persona, level, unit, rule, priorBest),
       [{ text: 'Сгенерируй спринт.' }],
     )
   } catch (err) {
@@ -518,28 +527,30 @@ export async function generateSprint(
   }
 
   const draft = sanitizeSprint(text)
-  if (!draft) return getFallbackSprint(persona, level, unit)
+  if (!draft) return getFallbackSprint(persona, level, unit, rule)
 
-  // Добираем до 6 упражнений из детерминированного пула (если модель дала меньше).
+  // Добираем до 4 упражнений из детерминированного пула (если модель дала меньше).
   let exercises = draft.exercises
-  if (exercises.length < 6) {
+  if (exercises.length < 4) {
     const have = new Set(exercises.map((e) => e.kind))
-    for (const fb of fallbackExercises(persona, unit)) {
-      if (exercises.length >= 6) break
-      if (!have.has(fb.kind) || exercises.length < 4) {
+    for (const fb of fallbackExercises(persona, unit, rule)) {
+      if (exercises.length >= 4) break
+      if (!have.has(fb.kind) || exercises.length < 3) {
         exercises = [...exercises, fb]
         have.add(fb.kind)
       }
     }
   }
-  exercises = exercises.slice(0, 6)
+  exercises = exercises.slice(0, 4)
 
-  // unitId / unitTitleFr / level — из каталога, не из ответа модели.
+  // unitId / unitTitleFr / ruleId / level — из каталога, не из ответа модели.
   return {
     ...draft,
     exercises,
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
+    ruleId: rule.id,
+    ruleTitleFr: rule.titleFr,
     level,
     id: makeId(),
     createdAt: new Date().toISOString(),
@@ -598,6 +609,8 @@ export async function generateRevision(
     id: makeId(),
     unitId: 'revision',
     unitTitleFr: 'Révision',
+    ruleId: '',
+    ruleTitleFr: '',
     level,
     durationMinutes: 5,
     situation: {

@@ -654,9 +654,9 @@ button {
   width: 100%;
   min-height: var(--touch);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-3);
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
   border: none;
   border-top: 1px solid var(--border);
   background: transparent;
@@ -675,10 +675,24 @@ button {
   color: var(--text-strong);
 }
 
+.unit-row .chevron {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: var(--faint);
+  transition: transform var(--dur) var(--ease);
+}
+
+.unit-row[aria-expanded='true'] .chevron {
+  transform: rotate(90deg);
+}
+
 .unit-mark {
   flex-shrink: 0;
   width: 22px;
   height: 22px;
+  margin-top: 1px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -704,22 +718,21 @@ button {
   color: #fff;
 }
 
+.unit-mark--partial {
+  border-color: var(--accent);
+  background: transparent;
+}
+
 .unit-label {
   flex: 1;
   min-width: 0;
-}
-
-.unit-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  min-width: 0;
 }
 
 .unit-title-ru {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
+  display: block;
   line-height: 1.3;
 }
 
@@ -731,19 +744,125 @@ button {
 }
 
 .unit-no {
-  flex-shrink: 0;
+  display: inline-block;
+  margin-right: var(--space-2);
   font-size: var(--text-xs);
   font-weight: 700;
   color: var(--faint);
+  vertical-align: baseline;
 }
 
 .unit-row--next .unit-title-ru {
   font-weight: 600;
 }
 
-.unit-score {
+.unit-frac {
   flex-shrink: 0;
+  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.unit-frac .icon {
+  width: 13px;
+  height: 13px;
+  color: var(--ok);
+}
+
+/* Сессии (правила) внутри юнита */
+.session-list {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0 0 0 calc(16px + var(--space-3));
+}
+
+.session-row {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+}
+
+.session-list li:first-child .session-row {
+  border-top: none;
+}
+
+.session-row:hover {
+  color: var(--text-strong);
+}
+
+.session-mark {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-strong);
+  color: var(--bg);
+}
+
+.session-mark .icon {
+  width: 10px;
+  height: 10px;
+  stroke-width: 2.5;
+}
+
+.session-mark--done {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.session-mark--next {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.session-label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.session-title-ru {
+  font-size: var(--text-sm);
+  line-height: 1.3;
+}
+
+.session-row--next .session-title-ru {
+  font-weight: 600;
+}
+
+.session-sub {
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  line-height: 1.25;
+  color: var(--faint);
+}
+
+.session-score {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: var(--muted);
 }
@@ -1483,6 +1602,45 @@ button {
   border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Лёгкий режим (разминка по правилу)
+   ------------------------------------------------------------ */
+.warmup-skip {
+  align-self: flex-start;
+}
+
+.warmup-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: rise var(--dur) var(--ease) both;
+}
+
+.warmup-reveal > p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rule-example {
+  display: flex;
+  gap: var(--space-2);
+  align-items: start;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.rule-example .btn-icon {
+  flex-shrink: 0;
+  min-width: 32px;
+  min-height: 32px;
+  margin-top: -4px;
+}
+
+.preview-progress {
+  margin: 0;
+  font-size: var(--text-sm);
 }
 
 /* ------------------------------------------------------------

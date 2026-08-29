@@ -6,6 +6,7 @@ describe('normalizeFr', () => {
   it('приводит регистр, апострофы, пробелы, концевую пунктуацию', () => {
     expect(normalizeFr("  J’ai   FAIM. ")).toBe("j'ai faim")
     expect(normalizeFr('Bonjour !')).toBe('bonjour')
+    expect(normalizeFr("j' ai 30 ans")).toBe("j'ai 30 ans")
   })
 })
 

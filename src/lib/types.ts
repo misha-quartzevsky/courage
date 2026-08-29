@@ -57,8 +57,10 @@ export type ExerciseKind = SprintExercise['kind']
 // SprintSession — aggregate root из ARCHITECTURE.md.
 export interface SprintSession {
   id: string
-  unitId: string // например 'a1-u1-se-presenter'; 'revision' для повторения
+  unitId: string // например 'a1-u1'; 'revision' для повторения
   unitTitleFr: string
+  ruleId: string // правило-фокус сессии; '' для повторения
+  ruleTitleFr: string // '' для повторения
   level: CefrLevel
   durationMinutes: number
   situation: {
@@ -99,11 +101,23 @@ export interface EvaluationVerdict {
 export type VerdictDraft = Omit<EvaluationVerdict, 'exerciseId'>
 
 // Прогресс по одному юниту курса (история прохождений).
+// Теперь ПРОИЗВОДНАЯ величина: агрегат по правилам юнита (см. deriveUnitRecord).
 export interface UnitRecord {
   unitId: string
   level: CefrLevel
   titleFr: string
   bestAccuracy: number
+  attempts: number
+  lastCompletedAt: string
+}
+
+// Прогресс по одному правилу (сессии). Источник истины для курсового прогресса.
+export interface RuleRecord {
+  ruleId: string // 'a1-u1-verbes-etre-avoir'
+  unitId: string // 'a1-u1'
+  level: CefrLevel
+  titleFr: string // rule.titleFr — чтобы Revision/Debrief не лезли в каталог
+  bestAccuracy: number // max по попыткам
   attempts: number
   lastCompletedAt: string
 }
@@ -117,7 +131,8 @@ export interface WordRecord {
 
 // Прогресс ученика (storage.ts + Supabase profiles.progress).
 export interface ProgressState {
-  units: Record<string, UnitRecord>
+  units: Record<string, UnitRecord> // кэш: только полностью пройденные юниты (произв. от rules)
+  rules: Record<string, RuleRecord> // источник истины, ключ = ruleId
   words: WordRecord[]
   streakDays: number
   bestAccuracy: number
@@ -133,7 +148,7 @@ export interface SupabaseProfile {
   profession_text: string | null // свободный ввод из онбординга
   interests: string[] | null
   domain_tags: string[] | null
-  progress: unknown // { units, words } или легаси-карта UnitRecord
+  progress: unknown // { units, rules, words } или легаси { units, words } / карта UnitRecord
   target_level: CefrLevel | null
   streak_count: number
   best_accuracy: number

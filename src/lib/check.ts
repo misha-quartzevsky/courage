@@ -8,6 +8,7 @@ export function normalizeFr(s: string): string {
     .trim()
     .toLowerCase()
     .replace(/[’`]/g, "'")
+    .replace(/\s*'\s*/g, "'") // элизия без пробелов: «j' ai» === «j'ai»
     .replace(/\s+/g, ' ')
     .replace(/[.!?;:]+$/, '')
     .trim()

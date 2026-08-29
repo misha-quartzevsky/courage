@@ -14,11 +14,29 @@ export interface SyllabusUnit {
   ruleIds: string[] // все правила юнита — для введения и справочника
 }
 
+// Одна сессия = одно правило. Плоский список в курсовом порядке.
+export interface SyllabusSession {
+  ruleId: string
+  unitId: string // 'a1-u3'
+  level: CefrLevel
+  unit: number // номер юнита
+  indexInUnit: number // 1-based
+  countInUnit: number
+  ruleTitleFr: string
+  ruleTitleRu: string
+  unitTitleRu: string
+}
+
 const LEVEL_ORDER: CefrLevel[] = ['A1', 'A2', 'B1', 'B2']
 
 function levelIndex(l: CefrLevel): number {
   const i = LEVEL_ORDER.indexOf(l)
   return i === -1 ? 0 : i
+}
+
+/** true, если уровень ниже стартового уровня ученика. */
+function levelBelow(level: CefrLevel, fromLevel?: CefrLevel): boolean {
+  return fromLevel ? levelIndex(level) < levelIndex(fromLevel) : false
 }
 
 function buildSyllabus(): SyllabusUnit[] {
@@ -49,6 +67,42 @@ function buildSyllabus(): SyllabusUnit[] {
 
 export const SYLLABUS: SyllabusUnit[] = buildSyllabus()
 
+function buildSessions(): SyllabusSession[] {
+  const byId = new Map(RULES.map((r) => [r.id, r]))
+  const out: SyllabusSession[] = []
+  for (const u of SYLLABUS) {
+    u.ruleIds.forEach((ruleId, i) => {
+      const rule = byId.get(ruleId)
+      if (!rule) return
+      out.push({
+        ruleId,
+        unitId: u.id,
+        level: u.level,
+        unit: u.unit,
+        indexInUnit: i + 1,
+        countInUnit: u.ruleIds.length,
+        ruleTitleFr: rule.titleFr,
+        ruleTitleRu: rule.titleRu,
+        unitTitleRu: u.titleRu,
+      })
+    })
+  }
+  return out
+}
+
+/** Все сессии курса (level → unit → порядок правила в юните). */
+export const SESSIONS: SyllabusSession[] = buildSessions()
+
+const SESSION_BY_RULE = new Map(SESSIONS.map((s) => [s.ruleId, s]))
+
+export function sessionByRuleId(id: string): SyllabusSession | undefined {
+  return SESSION_BY_RULE.get(id)
+}
+
+export function sessionsForUnit(unitId: string): SyllabusSession[] {
+  return SESSIONS.filter((s) => s.unitId === unitId)
+}
+
 export function unitById(id: string): SyllabusUnit | undefined {
   return SYLLABUS.find((u) => u.id === id)
 }
@@ -78,28 +132,40 @@ export function isBelowLevel(unit: SyllabusUnit, fromLevel?: CefrLevel): boolean
   return fromLevel ? levelIndex(unit.level) < levelIndex(fromLevel) : false
 }
 
-/** Все юниты уровня пройдены. */
+/** Все правила всех юнитов уровня пройдены. */
 export function levelComplete(
   level: CefrLevel,
-  doneIds: Set<string>,
+  doneRuleIds: Set<string>,
 ): boolean {
-  const units = SYLLABUS.filter((u) => u.level === level)
-  return units.length > 0 && units.every((u) => doneIds.has(u.id))
+  const sessions = SESSIONS.filter((s) => s.level === level)
+  return sessions.length > 0 && sessions.every((s) => doneRuleIds.has(s.ruleId))
 }
 
-/** Прогресс по курсу, начиная со стартового уровня ученика. */
+/** Прогресс по курсу (в правилах), начиная со стартового уровня ученика. */
 export function courseProgress(
-  doneIds: Set<string>,
+  doneRuleIds: Set<string>,
   fromLevel?: CefrLevel,
 ): { done: number; total: number; pct: number; lastLevel: CefrLevel } {
-  const scope = SYLLABUS.filter((u) => !isBelowLevel(u, fromLevel))
-  const done = scope.filter((u) => doneIds.has(u.id)).length
+  const scope = SESSIONS.filter((s) => !levelBelow(s.level, fromLevel))
+  const done = scope.filter((s) => doneRuleIds.has(s.ruleId)).length
   const total = scope.length || 1
   return {
     done,
     total,
     pct: Math.round((done / total) * 100),
     lastLevel: scope[scope.length - 1]?.level ?? 'B1',
+  }
+}
+
+/** Прогресс по одному юниту: сколько правил пройдено из всех. */
+export function unitProgress(
+  unitId: string,
+  doneRuleIds: Set<string>,
+): { done: number; total: number } {
+  const ruleIds = unitById(unitId)?.ruleIds ?? []
+  return {
+    done: ruleIds.filter((id) => doneRuleIds.has(id)).length,
+    total: ruleIds.length,
   }
 }
 
@@ -112,19 +178,19 @@ export const LEVEL_ACHIEVEMENT: Record<CefrLevel, string> = {
 }
 
 /**
- * Первый непройденный юнит на стартовом уровне и выше (рекомендованный «дальше»).
- * Юниты ниже fromLevel пропускаются. Fallback — последний юнит каталога.
+ * Первая непройденная сессия (правило) на стартовом уровне и выше.
+ * Уровни ниже fromLevel пропускаются. Fallback — последняя сессия каталога.
  */
-export function nextUnit(
-  doneIds: Set<string>,
+export function nextSession(
+  doneRuleIds: Set<string>,
   fromLevel?: CefrLevel,
-): SyllabusUnit {
+): SyllabusSession {
   const inScope = fromLevel
-    ? SYLLABUS.filter((u) => !isBelowLevel(u, fromLevel))
-    : SYLLABUS
+    ? SESSIONS.filter((s) => !levelBelow(s.level, fromLevel))
+    : SESSIONS
   return (
-    inScope.find((u) => !doneIds.has(u.id)) ??
+    inScope.find((s) => !doneRuleIds.has(s.ruleId)) ??
     inScope[inScope.length - 1] ??
-    SYLLABUS[SYLLABUS.length - 1]
+    SESSIONS[SESSIONS.length - 1]
   )
 }

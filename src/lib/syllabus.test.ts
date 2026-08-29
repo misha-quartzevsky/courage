@@ -1,13 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import {
+  SESSIONS,
   SYLLABUS,
   availableLevels,
   courseProgress,
   isBelowLevel,
   levelComplete,
-  nextUnit,
+  nextSession,
+  sessionsForUnit,
   syllabusByLevel,
   unitById,
+  unitProgress,
 } from './syllabus'
 
 describe('syllabus', () => {
@@ -38,16 +41,40 @@ describe('syllabus', () => {
     expect(unitById('нет-такого')).toBeUndefined()
   })
 
-  it('nextUnit без уровня — первый непройденный с начала', () => {
-    expect(nextUnit(new Set()).id).toBe('a1-u1')
-    expect(nextUnit(new Set(['a1-u1', 'a1-u2'])).id).toBe('a1-u3')
-    expect(nextUnit(new Set(SYLLABUS.map((u) => u.id))).id).toBe('b1-u12')
+  it('nextSession без уровня — первое непройденное правило с начала', () => {
+    expect(nextSession(new Set()).ruleId).toBe('a1-u1-verbes-etre-avoir')
+    const u1Rules = sessionsForUnit('a1-u1').map((s) => s.ruleId)
+    expect(nextSession(new Set(u1Rules)).ruleId).toBe('a1-u2-articles-indefinis')
+    expect(
+      nextSession(new Set(SESSIONS.map((s) => s.ruleId))).level,
+    ).toBe('B1')
   })
 
-  it('nextUnit со стартовым уровнем — пропускает уровни ниже', () => {
-    expect(nextUnit(new Set(), 'A2').id).toBe('a2-u1')
-    expect(nextUnit(new Set(['a2-u1']), 'A2').id).toBe('a2-u2')
-    expect(nextUnit(new Set(), 'B1').id).toBe('b1-u1')
+  it('nextSession со стартовым уровнем — пропускает уровни ниже', () => {
+    expect(nextSession(new Set(), 'A2').ruleId).toBe('a2-u1-passe-compose')
+    expect(nextSession(new Set(['a2-u1-passe-compose']), 'A2').unitId).toBe(
+      'a2-u1',
+    )
+    expect(nextSession(new Set(), 'B1').level).toBe('B1')
+  })
+
+  it('SESSIONS — плоский список правил в курсовом порядке', () => {
+    expect(SESSIONS).toHaveLength(33 + 35 + 35)
+    expect(SESSIONS[0].ruleId).toBe('a1-u1-verbes-etre-avoir')
+    expect(sessionsForUnit('a1-u1')).toHaveLength(5)
+    expect(sessionsForUnit('a1-u1').map((s) => s.indexInUnit)).toEqual([
+      1, 2, 3, 4, 5,
+    ])
+  })
+
+  it('unitProgress считает пройденные правила юнита', () => {
+    expect(unitProgress('a1-u1', new Set())).toEqual({ done: 0, total: 5 })
+    expect(
+      unitProgress(
+        'a1-u1',
+        new Set(['a1-u1-verbes-etre-avoir', 'a1-u1-articles-definis']),
+      ),
+    ).toEqual({ done: 2, total: 5 })
   })
 
   it('isBelowLevel', () => {
@@ -58,21 +85,25 @@ describe('syllabus', () => {
     expect(isBelowLevel(a1u1, undefined)).toBe(false)
   })
 
-  it('levelComplete — все юниты уровня пройдены', () => {
-    const a1 = SYLLABUS.filter((u) => u.level === 'A1').map((u) => u.id)
+  it('levelComplete — все правила уровня пройдены', () => {
+    const a1 = SESSIONS.filter((s) => s.level === 'A1').map((s) => s.ruleId)
     expect(levelComplete('A1', new Set())).toBe(false)
-    expect(levelComplete('A1', new Set(a1.slice(0, 11)))).toBe(false)
+    expect(levelComplete('A1', new Set(a1.slice(0, 20)))).toBe(false)
     expect(levelComplete('A1', new Set(a1))).toBe(true)
   })
 
-  it('courseProgress считает от стартового уровня', () => {
+  it('courseProgress считает правила от стартового уровня', () => {
     const p0 = courseProgress(new Set(), 'A2')
-    expect(p0.total).toBe(24) // A2 + B1
+    expect(p0.total).toBe(70) // A2 (35) + B1 (35)
     expect(p0.done).toBe(0)
     expect(p0.lastLevel).toBe('B1')
-    const p1 = courseProgress(new Set(['a2-u1', 'a2-u2', 'a1-u1']), 'A2')
-    expect(p1.done).toBe(2) // a1-u1 вне scope
-    expect(p1.pct).toBe(Math.round((2 / 24) * 100))
+    const inScope = ['a2-u1-passe-compose']
+    const p1 = courseProgress(
+      new Set([...inScope, 'a1-u1-verbes-etre-avoir']),
+      'A2',
+    )
+    expect(p1.done).toBe(1) // правило A1 вне scope
+    expect(p1.pct).toBe(Math.round((1 / 70) * 100))
   })
 
   it('syllabusByLevel группирует по уровню', () => {

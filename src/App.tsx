@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import type {
   CefrLevel,
@@ -10,19 +10,22 @@ import type {
   SupabaseProfile,
 } from './lib/types'
 import { generateRevision, generateSprint } from './lib/gemini'
+import { getRule, type GrammarRule } from './lib/grammar'
 import { DEMO_PERSONA } from './lib/personas'
 import {
-  doneUnitIds,
+  doneRuleIds,
   loadProgress,
   mergeServerProgress,
-  recordCompletion,
-  weakUnits,
+  recordLightSession,
+  recordSessionCompletion,
+  weakRules,
 } from './lib/storage'
 import {
   LEVEL_ACHIEVEMENT,
   levelComplete,
-  nextUnit,
+  nextSession,
   unitById,
+  type SyllabusSession,
   type SyllabusUnit,
 } from './lib/syllabus'
 import {
@@ -39,14 +42,14 @@ import { Cockpit } from './screens/Cockpit'
 import { Login } from './screens/Login'
 import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
-import { LessonIntro } from './screens/LessonIntro'
+import { LessonWarmup } from './screens/LessonWarmup'
 import { GrammarCodex } from './screens/GrammarCodex'
 import { Revision } from './screens/Revision'
 import { TabBar, type Tab } from './screens/TabBar'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
-type Overlay = 'onboarding' | 'lesson' | 'sprint' | 'debrief' | null
+type Overlay = 'onboarding' | 'warmup' | 'sprint' | 'debrief' | null
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
   if (!p?.profession_text) return null
@@ -73,7 +76,10 @@ export default function App() {
   const [level, setLevel] = useState<CefrLevel>('A1')
   const [mode, setMode] = useState<Mode>('voice')
   const [sprint, setSprint] = useState<SprintSession | null>(null)
-  const [activeUnit, setActiveUnit] = useState<SyllabusUnit | null>(null)
+  const [activeSession, setActiveSession] = useState<{
+    unit: SyllabusUnit
+    rule: GrammarRule
+  } | null>(null)
   const [retryExercises, setRetryExercises] = useState<SprintExercise[] | null>(
     null,
   )
@@ -106,6 +112,8 @@ export default function App() {
     setOverlay(p?.profession_text ? null : 'onboarding')
   }, [])
 
+  const appliedUserId = useRef<string | null>(null)
+
   useEffect(() => {
     let active = true
     async function boot() {
@@ -118,11 +126,21 @@ export default function App() {
         }
         return
       }
-      await applySession(await getSession())
+      const s = await getSession()
+      appliedUserId.current = s?.user?.id ?? null
+      await applySession(s)
       if (active) setBooted(true)
     }
     void boot()
-    const unsub = onAuthChange((s) => void applySession(s))
+    // Реагируем только на смену пользователя (вход/выход). TOKEN_REFRESHED и
+    // повторный SIGNED_IN при возврате на вкладку не должны сбрасывать
+    // навигацию и терять прогресс текущего спринта.
+    const unsub = onAuthChange((s) => {
+      const uid = s?.user?.id ?? null
+      if (uid === appliedUserId.current) return
+      appliedUserId.current = uid
+      void applySession(s)
+    })
     return () => {
       active = false
       unsub()
@@ -163,21 +181,30 @@ export default function App() {
     [refreshProfile],
   )
 
-  // Открыть юнит: сперва введение в тему, практика — уже оттуда.
-  const openUnit = useCallback((unit: SyllabusUnit) => {
-    setActiveUnit(unit)
+  // Открыть сессию: сперва лёгкий режим по правилу, практика — уже оттуда.
+  const openSession = useCallback((s: SyllabusSession) => {
+    const unit = unitById(s.unitId)
+    const rule = getRule(s.ruleId)
+    if (!unit || !rule) return
+    setActiveSession({ unit, rule })
     setAiError(false)
     setRetryExercises(null)
-    setOverlay('lesson')
+    setOverlay('warmup')
   }, [])
 
   const beginPractice = useCallback(async () => {
-    if (!persona || !activeUnit) return
+    if (!persona || !activeSession) return
     setLoading(true)
     setAiError(false)
     try {
-      const priorBest = progress?.units[activeUnit.id]?.bestAccuracy
-      const s = await generateSprint(persona, level, activeUnit, priorBest)
+      const priorBest = progress?.rules[activeSession.rule.id]?.bestAccuracy
+      const s = await generateSprint(
+        persona,
+        level,
+        activeSession.unit,
+        activeSession.rule,
+        priorBest,
+      )
       setSprint(s)
       setVerdicts([])
       setOverlay('sprint')
@@ -186,11 +213,16 @@ export default function App() {
     } finally {
       setLoading(false)
     }
-  }, [persona, level, activeUnit, progress])
+  }, [persona, level, activeSession, progress])
 
   const handleStartNext = useCallback(() => {
-    openUnit(nextUnit(doneUnitIds(progress), level))
-  }, [openUnit, progress, level])
+    openSession(nextSession(doneRuleIds(progress), level))
+  }, [openSession, progress, level])
+
+  const handleCreditDay = useCallback(() => {
+    setProgress(recordLightSession())
+    void refreshProfile()
+  }, [refreshProfile])
 
   const startRevision = useCallback(async () => {
     if (!persona) return
@@ -198,7 +230,7 @@ export default function App() {
     setAiError(false)
     try {
       const words = progress?.words ?? []
-      const weakRec = weakUnits(progress)[0]
+      const weakRec = weakRules(progress)[0]
       const weak = weakRec ? unitById(weakRec.unitId) : undefined
       const s = await generateRevision(persona, words, weak)
       setSprint(s)
@@ -219,13 +251,24 @@ export default function App() {
           ? Math.round(vs.reduce((a, v) => a + v.accuracy, 0) / vs.length)
           : 0
         const words = vs.flatMap((v) => v.learnedWords)
-        const before = doneUnitIds(progress)
-        const nextProgress = recordCompletion(sprint, avg, words)
+        const before = doneRuleIds(progress)
+        const nextProgress = recordSessionCompletion(
+          sprint.ruleId
+            ? {
+                ruleId: sprint.ruleId,
+                unitId: sprint.unitId,
+                level: sprint.level,
+                ruleTitleFr: sprint.ruleTitleFr,
+              }
+            : null,
+          avg,
+          words,
+        )
         setProgress(nextProgress)
         const lvl = sprint.level
         const justCompleted =
           !sprint.revision &&
-          levelComplete(lvl, doneUnitIds(nextProgress)) &&
+          levelComplete(lvl, doneRuleIds(nextProgress)) &&
           !levelComplete(lvl, before)
         setMilestone(
           justCompleted ? { level: lvl, text: LEVEL_ACHIEVEMENT[lvl] } : null,
@@ -248,7 +291,7 @@ export default function App() {
 
   const handleQuit = useCallback(() => {
     setSprint(null)
-    setActiveUnit(null)
+    setActiveSession(null)
     setVerdicts([])
     setRetryExercises(null)
     setMilestone(null)
@@ -287,21 +330,24 @@ export default function App() {
         sprint={sprint}
         verdicts={verdicts}
         milestone={milestone}
-        next={sprint.revision ? null : nextUnit(doneUnitIds(progress), level)}
+        next={
+          sprint.revision ? null : nextSession(doneRuleIds(progress), level)
+        }
         onRetry={handleRetry}
         onHome={handleQuit}
       />
     )
   }
 
-  if (overlay === 'lesson' && activeUnit) {
+  if (overlay === 'warmup' && activeSession) {
     return (
-      <LessonIntro
-        unit={activeUnit}
+      <LessonWarmup
+        rule={activeSession.rule}
         loading={loading}
         error={aiError}
-        onStart={() => void beginPractice()}
-        onSkip={() => void beginPractice()}
+        onStartPractice={() => void beginPractice()}
+        onEnough={handleQuit}
+        onCreditDay={handleCreditDay}
         onClose={() => setOverlay(null)}
       />
     )
@@ -347,7 +393,7 @@ export default function App() {
           progress={progress}
           onMode={setMode}
           onStartNext={handleStartNext}
-          onStartUnit={openUnit}
+          onOpenSession={openSession}
         />
       )}
       {tab === 'revision' && (

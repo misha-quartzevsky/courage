@@ -1,6 +1,6 @@
 import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
-import { doneUnitIds } from '../lib/storage'
-import { courseProgress, nextUnit, type SyllabusUnit } from '../lib/syllabus'
+import { doneRuleIds } from '../lib/storage'
+import { courseProgress, nextSession, type SyllabusSession } from '../lib/syllabus'
 import { AlertIcon, ArrowRightIcon, FlameIcon } from '../lib/icons'
 import { CourseMap } from './CourseMap'
 
@@ -19,7 +19,7 @@ interface CockpitProps {
   progress: ProgressState | null
   onMode: (m: Mode) => void
   onStartNext: () => void
-  onStartUnit: (u: SyllabusUnit) => void
+  onOpenSession: (s: SyllabusSession) => void
 }
 
 export function Cockpit({
@@ -35,11 +35,11 @@ export function Cockpit({
   progress,
   onMode,
   onStartNext,
-  onStartUnit,
+  onOpenSession,
 }: CockpitProps) {
-  const done = doneUnitIds(progress)
-  const next = nextUnit(done, level)
-  const cp = courseProgress(done, level)
+  const doneR = doneRuleIds(progress)
+  const ns = nextSession(doneR, level)
+  const cp = courseProgress(doneR, level)
 
   return (
     <main className="screen">
@@ -70,7 +70,7 @@ export function Cockpit({
       <div className="course-progress">
         <div className="course-progress-head">
           <span>
-            {cp.done} / {cp.total} юнитов
+            {cp.done} / {cp.total} правил
           </span>
           <span className="muted">{cp.pct}% пути до {cp.lastLevel}</span>
         </div>
@@ -80,16 +80,19 @@ export function Cockpit({
       </div>
 
       <section className="card card-raised preview">
-        <p className="eyebrow">Следующий урок</p>
+        <p className="eyebrow">Следующая сессия</p>
         <p className="preview-line">
           <span className="preview-unit">
-            {next.level} · Юнит {next.unit}
+            {ns.level} · Юнит {ns.unit}
           </span>
-          {next.titleRu}
-          <span className="preview-sub">{next.titleFr}</span>
+          {ns.ruleTitleRu}
+          <span className="preview-sub">{ns.ruleTitleFr}</span>
+        </p>
+        <p className="muted preview-progress">
+          Правило {ns.indexInUnit} из {ns.countInUnit} · {ns.unitTitleRu}
         </p>
         <div className="preview-meta">
-          <span>6 упражнений · 5–8 мин</span>
+          <span>~4 упражнения · 2–3 мин</span>
           {persona && <span>{persona.professionFr}</span>}
         </div>
 
@@ -129,10 +132,14 @@ export function Cockpit({
       </section>
 
       <p className="muted section-hint">
-        Ваш уровень — {level}. Любой юнит можно пройти или повторить — нажмите на него.
+        Ваш уровень — {level}. Юнит можно раскрыть и пройти по одному правилу — нажмите на него.
       </p>
 
-      <CourseMap progress={progress} level={level} onStartUnit={onStartUnit} />
+      <CourseMap
+        progress={progress}
+        level={level}
+        onOpenSession={onOpenSession}
+      />
     </main>
   )
 }
