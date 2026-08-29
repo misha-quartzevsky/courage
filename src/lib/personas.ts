@@ -1,23 +1,10 @@
-import type { LearnerPersona, ProfessionId } from './types'
+import type { LearnerPersona } from './types'
 
-// Два фиксированных профиля вместо «умного онбординга со свободным текстом».
-// Пока 30% персонализация кормится из готовых пресетов — AI-тегирование добавим
-// только если понадобится более одного-двух профилей.
-export const PERSONAS: Record<ProfessionId, LearnerPersona> = {
-  surgeon: {
-    id: 'surgeon',
-    label: 'Витреоретинальный хирург',
-    professionFr: 'chirurgien vitréo-rétinien',
-    interestsFr: ['Ski alpin', 'Boxe pieds-poings'],
-    domainTags: ['vitrectomie', 'décollement de la rétine', 'bloc opératoire'],
-  },
-  marketer: {
-    id: 'marketer',
-    label: 'Продуктовый маркетолог',
-    professionFr: 'product marketer en startup',
-    interestsFr: ['Ski alpin', 'Boxe pieds-poings'],
-    domainTags: ['pitch', 'go-to-market', 'croissance', 'onboarding'],
-  },
+// Демо-дефолты для режима без Supabase (нет логина — нет профиля).
+// В обычном режиме контекст собирается из профиля пользователя (онбординг),
+// а не выбирается из этого списка.
+export const DEMO_PERSONA: LearnerPersona = {
+  professionFr: 'chirurgien vitréo-rétinien',
+  interestsFr: ['ski alpin', 'boxe pieds-poings', 'gastronomie'],
+  domainTags: ['vitrectomie', 'décollement de la rétine', 'bloc opératoire'],
 }
-
-export const PERSONA_LIST = Object.values(PERSONAS)

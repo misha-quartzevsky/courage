@@ -1,5 +1,6 @@
 import type { EvaluationVerdict, SprintSession } from '../lib/types'
 import { speakFr } from '../lib/speech'
+import { SpeakerIcon } from '../lib/icons'
 
 interface DebriefProps {
   sprint: SprintSession
@@ -14,48 +15,65 @@ export function Debrief({ sprint, verdicts, onRetry, onHome }: DebriefProps) {
     : 0
   const failedCount = verdicts.filter((v) => !v.passed).length
 
-  const allIssues = verdicts.flatMap((v) =>
-    v.issues.map((iss) => ({
-      ...iss,
-      exerciseId: v.exerciseId,
-    })),
-  )
+  const band = avg >= 80 ? 'ok' : avg >= 55 ? 'warn' : 'danger'
+  const verdictWord =
+    band === 'ok'
+      ? 'Solide'
+      : band === 'warn'
+        ? 'En progrès'
+        : 'À retravailler'
+
+  const allIssues = verdicts.flatMap((v) => v.issues)
   const allWords = verdicts.flatMap((v) => v.learnedWords)
 
   return (
     <main className="screen">
       <header>
-        <h1 className="app-title">Bilan du sprint</h1>
-        <p className="muted">
-          {sprint.unitTitleFr} · {sprint.level}
-        </p>
+        <p className="eyebrow">Bilan du sprint</p>
+        <h1 className="screen-title">{sprint.unitTitleFr}</h1>
+        <p className="muted">{sprint.level}</p>
       </header>
 
-      <section className="card score-card">
-        <div className="score">{avg}%</div>
-        <p className="muted">Средняя точность · {verdicts.length} ответов</p>
+      <section className="card card-raised score-card">
+        <div className={`score score--${band}`}>{avg}%</div>
+        <div className="score-verdict">{verdictWord}</div>
+        <p className="muted">
+          Средняя точность · {verdicts.length} ответ
+          {verdicts.length === 1 ? '' : verdicts.length < 5 ? 'а' : 'ов'}
+        </p>
+        {verdicts.length > 0 && (
+          <div className="dots" aria-hidden="true">
+            {verdicts.map((v, i) => (
+              <span
+                key={i}
+                className={`dot ${v.passed ? 'dot--pass' : 'dot--fail'}`}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       {allIssues.length > 0 && (
         <section className="card">
-          <h2>Разбор ошибок</h2>
-          {allIssues.map((iss, i) => (
-            <div className="issue-block" key={i}>
-              <p className="serif strike">«{iss.snippet}»</p>
-              <p>
+          <h2>Corrections</h2>
+          <ul className="corrections">
+            {allIssues.map((iss, i) => (
+              <li key={i}>
+                <span className="strike">{iss.snippet}</span>
+                <span className="arrow">→</span>
                 <strong>{iss.correctionFr}</strong>
                 {iss.correctionRu && (
-                  <span className="muted"> — {iss.correctionRu}</span>
+                  <span className="muted">{iss.correctionRu}</span>
                 )}
-              </p>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
       {allWords.length > 0 && (
         <section className="card">
-          <h2>Слова на сегодня</h2>
+          <h2>Mots du jour</h2>
           <ul className="words">
             {allWords.map((w, i) => (
               <li key={i}>
@@ -67,7 +85,7 @@ export function Debrief({ sprint, verdicts, onRetry, onHome }: DebriefProps) {
                   aria-label={`Озвучить ${w.fr}`}
                   onClick={() => speakFr(w.fr)}
                 >
-                  🔊
+                  <SpeakerIcon />
                 </button>
               </li>
             ))}
@@ -75,19 +93,22 @@ export function Debrief({ sprint, verdicts, onRetry, onHome }: DebriefProps) {
         </section>
       )}
 
-      {failedCount > 0 && (
-        <button type="button" className="btn" onClick={onRetry}>
-          Recommencer et corriger
+      <div className="spacer" />
+
+      {failedCount > 0 ? (
+        <>
+          <button type="button" className="btn btn-lg" onClick={onRetry}>
+            Corriger mes erreurs
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={onHome}>
+            Retour à l'accueil
+          </button>
+        </>
+      ) : (
+        <button type="button" className="btn btn-lg" onClick={onHome}>
+          Retour à l'accueil
         </button>
       )}
-
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={onHome}
-      >
-        Retour à l'accueil
-      </button>
     </main>
   )
 }

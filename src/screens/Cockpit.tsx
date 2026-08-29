@@ -1,9 +1,10 @@
-import type { CefrLevel, LearnerPersona } from '../lib/types'
-import { PERSONA_LIST } from '../lib/personas'
+import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
+import { doneUnitIds } from '../lib/storage'
+import { nextUnit, type SyllabusUnit } from '../lib/syllabus'
+import { AlertIcon, ArrowRightIcon, FlameIcon, GearIcon } from '../lib/icons'
+import { CourseMap } from './CourseMap'
 
 export type Mode = 'voice' | 'text'
-
-const LEVELS: CefrLevel[] = ['A1', 'A2', 'B1', 'B2']
 
 interface CockpitProps {
   persona: LearnerPersona | null
@@ -15,10 +16,11 @@ interface CockpitProps {
   partnerStreak: number | null
   partnerName: string | null
   userName: string | null
-  onPersona: (p: LearnerPersona) => void
-  onLevel: (l: CefrLevel) => void
+  progress: ProgressState | null
   onMode: (m: Mode) => void
-  onStart: () => void
+  onStartNext: () => void
+  onStartUnit: (u: SyllabusUnit) => void
+  onOpenSettings: () => void
 }
 
 export function Cockpit({
@@ -31,11 +33,14 @@ export function Cockpit({
   partnerStreak,
   partnerName,
   userName,
-  onPersona,
-  onLevel,
+  progress,
   onMode,
-  onStart,
+  onStartNext,
+  onStartUnit,
+  onOpenSettings,
 }: CockpitProps) {
+  const next = nextUnit(doneUnitIds(progress))
+
   return (
     <main className="screen">
       <header className="topbar">
@@ -43,98 +48,88 @@ export function Cockpit({
           Courage{userName ? ` · ${userName}` : ''}
         </h1>
         <div className="topbar-actions">
-          {partnerStreak !== null && (
-            <span className="badge">
-              👥 {partnerName ? `${partnerName} · ` : ''}
-              {partnerStreak} j
+          {streakDays > 0 && (
+            <span className="badge badge-flame">
+              <FlameIcon />
+              {streakDays} j
             </span>
           )}
-          <span className="badge">
-            {streakDays > 0
-              ? `🔥 ${streakDays} jour${streakDays > 1 ? 's' : ''}`
-              : 'A1 → B2'}
-          </span>
+          <button
+            type="button"
+            className="btn-icon"
+            aria-label="Настройки"
+            onClick={onOpenSettings}
+          >
+            <GearIcon />
+          </button>
         </div>
       </header>
 
-      <section className="card">
-        <h2>Кто вы?</h2>
-        <div className="stack">
-          {PERSONA_LIST.map((p) => (
-            <button
-              key={p.id}
-              type="button"
-              className={`option-btn${persona?.id === p.id ? ' option-btn--active' : ''}`}
-              onClick={() => onPersona(p)}
-            >
-              <span className="option-title">{p.label}</span>
-              <span className="muted">{p.professionFr}</span>
-            </button>
-          ))}
+      {partnerStreak !== null && (
+        <div className="partner-row">
+          <span className="avatar">
+            {partnerName ? partnerName.trim().charAt(0).toUpperCase() : '·'}
+          </span>
+          <span>
+            {partnerName ? `${partnerName} · ` : 'Партнёр · '}
+            {partnerStreak} jour{partnerStreak > 1 ? 's' : ''} de suite
+          </span>
         </div>
-      </section>
+      )}
 
-      <section className="card">
-        <h2>Целевой уровень</h2>
-        <div className="chips">
-          {LEVELS.map((l) => (
-            <button
-              key={l}
-              type="button"
-              className={`chip${level === l ? ' chip--active' : ''}`}
-              onClick={() => onLevel(l)}
-            >
-              {l}
-            </button>
-          ))}
+      <section className="card card-raised preview">
+        <p className="eyebrow">Prochaine leçon</p>
+        <p className="preview-line">
+          <span className="preview-unit">
+            {next.level} · Unité {next.unit}
+          </span>
+          {next.titleFr}
+        </p>
+        <div className="preview-meta">
+          <span>3 упражнения · 4–6 мин</span>
+          {persona && <span>{persona.professionFr}</span>}
         </div>
-      </section>
 
-      <section className="card">
-        <h2>Режим практики</h2>
         <div className="mode-toggle">
           <button
             type="button"
             className={mode === 'voice' ? 'seg seg--active' : 'seg'}
             onClick={() => onMode('voice')}
           >
-            🎙 Voice
+            Voix
           </button>
           <button
             type="button"
             className={mode === 'text' ? 'seg seg--active' : 'seg'}
             onClick={() => onMode('text')}
           >
-            🤫 Silent
+            Silencieux
           </button>
         </div>
-        <p className="muted">
-          {mode === 'voice'
-            ? 'Живой диалог: слушаете ситуацию и отвечаете голосом.'
-            : 'То же, но текстом — для метро и тихих мест.'}
-        </p>
+
+        {error && (
+          <p className="error">
+            <AlertIcon />
+            Не удалось собрать спринт. Проверьте соединение и попробуйте ещё раз.
+          </p>
+        )}
+
+        <button
+          type="button"
+          className="btn btn-lg"
+          disabled={loading || !persona}
+          onClick={onStartNext}
+        >
+          {loading ? 'On prépare…' : 'Commencer'}
+          {!loading && <ArrowRightIcon />}
+        </button>
       </section>
 
-      <section className="card hero">
-        <h3>Сегодняшний спринт</h3>
-        <p className="serif">
-          «Se présenter, ouvrir un compte, parler de votre métier»
-        </p>
-        <p className="muted">
-          4–6 минут. AI соберёт спринт из базы Édito + ваша специализация.
-        </p>
-      </section>
+      <p className="muted section-hint">
+        Уровень {level}. Любой юнит можно пройти или повторить — нажмите на него.
+      </p>
 
-      {error && <p className="error">Оценка ответов сейчас недоступна (Gemini).</p>}
-
-      <button
-        type="button"
-        className="btn"
-        disabled={!persona || loading}
-        onClick={onStart}
-      >
-        {loading ? 'Генерация спринта…' : 'Commencer le sprint'}
-      </button>
+      <CourseMap progress={progress} onStartUnit={onStartUnit} />
     </main>
   )
 }

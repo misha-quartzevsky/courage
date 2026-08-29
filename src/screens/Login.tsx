@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { sendMagicLink } from '../lib/supabase'
+import { AlertIcon, CheckIcon } from '../lib/icons'
 
 type Status = 'idle' | 'sending' | 'sent'
 
@@ -16,7 +17,8 @@ export function Login() {
     setError(null)
     const res = await sendMagicLink(value)
     if (!res.ok) {
-      setError(res.error ?? 'Не удалось отправить ссылку')
+      console.error('sendMagicLink failed', res.error)
+      setError('Не удалось отправить ссылку. Проверьте адрес и попробуйте ещё раз.')
       setStatus('idle')
       return
     }
@@ -25,15 +27,18 @@ export function Login() {
 
   if (status === 'sent') {
     return (
-      <main className="screen">
-        <header>
-          <h1 className="app-title">Courage</h1>
-        </header>
-        <section className="card">
-          <h2>Проверьте почту</h2>
+      <main className="screen screen-center">
+        <section className="card card-raised login-card">
+          <span className="verdict verdict--ok">
+            <CheckIcon />
+            Ссылка отправлена
+          </span>
+          <div className="score-verdict" style={{ margin: '12px 0 8px' }}>
+            Проверьте почту
+          </div>
           <p className="muted">
-            Ссылка для входа отправлена на <strong>{email.trim()}</strong>.
-            После перехода по ссылке вы вернётесь в приложение уже
+            Отправили ссылку для входа на <strong>{email.trim()}</strong>.
+            Откройте её на этом устройстве — вернётесь в приложение уже
             авторизованным.
           </p>
         </section>
@@ -42,20 +47,26 @@ export function Login() {
   }
 
   return (
-    <main className="screen">
-      <header>
-        <h1 className="app-title">Courage</h1>
-        <p className="muted">Вход без пароля — ссылка придёт на почту.</p>
-      </header>
+    <main className="screen screen-center">
+      <div style={{ textAlign: 'left', width: '100%', maxWidth: 380 }}>
+        <p className="eyebrow">Français pour deux</p>
+        <h1 className="screen-title serif">Courage</h1>
+        <p className="muted" style={{ marginTop: 8 }}>
+          Вход без пароля — ссылка придёт на почту.
+        </p>
+      </div>
 
-      <section className="card">
+      <section className="card login-card">
         <form className="text-form" onSubmit={handleSubmit}>
           <label htmlFor="login-email">Email</label>
           <input
             id="login-email"
             type="email"
+            inputMode="email"
             required
             autoComplete="email"
+            autoCapitalize="off"
+            spellCheck={false}
             placeholder="vous@exemple.fr"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -65,12 +76,17 @@ export function Login() {
             className="btn"
             disabled={status === 'sending' || !email.trim()}
           >
-            {status === 'sending' ? 'Отправка…' : 'Отправить ссылку'}
+            {status === 'sending' ? 'On envoie…' : 'Envoyer le lien'}
           </button>
         </form>
       </section>
 
-      {error && <p className="error">{error}</p>}
+      {error && (
+        <p className="error login-card">
+          <AlertIcon />
+          {error}
+        </p>
+      )}
     </main>
   )
 }

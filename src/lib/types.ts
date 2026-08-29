@@ -4,13 +4,12 @@
 export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2'
 export type ProfessionId = 'surgeon' | 'marketer'
 
-// LearnerPersona — профиль пользователя. 30% персонализации спринта.
+// LearnerPersona — личный контекст ученика (30% персонализации спринта).
+// Собирается из профиля Supabase или из демо-дефолта.
 export interface LearnerPersona {
-  id: ProfessionId
-  label: string // «Витреоретинальный хирург» — для UI
-  professionFr: string // для промпта
-  interestsFr: string[]
-  domainTags: string[] // узкие термины для промпта
+  professionFr: string // для промпта, напр. «chirurgien vitréo-rétinien»
+  interestsFr: string[] // 2–5 интересов
+  domainTags: string[] // 3–6 узких терминов
 }
 
 // SprintExercise — одно задание внутри спринта.
@@ -64,9 +63,19 @@ export interface EvaluationVerdict {
 
 export type VerdictDraft = Omit<EvaluationVerdict, 'exerciseId'>
 
-// Прогресс для 3-дневного спринта (storage.ts).
+// Прогресс по одному юниту курса (история прохождений).
+export interface UnitRecord {
+  unitId: string
+  level: CefrLevel
+  titleFr: string
+  bestAccuracy: number
+  attempts: number
+  lastCompletedAt: string
+}
+
+// Прогресс ученика (storage.ts + Supabase profiles.progress).
 export interface ProgressState {
-  completedUnitIds: string[]
+  units: Record<string, UnitRecord>
   streakDays: number
   bestAccuracy: number
   updatedAt: string
@@ -77,7 +86,11 @@ export interface SupabaseProfile {
   id: string
   user_id: string
   display_name: string | null
-  profession: ProfessionId | null
+  profession: ProfessionId | null // легаси-enum, больше не пишется
+  profession_text: string | null // свободный ввод из онбординга
+  interests: string[] | null
+  domain_tags: string[] | null
+  progress: Record<string, UnitRecord> | null
   target_level: CefrLevel | null
   streak_count: number
   best_accuracy: number

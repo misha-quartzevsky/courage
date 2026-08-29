@@ -4,7 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import type { Session } from '@supabase/supabase-js'
-import type { CefrLevel, ProfessionId, SupabaseProfile } from './types'
+import type { CefrLevel, SupabaseProfile, UnitRecord } from './types'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as
@@ -73,20 +73,21 @@ export async function loadProfile(): Promise<SupabaseProfile | null> {
   return (data as SupabaseProfile | null) ?? null
 }
 
-export async function updateProfile(patch: {
-  profession: ProfessionId
-  target_level: CefrLevel
-}): Promise<boolean> {
+export interface ProfilePatch {
+  profession_text?: string
+  interests?: string[]
+  domain_tags?: string[]
+  target_level?: CefrLevel
+  display_name?: string
+}
+
+export async function updateProfile(patch: ProfilePatch): Promise<boolean> {
   if (!supabase) return false
   const userId = await currentUserId()
   if (!userId) return false
   const { error } = await supabase
     .from('profiles')
-    .update({
-      profession: patch.profession,
-      target_level: patch.target_level,
-      updated_at: new Date().toISOString(),
-    })
+    .update({ ...patch, updated_at: new Date().toISOString() })
     .eq('user_id', userId)
   if (error) {
     console.error('[supabase.updateProfile]', error)
@@ -99,6 +100,7 @@ export async function updateProgress(progress: {
   streakDays: number
   bestAccuracy: number
   lastCompletedAt: string
+  units: Record<string, UnitRecord>
 }): Promise<boolean> {
   if (!supabase) return false
   const userId = await currentUserId()
@@ -109,6 +111,7 @@ export async function updateProgress(progress: {
       streak_count: progress.streakDays,
       best_accuracy: progress.bestAccuracy,
       last_completed_at: progress.lastCompletedAt,
+      progress: progress.units,
       updated_at: new Date().toISOString(),
     })
     .eq('user_id', userId)

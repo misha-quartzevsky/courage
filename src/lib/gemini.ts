@@ -14,6 +14,7 @@ import type {
   SprintSession,
   VerdictDraft,
 } from './types'
+import type { SyllabusUnit } from './syllabus'
 
 // Транспорт: запросы идут через Cloudflare Worker-прокси (ключ — секрет
 // Worker'а, фронтенд его не видит). Без VITE_GEMINI_WORKER_URL — демо-режим.
@@ -114,10 +115,9 @@ export function sanitizeSprint(text: string): SprintDraft | null {
   if (!raw || typeof raw !== 'object') return null
 
   const r = raw as Record<string, unknown>
+  // unitId / unitTitleFr больше не спрашиваем у модели — их ставит вызывающий
+  // код из каталога (syllabus.ts). Если модель их всё же прислала — примем.
   if (
-    !isStr(r.unitId) ||
-    !isStr(r.unitTitleFr) ||
-    !CEFR_LEVELS.includes(r.level as CefrLevel) ||
     typeof r.durationMinutes !== 'number' ||
     !(r.situation && typeof r.situation === 'object') ||
     !Array.isArray(r.exercises) ||
@@ -153,9 +153,11 @@ export function sanitizeSprint(text: string): SprintDraft | null {
   if (exercises.length === 0) return null
 
   return {
-    unitId: r.unitId,
-    unitTitleFr: r.unitTitleFr,
-    level: r.level as CefrLevel,
+    unitId: isStr(r.unitId) ? r.unitId : '',
+    unitTitleFr: isStr(r.unitTitleFr) ? r.unitTitleFr : '',
+    level: CEFR_LEVELS.includes(r.level as CefrLevel)
+      ? (r.level as CefrLevel)
+      : 'A1',
     durationMinutes: Math.min(10, Math.max(1, Math.round(r.durationMinutes))),
     situation: { titleFr: sit.titleFr, contextFr: sit.contextFr },
     exercises,
@@ -209,78 +211,47 @@ export function sanitizeVerdict(text: string): VerdictDraft | null {
 }
 
 // ------------------------------------------------------------
-// Deterministic fallback — одна функция на случай отсутствия
-// ключа/сети/невалидного JSON от модели. Это не «фейк-гейтвей»,
-// а гарантия прохождения спринта даже полностью оффлайн.
-// TODO(debt): заменить на полноценный local-каталог юнитов Édito,
-// когда оффлайн станет целью как таковой.
+// Deterministic fallback — гарантия прохождения спринта даже полностью
+// оффлайн / при невалидном JSON. Юнит берётся из каталога (syllabus.ts),
+// упражнения — шаблонные под тему и контекст пользователя.
 // ------------------------------------------------------------
-const FALLBACK_UNITS = [
-  {
-    unitId: 'a1-u1-se-presenter',
-    unitTitleFr: 'Se présenter au bloc / en réunion',
-    situation: {
-      titleFr: 'Faire connaissance',
-      contextFr:
-        'Вы знакомитесь с новой командой в клинике. Представьтесь и поддержите диалог.',
-    },
-  },
-  {
-    unitId: 'a1-u2-services-bancaires',
-    unitTitleFr: 'Ouvrir un compte en banque',
-    situation: {
-      titleFr: 'À la banque',
-      contextFr:
-        'Вы открываете банковский счёт после переезда. Отвечайте сотруднику банка.',
-    },
-  },
-]
-
 export function getFallbackSprint(
   persona: LearnerPersona,
   level: CefrLevel,
-  prevUnitId?: string,
+  unit: SyllabusUnit,
 ): SprintSession {
-  const baseIdx = FALLBACK_UNITS.findIndex((u) => u.unitId === prevUnitId)
-  const unit = FALLBACK_UNITS[(baseIdx + 1) % FALLBACK_UNITS.length]
   const target = persona.domainTags[0] ?? 'votre métier'
+  const hobby = persona.interestsFr[0] ?? 'le sport'
 
   return {
     id: makeId(),
-    unitId: unit.unitId,
-    unitTitleFr: unit.unitTitleFr,
+    unitId: unit.id,
+    unitTitleFr: unit.titleFr,
     level,
     durationMinutes: 5,
-    situation: unit.situation,
+    situation: {
+      titleFr: unit.titleFr,
+      contextFr: `Отработка темы «${unit.titleRu}» в бытовом диалоге. Отвечайте собеседнику по-французски.`,
+    },
     exercises: [
       {
         id: 'ex-1',
-        promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous ?`,
-        promptRu: `Поздоровайтесь и представьтесь (${persona.label}). Спросите собеседника, как его зовут.`,
-        expectedKeyPhrases: [
-          'je m\'appelle',
-          'je suis',
-          'enchanté',
-          'bonjour',
-        ],
+        promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous, que faites-vous ?`,
+        promptRu:
+          'Поздоровайтесь, представьтесь и коротко скажите, кем работаете.',
+        expectedKeyPhrases: ['je m\'appelle', 'je suis', 'enchanté', 'bonjour'],
       },
       {
         id: 'ex-2',
-        promptFr: `Parlez-moi de votre métier: qu'est-ce que vous faites exactement ?`,
-        promptRu: `Расскажите о своей работе. Используйте термин «${target}» и добавьте, что это сложно, но вам нравится.`,
-        expectedKeyPhrases: [
-          'je fais',
-          'je travaille',
-          'c\'est difficile',
-          'j\'aime',
-        ],
+        promptFr: `Parlez-moi de votre métier : qu'est-ce que vous faites exactement ?`,
+        promptRu: `Расскажите о работе. Используйте термин «${target}» и добавьте, что это сложно, но вам нравится.`,
+        expectedKeyPhrases: ['je fais', 'je travaille', 'c\'est difficile', 'j\'aime'],
       },
       {
         id: 'ex-3',
-        promptFr: 'Avez-vous des loisirs ? Moi, je fais du ski alpin.',
-        promptRu:
-          'Ответьте про увлечения: вы тоже катаетесь на лыжах и занимаетесь кикбоксингом.',
-        expectedKeyPhrases: ['je fais du ski', 'aussi', 'la boxe'],
+        promptFr: `Avez-vous des loisirs ? Moi, j'aime ${hobby}.`,
+        promptRu: `Ответьте про увлечения: упомяните «${hobby}» и ещё одно занятие.`,
+        expectedKeyPhrases: ['je fais', 'aussi', 'j\'aime'],
       },
     ],
     createdAt: new Date().toISOString(),
@@ -299,28 +270,25 @@ function makeId(): string {
 function buildSprintSystemPrompt(
   persona: LearnerPersona,
   level: CefrLevel,
-  prevUnitId?: string,
+  unit: SyllabusUnit,
 ): string {
   return [
     'Ты — дидакт французского по методу Édito (CEFR).',
     `Уровень ученика: ${level}.`,
     `Профиль: ${persona.professionFr}. Интересы: ${persona.interestsFr.join(', ')}.`,
     `Узкие термины: ${persona.domainTags.join(', ')}.`,
-    prevUnitId
-      ? `Предыдущий юнит: ${prevUnitId}. Выбери следующий логичный юнит.`
-      : 'Это первый спринт — выбери юнит уровня начала.',
+    `Юнит Édito: ${unit.id} — «${unit.titleFr}» (${unit.titleRu}).`,
+    'Построй бытовую ситуацию, в которой эта грамматическая тема реально нужна.',
     '',
     'Правило 70/30: 70% — академическая база Édito (быт/реальная жизнь), 30% — контекст профиля.',
     'Запрещено выдумывать жаргон: только реальные термины из области пользователя.',
     '',
     'Сгенерируй спринт на 4–6 минут: ситуация + ровно 3 упражнения-реплики диалога.',
+    'unitId и unitTitleFr не указывай — их подставит система.',
     'Верни ТОЛЬКО JSON без markdown-обёрток, по схеме:',
     '{',
-    '  "unitId": "string, например a1-u1-se-presenter",',
-    '  "unitTitleFr": "тема юнита по-французски",',
-    '  "level": "' + level + '",',
     '  "durationMinutes": 5,',
-    '  "situation": { "titleFr": "string", "contextFr": "string" },',
+    '  "situation": { "titleFr": "string", "contextFr": "string на русском — что от ученика хотят" },',
     '  "exercises": [',
     '    {',
     '      "id": "ex-1",',
@@ -365,17 +333,16 @@ function buildVerdictSystemPrompt(
 export async function generateSprint(
   persona: LearnerPersona,
   level: CefrLevel,
-  prevUnitId?: string,
+  unit: SyllabusUnit,
 ): Promise<SprintSession> {
   if (!WORKER_URL) {
-    // TODO(debt): без адреса прокси — демо-спринт; рабочий AI-путь
-    // включается после деплоя Worker'а и заполнения VITE_GEMINI_WORKER_URL.
-    return getFallbackSprint(persona, level, prevUnitId)
+    // Без адреса прокси — детерминированный демо-спринт по выбранному юниту.
+    return getFallbackSprint(persona, level, unit)
   }
 
   let text: string
   try {
-    text = await callGemini(buildSprintSystemPrompt(persona, level, prevUnitId), [
+    text = await callGemini(buildSprintSystemPrompt(persona, level, unit), [
       { text: 'Сгенерируй спринт.' },
     ])
   } catch (err) {
@@ -384,13 +351,79 @@ export async function generateSprint(
   }
 
   const draft = sanitizeSprint(text)
-  if (!draft) {
-    // TODO(debt): модель вернула невалидный JSON — вместо тихой деградации
-    // можно предложить «повторить запрос»; пока молча берём оффлайн-путь.
-    return getFallbackSprint(persona, level, prevUnitId)
+  if (!draft) return getFallbackSprint(persona, level, unit)
+
+  // unitId / unitTitleFr / level — из каталога, не из ответа модели.
+  return {
+    ...draft,
+    unitId: unit.id,
+    unitTitleFr: unit.titleFr,
+    level,
+    id: makeId(),
+    createdAt: new Date().toISOString(),
+  }
+}
+
+// ------------------------------------------------------------
+// Онбординг: свободный текст → структурированный контекст ученика
+// ------------------------------------------------------------
+export interface PersonaExtract {
+  professionFr: string
+  interestsFr: string[]
+  domainTags: string[]
+}
+
+function sanitizePersona(text: string): PersonaExtract | null {
+  const raw = extractJson(text)
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Record<string, unknown>
+  if (!isStr(r.professionFr)) return null
+  const arr = (v: unknown): string[] =>
+    Array.isArray(v) ? v.filter(isStr).slice(0, 6) : []
+  return {
+    professionFr: r.professionFr.trim(),
+    interestsFr: arr(r.interestsFr),
+    domainTags: arr(r.domainTags),
+  }
+}
+
+function fallbackPersona(text: string): PersonaExtract {
+  const parts = text
+    .split(/[,;\n]+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+  return {
+    professionFr: parts[0] ?? text.trim().slice(0, 80),
+    interestsFr: parts.slice(1, 4),
+    domainTags: [],
+  }
+}
+
+export async function extractPersona(text: string): Promise<PersonaExtract> {
+  const clean = text.trim()
+  if (!clean) throw new Error('EMPTY_INPUT')
+  if (!WORKER_URL) return fallbackPersona(clean)
+
+  let out: string
+  try {
+    out = await callGemini(
+      [
+        'Ты помогаешь настроить контекст ученика французского.',
+        'Из текста пользователя извлеки:',
+        '- professionFr: профессия одной фразой по-французски;',
+        '- interestsFr: 2–5 интересов/хобби по-французски (существительные);',
+        '- domainTags: 3–6 узких профессиональных терминов по-французски.',
+        'Только реальные слова, без выдуманного жаргона.',
+        'Верни ТОЛЬКО JSON: {"professionFr":"...","interestsFr":["..."],"domainTags":["..."]}',
+      ].join('\n'),
+      [{ text: clean }],
+    )
+  } catch (err) {
+    console.error('[gemini.persona]', err)
+    return fallbackPersona(clean)
   }
 
-  return { ...draft, id: makeId(), createdAt: new Date().toISOString() }
+  return sanitizePersona(out) ?? fallbackPersona(clean)
 }
 
 export async function evaluateAnswer(

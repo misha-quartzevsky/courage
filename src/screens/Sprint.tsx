@@ -8,6 +8,15 @@ import { evaluateAnswer } from '../lib/gemini'
 import { speakFr } from '../lib/speech'
 import { useRecorder } from '../hooks/useRecorder'
 import type { Mode } from './Cockpit'
+import {
+  AlertIcon,
+  ArrowRightIcon,
+  CheckIcon,
+  CloseIcon,
+  MicIcon,
+  SpeakerIcon,
+  StopIcon,
+} from '../lib/icons'
 
 interface SprintProps {
   sprint: SprintSession
@@ -48,9 +57,10 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
         const v = await evaluateAnswer(sprint, exercise, answer)
         setFeedback(v)
         setVerdicts((prev) => [...prev, v])
-      } catch {
+      } catch (err) {
+        console.error('evaluateAnswer failed', err)
         setServiceError(
-          'Прокси-сервис недоступен: проверьте VITE_GEMINI_WORKER_URL и что Worker задеплоен.',
+          'Не удалось проверить ответ. Проверьте соединение и попробуйте ещё раз.',
         )
       } finally {
         setEvaluating(false)
@@ -61,7 +71,7 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
 
   const handleMicClick = () => {
     if (recorder.error) {
-      setServiceError('Микрофон недоступен. Проверьте разрешения Safari.')
+      setServiceError('Нет доступа к микрофону. Разрешите его в настройках браузера.')
       return
     }
     if (recorder.isRecording) {
@@ -100,52 +110,67 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
   return (
     <main className="screen">
       <header className="topbar">
-        <span className="muted">
-          {sprint.unitTitleFr} · {idx + 1}/{exercises.length}
-        </span>
+        <div className="progress" aria-label={`Упражнение ${idx + 1} из ${exercises.length}`}>
+          {exercises.map((ex, i) => (
+            <span
+              key={ex.id}
+              className={`progress-seg${
+                i < idx ? ' progress-seg--done' : i === idx ? ' progress-seg--current' : ''
+              }`}
+            />
+          ))}
+        </div>
         <button
           type="button"
           className="btn btn-secondary btn-tight"
           onClick={onQuit}
         >
-          ✕ Выйти
+          <CloseIcon />
+          Quitter
         </button>
       </header>
 
-      <section className="card situation">
-        <p className="serif dialogue">{exercise.promptFr}</p>
+      <section className="card card-raised situation">
         <button
           type="button"
           className="btn-icon"
           aria-label="Озвучить ситуацию"
           onClick={() => speakFr(exercise.promptFr)}
         >
-          🔊
+          <SpeakerIcon />
         </button>
+        <p className="dialogue">{exercise.promptFr}</p>
         <p className="muted">{exercise.promptRu}</p>
       </section>
 
       {feedback ? (
         <section className="card feedback">
-          <div className="feedback-row">
-            <span className={feedback.passed ? 'ok' : 'warn'}>
-              {feedback.passed ? '✓ Верно' : '• Есть что поправить'}
+          <span className={`verdict ${feedback.passed ? 'verdict--ok' : 'verdict--warn'}`}>
+            {feedback.passed ? <CheckIcon /> : <AlertIcon />}
+            {feedback.passed ? 'Bien' : 'À revoir'}
+          </span>
+          <div className="scores">
+            <span>
+              Точность <b>{feedback.accuracy}%</b>
             </span>
-            <span>Точность {feedback.accuracy}%</span>
-            <span>Беглость {feedback.fluency}%</span>
+            <span>
+              Беглость <b>{feedback.fluency}%</b>
+            </span>
           </div>
-          <p className="serif">«{feedback.transcript}»</p>
-          <p>{feedback.feedbackRu}</p>
+
+          <p className="transcript">«{feedback.transcript}»</p>
+          {feedback.feedbackFr && <p className="feedback-fr">{feedback.feedbackFr}</p>}
+          {feedback.feedbackRu && <p className="feedback-ru">{feedback.feedbackRu}</p>}
 
           {feedback.issues.length > 0 && (
-            <ul className="issues">
+            <ul className="corrections">
               {feedback.issues.map((iss, i) => (
                 <li key={i}>
                   <span className="strike">{iss.snippet}</span>
-                  <span> → </span>
+                  <span className="arrow">→</span>
                   <strong>{iss.correctionFr}</strong>
                   {iss.correctionRu && (
-                    <span className="muted"> — {iss.correctionRu}</span>
+                    <span className="muted">{iss.correctionRu}</span>
                   )}
                 </li>
               ))}
@@ -158,9 +183,10 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
                 <button
                   key={i}
                   type="button"
-                  className="chip"
+                  className="word-chip"
                   onClick={() => speakFr(w.fr)}
                 >
+                  <SpeakerIcon />
                   {w.fr} <span className="muted">{w.ru}</span>
                 </button>
               ))}
@@ -173,14 +199,18 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
             disabled={evaluating}
             onClick={handleNext}
           >
-            {isLast ? 'Завершить спринт' : 'Следующее упражнение'}
+            {isLast ? 'Terminer' : 'Suivant'}
+            {!isLast && <ArrowRightIcon />}
           </button>
         </section>
       ) : (
         <section className="answer-area">
           {mode === 'voice' ? (
             <div className="voice-area">
-              <div className="wave" aria-hidden="true">
+              <div
+                className={`wave${recorder.isRecording ? ' wave--live' : ''}`}
+                aria-hidden="true"
+              >
                 {Array.from({ length: 28 }, (_, i) => (
                   <span
                     key={i}
@@ -200,16 +230,29 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
                 disabled={evaluating}
                 onClick={handleMicClick}
               >
-                {recorder.isRecording
-                  ? '⏹ Остановить'
-                  : evaluating
-                    ? 'Оцениваем…'
-                    : '🎙 Говорите'}
+                {recorder.isRecording ? (
+                  <>
+                    <StopIcon />
+                    Stop
+                  </>
+                ) : evaluating ? (
+                  <>
+                    <span className="spinner" />
+                    …
+                  </>
+                ) : (
+                  <>
+                    <MicIcon />
+                    Parler
+                  </>
+                )}
               </button>
-              <p className="muted">
+              <p className="hint">
                 {recorder.isRecording
                   ? 'Говорите — волна реагирует на голос'
-                  : 'Нажмите и отвечайте голосом'}
+                  : evaluating
+                    ? 'Оцениваем ответ…'
+                    : 'Нажмите и ответьте по-французски'}
               </p>
             </div>
           ) : (
@@ -226,15 +269,20 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
                 className="btn"
                 disabled={!textInput.trim() || evaluating}
               >
-                {evaluating ? 'Оцениваем…' : 'Проверить'}
+                {evaluating ? 'On vérifie…' : 'Vérifier'}
               </button>
             </form>
           )}
         </section>
       )}
 
-      {serviceError && <p className="error">{serviceError}</p>}
-      {recorder.error && <p className="error">{recorder.error}</p>}
+      {(serviceError || recorder.error) && (
+        <p className="error">
+          <AlertIcon />
+          {serviceError ??
+            'Нет доступа к микрофону. Разрешите его в настройках браузера.'}
+        </p>
+      )}
     </main>
   )
 }

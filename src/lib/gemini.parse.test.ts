@@ -2,7 +2,8 @@
 // парсинг JSON от Gemini — то, что ломается тихо и незаметно (EXP-001).
 import { describe, expect, it } from 'vitest'
 import { sanitizeSprint, sanitizeVerdict, getFallbackSprint } from './gemini'
-import { PERSONAS } from './personas'
+import { DEMO_PERSONA } from './personas'
+import { SYLLABUS } from './syllabus'
 
 describe('sanitizeSprint', () => {
   it('принимает чистый валидный JSON', () => {
@@ -32,6 +33,20 @@ describe('sanitizeSprint', () => {
     const sprint = sanitizeSprint(wrapped)
     expect(sprint?.unitId).toBe('a1-u3')
     expect(sprint?.exercises[0].expectedKeyPhrases).toEqual(['Je voudrais'])
+  })
+
+  it('валиден без unitId/unitTitleFr — их подставляет каталог', () => {
+    const text = JSON.stringify({
+      durationMinutes: 5,
+      situation: { titleFr: 'Au marché', contextFr: 'Вы на рынке' },
+      exercises: [
+        { id: 'ex-1', promptFr: 'Vous désirez ?', promptRu: 'Закажите', expectedKeyPhrases: ['Je voudrais'] },
+      ],
+    })
+    const sprint = sanitizeSprint(text)
+    expect(sprint).not.toBeNull()
+    expect(sprint?.unitId).toBe('')
+    expect(sprint?.exercises).toHaveLength(1)
   })
 
   it('отбрасывает невалидный JSON (галлюцинация/обрыв модели) — null', () => {
@@ -116,8 +131,9 @@ describe('sanitizeVerdict', () => {
 
 describe('getFallbackSprint', () => {
   it('всегда возвращает валидную сессию на 3 упражнения без сети', () => {
-    const sprint = getFallbackSprint(PERSONAS.surgeon, 'A1')
+    const sprint = getFallbackSprint(DEMO_PERSONA, 'A1', SYLLABUS[0])
     expect(sprint.exercises).toHaveLength(3)
+    expect(sprint.unitId).toBe(SYLLABUS[0].id)
     expect(sprint.unitTitleFr).toBeTruthy()
     expect(sprint.level).toBe('A1')
     expect(sanitizeSprint(JSON.stringify(sprint))).not.toBeNull()
