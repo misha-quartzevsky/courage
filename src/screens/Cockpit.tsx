@@ -13,6 +13,8 @@ interface CockpitProps {
   error: boolean
   streakDays: number
   partnerStreak: number | null
+  partnerName: string | null
+  userName: string | null
   onPersona: (p: LearnerPersona) => void
   onLevel: (l: CefrLevel) => void
   onMode: (m: Mode) => void
@@ -27,6 +29,8 @@ export function Cockpit({
   error,
   streakDays,
   partnerStreak,
+  partnerName,
+  userName,
   onPersona,
   onLevel,
   onMode,
@@ -35,10 +39,15 @@ export function Cockpit({
   return (
     <main className="screen">
       <header className="topbar">
-        <h1 className="app-title">Courage</h1>
+        <h1 className="app-title">
+          Courage{userName ? ` · ${userName}` : ''}
+        </h1>
         <div className="topbar-actions">
           {partnerStreak !== null && (
-            <span className="badge">👥 {partnerStreak} j</span>
+            <span className="badge">
+              👥 {partnerName ? `${partnerName} · ` : ''}
+              {partnerStreak} j
+            </span>
           )}
           <span className="badge">
             {streakDays > 0

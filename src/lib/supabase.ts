@@ -119,14 +119,15 @@ export async function updateProgress(progress: {
   return true
 }
 
-// Стрик партнёра: один SELECT по partner_id при открытии Cockpit (без realtime).
-export async function loadPartnerStreak(
+// Партнёр: один SELECT по partner_id при открытии Cockpit (без realtime).
+// Возвращаем стрик и имя — для бейджа «👥 Миша · 3 j».
+export async function loadPartner(
   partnerId: string,
-): Promise<number | null> {
+): Promise<{ streakCount: number; displayName: string | null } | null> {
   if (!supabase) return null
   const { data, error } = await supabase
     .from('profiles')
-    .select('streak_count')
+    .select('streak_count, display_name')
     .eq('id', partnerId)
     .maybeSingle()
   if (error) {
@@ -134,5 +135,6 @@ export async function loadPartnerStreak(
     return null
   }
   if (!data) return null
-  return (data as { streak_count: number }).streak_count ?? null
+  const row = data as { streak_count: number; display_name: string | null }
+  return { streakCount: row.streak_count ?? 0, displayName: row.display_name }
 }

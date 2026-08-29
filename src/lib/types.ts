@@ -76,6 +76,7 @@ export interface ProgressState {
 export interface SupabaseProfile {
   id: string
   user_id: string
+  display_name: string | null
   profession: ProfessionId | null
   target_level: CefrLevel | null
   streak_count: number

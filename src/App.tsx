@@ -14,7 +14,7 @@ import { PERSONAS } from './lib/personas'
 import { loadProgress, recordCompletion } from './lib/storage'
 import {
   getSession,
-  loadPartnerStreak,
+  loadPartner,
   loadProfile,
   onAuthChange,
   supabase,
@@ -32,7 +32,10 @@ export default function App() {
   const [booted, setBooted] = useState(false)
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<SupabaseProfile | null>(null)
-  const [partnerStreak, setPartnerStreak] = useState<number | null>(null)
+  const [partner, setPartner] = useState<{
+    streakCount: number
+    displayName: string | null
+  } | null>(null)
 
   const [screen, setScreen] = useState<Screen>('cockpit')
   const [persona, setPersona] = useState<LearnerPersona | null>(null)
@@ -51,7 +54,7 @@ export default function App() {
     setSession(s)
     if (!s) {
       setProfile(null)
-      setPartnerStreak(null)
+      setPartner(null)
       setPersona(null)
       return
     }
@@ -64,8 +67,7 @@ export default function App() {
       }
       if (p.target_level) setLevel(p.target_level)
       if (p.partner_id) {
-        const ps = await loadPartnerStreak(p.partner_id)
-        setPartnerStreak(ps)
+        setPartner(await loadPartner(p.partner_id))
       }
     }
   }, [])
@@ -156,8 +158,7 @@ export default function App() {
     const p = await loadProfile()
     setProfile(p)
     if (p?.partner_id) {
-      const ps = await loadPartnerStreak(p.partner_id)
-      setPartnerStreak(ps)
+      setPartner(await loadPartner(p.partner_id))
     }
   }, [session])
 
@@ -218,7 +219,9 @@ export default function App() {
       loading={loading}
       error={aiError}
       streakDays={streakDays}
-      partnerStreak={partnerStreak}
+      partnerStreak={partner?.streakCount ?? null}
+      partnerName={partner?.displayName ?? null}
+      userName={profile?.display_name ?? null}
       onPersona={handlePersona}
       onLevel={handleLevel}
       onMode={setMode}
