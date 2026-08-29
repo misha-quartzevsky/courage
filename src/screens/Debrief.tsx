@@ -1,4 +1,5 @@
 import type { CefrLevel, EvaluationVerdict, SprintSession } from '../lib/types'
+import type { SyllabusUnit } from '../lib/syllabus'
 import { speakFr } from '../lib/speech'
 import { SpeakerIcon } from '../lib/icons'
 
@@ -6,6 +7,7 @@ interface DebriefProps {
   sprint: SprintSession
   verdicts: EvaluationVerdict[]
   milestone: { level: CefrLevel; text: string } | null
+  next: SyllabusUnit | null
   onRetry: () => void
   onHome: () => void
 }
@@ -14,6 +16,7 @@ export function Debrief({
   sprint,
   verdicts,
   milestone,
+  next,
   onRetry,
   onHome,
 }: DebriefProps) {
@@ -29,6 +32,12 @@ export function Debrief({
       : band === 'warn'
         ? 'En progrès'
         : 'À retravailler'
+  const encouragement =
+    band === 'ok'
+      ? 'Тема уверенно закрыта — можно двигаться дальше.'
+      : band === 'warn'
+        ? 'Хороший прогресс. Ещё один заход закрепит.'
+        : 'Нормально для начала — пройдите ещё раз, станет легче.'
 
   const allIssues = verdicts.flatMap((v) => v.issues)
   const allWords = verdicts.flatMap((v) => v.learnedWords)
@@ -53,10 +62,7 @@ export function Debrief({
       <section className="card card-raised score-card">
         <div className={`score score--${band}`}>{avg}%</div>
         <div className="score-verdict">{verdictWord}</div>
-        <p className="muted">
-          Средняя точность · {verdicts.length} ответ
-          {verdicts.length === 1 ? '' : verdicts.length < 5 ? 'а' : 'ов'}
-        </p>
+        <p className="muted">{encouragement}</p>
         {verdicts.length > 0 && (
           <div className="dots" aria-hidden="true">
             {verdicts.map((v, i) => (
@@ -71,7 +77,7 @@ export function Debrief({
 
       {allIssues.length > 0 && (
         <section className="card">
-          <h2>Corrections</h2>
+          <h2>À affiner</h2>
           <ul className="corrections">
             {allIssues.map((iss, i) => (
               <li key={i}>
@@ -107,6 +113,12 @@ export function Debrief({
             ))}
           </ul>
         </section>
+      )}
+
+      {next && (
+        <p className="muted section-hint">
+          À suivre — {next.level} · Unité {next.unit} : {next.titleFr}
+        </p>
       )}
 
       <div className="spacer" />

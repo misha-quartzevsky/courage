@@ -412,18 +412,30 @@ function makeId(): string {
 // ------------------------------------------------------------
 // Промпт-инжиниринг: 70% база Édito + 30% персонализация
 // ------------------------------------------------------------
+function difficultyNote(priorBest?: number): string {
+  if (priorBest == null) return ''
+  if (priorBest < 60)
+    return 'Ученик уже пробовал эту тему (результат низкий) — сделай проще: короче реплики, больше опоры в promptRu, очевиднее варианты.'
+  if (priorBest > 85)
+    return 'Ученик уже проходил тему с высоким результатом — подними планку: длиннее реплики, меньше подсказок, одно упражнение повышенной трудности.'
+  return 'Ученик уже знаком с темой — держи средний уровень сложности.'
+}
+
 function buildSprintSystemPrompt(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
+  priorBest?: number,
 ): string {
   const digest = ruleDigest(rulesForUnit(unit.ruleIds))
+  const diff = difficultyNote(priorBest)
   return [
     'Ты — дидакт французского по методу Édito (CEFR).',
     `Уровень ученика: ${level}.`,
     `Профиль: ${persona.professionFr}. Интересы: ${persona.interestsFr.join(', ')}.`,
     `Узкие термины: ${persona.domainTags.join(', ')}.`,
     `Юнит Édito: ${unit.id} — «${unit.titleFr}» (${unit.titleRu}).`,
+    diff,
     '',
     'ПРАВИЛА ЮНИТА (упражнения должны отрабатывать именно их):',
     digest,
@@ -487,6 +499,7 @@ export async function generateSprint(
   persona: LearnerPersona,
   level: CefrLevel,
   unit: SyllabusUnit,
+  priorBest?: number,
 ): Promise<SprintSession> {
   if (!WORKER_URL) {
     // Без адреса прокси — детерминированный демо-спринт по выбранному юниту.
@@ -495,9 +508,10 @@ export async function generateSprint(
 
   let text: string
   try {
-    text = await callGemini(buildSprintSystemPrompt(persona, level, unit), [
-      { text: 'Сгенерируй спринт.' },
-    ])
+    text = await callGemini(
+      buildSprintSystemPrompt(persona, level, unit, priorBest),
+      [{ text: 'Сгенерируй спринт.' }],
+    )
   } catch (err) {
     console.error('[gemini.sprint]', err)
     throw new Error('GEMINI_UNAVAILABLE')

@@ -172,7 +172,8 @@ export default function App() {
     setLoading(true)
     setAiError(false)
     try {
-      const s = await generateSprint(persona, level, activeUnit)
+      const priorBest = progress?.units[activeUnit.id]?.bestAccuracy
+      const s = await generateSprint(persona, level, activeUnit, priorBest)
       setSprint(s)
       setVerdicts([])
       setScreen('sprint')
@@ -181,7 +182,7 @@ export default function App() {
     } finally {
       setLoading(false)
     }
-  }, [persona, level, activeUnit])
+  }, [persona, level, activeUnit, progress])
 
   const handleStartNext = useCallback(() => {
     openUnit(nextUnit(doneUnitIds(progress), level))
@@ -259,6 +260,7 @@ export default function App() {
         sprint={sprint}
         verdicts={verdicts}
         milestone={milestone}
+        next={nextUnit(doneUnitIds(progress), level)}
         onRetry={handleRetry}
         onHome={handleQuit}
       />
