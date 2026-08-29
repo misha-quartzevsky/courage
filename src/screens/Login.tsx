@@ -18,7 +18,11 @@ export function Login() {
     const res = await sendMagicLink(value)
     if (!res.ok) {
       console.error('sendMagicLink failed', res.error)
-      setError('Не удалось отправить ссылку. Проверьте адрес и попробуйте ещё раз.')
+      setError(
+        res.error
+          ? `Не удалось отправить ссылку: ${res.error}`
+          : 'Не удалось отправить ссылку. Проверьте адрес и попробуйте ещё раз.',
+      )
       setStatus('idle')
       return
     }
