@@ -50,7 +50,7 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
         setVerdicts((prev) => [...prev, v])
       } catch {
         setServiceError(
-          'Gemini недоступен: проверьте подключение к сети и API-ключ (VITE_GEMINI_API_KEY).',
+          'Прокси-сервис недоступен: проверьте VITE_GEMINI_WORKER_URL и что Worker задеплоен.',
         )
       } finally {
         setEvaluating(false)

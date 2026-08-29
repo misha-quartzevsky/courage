@@ -15,9 +15,13 @@ import type {
   VerdictDraft,
 } from './types'
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string | undefined
+// Транспорт: запросы идут через Cloudflare Worker-прокси (ключ — секрет
+// Worker'а, фронтенд его не видит). Без VITE_GEMINI_WORKER_URL — демо-режим.
+const WORKER_URL = (
+  import.meta.env.VITE_GEMINI_WORKER_URL as string | undefined
+)?.replace(/\/+$/, '')
 const MODEL = 'gemini-1.5-flash'
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`
+const ENDPOINT = `${WORKER_URL}/v1beta/models/${MODEL}:generateContent`
 
 // ------------------------------------------------------------
 // Низкоуровневый вызов REST
@@ -34,7 +38,7 @@ async function callGemini(
   systemPrompt: string,
   parts: GeminiPart[],
 ): Promise<string> {
-  const res = await fetch(`${ENDPOINT}?key=${API_KEY}`, {
+  const res = await fetch(ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -362,9 +366,9 @@ export async function generateSprint(
   level: CefrLevel,
   prevUnitId?: string,
 ): Promise<SprintSession> {
-  if (!API_KEY) {
-    // TODO(debt): без ключа — детерминированный каталог; вернёмся к
-    // AI-пути после появления API-ключа.
+  if (!WORKER_URL) {
+    // TODO(debt): без адреса прокси — демо-спринт; рабочий AI-путь
+    // включается после деплоя Worker'а и заполнения VITE_GEMINI_WORKER_URL.
     return getFallbackSprint(persona, level, prevUnitId)
   }
 
@@ -395,9 +399,9 @@ export async function evaluateAnswer(
     | { type: 'voice'; audioBase64: string; mimeType: string }
     | { type: 'text'; text: string },
 ): Promise<EvaluationVerdict> {
-  if (!API_KEY) {
-    // TODO(debt): оффлайн-оценка (совпадение ключевых фраз) — когда будет
-    // цель «спринт без интернета»; пока голос без ключа не оцениваем.
+  if (!WORKER_URL) {
+    // TODO(debt): оффлайн-оценка (совпадение ключевых фраз) — для полноценного
+    // демо-режима; сейчас без прокси оценивать нечем.
     throw new Error('GEMINI_UNAVAILABLE')
   }
 

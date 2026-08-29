@@ -1,0 +1,3 @@
+name = "courage-gemini-proxy"
+main = "worker/worker.ts"
+compatibility_date = "2026-01-01"
