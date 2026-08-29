@@ -12,7 +12,12 @@ import type {
 import { generateSprint } from './lib/gemini'
 import { DEMO_PERSONA } from './lib/personas'
 import { doneUnitIds, loadProgress, mergeServerProgress, recordCompletion } from './lib/storage'
-import { nextUnit, type SyllabusUnit } from './lib/syllabus'
+import {
+  LEVEL_ACHIEVEMENT,
+  levelComplete,
+  nextUnit,
+  type SyllabusUnit,
+} from './lib/syllabus'
 import {
   getSession,
   loadPartner,
@@ -70,6 +75,10 @@ export default function App() {
     null,
   )
   const [verdicts, setVerdicts] = useState<EvaluationVerdict[]>([])
+  const [milestone, setMilestone] = useState<{
+    level: CefrLevel
+    text: string
+  } | null>(null)
   const [loading, setLoading] = useState(false)
   const [aiError, setAiError] = useState(false)
 
@@ -185,11 +194,20 @@ export default function App() {
         const avg = vs.length
           ? Math.round(vs.reduce((a, v) => a + v.accuracy, 0) / vs.length)
           : 0
-        setProgress(recordCompletion(sprint, avg))
+        const before = doneUnitIds(progress)
+        const nextProgress = recordCompletion(sprint, avg)
+        setProgress(nextProgress)
+        const lvl = sprint.level
+        const justCompleted =
+          levelComplete(lvl, doneUnitIds(nextProgress)) &&
+          !levelComplete(lvl, before)
+        setMilestone(
+          justCompleted ? { level: lvl, text: LEVEL_ACHIEVEMENT[lvl] } : null,
+        )
       }
       setScreen('debrief')
     },
-    [sprint],
+    [sprint, progress],
   )
 
   const handleRetry = useCallback(() => {
@@ -207,6 +225,7 @@ export default function App() {
     setActiveUnit(null)
     setVerdicts([])
     setRetryExercises(null)
+    setMilestone(null)
     void refreshProfile()
     setScreen('cockpit')
   }, [refreshProfile])
@@ -239,6 +258,7 @@ export default function App() {
       <Debrief
         sprint={sprint}
         verdicts={verdicts}
+        milestone={milestone}
         onRetry={handleRetry}
         onHome={handleQuit}
       />

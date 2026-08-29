@@ -1,15 +1,22 @@
-import type { EvaluationVerdict, SprintSession } from '../lib/types'
+import type { CefrLevel, EvaluationVerdict, SprintSession } from '../lib/types'
 import { speakFr } from '../lib/speech'
 import { SpeakerIcon } from '../lib/icons'
 
 interface DebriefProps {
   sprint: SprintSession
   verdicts: EvaluationVerdict[]
+  milestone: { level: CefrLevel; text: string } | null
   onRetry: () => void
   onHome: () => void
 }
 
-export function Debrief({ sprint, verdicts, onRetry, onHome }: DebriefProps) {
+export function Debrief({
+  sprint,
+  verdicts,
+  milestone,
+  onRetry,
+  onHome,
+}: DebriefProps) {
   const avg = verdicts.length
     ? Math.round(verdicts.reduce((a, v) => a + v.accuracy, 0) / verdicts.length)
     : 0
@@ -33,6 +40,15 @@ export function Debrief({ sprint, verdicts, onRetry, onHome }: DebriefProps) {
         <h1 className="screen-title">{sprint.unitTitleFr}</h1>
         <p className="muted">{sprint.level}</p>
       </header>
+
+      {milestone && (
+        <section className="card milestone">
+          <p className="milestone-title">
+            🎉 Parcours {milestone.level} terminé
+          </p>
+          <p className="muted">{milestone.text}</p>
+        </section>
+      )}
 
       <section className="card card-raised score-card">
         <div className={`score score--${band}`}>{avg}%</div>

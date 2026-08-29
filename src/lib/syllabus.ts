@@ -78,6 +78,39 @@ export function isBelowLevel(unit: SyllabusUnit, fromLevel?: CefrLevel): boolean
   return fromLevel ? levelIndex(unit.level) < levelIndex(fromLevel) : false
 }
 
+/** Все юниты уровня пройдены. */
+export function levelComplete(
+  level: CefrLevel,
+  doneIds: Set<string>,
+): boolean {
+  const units = SYLLABUS.filter((u) => u.level === level)
+  return units.length > 0 && units.every((u) => doneIds.has(u.id))
+}
+
+/** Прогресс по курсу, начиная со стартового уровня ученика. */
+export function courseProgress(
+  doneIds: Set<string>,
+  fromLevel?: CefrLevel,
+): { done: number; total: number; pct: number; lastLevel: CefrLevel } {
+  const scope = SYLLABUS.filter((u) => !isBelowLevel(u, fromLevel))
+  const done = scope.filter((u) => doneIds.has(u.id)).length
+  const total = scope.length || 1
+  return {
+    done,
+    total,
+    pct: Math.round((done / total) * 100),
+    lastLevel: scope[scope.length - 1]?.level ?? 'B1',
+  }
+}
+
+/** Что ученик умеет после закрытия уровня — для баннера вехи. */
+export const LEVEL_ACHIEVEMENT: Record<CefrLevel, string> = {
+  A1: 'теперь вы ведёте простой бытовой разговор',
+  A2: 'теперь вы свободно говорите о прошлом и планах',
+  B1: 'теперь вы объясняете, спорите и строите сложные фразы',
+  B2: 'вы владеете языком уверенно и в деталях',
+}
+
 /**
  * Первый непройденный юнит на стартовом уровне и выше (рекомендованный «дальше»).
  * Юниты ниже fromLevel пропускаются. Fallback — последний юнит каталога.

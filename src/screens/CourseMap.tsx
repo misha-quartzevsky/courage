@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { CefrLevel, ProgressState } from '../lib/types'
 import {
   isBelowLevel,
@@ -6,12 +7,103 @@ import {
   type SyllabusUnit,
 } from '../lib/syllabus'
 import { doneUnitIds } from '../lib/storage'
-import { ArrowRightIcon, CheckIcon } from '../lib/icons'
+import { ArrowRightIcon, CheckIcon, ChevronIcon } from '../lib/icons'
 
 interface CourseMapProps {
   progress: ProgressState | null
   level: CefrLevel
   onStartUnit: (u: SyllabusUnit) => void
+}
+
+interface LevelSectionProps {
+  group: { level: CefrLevel; units: SyllabusUnit[] }
+  done: Set<string>
+  nextId: string
+  below: boolean
+  defaultOpen: boolean
+  progress: ProgressState | null
+  onStartUnit: (u: SyllabusUnit) => void
+}
+
+function LevelSection({
+  group,
+  done,
+  nextId,
+  below,
+  defaultOpen,
+  progress,
+  onStartUnit,
+}: LevelSectionProps) {
+  const [open, setOpen] = useState(defaultOpen)
+  const doneCount = group.units.filter((u) => done.has(u.id)).length
+  const complete = doneCount === group.units.length
+
+  return (
+    <section className={`card${below ? ' card-dim' : ''}`}>
+      <button
+        type="button"
+        className="level-toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <ChevronIcon />
+        <span className="level-name">Parcours {group.level}</span>
+        <span className="course-count">
+          {below ? (
+            'ниже вашего уровня'
+          ) : complete ? (
+            <>
+              <CheckIcon /> {group.units.length}/{group.units.length}
+            </>
+          ) : (
+            `${doneCount}/${group.units.length}`
+          )}
+        </span>
+      </button>
+
+      {open && (
+        <ul className="unit-list">
+          {group.units.map((u) => {
+            const isDone = done.has(u.id)
+            const isNext = !isDone && u.id === nextId
+            const rec = progress?.units[u.id]
+            return (
+              <li key={u.id}>
+                <button
+                  type="button"
+                  className={`unit-row${isNext ? ' unit-row--next' : ''}`}
+                  onClick={() => onStartUnit(u)}
+                >
+                  <span
+                    className={`unit-mark${
+                      isDone
+                        ? ' unit-mark--done'
+                        : isNext
+                          ? ' unit-mark--next'
+                          : ''
+                    }`}
+                  >
+                    {isDone ? (
+                      <CheckIcon />
+                    ) : isNext ? (
+                      <ArrowRightIcon />
+                    ) : null}
+                  </span>
+                  <span className="unit-label">
+                    <span className="unit-no">U{u.unit}</span>
+                    {u.titleFr}
+                  </span>
+                  {isDone && rec && (
+                    <span className="unit-score">{rec.bestAccuracy}%</span>
+                  )}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </section>
+  )
 }
 
 export function CourseMap({ progress, level, onStartUnit }: CourseMapProps) {
@@ -22,59 +114,19 @@ export function CourseMap({ progress, level, onStartUnit }: CourseMapProps) {
   return (
     <div className="course-map">
       {groups.map((group) => {
-        const doneCount = group.units.filter((u) => done.has(u.id)).length
         const below = isBelowLevel(group.units[0], level)
+        const hasNext = group.units.some((u) => u.id === next.id)
         return (
-          <section
-            className={`card${below ? ' card-dim' : ''}`}
+          <LevelSection
             key={group.level}
-          >
-            <h2>
-              Parcours {group.level}
-              <span className="course-count">
-                {below ? 'ниже вашего уровня' : `${doneCount}/${group.units.length}`}
-              </span>
-            </h2>
-            <ul className="unit-list">
-              {group.units.map((u) => {
-                const isDone = done.has(u.id)
-                const isNext = !isDone && u.id === next.id
-                const rec = progress?.units[u.id]
-                return (
-                  <li key={u.id}>
-                    <button
-                      type="button"
-                      className={`unit-row${isNext ? ' unit-row--next' : ''}`}
-                      onClick={() => onStartUnit(u)}
-                    >
-                      <span
-                        className={`unit-mark${
-                          isDone
-                            ? ' unit-mark--done'
-                            : isNext
-                              ? ' unit-mark--next'
-                              : ''
-                        }`}
-                      >
-                        {isDone ? (
-                          <CheckIcon />
-                        ) : isNext ? (
-                          <ArrowRightIcon />
-                        ) : null}
-                      </span>
-                      <span className="unit-label">
-                        <span className="unit-no">U{u.unit}</span>
-                        {u.titleFr}
-                      </span>
-                      {isDone && rec && (
-                        <span className="unit-score">{rec.bestAccuracy}%</span>
-                      )}
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-          </section>
+            group={group}
+            done={done}
+            nextId={next.id}
+            below={below}
+            defaultOpen={group.level === level || hasNext}
+            progress={progress}
+            onStartUnit={onStartUnit}
+          />
         )
       })}
     </div>

@@ -43,7 +43,13 @@ export const CloseIcon = (p: IconProps) => (
 
 export const FlameIcon = (p: IconProps) => (
   <Svg {...p}>
-    <path d="M12 3c1 3 4 4.5 4 8a4 4 0 0 1-8 0c0-1.2.4-2 1-2.8C8 10 8 12 8 12 6.5 10.5 6 8.8 6 7c0 5 2 8 6 8s6-3.6 6-7c0-4.2-3-6-6-9Z" />
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z" />
+  </Svg>
+)
+
+export const ChevronIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M9 6l6 6-6 6" />
   </Svg>
 )
 

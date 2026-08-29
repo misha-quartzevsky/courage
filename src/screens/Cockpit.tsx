@@ -1,6 +1,6 @@
 import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
 import { doneUnitIds } from '../lib/storage'
-import { nextUnit, type SyllabusUnit } from '../lib/syllabus'
+import { courseProgress, nextUnit, type SyllabusUnit } from '../lib/syllabus'
 import {
   AlertIcon,
   ArrowRightIcon,
@@ -47,7 +47,9 @@ export function Cockpit({
   onOpenSettings,
   onOpenCodex,
 }: CockpitProps) {
-  const next = nextUnit(doneUnitIds(progress), level)
+  const done = doneUnitIds(progress)
+  const next = nextUnit(done, level)
+  const cp = courseProgress(done, level)
 
   return (
     <main className="screen">
@@ -93,6 +95,18 @@ export function Cockpit({
         </div>
       )}
 
+      <div className="course-progress">
+        <div className="course-progress-head">
+          <span>
+            {cp.done} / {cp.total} юнитов
+          </span>
+          <span className="muted">{cp.pct}% пути до {cp.lastLevel}</span>
+        </div>
+        <div className="course-progress-bar" aria-hidden="true">
+          <span style={{ width: `${cp.pct}%` }} />
+        </div>
+      </div>
+
       <section className="card card-raised preview">
         <p className="eyebrow">Prochaine leçon</p>
         <p className="preview-line">
@@ -102,7 +116,7 @@ export function Cockpit({
           {next.titleFr}
         </p>
         <div className="preview-meta">
-          <span>3 упражнения · 4–6 мин</span>
+          <span>6 упражнений · 5–8 мин</span>
           {persona && <span>{persona.professionFr}</span>}
         </div>
 

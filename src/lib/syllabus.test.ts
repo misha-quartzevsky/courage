@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 import {
   SYLLABUS,
   availableLevels,
+  courseProgress,
   isBelowLevel,
+  levelComplete,
   nextUnit,
   syllabusByLevel,
   unitById,
@@ -54,6 +56,23 @@ describe('syllabus', () => {
     expect(isBelowLevel(a1u1, 'A2')).toBe(true)
     expect(isBelowLevel(b1u1, 'A2')).toBe(false)
     expect(isBelowLevel(a1u1, undefined)).toBe(false)
+  })
+
+  it('levelComplete — все юниты уровня пройдены', () => {
+    const a1 = SYLLABUS.filter((u) => u.level === 'A1').map((u) => u.id)
+    expect(levelComplete('A1', new Set())).toBe(false)
+    expect(levelComplete('A1', new Set(a1.slice(0, 11)))).toBe(false)
+    expect(levelComplete('A1', new Set(a1))).toBe(true)
+  })
+
+  it('courseProgress считает от стартового уровня', () => {
+    const p0 = courseProgress(new Set(), 'A2')
+    expect(p0.total).toBe(24) // A2 + B1
+    expect(p0.done).toBe(0)
+    expect(p0.lastLevel).toBe('B1')
+    const p1 = courseProgress(new Set(['a2-u1', 'a2-u2', 'a1-u1']), 'A2')
+    expect(p1.done).toBe(2) // a1-u1 вне scope
+    expect(p1.pct).toBe(Math.round((2 / 24) * 100))
   })
 
   it('syllabusByLevel группирует по уровню', () => {
