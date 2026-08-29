@@ -17,7 +17,7 @@ export function Revision({ progress, loading, error, onStart }: RevisionProps) {
   return (
     <main className="screen">
       <header>
-        <p className="eyebrow">Révision</p>
+        <p className="eyebrow">Тренажёр</p>
         <h1 className="screen-title serif">Повторение</h1>
         <p className="muted">
           Возвращаемся к выученным словам и темам, где были ошибки. Курсовой

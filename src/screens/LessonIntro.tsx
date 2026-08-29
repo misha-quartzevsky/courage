@@ -39,8 +39,8 @@ export function LessonIntro({
         </button>
       </header>
 
-      <h1 className="screen-title serif">{unit.titleFr}</h1>
-      <p className="muted">{unit.titleRu}</p>
+      <h1 className="screen-title">{unit.titleRu}</h1>
+      <p className="muted serif">{unit.titleFr}</p>
 
       {rules.length === 0 && (
         <p className="muted">Для этого юнита нет разбора — сразу к практике.</p>

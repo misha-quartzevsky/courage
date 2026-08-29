@@ -47,7 +47,7 @@ function LevelSection({
         onClick={() => setOpen((v) => !v)}
       >
         <ChevronIcon />
-        <span className="level-name">Parcours {group.level}</span>
+        <span className="level-name">Уровень {group.level}</span>
         <span className="course-count">
           {below ? (
             'ниже вашего уровня'
@@ -90,8 +90,13 @@ function LevelSection({
                     ) : null}
                   </span>
                   <span className="unit-label">
-                    <span className="unit-no">U{u.unit}</span>
-                    {u.titleFr}
+                    <span className="unit-text">
+                      <span className="unit-title-ru">
+                        <span className="unit-no">U{u.unit}</span>
+                        {u.titleRu}
+                      </span>
+                      <span className="unit-sub">{u.titleFr}</span>
+                    </span>
                   </span>
                   {isDone && rec && (
                     <span className="unit-score">{rec.bestAccuracy}%</span>

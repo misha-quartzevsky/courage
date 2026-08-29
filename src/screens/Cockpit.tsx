@@ -50,7 +50,7 @@ export function Cockpit({
         {streakDays > 0 && (
           <span className="badge badge-flame">
             <FlameIcon />
-            {streakDays} j
+            {streakDays} дн.
           </span>
         )}
       </header>
@@ -62,7 +62,7 @@ export function Cockpit({
           </span>
           <span>
             {partnerName ? `${partnerName} · ` : 'Партнёр · '}
-            {partnerStreak} jour{partnerStreak > 1 ? 's' : ''} de suite
+            {partnerStreak} дн. подряд
           </span>
         </div>
       )}
@@ -80,12 +80,13 @@ export function Cockpit({
       </div>
 
       <section className="card card-raised preview">
-        <p className="eyebrow">Prochaine leçon</p>
+        <p className="eyebrow">Следующий урок</p>
         <p className="preview-line">
           <span className="preview-unit">
-            {next.level} · Unité {next.unit}
+            {next.level} · Юнит {next.unit}
           </span>
-          {next.titleFr}
+          {next.titleRu}
+          <span className="preview-sub">{next.titleFr}</span>
         </p>
         <div className="preview-meta">
           <span>6 упражнений · 5–8 мин</span>
@@ -98,14 +99,14 @@ export function Cockpit({
             className={mode === 'voice' ? 'seg seg--active' : 'seg'}
             onClick={() => onMode('voice')}
           >
-            Voix
+            Голос
           </button>
           <button
             type="button"
             className={mode === 'text' ? 'seg seg--active' : 'seg'}
             onClick={() => onMode('text')}
           >
-            Silencieux
+            Текст
           </button>
         </div>
 
@@ -122,7 +123,7 @@ export function Cockpit({
           disabled={loading || !persona}
           onClick={onStartNext}
         >
-          {loading ? 'On prépare…' : 'Commencer'}
+          {loading ? 'Готовим…' : 'Начать'}
           {!loading && <ArrowRightIcon />}
         </button>
       </section>

@@ -3,10 +3,10 @@ import { BookIcon, HomeIcon, PersonIcon, RefreshIcon } from '../lib/icons'
 export type Tab = 'cours' | 'revision' | 'codex' | 'profil'
 
 const TABS: { id: Tab; label: string; Icon: typeof HomeIcon }[] = [
-  { id: 'cours', label: 'Cours', Icon: HomeIcon },
-  { id: 'revision', label: 'Révision', Icon: RefreshIcon },
-  { id: 'codex', label: 'Guide', Icon: BookIcon },
-  { id: 'profil', label: 'Profil', Icon: PersonIcon },
+  { id: 'cours', label: 'Курс', Icon: HomeIcon },
+  { id: 'revision', label: 'Повторение', Icon: RefreshIcon },
+  { id: 'codex', label: 'Справочник', Icon: BookIcon },
+  { id: 'profil', label: 'Профиль', Icon: PersonIcon },
 ]
 
 interface TabBarProps {

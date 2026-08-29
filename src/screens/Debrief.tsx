@@ -1,5 +1,5 @@
 import type { CefrLevel, EvaluationVerdict, SprintSession } from '../lib/types'
-import type { SyllabusUnit } from '../lib/syllabus'
+import { unitById, type SyllabusUnit } from '../lib/syllabus'
 import { speakFr } from '../lib/speech'
 import { SpeakerIcon } from '../lib/icons'
 
@@ -28,10 +28,13 @@ export function Debrief({
   const band = avg >= 80 ? 'ok' : avg >= 55 ? 'warn' : 'danger'
   const verdictWord =
     band === 'ok'
-      ? 'Solide'
+      ? 'Отлично'
       : band === 'warn'
-        ? 'En progrès'
-        : 'À retravailler'
+        ? 'Неплохо'
+        : 'Нужно повторить'
+  const titleRu = sprint.revision
+    ? 'Повторение'
+    : unitById(sprint.unitId)?.titleRu ?? sprint.unitTitleFr
   const encouragement =
     band === 'ok'
       ? 'Тема уверенно закрыта — можно двигаться дальше.'
@@ -45,15 +48,18 @@ export function Debrief({
   return (
     <main className="screen">
       <header>
-        <p className="eyebrow">Bilan du sprint</p>
-        <h1 className="screen-title">{sprint.unitTitleFr}</h1>
-        <p className="muted">{sprint.level}</p>
+        <p className="eyebrow">Итог спринта</p>
+        <h1 className="screen-title">{titleRu}</h1>
+        <p className="muted">
+          {sprint.level}
+          {!sprint.revision && ` · ${sprint.unitTitleFr}`}
+        </p>
       </header>
 
       {milestone && (
         <section className="card milestone">
           <p className="milestone-title">
-            🎉 Parcours {milestone.level} terminé
+            🎉 Уровень {milestone.level} пройден
           </p>
           <p className="muted">{milestone.text}</p>
         </section>
@@ -77,7 +83,7 @@ export function Debrief({
 
       {allIssues.length > 0 && (
         <section className="card">
-          <h2>À affiner</h2>
+          <h2>Разбор ошибок</h2>
           <ul className="corrections">
             {allIssues.map((iss, i) => (
               <li key={i}>
@@ -95,7 +101,7 @@ export function Debrief({
 
       {allWords.length > 0 && (
         <section className="card">
-          <h2>Mots du jour</h2>
+          <h2>Новые слова</h2>
           <ul className="words">
             {allWords.map((w, i) => (
               <li key={i}>
@@ -117,7 +123,7 @@ export function Debrief({
 
       {next && (
         <p className="muted section-hint">
-          À suivre — {next.level} · Unité {next.unit} : {next.titleFr}
+          Дальше — {next.level} · Юнит {next.unit}: {next.titleRu}
         </p>
       )}
 
@@ -126,15 +132,15 @@ export function Debrief({
       {failedCount > 0 ? (
         <>
           <button type="button" className="btn btn-lg" onClick={onRetry}>
-            Corriger mes erreurs
+            Повторить ошибки
           </button>
           <button type="button" className="btn btn-secondary" onClick={onHome}>
-            Retour à l'accueil
+            На главную
           </button>
         </>
       ) : (
         <button type="button" className="btn btn-lg" onClick={onHome}>
-          Retour à l'accueil
+          На главную
         </button>
       )}
     </main>

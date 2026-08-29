@@ -188,7 +188,7 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
           onClick={onQuit}
         >
           <CloseIcon />
-          Quitter
+          Выйти
         </button>
       </header>
 
@@ -292,7 +292,7 @@ function FeedbackCard({
       )}
 
       <button type="button" className="btn" onClick={onNext}>
-        {isLast ? 'Terminer' : 'Suivant'}
+        {isLast ? 'Завершить' : 'Дальше'}
         {!isLast && <ArrowRightIcon />}
       </button>
     </section>
@@ -362,7 +362,7 @@ function DialoguePane({
               {recorder.isRecording ? (
                 <>
                   <StopIcon />
-                  Stop
+                  Стоп
                 </>
               ) : evaluating ? (
                 <>
@@ -371,7 +371,7 @@ function DialoguePane({
               ) : (
                 <>
                   <MicIcon />
-                  Parler
+                  Говорить
                 </>
               )}
             </button>
@@ -397,7 +397,7 @@ function DialoguePane({
               className="btn"
               disabled={!textInput.trim() || evaluating}
             >
-              {evaluating ? 'On vérifie…' : 'Vérifier'}
+              {evaluating ? 'Проверяем…' : 'Проверить'}
             </button>
           </form>
         )}
@@ -449,7 +449,7 @@ function GapPane({
         disabled={!ready}
         onClick={() => onSubmit(values)}
       >
-        Vérifier
+        Проверить
       </button>
     </section>
   )
@@ -538,7 +538,7 @@ function OrderPane({
         disabled={bank.length > 0}
         onClick={() => onSubmit(line.map((x) => x.t))}
       >
-        Vérifier
+        Проверить
       </button>
     </section>
   )
@@ -572,7 +572,7 @@ function TransformPane({
           autoFocus
         />
         <button type="submit" className="btn" disabled={!value.trim()}>
-          Vérifier
+          Проверить
         </button>
       </form>
     </section>
@@ -655,7 +655,7 @@ function MatchPane({
           disabled={!ready}
           onClick={() => onSubmit(links as number[])}
         >
-          Vérifier
+          Проверить
         </button>
       </div>
     </section>
