@@ -1,5 +1,7 @@
 /**
- * Courage — Cloudflare Worker-прокси для Gemini 1.5 Flash.
+ * Courage — Cloudflare Worker-прокси для Gemini (актуальная модель через
+ * алиас *-latest, см. MODEL в src/lib/gemini.ts).
+ *
  *
  * Зачем: Google геоблокирует API по IP из России. Запрос уходит с серверов
  * Cloudflare (не блокируются), а не напрямую с клиента.

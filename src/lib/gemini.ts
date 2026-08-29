@@ -20,7 +20,8 @@ import type {
 const WORKER_URL = (
   import.meta.env.VITE_GEMINI_WORKER_URL as string | undefined
 )?.replace(/\/+$/, '')
-const MODEL = 'gemini-1.5-flash'
+// Модель через алиас *-latest: конкретные версии (1.5/2.0/2.5) сняты с API.
+const MODEL = 'gemini-flash-lite-latest'
 const ENDPOINT = `${WORKER_URL}/v1beta/models/${MODEL}:generateContent`
 
 // ------------------------------------------------------------
