@@ -154,7 +154,9 @@ export interface SupabaseProfile {
   best_accuracy: number
   last_completed_at: string | null
   reminder_hour: number | null // локальный час ежедневного пуш-напоминания (0–23)
+  reminder_hour_to: number | null // если задан — окно [reminder_hour, reminder_hour_to], час выбирается случайно по дате
   last_notified_on: string | null // дата последнего отправленного пуша (YYYY-MM-DD)
+  bonjour_easter_done: boolean | null // пасхалка «Бомжур» уже показана
   partner_id: string | null
   created_at: string
   updated_at: string

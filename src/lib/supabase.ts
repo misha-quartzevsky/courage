@@ -111,6 +111,7 @@ export interface ProfilePatch {
   target_level?: CefrLevel
   display_name?: string
   reminder_hour?: number
+  reminder_hour_to?: number | null
 }
 
 export async function updateProfile(patch: ProfilePatch): Promise<boolean> {

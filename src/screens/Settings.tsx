@@ -16,6 +16,7 @@ interface SettingsProps {
   persona: LearnerPersona | null
   level: CefrLevel
   reminderHour: number
+  reminderHourTo: number | null
   canSignOut: boolean
   onSave: (patch: ProfilePatch) => void | Promise<void>
   onSignOut: () => void
@@ -31,6 +32,7 @@ export function Settings({
   persona,
   level,
   reminderHour,
+  reminderHourTo,
   canSignOut,
   onSave,
   onSignOut,
@@ -179,14 +181,29 @@ export function Settings({
               <>
                 <p className="muted section-hint">Присылать напоминание в:</p>
                 <div className="chips">
+                  <button
+                    type="button"
+                    className={`chip${
+                      reminderHourTo != null ? ' chip--active' : ''
+                    }`}
+                    onClick={() =>
+                      void onSave({ reminder_hour: 19, reminder_hour_to: 21 })
+                    }
+                  >
+                    19–21, случайно
+                  </button>
                   {HOURS.map((h) => (
                     <button
                       key={h}
                       type="button"
                       className={`chip${
-                        reminderHour === h ? ' chip--active' : ''
+                        reminderHourTo == null && reminderHour === h
+                          ? ' chip--active'
+                          : ''
                       }`}
-                      onClick={() => void onSave({ reminder_hour: h })}
+                      onClick={() =>
+                        void onSave({ reminder_hour: h, reminder_hour_to: null })
+                      }
                     >
                       {h}:00
                     </button>

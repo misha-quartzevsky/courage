@@ -16,6 +16,9 @@
  */
 
 import { buildPushPayload } from '@block65/webcrypto-web-push'
+import { nextSession } from '../src/lib/syllabus'
+import { getRule } from '../src/lib/grammar'
+import { buildTeaser } from '../src/lib/teaser'
 
 export interface Env {
   GEMINI_API_KEY: string
@@ -104,9 +107,12 @@ export default {
 interface ProfileRow {
   user_id: string
   reminder_hour: number | null
+  reminder_hour_to: number | null
   last_notified_on: string | null
   last_completed_at: string | null
-  streak_count: number | null
+  target_level: string | null
+  bonjour_easter_done: boolean | null
+  progress: { rules?: Record<string, unknown> } | null
 }
 
 interface SubRow {
@@ -121,17 +127,38 @@ interface SubRow {
 const TZ = 'Europe/Moscow'
 
 // ─────────────────────────────────────────────────────────────────────
-//  ТЕКСТ УВЕДОМЛЕНИЯ — меняй здесь.
-//  title — жирная строка, body — текст под ней, url — куда ведёт тап.
+//  ТЕКСТ УВЕДОМЛЕНИЯ.
+//  Обычный пуш — затравка под ближайшее правило (src/lib/teaser.ts),
+//  тап ведёт сразу в разминку этого правила (url = /?rule=<id>).
+//  Первый пуш в жизни аккаунта — пасхалка ниже.
 // ─────────────────────────────────────────────────────────────────────
-const PUSH_TITLE = 'Courage'
-const PUSH_URL = '/'
+const FALLBACK_TITLE = 'Courage'
+const FALLBACK_BODY = 'Пора позаниматься французским. 2 минуты.'
+const FALLBACK_URL = '/'
 
-function pushBody(streakDays: number): string {
-  if (streakDays > 1) {
-    return `Серия ${streakDays} дней — не прерывай. 5 минут французского сейчас.`
+const BONJOUR_EASTER = {
+  title: 'Бомжур',
+  body: 'А Грейс уже почти выучила французский.',
+  url: '/',
+}
+
+// Маленький детерминированный хэш строки → uint32 (как hashSeed в warmup.ts).
+function hashInt(str: string): number {
+  let h = 1779033703 ^ str.length
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353)
+    h = (h << 13) | (h >>> 19)
   }
-  return 'Пора позаниматься французским. Спринт на 5 минут.'
+  return h >>> 0
+}
+
+// Час отправки на сегодня: фиксированный reminder_hour, либо случайный (но
+// детерминированный по дате) час в окне [reminder_hour, reminder_hour_to].
+function pickHour(p: ProfileRow, userId: string, today: string): number {
+  const from = p.reminder_hour ?? 19
+  const to = p.reminder_hour_to ?? from
+  const span = Math.max(1, to - from + 1)
+  return from + (hashInt(`${userId}:${today}`) % span)
 }
 
 function partsInTz(d: Date): { hour: number; ymd: string } {
@@ -174,19 +201,20 @@ async function sendReminders(env: Env): Promise<void> {
   const { hour, ymd: today } = partsInTz(now)
 
   const profiles: ProfileRow[] = await fetch(
-    `${rest}/profiles?select=user_id,reminder_hour,last_notified_on,last_completed_at,streak_count`,
+    `${rest}/profiles?select=user_id,reminder_hour,reminder_hour_to,last_notified_on,last_completed_at,target_level,bonjour_easter_done,progress`,
     { headers: sbHeaders },
   ).then((r) => r.json())
 
   const dueNow = profiles.filter((p) => {
-    const rh = p.reminder_hour ?? 19
-    if (rh !== hour) return false
+    if (pickHour(p, p.user_id, today) !== hour) return false
     if (p.last_notified_on === today) return false // уже слали сегодня
     const studiedToday =
       p.last_completed_at && partsInTz(new Date(p.last_completed_at)).ymd === today
     return !studiedToday
   })
   if (dueNow.length === 0) return
+
+  const seed = Number(today.replace(/-/g, ''))
 
   const vapid = {
     subject: env.VAPID_SUBJECT,
@@ -200,7 +228,33 @@ async function sendReminders(env: Env): Promise<void> {
       { headers: sbHeaders },
     ).then((r) => r.json())
 
-    const body = pushBody(profile.streak_count ?? 0)
+    // Первый пуш в жизни аккаунта — пасхалка; дальше обычная затравка.
+    const useEaster = !profile.bonjour_easter_done
+    let title: string
+    let body: string
+    let url: string
+    if (useEaster) {
+      ;({ title, body, url } = BONJOUR_EASTER)
+    } else {
+      const lvl = profile.target_level
+      const targetLevel =
+        lvl === 'A1' || lvl === 'A2' || lvl === 'B1' || lvl === 'B2'
+          ? lvl
+          : undefined
+      const done = new Set(Object.keys(profile.progress?.rules ?? {}))
+      const session = nextSession(done, targetLevel)
+      const rule = getRule(session.ruleId)
+      if (rule) {
+        const t = buildTeaser(rule, seed)
+        title = t.title
+        body = t.body
+        url = `/?rule=${session.ruleId}`
+      } else {
+        title = FALLBACK_TITLE
+        body = FALLBACK_BODY
+        url = FALLBACK_URL
+      }
+    }
 
     let delivered = 0
     for (const sub of subs) {
@@ -212,7 +266,7 @@ async function sendReminders(env: Env): Promise<void> {
       try {
         const payload = await buildPushPayload(
           {
-            data: { title: PUSH_TITLE, body, url: PUSH_URL },
+            data: { title, body, url },
             options: { ttl: 43200 },
           },
           subscription,
@@ -239,10 +293,12 @@ async function sendReminders(env: Env): Promise<void> {
     }
 
     if (delivered > 0) {
+      const patch: Record<string, unknown> = { last_notified_on: today }
+      if (useEaster) patch.bonjour_easter_done = true
       await fetch(`${rest}/profiles?user_id=eq.${profile.user_id}`, {
         method: 'PATCH',
         headers: { ...sbHeaders, Prefer: 'return=minimal' },
-        body: JSON.stringify({ last_notified_on: today }),
+        body: JSON.stringify(patch),
       })
     }
   }

@@ -17,6 +17,7 @@ export interface GrammarRule {
   formationRule: string // может содержать \n
   keyExceptions: Record<string, string> // может быть {}
   examples: { fr: string; ru: string }[] // всегда 2–3
+  pushTeaserRu?: string // ручная затравка для пуш-напоминания (опционально)
 }
 
 interface RawRule {
@@ -31,6 +32,7 @@ interface RawRule {
   formation_rule: string
   key_exceptions: unknown
   authentic_examples: unknown
+  push_teaser_ru?: unknown
 }
 
 function toExamples(v: unknown): { fr: string; ru: string }[] {
@@ -69,6 +71,9 @@ export const RULES: GrammarRule[] = (rawRules as RawRule[]).map((r) => ({
   formationRule: r.formation_rule,
   keyExceptions: toExceptions(r.key_exceptions),
   examples: toExamples(r.authentic_examples),
+  ...(typeof r.push_teaser_ru === 'string' && r.push_teaser_ru.trim()
+    ? { pushTeaserRu: r.push_teaser_ru.trim() }
+    : {}),
 }))
 
 const BY_ID = new Map(RULES.map((r) => [r.id, r]))

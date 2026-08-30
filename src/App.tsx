@@ -24,6 +24,7 @@ import {
   LEVEL_ACHIEVEMENT,
   levelComplete,
   nextSession,
+  sessionByRuleId,
   unitById,
   type SyllabusSession,
   type SyllabusUnit,
@@ -191,6 +192,18 @@ export default function App() {
     setRetryExercises(null)
     setOverlay('warmup')
   }, [])
+
+  // Диплинк из пуш-напоминания: /?rule=<id> → сразу разминка этого правила.
+  const deepLinked = useRef(false)
+  useEffect(() => {
+    if (deepLinked.current || !booted || !persona || overlay !== null) return
+    deepLinked.current = true
+    const id = new URLSearchParams(window.location.search).get('rule')
+    if (!id) return
+    window.history.replaceState(null, '', window.location.pathname)
+    const s = sessionByRuleId(id)
+    if (s) openSession(s)
+  }, [booted, persona, overlay, openSession])
 
   const beginPractice = useCallback(async () => {
     if (!persona || !activeSession) return
@@ -410,6 +423,7 @@ export default function App() {
           persona={persona}
           level={level}
           reminderHour={profile?.reminder_hour ?? 19}
+          reminderHourTo={profile?.reminder_hour_to ?? null}
           canSignOut={!!supabase}
           onSave={saveProfilePatch}
           onSignOut={() => void supabase?.auth.signOut()}
