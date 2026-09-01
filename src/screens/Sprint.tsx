@@ -84,7 +84,9 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
           ? exercise.textFr.replace(/\{\}/g, '…')
           : exercise.kind === 'transform'
             ? exercise.sourceFr
-            : ''
+            : exercise.kind === 'comprehension'
+              ? exercise.textFr
+              : ''
     if (fr) speakFr(fr)
   }, [exercise])
 
@@ -219,6 +221,8 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
         <OrderPane exercise={exercise} onSubmit={submitLocal} />
       ) : exercise.kind === 'transform' ? (
         <TransformPane exercise={exercise} onSubmit={submitLocal} />
+      ) : exercise.kind === 'comprehension' ? (
+        <ComprehensionPane exercise={exercise} onSubmit={submitLocal} />
       ) : (
         <MatchPane exercise={exercise} onSubmit={submitLocal} />
       )}
@@ -486,6 +490,36 @@ function ChoicePane({
             onClick={() => onSubmit(i)}
           >
             <span className="option-title serif">{opt}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+/* ---------- Comprehension (рецептивная проверка понимания) ---------- */
+
+function ComprehensionPane({
+  exercise,
+  onSubmit,
+}: {
+  exercise: Extract<SprintExercise, { kind: 'comprehension' }>
+  onSubmit: (a: number) => void
+}) {
+  return (
+    <section className="card exercise-pane">
+      <p className="comprehension-text serif">{exercise.textFr}</p>
+      <SentenceRu text={exercise.sentenceRu} />
+      <p className="comprehension-question">{exercise.questionRu}</p>
+      <div className="stack">
+        {exercise.options.map((opt, i) => (
+          <button
+            key={i}
+            type="button"
+            className="option-btn"
+            onClick={() => onSubmit(i)}
+          >
+            <span className="option-title">{opt}</span>
           </button>
         ))}
       </div>

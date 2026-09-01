@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "c:\\Users\\Rita\\.claude\\projects\\c--Users-Rita-Projects-courage\\memory"
+    ],
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

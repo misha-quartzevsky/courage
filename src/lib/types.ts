@@ -55,6 +55,15 @@ export type SprintExercise =
       kind: 'match'
       pairs: { fr: string; ru: string }[] // 2–5 пар, справа перемешиваются
     })
+  | (ExerciseCommon & {
+      // Рецептивная проверка понимания: прочитать/послушать короткий текст и
+      // ответить на вопрос по смыслу (не продукция). Проверяется локально.
+      kind: 'comprehension'
+      textFr: string // короткий связный текст для чтения/прослушивания
+      questionRu: string // вопрос по смыслу, по-русски
+      options: string[] // варианты ответа, по-русски
+      answerIndex: number
+    })
 
 export type ExerciseKind = SprintExercise['kind']
 
@@ -72,6 +81,10 @@ export interface SprintSession {
     contextFr: string
   }
   exercises: SprintExercise[]
+  // Короткий связный мини-текст (4–6 предложений) на правило-фокус с полным
+  // переводом — «понятный ввод» (sla-methods.md). Генерит Gemini, фолбэк —
+  // склейка authentic_examples правила. Показывается в Debrief с озвучкой.
+  reading?: { fr: string; ru: string }
   // Все значимые слова спринта с переводом — для раздела «Слова из урока»
   // в Debrief и пополнения глобального словаря. Собирается в gemini.ts.
   glossary?: GlossItem[]
@@ -91,6 +104,10 @@ export interface GrammarIssue {
 export interface LearnedWord {
   fr: string
   ru: string
+  // Пример употребления с переводом (контекст, а не голая пара). Опционально —
+  // берётся из фраз спринта при сборке словаря урока.
+  exampleFr?: string
+  exampleRu?: string
 }
 
 // Пара «французское слово — перевод» для словаря урока и глобального словаря.
@@ -137,10 +154,24 @@ export interface WordRecord {
   fr: string
   ru: string
   addedAt: string
-  // 0 / undefined — новое слово; >= MASTERY_LEARNED (storage.ts) — «пройдено».
-  // Растёт от верных ответов в Повторении, переключается вручную тапом в словаре.
+  // 0 / undefined — новое слово; >= MASTERY_LEARNED (storage.ts) — «пройдено»
+  // вручную. Растёт от верных ответов в Повторении, переключается тапом в словаре.
   mastery?: number
   lastSeenAt?: string
+  // Расписание интервальных повторений (SRS, storage.ts: SRS_STEPS).
+  // interval — текущий шаг в днях (1 → 3 → 7 → 16 → 35); после ошибки сброс к 1.
+  // dueAt — когда слово снова «просрочено» и попадёт в Повторение.
+  // Оба опциональны: старый прогресс грузится без миграций (слово без dueAt
+  // считается просроченным и всплывёт в ближайшем подходе).
+  interval?: number
+  dueAt?: string
+  // Тематический блок: ruleId урока, из спринта которого слово пришло. Пусто у
+  // легаси-слов и у добавленных вручную из большого словаря. Лексику повторяем и
+  // показываем блоками по теме (sla-methods.md), а не вперемешку.
+  ruleId?: string
+  // Пример-предложение с переводом (контекст слова во вкладке «Словарь»).
+  exampleFr?: string
+  exampleRu?: string
 }
 
 // Прогресс ученика (storage.ts + Supabase profiles.progress).

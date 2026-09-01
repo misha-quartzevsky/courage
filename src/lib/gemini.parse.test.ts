@@ -52,6 +52,24 @@ describe('sanitizeSprint', () => {
     ])
   })
 
+  it('reading: парсится при обоих непустых полях, иначе отсутствует', () => {
+    const withReading = JSON.stringify({
+      durationMinutes: 5,
+      situation: { titleFr: 'X', contextFr: 'Y' },
+      reading: { fr: 'Je vais à Paris. Il fait beau.', ru: 'Я еду в Париж. Погода хорошая.' },
+      exercises: OK_EXERCISES,
+    })
+    expect(sanitizeSprint(withReading)?.reading?.fr).toContain('Paris')
+
+    const emptyReading = JSON.stringify({
+      durationMinutes: 5,
+      situation: { titleFr: 'X', contextFr: 'Y' },
+      reading: { fr: '  ', ru: 'что-то' },
+      exercises: OK_EXERCISES,
+    })
+    expect(sanitizeSprint(emptyReading)?.reading).toBeUndefined()
+  })
+
   it('вырезает ```json-обёртку и текст вокруг', () => {
     const wrapped = `Вот спринт:\n\`\`\`json\n${sprintJson(OK_EXERCISES)}\n\`\`\`\nУдачи!`
     const sprint = sanitizeSprint(wrapped)
@@ -110,6 +128,26 @@ describe('sanitizeSprint', () => {
       // остаются только 3 валидных OK_EXERCISES, битое — выброшено
       expect(sprint?.exercises).toHaveLength(3)
     }
+  })
+
+  it('comprehension парсится; без questionRu/options — отбрасывается', () => {
+    const ok = {
+      kind: 'comprehension',
+      id: 'cmp',
+      promptRu: 'Прочитайте',
+      textFr: 'Marie est allée au marché.',
+      sentenceRu: 'Мари сходила на рынок.',
+      questionRu: 'Куда пошла Мари?',
+      options: ['На рынок', 'Домой'],
+      answerIndex: 0,
+    }
+    const good = sanitizeSprint(sprintJson([...OK_EXERCISES, ok]))
+    expect(good?.exercises.map((e) => e.kind)).toContain('comprehension')
+
+    const bad = sanitizeSprint(
+      sprintJson([...OK_EXERCISES, { ...ok, questionRu: '', id: 'b' }]),
+    )
+    expect(bad?.exercises).toHaveLength(3)
   })
 
   it('match без sentenceRu принимается', () => {

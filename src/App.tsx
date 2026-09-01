@@ -10,11 +10,13 @@ import type {
   SupabaseProfile,
 } from './lib/types'
 import { generateRevision, generateSprint } from './lib/gemini'
-import { dedupeGloss } from './lib/glossary'
+import { attachExamples, dedupeGloss } from './lib/glossary'
 import { getRule, type GrammarRule } from './lib/grammar'
 import { DEMO_PERSONA } from './lib/personas'
 import {
   doneRuleIds,
+  dueWords,
+  interleaveRules,
   loadProgress,
   mergeServerProgress,
   recordLightSession,
@@ -214,12 +216,17 @@ export default function App() {
     setAiError(false)
     try {
       const priorBest = progress?.rules[activeSession.rule.id]?.bestAccuracy
+      // Чередование: вплести 1–2 задания на ранее пройденные (слабые) правила.
+      const interleave = interleaveRules(progress, activeSession.rule.id)
+        .map((r) => getRule(r.ruleId))
+        .filter((r): r is GrammarRule => !!r)
       const s = await generateSprint(
         persona,
         level,
         activeSession.unit,
         activeSession.rule,
         priorBest,
+        interleave,
       )
       setSprint(s)
       setVerdicts([])
@@ -249,7 +256,7 @@ export default function App() {
     setLoading(true)
     setAiError(false)
     try {
-      const words = progress?.words ?? []
+      const words = dueWords(progress)
       const weakRec = weakRules(progress)[0]
       const weak = weakRec ? unitById(weakRec.unitId) : undefined
       const s = await generateRevision(persona, words, weak)
@@ -263,6 +270,17 @@ export default function App() {
     }
   }, [persona, progress])
 
+  // Диплинк из пуша про просроченные слова: /?revision=1 → сразу Повторение.
+  const deepLinkedRevision = useRef(false)
+  useEffect(() => {
+    if (deepLinkedRevision.current || !booted || !persona || overlay !== null) return
+    const wants = new URLSearchParams(window.location.search).get('revision')
+    if (!wants) return
+    deepLinkedRevision.current = true
+    window.history.replaceState(null, '', window.location.pathname)
+    void startRevision()
+  }, [booted, persona, overlay, startRevision])
+
   const handleFinish = useCallback(
     (vs: EvaluationVerdict[]) => {
       setVerdicts(vs)
@@ -270,23 +288,29 @@ export default function App() {
         const avg = vs.length
           ? Math.round(vs.reduce((a, v) => a + v.accuracy, 0) / vs.length)
           : 0
-        const words = dedupeGloss([
-          ...(sprint.glossary ?? []),
-          ...vs.flatMap((v) => v.learnedWords),
-        ])
-        // В повторении: слова из верно решённых упражнений поднимают mastery
-        // (в словаре они тускнеют как «пройдено»).
+        const words = attachExamples(
+          dedupeGloss([
+            ...(sprint.glossary ?? []),
+            ...vs.flatMap((v) => v.learnedWords),
+          ]),
+          sprint.exercises,
+          sprint.reading,
+        )
+        // В повторении: французские слова упражнения двигают расписание SRS —
+        // верный ответ отправляет их на следующий интервал, ошибка сбрасывает.
+        const wordsOfVerdict = (v: EvaluationVerdict): string[] => {
+          const ex = sprint.exercises.find((e) => e.id === v.exerciseId)
+          if (!ex) return []
+          if (ex.kind === 'match') return ex.pairs.map((p) => p.fr)
+          if (ex.kind === 'choice') return [ex.promptFr]
+          if (ex.kind === 'gap') return ex.blanks.map((b) => b.answer)
+          return []
+        }
         const masteredFr = sprint.revision
-          ? vs
-              .filter((v) => v.passed)
-              .flatMap((v) => {
-                const ex = sprint.exercises.find((e) => e.id === v.exerciseId)
-                if (!ex) return []
-                if (ex.kind === 'match') return ex.pairs.map((p) => p.fr)
-                if (ex.kind === 'choice') return [ex.promptFr]
-                if (ex.kind === 'gap') return ex.blanks.map((b) => b.answer)
-                return []
-              })
+          ? vs.filter((v) => v.passed).flatMap(wordsOfVerdict)
+          : []
+        const missedFr = sprint.revision
+          ? vs.filter((v) => !v.passed).flatMap(wordsOfVerdict)
           : []
         const before = doneRuleIds(progress)
         const nextProgress = recordSessionCompletion(
@@ -301,6 +325,7 @@ export default function App() {
           avg,
           words,
           masteredFr,
+          missedFr,
         )
         setProgress(nextProgress)
         const lvl = sprint.level

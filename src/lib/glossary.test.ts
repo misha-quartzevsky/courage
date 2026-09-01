@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  attachExamples,
   buildSessionGlossary,
   dedupeGloss,
   glossaryFromExercises,
@@ -69,6 +70,45 @@ describe('glossaryFromExercises', () => {
       { fr: 'le ski', ru: 'лыжи' },
       { fr: 'nager', ru: 'плавать' },
     ])
+  })
+})
+
+describe('attachExamples', () => {
+  const exs: SprintExercise[] = [
+    {
+      id: 't1',
+      kind: 'transform',
+      promptRu: 'x',
+      sourceFr: 'Je mange.',
+      sentenceRu: 'Я купил хлеб в булочной.',
+      answer: "J'ai acheté du pain à la boulangerie.",
+    },
+  ]
+
+  it('проставляет пример из фразы спринта, снимая ведущий артикль', () => {
+    const [w] = attachExamples([{ fr: 'le pain', ru: 'хлеб' }], exs)
+    expect(w.exampleFr).toBe("J'ai acheté du pain à la boulangerie.")
+    expect(w.exampleRu).toBe('Я купил хлеб в булочной.')
+  })
+
+  it('не трогает слово без совпадения и уже имеющийся пример', () => {
+    const out = attachExamples(
+      [
+        { fr: 'chat', ru: 'кот' },
+        { fr: 'pain', ru: 'хлеб', exampleFr: 'Mon pain.', exampleRu: 'Мой хлеб.' },
+      ],
+      exs,
+    )
+    expect(out[0].exampleFr).toBeUndefined()
+    expect(out[1].exampleFr).toBe('Mon pain.')
+  })
+
+  it('берёт предложение из мини-текста, если в упражнениях нет', () => {
+    const [w] = attachExamples([{ fr: 'soleil', ru: 'солнце' }], [], {
+      fr: 'Il pleut. Le soleil brille demain.',
+      ru: 'Идёт дождь. Завтра светит солнце.',
+    })
+    expect(w.exampleFr).toBe('Le soleil brille demain.')
   })
 })
 

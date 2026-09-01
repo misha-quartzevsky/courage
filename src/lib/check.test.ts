@@ -39,6 +39,22 @@ describe('checkExercise', () => {
     expect(checkExercise(ex, 1).expected).toBe('est')
   })
 
+  it('comprehension — по индексу, как choice', () => {
+    const ex: SprintExercise = {
+      kind: 'comprehension',
+      id: 'cmp',
+      promptRu: 'Прочитайте',
+      textFr: 'Marie est allée au marché. Elle a acheté des pommes.',
+      sentenceRu: 'Мари сходила на рынок. Она купила яблок.',
+      questionRu: 'Что купила Мари?',
+      options: ['Яблоки', 'Хлеб', 'Ничего'],
+      answerIndex: 0,
+    }
+    expect(checkExercise(ex, 0).correct).toBe(true)
+    expect(checkExercise(ex, 2).correct).toBe(false)
+    expect(checkExercise(ex, 0).expected).toBe('Яблоки')
+  })
+
   it('order — сборка фразы, устойчиво к регистру/пунктуации', () => {
     const ex: SprintExercise = {
       kind: 'order',

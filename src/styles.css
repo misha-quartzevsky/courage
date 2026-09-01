@@ -1157,6 +1157,30 @@ button {
   font-size: var(--text-sm);
 }
 
+/* Мини-текст «понятного ввода» (Debrief) -------------------- */
+.reading-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.reading-head h2 {
+  margin: 0;
+}
+
+.reading-fr {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: var(--text-md, 1rem);
+  line-height: 1.6;
+}
+
+.reading-ru {
+  margin: 0;
+  line-height: 1.55;
+  font-size: var(--text-sm);
+}
+
 /* Correction list (shared: Sprint + Debrief) ---------------- */
 .corrections {
   list-style: none;
@@ -1433,6 +1457,17 @@ button {
   font-size: var(--text-md);
   line-height: 1.4;
   margin: 0;
+}
+
+.comprehension-text {
+  font-size: var(--text-md);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.comprehension-question {
+  margin: var(--space-3) 0 var(--space-1);
+  font-weight: 600;
 }
 
 .order-line {
@@ -1866,6 +1901,19 @@ button {
   gap: 2px;
 }
 
+.dict-group-head {
+  margin: var(--space-3) 0 var(--space-1);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, rgba(128, 128, 128, 0.9));
+}
+
+.dict-group-head:first-child {
+  margin-top: 0;
+}
+
 .dict-row {
   display: flex;
   align-items: flex-start;
@@ -1901,6 +1949,14 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--faint);
+}
+
+.dict-example {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  opacity: 0.85;
 }
 
 .dict-attribution {

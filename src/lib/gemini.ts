@@ -15,7 +15,7 @@ import type {
   VerdictDraft,
 } from './types'
 import type { SyllabusUnit } from './syllabus'
-import { rulesForUnit, type GrammarRule } from './grammar'
+import { getRule, rulesForUnit, type GrammarRule } from './grammar'
 import { buildSessionGlossary, dedupeGloss } from './glossary'
 
 // Транспорт: запросы идут через Cloudflare Worker-прокси (ключ — секрет
@@ -167,6 +167,28 @@ function parseExercise(e: unknown, i: number): SprintExercise | null {
         alts: strArr(x.alts) ?? undefined,
       }
     }
+    case 'comprehension': {
+      const options = strArr(x.options)
+      if (
+        !isStr(x.textFr) ||
+        !isStr(x.questionRu) ||
+        !options ||
+        options.length < 2 ||
+        !sentenceRu
+      )
+        return null
+      const ai = x.answerIndex
+      if (typeof ai !== 'number' || ai < 0 || ai >= options.length) return null
+      return {
+        ...base,
+        sentenceRu,
+        kind: 'comprehension',
+        textFr: x.textFr,
+        questionRu: x.questionRu,
+        options,
+        answerIndex: Math.round(ai),
+      }
+    }
     case 'match': {
       if (!Array.isArray(x.pairs)) return null
       const pairs = x.pairs
@@ -202,6 +224,12 @@ export function sanitizeSprint(text: string): SprintDraft | null {
   const sit = r.situation as Record<string, unknown>
   if (!isStr(sit.titleFr) || !isStr(sit.contextFr)) return null
 
+  const rd = r.reading as Record<string, unknown> | undefined
+  const reading =
+    rd && isStr(rd.fr) && isStr(rd.ru) && rd.fr.trim() && rd.ru.trim()
+      ? { fr: rd.fr.trim(), ru: rd.ru.trim() }
+      : undefined
+
   const exercises = r.exercises
     .map((e, i) => parseExercise(e, i))
     .filter((e): e is SprintExercise => e !== null)
@@ -221,6 +249,7 @@ export function sanitizeSprint(text: string): SprintDraft | null {
 
   return {
     glossary,
+    ...(reading ? { reading } : {}),
     unitId: isStr(r.unitId) ? r.unitId : '',
     unitTitleFr: isStr(r.unitTitleFr) ? r.unitTitleFr : '',
     ruleId: isStr(r.ruleId) ? r.ruleId : '',
@@ -374,7 +403,40 @@ export function fallbackExercises(
     answerIndex: 0,
   })
 
+  // comprehension — рецептивная проверка: прочитать примеры правила и ответить
+  // на вопрос по смыслу. Дистракторы — из перевода другого примера.
+  const compSrc = examples.slice(0, 2)
+  if (compSrc.length >= 1) {
+    const textFr = compSrc.map((e) => e.fr).join(' ')
+    const right = compSrc[0].ru
+    const wrong = compSrc[1]?.ru ?? 'Об этом в тексте не сказано.'
+    out.push({
+      id: 'fb-comp',
+      kind: 'comprehension',
+      promptRu: 'Прочитайте текст и ответьте на вопрос.',
+      textFr,
+      sentenceRu: compSrc.map((e) => e.ru).join(' '),
+      questionRu: 'Какое утверждение соответствует тексту?',
+      options: [right, wrong, 'В тексте нет об этом ни слова.'],
+      answerIndex: 0,
+    })
+  }
+
   return out
+}
+
+// Мини-текст «понятного ввода» из примеров правила — фолбэк, когда Gemini не дал
+// свой reading (или оффлайн). Просто склейка authentic_examples: связнее, чем
+// изолированные упражнения, но без выдумывания нового текста.
+export function readingFromExamples(
+  rule?: GrammarRule,
+): { fr: string; ru: string } | undefined {
+  const ex = (rule?.examples ?? []).filter((e) => e.fr.trim() && e.ru.trim())
+  if (ex.length < 2) return undefined
+  return {
+    fr: ex.map((e) => e.fr.trim()).join(' '),
+    ru: ex.map((e) => e.ru.trim()).join(' '),
+  }
 }
 
 export function getFallbackSprint(
@@ -383,8 +445,16 @@ export function getFallbackSprint(
   unit: SyllabusUnit,
   rule?: GrammarRule,
 ): SprintSession {
-  const exercises = fallbackExercises(persona, unit, rule).slice(0, 4)
+  const all = fallbackExercises(persona, unit, rule)
+  const exercises = all.slice(0, 4)
+  // Гарантируем одно упражнение на понимание (рецептивная проверка).
+  const comp = all.find((e) => e.kind === 'comprehension')
+  if (comp && !exercises.some((e) => e.kind === 'comprehension')) {
+    exercises[exercises.length - 1] = comp
+  }
+  const reading = readingFromExamples(rule)
   return {
+    ...(reading ? { reading } : {}),
     id: makeId(),
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
@@ -397,7 +467,7 @@ export function getFallbackSprint(
       contextFr: `Отработка темы «${rule?.titleRu ?? unit.titleRu}». Отвечайте по-французски.`,
     },
     exercises,
-    glossary: buildSessionGlossary({ exercises, verdictWords: [] }),
+    glossary: buildSessionGlossary({ exercises, verdictWords: [], reading }),
     createdAt: new Date().toISOString(),
   }
 }
@@ -451,9 +521,20 @@ function buildSprintSystemPrompt(
   unit: SyllabusUnit,
   rule: GrammarRule,
   priorBest?: number,
+  interleave: GrammarRule[] = [],
 ): string {
   const digest = ruleDigest([rule])
   const diff = difficultyNote(priorBest)
+  const total = 4 + interleave.length
+  const interleaveBlock = interleave.length
+    ? [
+        '',
+        `ЧЕРЕДОВАНИЕ: кроме правила-фокуса, добавь РОВНО ${interleave.length} ` +
+          `упражнени${interleave.length === 1 ? 'е' : 'я'} на ранее пройденные ` +
+          'правила ниже — по одному на правило, вперемешку с остальными. Не помечай их.',
+        ruleDigest(interleave),
+      ]
+    : []
   return [
     'Ты — дидакт французского по методу Édito (CEFR).',
     `Уровень ученика: ${level}.`,
@@ -463,20 +544,26 @@ function buildSprintSystemPrompt(
     `Правило-фокус: «${rule.titleFr}» (${rule.titleRu}).`,
     diff,
     '',
-    'ПРАВИЛО (все упражнения должны отрабатывать именно его):',
+    interleave.length
+      ? 'ПРАВИЛО-ФОКУС (его отрабатывает большинство упражнений):'
+      : 'ПРАВИЛО (все упражнения должны отрабатывать именно его):',
     digest,
+    ...interleaveBlock,
     '',
     'Правило 70/30: 70% — база Édito (быт/реальная жизнь), 30% — контекст профиля.',
     'Только реальная лексика, без выдуманного жаргона.',
     '',
-    'Сгенерируй РОВНО 4 упражнения РАЗНЫХ типов на эту грамматику. Не более 2 подряд',
+    `Сгенерируй РОВНО ${total} упражнени${total === 1 ? 'е' : 'й'} РАЗНЫХ типов. Не более 2 подряд`,
     `одного типа. ${level === 'A1' ? 'Больше выбора и пропусков.' : ''}`,
     persona && 'Диалоговых (kind:"dialogue") — 1 штука.',
+    'РОВНО 1 упражнение kind:"comprehension" — прочитать короткий текст на правило-фокус',
+    'и ответить на вопрос ПО СМЫСЛУ (проверка понимания, не продукция).',
     '',
     'Верни ТОЛЬКО JSON без markdown, по схеме (у каждого упражнения свой kind):',
     '{',
     '  "durationMinutes": 5,',
     '  "situation": { "titleFr": "string", "contextFr": "string на русском" },',
+    '  "reading": { "fr": "связный текст 4–6 предложений на правило-фокус", "ru": "полный перевод" },',
     '  "glossary": [ { "fr": "mot", "ru": "перевод" } ],',
     '  "exercises": [',
     '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "sentenceRu":"перевод реплики собеседника", "expectedKeyPhrases":["ориентиры"] },',
@@ -484,7 +571,8 @@ function buildSprintSystemPrompt(
     '    { "kind":"choice", "id":"e3", "promptRu":"вопрос", "promptFr":"Il ___ parti hier.", "sentenceRu":"перевод фразы promptFr", "options":["a","est","ont"], "answerIndex":1 },',
     '    { "kind":"order", "id":"e4", "promptRu":"соберите фразу", "sentenceRu":"перевод answer", "tokens":["ski","du","fais","je"], "answer":"Je fais du ski" },',
     '    { "kind":"transform", "id":"e5", "promptRu":"поставьте в passé composé", "sourceFr":"Je mange une pomme.", "sentenceRu":"перевод sourceFr", "answer":"J\'ai mangé une pomme.", "alts":[] },',
-    '    { "kind":"match", "id":"e6", "promptRu":"соедините фразу с переводом", "pairs":[{"fr":"la boxe","ru":"бокс"},{"fr":"le ski","ru":"лыжи"}] }',
+    '    { "kind":"match", "id":"e6", "promptRu":"соедините фразу с переводом", "pairs":[{"fr":"la boxe","ru":"бокс"},{"fr":"le ski","ru":"лыжи"}] },',
+    '    { "kind":"comprehension", "id":"e7", "promptRu":"Прочитайте и ответьте", "textFr":"Hier, Marie est allée au marché. Elle a acheté des pommes et du pain.", "sentenceRu":"Вчера Мари ходила на рынок. Она купила яблок и хлеба.", "questionRu":"Что Мари купила на рынке?", "options":["Яблоки и хлеб","Молоко и сыр","Ничего"], "answerIndex":0 }',
     '  ]',
     '}',
     'В "textFr" для gap число "{}" = длине "blanks". Для order "tokens" — перемешанные слова "answer".',
@@ -492,6 +580,8 @@ function buildSprintSystemPrompt(
     'русский перевод французской фразы этого упражнения. Для gap — перевод собранного',
     'предложения, для order — перевод "answer", для transform — перевод "sourceFr",',
     'для choice/dialogue — перевод "promptFr". Без "sentenceRu" упражнение отбрасывается.',
+    '"reading" — короткий СВЯЗНЫЙ текст (4–6 предложений, одна ситуация) на правило-фокус:',
+    'понятный ввод для чтения, не набор изолированных примеров. "reading.ru" — полный перевод.',
     '"glossary" на верхнем уровне — КАЖДОЕ значимое слово из любого упражнения спринта',
     '(существительные, глаголы, прилагательные, устойчивые выражения) с переводом.',
     'Без служебных слов (артикли, предлоги отдельно не нужны).',
@@ -535,7 +625,11 @@ export async function generateSprint(
   unit: SyllabusUnit,
   rule: GrammarRule,
   priorBest?: number,
+  // Ранее пройденные правила для чередования (interleaving): по одному заданию
+  // на правило добавляется сверх обычных 4.
+  interleave: GrammarRule[] = [],
 ): Promise<SprintSession> {
+  const target = 4 + interleave.length
   if (!WORKER_URL) {
     // Без адреса прокси — детерминированный демо-спринт по правилу-фокусу.
     return getFallbackSprint(persona, level, unit, rule)
@@ -544,7 +638,7 @@ export async function generateSprint(
   let text: string
   try {
     text = await callGemini(
-      buildSprintSystemPrompt(persona, level, unit, rule, priorBest),
+      buildSprintSystemPrompt(persona, level, unit, rule, priorBest, interleave),
       [{ text: 'Сгенерируй спринт.' }],
     )
   } catch (err) {
@@ -555,30 +649,33 @@ export async function generateSprint(
   const draft = sanitizeSprint(text)
   if (!draft) return getFallbackSprint(persona, level, unit, rule)
 
-  // Добираем до 4 упражнений из детерминированного пула (если модель дала меньше).
+  // Добираем до target упражнений из детерминированного пула (если модель дала меньше).
   let exercises = draft.exercises
-  if (exercises.length < 4) {
+  if (exercises.length < target) {
     const have = new Set(exercises.map((e) => e.kind))
     for (const fb of fallbackExercises(persona, unit, rule)) {
-      if (exercises.length >= 4) break
-      if (!have.has(fb.kind) || exercises.length < 3) {
+      if (exercises.length >= target) break
+      if (!have.has(fb.kind) || exercises.length < target - 1) {
         exercises = [...exercises, fb]
         have.add(fb.kind)
       }
     }
   }
-  exercises = exercises.slice(0, 4)
+  exercises = exercises.slice(0, target)
+  const reading = draft.reading ?? readingFromExamples(rule)
 
   // unitId / unitTitleFr / ruleId / level — из каталога, не из ответа модели.
   return {
     ...draft,
     exercises,
+    reading,
     // Пересобираем словарь урока ПОСЛЕ добора упражнений — чтобы попали слова
     // из добранных match/choice. Модельный glossary идёт первым.
     glossary: buildSessionGlossary({
       modelGlossary: draft.glossary,
       exercises,
       verdictWords: [],
+      reading,
     }),
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
@@ -593,7 +690,25 @@ export async function generateSprint(
 // ------------------------------------------------------------
 // Спринт «Révision»: повторение выученных слов (+ слабый юнит)
 // ------------------------------------------------------------
-type RWord = { fr: string; ru: string }
+type RWord = { fr: string; ru: string; ruleId?: string }
+
+// Строки слов для промпта, сгруппированные по теме (одна тема за подход).
+function themedWordLines(words: RWord[]): string {
+  const blocks = new Map<string, RWord[]>()
+  for (const w of words) {
+    const key = w.ruleId ?? ''
+    const b = blocks.get(key)
+    if (b) b.push(w)
+    else blocks.set(key, [w])
+  }
+  return [...blocks.entries()]
+    .map(([ruleId, ws]) => {
+      const title = ruleId ? getRule(ruleId)?.titleRu : ''
+      const head = title ? `Тема «${title}»: ` : ''
+      return head + ws.map((w) => `${w.fr} — ${w.ru}`).join('; ')
+    })
+    .join('\n')
+}
 
 export function fallbackRevision(
   persona: LearnerPersona,
@@ -603,14 +718,25 @@ export function fallbackRevision(
   const out: SprintExercise[] = []
   const pool = words.slice(0, 16)
 
-  // match — блоками по 4.
-  for (let i = 0; i + 2 <= pool.length && out.length < 3; i += 4) {
-    out.push({
-      id: `rv-m${i}`,
-      kind: 'match',
-      promptRu: 'Соедините слово с переводом.',
-      pairs: pool.slice(i, i + 4).map((w) => ({ fr: w.fr, ru: w.ru })),
-    })
+  // match — блоками по теме (слова одного ruleId вместе), максимум по 4 в блоке.
+  const themes = new Map<string, RWord[]>()
+  for (const w of pool) {
+    const k = w.ruleId ?? ''
+    const b = themes.get(k)
+    if (b) b.push(w)
+    else themes.set(k, [w])
+  }
+  let mi = 0
+  for (const ws of themes.values()) {
+    for (let i = 0; i + 2 <= ws.length && out.length < 3; i += 4) {
+      out.push({
+        id: `rv-m${mi++}`,
+        kind: 'match',
+        promptRu: 'Соедините слово с переводом.',
+        pairs: ws.slice(i, i + 4).map((w) => ({ fr: w.fr, ru: w.ru })),
+      })
+    }
+    if (out.length >= 3) break
   }
 
   // choice — fr → выбрать правильный перевод.
@@ -665,10 +791,7 @@ export async function generateRevision(
     }
   }
 
-  const wordLines = words
-    .slice(0, 20)
-    .map((w) => `${w.fr} — ${w.ru}`)
-    .join('; ')
+  const wordLines = themedWordLines(words.slice(0, 20))
   const weakDigest = weakUnit
     ? ruleDigest(rulesForUnit(weakUnit.ruleIds))
     : ''
@@ -679,9 +802,11 @@ export async function generateRevision(
       [
         'Ты — преподаватель французского. Собери спринт-ПОВТОРЕНИЕ.',
         `Уровень: ${level}. Профиль: ${persona.professionFr}.`,
-        `Слова для повторения: ${wordLines}.`,
+        `Слова для повторения (сгруппированы по темам):\n${wordLines}`,
         weakDigest ? `Также подтяни тему:\n${weakDigest}` : '',
         '',
+        'Держи лексику блоками по теме: в одном упражнении — слова ОДНОЙ темы,',
+        'не мешай слова разных тем.',
         'РОВНО 6 упражнений: 2 match, 2 gap или choice вокруг этих слов,',
         '2 transform или dialogue по слабой теме (или тоже вокруг слов).',
         'Схема JSON — как в обычном спринте (kind у каждого упражнения).',

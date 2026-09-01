@@ -69,25 +69,59 @@
   `src/lib/gemini.ts`, фолбэк детерминированный). `SprintSession` несёт `ruleId`/`ruleTitleFr`.
   У каждого упражнения кроме `match` — обязательное `sentenceRu` (полный перевод
   французской фразы, виден всегда; санитайзер выкидывает упражнение без него).
+  Типы: `dialogue` (судит Gemini) + локальные `gap`/`choice`/`order`/`transform`/
+  `match`/`comprehension`. `comprehension` — рецептивная проверка: прочитать
+  `textFr` и ответить на `questionRu` по смыслу (RU-варианты), 1 на спринт;
+  проверяется как `choice` (`check.ts`). Фолбэк гарантирует одно (`getFallbackSprint`).
+- **Чередование грамматики (interleaving).** `generateSprint(..., interleave)` —
+  сверх 4 заданий фокуса добавляет по одному на 1–2 ранее пройденных правила.
+  Список даёт `interleaveRules(progress, ruleId)` (приоритет — слабые
+  `bestAccuracy < 70`, добор давними). `target = 4 + interleave.length` во всех
+  местах добора/среза. Прогресс всё равно пишется только на `ruleId`-фокус.
+- **Понятный ввод (мини-текст).** `SprintSession.reading = { fr, ru }` — связный
+  текст 4–6 предложений на правило-фокус. Просит Gemini (`buildSprintSystemPrompt`,
+  поле `reading` в схеме, парсится в `sanitizeSprint`), фолбэк —
+  `readingFromExamples(rule)` (склейка `authentic_examples`). Показывается в Debrief
+  («Мини-текст») с озвучкой.
 - **Словарь урока.** `SprintSession.glossary` собирается в `src/lib/glossary.ts`
   (`buildSessionGlossary`): глоссарий модели + пары `match` + односложные `choice` +
-  слова вердиктов, дедуп по слову. Debrief показывает его целиком («Слова из урока»),
-  эти же слова идут в `ProgressState.words`.
+  слова вердиктов, дедуп по слову. `attachExamples` проставляет каждому слову
+  `exampleFr`/`exampleRu` — предложение из фраз спринта / мини-текста (контекст,
+  показывается во вкладке «Словарь»). Debrief показывает глоссарий целиком
+  («Слова из урока»), эти же слова идут в `ProgressState.words`.
 - **Вкладка «Словарь»** (`src/screens/Dictionary.tsx`): полный французско-русский
   словарь (~68k слов, WikDict / CC BY-SA 3.0) — `public/dict/fr-ru.json`, собирается
   `scripts/build-dictionary.mjs`, в прекэш PWA НЕ входит, грузится лениво при первом
   открытии (`src/lib/dictionary.ts`: fetch → IndexedDB + cache-first route в `src/sw.ts`).
   Слова ученика накладываются слоем статуса: `WordRecord.mastery` (`>= MASTERY_LEARNED`
-  = «пройдено», тускнеет). Растёт от верных ответов в Повторении
-  (`recordSessionCompletion(..., masteredFr)`), переключается вручную
-  (`toggleWordLearned`). Поля `mastery`/`lastSeenAt` опциональны — старый прогресс
-  грузится без миграций.
+  = «пройдено» вручную, тускнеет), переключается `toggleWordLearned`.
+- **Интервальные повторения (SRS).** У каждого слова `interval` (дни: `SRS_STEPS`
+  = 1 → 3 → 7 → 16 → 35) и `dueAt`. Верный ответ в Повторении двигает на следующий
+  шаг (`dueAt = now + interval`), ошибка сбрасывает к 1 дню
+  (`recordSessionCompletion(..., masteredFr, missedFr)`). Слово «пройдено», когда
+  `interval >= SRS_LEARNED_INTERVAL` (~30) ИЛИ выставлен `mastery` вручную (см.
+  `isLearned`). «Повторение» тянет не случайные 16, а просроченное — `dueWords()`
+  (dueAt в прошлом / легаси / только добавленное), сортировка по сроку; мало
+  просроченного — добирает ближайшие. Словарь НЕ обрезается по свежести
+  (`WORDS_CAP` только предохранитель).
+- **Тематические блоки.** `WordRecord.ruleId` = правило-фокус урока, из которого
+  слово пришло (проставляется в `recordSessionCompletion` из `session.ruleId`;
+  у повторения `session=null` → без темы). `dueWords` группирует выдачу в блоки
+  одной темы (`groupByTheme`), блоки — по срочности. `generateRevision` получает
+  слова с заголовками тем (`themedWordLines`, `getRule(id).titleRu`) и не мешает
+  темы в упражнении; `fallbackRevision` строит `match` по темам. Вкладка «Словарь»
+  (`Dictionary.tsx`) секцию «мои слова» показывает блоками по теме (`titleRu`),
+  без темы → «Разное».
+  Поля `interval`/`dueAt`/`ruleId`/`mastery`/`lastSeenAt` опциональны — старый
+  прогресс грузится без миграций.
 - **Пуш-напоминания:** подписка пишется в `push_subscriptions` (RLS) из
   [src/lib/push.ts](src/lib/push.ts), кнопка в Профиль → Напоминания.
   Рассылка: Worker по Cron Trigger раз в час (`[triggers].crons = ["0 * * * *"]`),
   обработчик `scheduled` в [worker/worker.ts](worker/worker.ts). Время — по фиксированной зоне
   (`TZ = 'Europe/Moscow'`), час берётся из `reminder_hour` в профиле.
-  Текст пуша настраивается функцией `pushBody()` в Worker, не в БД. Детали —
+  Если просрочено `>= REVISION_DUE_MIN` слов (`countDueWords` по `progress.words`) —
+  пуш зовёт на Повторение (`/?revision=1`), иначе — затравка под ближайшее правило
+  (`/?rule=<id>`). Текст пуша настраивается в Worker, не в БД. Детали —
   `docs/push-notifications.md`.
 - `worker/worker.ts` импортит **чистые** `src/lib/syllabus.ts` / `grammar.ts` /
   `teaser.ts` напрямую (в них нет Vite/DOM-зависимостей) — логику не дублируем.

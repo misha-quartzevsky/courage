@@ -49,7 +49,8 @@ export function checkExercise(
         got: arr.join(' · '),
       }
     }
-    case 'choice': {
+    case 'choice':
+    case 'comprehension': {
       const i = typeof answer === 'number' ? answer : -1
       return {
         correct: i === ex.answerIndex,

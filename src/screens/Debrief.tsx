@@ -87,6 +87,24 @@ export function Debrief({
         )}
       </section>
 
+      {sprint.reading && (
+        <section className="card reading-card">
+          <div className="reading-head">
+            <h2>Мини-текст</h2>
+            <button
+              type="button"
+              className="btn-icon"
+              aria-label="Озвучить мини-текст"
+              onClick={() => speakFr(sprint.reading!.fr)}
+            >
+              <SpeakerIcon />
+            </button>
+          </div>
+          <p className="reading-fr serif">{sprint.reading.fr}</p>
+          <p className="reading-ru muted">{sprint.reading.ru}</p>
+        </section>
+      )}
+
       {allIssues.length > 0 && (
         <section className="card">
           <h2>Разбор ошибок</h2>

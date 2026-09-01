@@ -104,6 +104,13 @@ export default {
 
 // --- Пуш-напоминания ---
 
+interface ProgressWord {
+  fr?: string
+  dueAt?: string
+  interval?: number
+  mastery?: number
+}
+
 interface ProfileRow {
   user_id: string
   reminder_hour: number | null
@@ -112,7 +119,33 @@ interface ProfileRow {
   last_completed_at: string | null
   target_level: string | null
   bonjour_easter_done: boolean | null
-  progress: { rules?: Record<string, unknown> } | null
+  progress: { rules?: Record<string, unknown>; words?: ProgressWord[] } | null
+}
+
+// Синхронно с src/lib/storage.ts (SRS_LEARNED_INTERVAL / MASTERY_LEARNED).
+const SRS_LEARNED_INTERVAL = 30
+const MASTERY_LEARNED = 2
+// Ниже этого числа просроченных слов зовём на ближайшее правило, а не на повторение.
+const REVISION_DUE_MIN = 5
+
+// Русское склонение по числу: (1) слово, (2) слова, (5) слов.
+function plural(n: number, one: string, few: string, many: string): string {
+  const mod10 = n % 10
+  const mod100 = n % 100
+  if (mod10 === 1 && mod100 !== 11) return one
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few
+  return many
+}
+
+// Сколько слов просрочено (dueAt в прошлом либо не задан у не-«пройденного» слова).
+function countDueWords(words: ProgressWord[] | undefined, now: number): number {
+  if (!Array.isArray(words)) return 0
+  return words.filter((w) => {
+    const learned =
+      (w.interval ?? 0) >= SRS_LEARNED_INTERVAL || (w.mastery ?? 0) >= MASTERY_LEARNED
+    if (w.dueAt) return Date.parse(w.dueAt) <= now
+    return !learned
+  }).length
 }
 
 interface SubRow {
@@ -233,8 +266,14 @@ async function sendReminders(env: Env): Promise<void> {
     let title: string
     let body: string
     let url: string
+    const dueWords = countDueWords(profile.progress?.words, now.getTime())
     if (useEaster) {
       ;({ title, body, url } = BONJOUR_EASTER)
+    } else if (dueWords >= REVISION_DUE_MIN) {
+      // Накопились просроченные слова — зовём на Повторение, а не на новое правило.
+      title = 'Courage'
+      body = `${dueWords} ${plural(dueWords, 'слово', 'слова', 'слов')} ждут повторения.`
+      url = '/?revision=1'
     } else {
       const lvl = profile.target_level
       const targetLevel =
