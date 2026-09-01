@@ -38,13 +38,17 @@
 - **Иконки** — инлайновый SVG в `src/lib/icons.tsx`. **Эмодзи в UI запрещены.**
 - **Строки UI — русские, инлайн в JSX.** i18n нет. Французский появляется только как
   учебный контент.
-- **Supabase опционален.** Задан `VITE_SUPABASE_*` → auth по magic link + профиль +
-  синк прогресса. Не задан → демо-режим (`DEMO_PERSONA`, localStorage).
+- **Supabase опционален.** Задан `VITE_SUPABASE_*` → auth по одноразовому коду (OTP)
+  + профиль + синк прогресса. **На iOS PWA** вход только по коду, не по ссылке
+  (ссылка открывается в Safari, PWA не получает сессию). Не задан → демо-режим
+  (`DEMO_PERSONA`, localStorage).
 - **Gemini** проксируется через Cloudflare Worker (`worker/worker.ts`) — Google
   геоблокит РФ. Тот же Worker по крону раз в час шлёт пуш-напоминания.
-- **PWA:** `vite-plugin-pwa` (injectManifest), свой SW `src/sw.ts` (прекэш + веб-пуши),
-  тост «Обновить» из `src/lib/pwa-update.ts`. Хостинг фронта — **Cloudflare Pages**
-  (`public/_headers` для кэша), Worker — `wrangler deploy`.
+- **PWA:** `public/manifest.webmanifest` (display: standalone), ванильный SW в `public/sw.js`
+  (обработчики `push` / `notificationclick`). Иконки — серифная C (Newsreader 700,
+  шрифт логотипа). На iOS 16.4+ веб-пуши работают только если сайт добавлен на
+  экран «Домой». Хостинг фронта — **Cloudflare Pages** (автосборка на пуш в master),
+  Worker — `npx wrangler deploy` вручную.
 
 ## Архитектура, которую долго выясняли
 
@@ -62,11 +66,12 @@
   «Ещё немного — практика». Открывается как `overlay='warmup'` через `openSession`.
 - **Практика** — спринт из ~4 упражнений по одному правилу (`generateSprint` в
   `src/lib/gemini.ts`, фолбэк детерминированный). `SprintSession` несёт `ruleId`/`ruleTitleFr`.
-- **Пуш-напоминания:** текст генерится из ближайшего правила (`src/lib/teaser.ts`,
-  `buildTeaser`), ручной override — поле `push_teaser_ru` в
-  `grammar-rules-A1-A2-B1.json`. Тап ведёт в `/?rule=<id>` → App открывает разминку.
-  Время — окно `[reminder_hour, reminder_hour_to]`, час на день выбирается
-  детерминированно. Пасхалка «Бомжур» — первым пушем один раз. Детали —
+- **Пуш-напоминания:** подписка пишется в `push_subscriptions` (RLS) из
+  [src/lib/push.ts](src/lib/push.ts), кнопка в Профиль → Напоминания.
+  Рассылка: Worker по Cron Trigger раз в час (`[triggers].crons = ["0 * * * *"]`),
+  обработчик `scheduled` в [worker/worker.ts](worker/worker.ts). Время — по фиксированной зоне
+  (`TZ = 'Europe/Moscow'`), час берётся из `reminder_hour` в профиле.
+  Текст пуша настраивается функцией `pushBody()` в Worker, не в БД. Детали —
   `docs/push-notifications.md`.
 - `worker/worker.ts` импортит **чистые** `src/lib/syllabus.ts` / `grammar.ts` /
   `teaser.ts` напрямую (в них нет Vite/DOM-зависимостей) — логику не дублируем.
@@ -83,8 +88,9 @@
 | Грамматика (данные) | `grammar-rules-A1-A2-B1.json` → `src/lib/grammar.ts` |
 | Лёгкий режим | `src/screens/LessonWarmup.tsx`, `src/lib/warmup.ts` |
 | Спринт + фолбэк + парсинг Gemini | `src/lib/gemini.ts`, `src/screens/Sprint.tsx` |
-| Пуши: клиент / воркер / текст | `src/lib/push.ts`, `worker/worker.ts`, `src/lib/teaser.ts` |
-| PWA | `vite.config.ts`, `src/sw.ts`, `src/lib/pwa-update.ts` |
+| Вход по коду (OTP) | `src/lib/supabase.ts`, `src/screens/Login.tsx` |
+| Пуши: подписка / рассылка | `src/lib/push.ts`, `worker/worker.ts` |
+| PWA: манифест / SW | `public/manifest.webmanifest`, `public/sw.js`, иконки в `public/` |
 | Дизайн-токены + все компонентные стили | `src/styles.css` |
 
 ## Более глубокие доки
@@ -96,7 +102,9 @@
 
 ## Деплой
 
-- Фронт: пуш в `master` → Cloudflare Pages собирает сам.
-- Worker: `wrangler deploy` руками (в бандл входят `src/lib/*` + grammar JSON).
-- Схема БД: SQL-миграции держим в `docs/push-notifications.md`, запускает пользователь
-  в Supabase.
+- **Фронт (Pages):** пуш в `master` → Pages собирает сам (`npm run build`). Секреты через
+  дашборд Pages → Environment variables (Production/Preview).
+- **Worker:** `npx wrangler deploy` руками (в бандл входят `worker/worker.ts` + чистые
+  `src/lib/*` + grammar JSON). Секреты через `wrangler secret put NAME`.
+- **Схема БД:** SQL-миграции держим в `docs/push-notifications.md`, запускает пользователь
+  в Supabase → SQL Editor.
