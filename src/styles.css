@@ -1888,8 +1888,22 @@ button {
 /* ------------------------------------------------------------
    Словарь (вкладка «Словарь»)
    ------------------------------------------------------------ */
+.dict-modes {
+  margin-bottom: var(--space-2);
+}
+
 .dict-filters {
   margin-bottom: var(--space-3);
+}
+
+.dict-level {
+  margin-left: var(--space-2);
+  padding: 1px 6px;
+  border: 1px solid var(--hairline, rgba(128, 128, 128, 0.32));
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--muted, rgba(128, 128, 128, 0.9));
 }
 
 .dict-list {

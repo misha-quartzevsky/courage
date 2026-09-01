@@ -1,0 +1,8 @@
+Тематическое ядро A1–B1 (public/dict/fr-ru-themed.json)
+
+Курированный вручную список для курса Courage. Отбор слов и русские
+переводы — авторские; французские заголовки сверены с WikDict
+(https://www.wikdict.com/, данные Wiktionary / DBnary).
+
+Лицензия: Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0)
+https://creativecommons.org/licenses/by-sa/3.0/

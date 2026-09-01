@@ -18,7 +18,12 @@ export default defineConfig({
       // manifest.webmanifest ведём руками (public/), плагин его не трогает.
       manifest: false,
       injectManifest: {
-        globPatterns: ['**/*.{js,css,html,woff2,png,webmanifest}'],
+        // Тематическое ядро A1–B1 мелкое и нужно офлайн сразу — в прекэш.
+        // Большой fr-ru.json (~3,5 МБ) намеренно НЕ включаем (грузится лениво).
+        globPatterns: [
+          '**/*.{js,css,html,woff2,png,webmanifest}',
+          'dict/fr-ru-themed.json',
+        ],
       },
       devOptions: { enabled: false },
     }),

@@ -89,12 +89,25 @@
   `exampleFr`/`exampleRu` — предложение из фраз спринта / мини-текста (контекст,
   показывается во вкладке «Словарь»). Debrief показывает глоссарий целиком
   («Слова из урока»), эти же слова идут в `ProgressState.words`.
-- **Вкладка «Словарь»** (`src/screens/Dictionary.tsx`): полный французско-русский
-  словарь (~68k слов, WikDict / CC BY-SA 3.0) — `public/dict/fr-ru.json`, собирается
-  `scripts/build-dictionary.mjs`, в прекэш PWA НЕ входит, грузится лениво при первом
-  открытии (`src/lib/dictionary.ts`: fetch → IndexedDB + cache-first route в `src/sw.ts`).
-  Слова ученика накладываются слоем статуса: `WordRecord.mastery` (`>= MASTERY_LEARNED`
-  = «пройдено» вручную, тускнеет), переключается `toggleWordLearned`.
+- **Вкладка «Словарь»** (`src/screens/Dictionary.tsx`) — два слоя, два режима:
+  - **«По темам»** (по умолчанию): курированное тематическое ядро A1–B1 (~1300
+    слов, 32 темы: животные, еда, погода, тело, эмоции…). Источник — авторский
+    `scripts/themed-words.mjs` (`THEMES`), сборка `scripts/build-themed-dict.mjs`
+    (дедуп внутри темы, сверка каждого fr-заголовка с WikDict, сортировка внутри
+    темы по частотности WikDict) → `public/dict/fr-ru-themed.json`
+    (`{ f, r, theme, level }`). **В прекэше PWA** (glob в `vite.config.ts`),
+    грузится сразу (`loadThemedDict`). Темы идут в порядке файла (A1→A2→B1),
+    заголовок + бейдж уровня.
+  - **«Поиск»**: большой WikDict (~68k, CC BY-SA 3.0) — `public/dict/fr-ru.json`,
+    `scripts/build-dictionary.mjs` (`MAX_SENSES = 2`, стоп-лист мата/грубости
+    `VULGAR`/`VULGAR_WORD` режет отдельные значения). В прекэш НЕ входит, грузится
+    лениво при входе в «Поиск» (`loadDictionary`: fetch → IndexedDB + cache-first
+    route в `src/sw.ts`). Результат поиска: сначала ядро, потом WikDict, дедуп по
+    `normFr`.
+  - Над обоими режимами — блок «мои слова», сгруппированный по правилу-фокусу
+    урока (`ruleId` → `titleRu`), НЕ по смысловым темам. Статус ученика
+    (`WordRecord.mastery >= MASTERY_LEARNED` = «пройдено» вручную, тускнеет;
+    `toggleWordLearned`) накладывается на любую строку по совпадению `normFr(f)`.
 - **Интервальные повторения (SRS).** У каждого слова `interval` (дни: `SRS_STEPS`
   = 1 → 3 → 7 → 16 → 35) и `dueAt`. Верный ответ в Повторении двигает на следующий
   шаг (`dueAt = now + interval`), ошибка сбрасывает к 1 дню
@@ -145,7 +158,8 @@
 | Спринт + фолбэк + парсинг Gemini | `src/lib/gemini.ts`, `src/screens/Sprint.tsx` |
 | Словарь урока (сбор всех слов) | `src/lib/glossary.ts` |
 | Вкладка «Словарь» + загрузка/поиск | `src/screens/Dictionary.tsx`, `src/lib/dictionary.ts` |
-| Данные словаря + сборка | `public/dict/fr-ru.json`, `scripts/build-dictionary.mjs` |
+| Ядро A1–B1: данные + сборка | `scripts/themed-words.mjs`, `scripts/build-themed-dict.mjs` → `public/dict/fr-ru-themed.json` |
+| Большой словарь + сборка | `public/dict/fr-ru.json`, `scripts/build-dictionary.mjs` |
 | Вход по коду (OTP) | `src/lib/supabase.ts`, `src/screens/Login.tsx` |
 | Пуши: подписка / рассылка | `src/lib/push.ts`, `worker/worker.ts` |
 | PWA: манифест / SW | `public/manifest.webmanifest`, `src/sw.ts`, иконки в `public/` |

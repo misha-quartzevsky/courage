@@ -7,6 +7,16 @@ export interface DictEntry {
   r: string // переводы через «; »
 }
 
+export type DictLevel = 'A1' | 'A2' | 'B1'
+
+/** Запись курированного тематического ядра (public/dict/fr-ru-themed.json). */
+export interface ThemedEntry {
+  f: string
+  r: string
+  theme: string
+  level: DictLevel
+}
+
 /** Нормализация для поиска и сопоставления со словами ученика. */
 export function normFr(s: string): string {
   return s
@@ -93,6 +103,27 @@ export async function loadDictionary(): Promise<DictEntry[]> {
     return await inflight
   } finally {
     inflight = null
+  }
+}
+
+// --- Тематическое ядро A1–B1 (маленькое, в прекэше — грузим сразу) ---
+let themedMem: ThemedEntry[] | null = null
+let themedInflight: Promise<ThemedEntry[]> | null = null
+
+/** Загрузить курированное ядро. Кэш в памяти; файл в прекэше SW. */
+export async function loadThemedDict(): Promise<ThemedEntry[]> {
+  if (themedMem) return themedMem
+  if (themedInflight) return themedInflight
+  themedInflight = (async () => {
+    const res = await fetch('/dict/fr-ru-themed.json')
+    if (!res.ok) throw new Error(`themed dict HTTP ${res.status}`)
+    themedMem = (await res.json()) as ThemedEntry[]
+    return themedMem
+  })()
+  try {
+    return await themedInflight
+  } finally {
+    themedInflight = null
   }
 }
 

@@ -22,7 +22,25 @@ const SRC_PATH = resolve(ROOT, 'scripts/.cache/wikdict-fr-ru.sqlite3')
 const OUT_JSON = resolve(ROOT, 'public/dict/fr-ru.json')
 const OUT_LICENSE = resolve(ROOT, 'public/dict/LICENSE.txt')
 
-const MAX_SENSES = 5 // сколько переводов оставляем на слово
+const MAX_SENSES = 2 // сколько переводов оставляем на слово
+
+// Выкидываем отдельные значения с русским матом/грубостью (не всю запись).
+// Корень должен стоять в начале слова, чтобы не задеть «страх», «небо» и т. п.
+const VULGAR =
+  /(^|[\s,;()«»"'’-])(?:трах|еб[аеёиу]|ёб|бля|блят|блядь|хуй|хуё|хуе|пизд|дроч|залуп|говн|мудак|ссат|срат)/i
+// Отдельные слова целиком: архаичный мат и грубое просторечие.
+const VULGAR_WORD =
+  /(?:^|[\s,;()«»"'’-])(?:ет[иь]|мл[яё]|мля[тд]ь|лоха?|елда|манда|прошмандовк\w*)(?:$|[\s,;()«»"'’-])/i
+
+function pickSenses(rawR) {
+  return String(rawR)
+    .split(' | ')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((s) => !VULGAR.test(s) && !VULGAR_WORD.test(s))
+    .slice(0, MAX_SENSES)
+    .join('; ')
+}
 
 async function ensureSource() {
   if (existsSync(SRC_PATH)) return
@@ -52,12 +70,7 @@ function build() {
     const f = String(rawF).trim()
     const key = f.toLowerCase()
     if (f.length < 2 || seen.has(key)) continue
-    const r = String(rawR)
-      .split(' | ')
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .slice(0, MAX_SENSES)
-      .join('; ')
+    const r = pickSenses(rawR)
     if (!r) continue
     seen.add(key)
     out.push({ f, r })
