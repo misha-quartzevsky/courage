@@ -31,7 +31,7 @@
 - `npm run build` = `tsc --noEmit && vite build`. Прогоняй его перед коммитом.
 - **Роутера нет.** Навигация — стейт-машина в `src/App.tsx`: `overlay`
   (`onboarding | warmup | sprint | debrief | null`) + нижний `TabBar`
-  (`cours | revision | codex | profil`). Стейт — `useState` в App, вниз пропсами.
+  (`cours | revision | dictionary | codex | profil`). Стейт — `useState` в App, вниз пропсами.
   Контекста/стора нет.
 - **Один глобальный CSS** — `src/styles.css` (CSS-переменные-токены). Ни Tailwind,
   ни CSS-модулей. Классы BEM-ish.
@@ -44,8 +44,9 @@
   (`DEMO_PERSONA`, localStorage).
 - **Gemini** проксируется через Cloudflare Worker (`worker/worker.ts`) — Google
   геоблокит РФ. Тот же Worker по крону раз в час шлёт пуш-напоминания.
-- **PWA:** `public/manifest.webmanifest` (display: standalone), ванильный SW в `public/sw.js`
-  (обработчики `push` / `notificationclick`). Иконки — серифная C (Newsreader 700,
+- **PWA:** `public/manifest.webmanifest` (display: standalone), SW — `src/sw.ts`
+  (vite-plugin-pwa, `injectManifest`; прекэш ассетов + обработчики `push` /
+  `notificationclick` + cache-first для `/dict/fr-ru.json`). Иконки — серифная C (Newsreader 700,
   шрифт логотипа). На iOS 16.4+ веб-пуши работают только если сайт добавлен на
   экран «Домой». Хостинг фронта — **Cloudflare Pages** (автосборка на пуш в master),
   Worker — `npx wrangler deploy` вручную.
@@ -66,6 +67,21 @@
   «Ещё немного — практика». Открывается как `overlay='warmup'` через `openSession`.
 - **Практика** — спринт из ~4 упражнений по одному правилу (`generateSprint` в
   `src/lib/gemini.ts`, фолбэк детерминированный). `SprintSession` несёт `ruleId`/`ruleTitleFr`.
+  У каждого упражнения кроме `match` — обязательное `sentenceRu` (полный перевод
+  французской фразы, виден всегда; санитайзер выкидывает упражнение без него).
+- **Словарь урока.** `SprintSession.glossary` собирается в `src/lib/glossary.ts`
+  (`buildSessionGlossary`): глоссарий модели + пары `match` + односложные `choice` +
+  слова вердиктов, дедуп по слову. Debrief показывает его целиком («Слова из урока»),
+  эти же слова идут в `ProgressState.words`.
+- **Вкладка «Словарь»** (`src/screens/Dictionary.tsx`): полный французско-русский
+  словарь (~68k слов, WikDict / CC BY-SA 3.0) — `public/dict/fr-ru.json`, собирается
+  `scripts/build-dictionary.mjs`, в прекэш PWA НЕ входит, грузится лениво при первом
+  открытии (`src/lib/dictionary.ts`: fetch → IndexedDB + cache-first route в `src/sw.ts`).
+  Слова ученика накладываются слоем статуса: `WordRecord.mastery` (`>= MASTERY_LEARNED`
+  = «пройдено», тускнеет). Растёт от верных ответов в Повторении
+  (`recordSessionCompletion(..., masteredFr)`), переключается вручную
+  (`toggleWordLearned`). Поля `mastery`/`lastSeenAt` опциональны — старый прогресс
+  грузится без миграций.
 - **Пуш-напоминания:** подписка пишется в `push_subscriptions` (RLS) из
   [src/lib/push.ts](src/lib/push.ts), кнопка в Профиль → Напоминания.
   Рассылка: Worker по Cron Trigger раз в час (`[triggers].crons = ["0 * * * *"]`),
@@ -77,6 +93,11 @@
   `teaser.ts` напрямую (в них нет Vite/DOM-зависимостей) — логику не дублируем.
 - Грамматика — данные, не код: `grammar-rules-A1-A2-B1.json` → `src/lib/grammar.ts`
   (`RULES`, `getRule`). Каталог юнитов выводится из правил в `syllabus.ts`.
+  Поле `plain_ru` («в двух словах», простым языком) — в разминке показывается первым,
+  `summary`/образование прячутся под «Подробнее». Переписан батч **A1 (33 правила)**;
+  A2 + B1 (70) — прежний текст, без `plain_ru` (следующий батч, образец —
+  `scripts/simplify-grammar-a1.mjs`). Файл JSON — нестандартное форматирование
+  (объекты развёрнуты без отступов, CRLF); правь точечно, не пересериализуй целиком.
 
 ## Ключевые файлы
 
@@ -88,9 +109,12 @@
 | Грамматика (данные) | `grammar-rules-A1-A2-B1.json` → `src/lib/grammar.ts` |
 | Лёгкий режим | `src/screens/LessonWarmup.tsx`, `src/lib/warmup.ts` |
 | Спринт + фолбэк + парсинг Gemini | `src/lib/gemini.ts`, `src/screens/Sprint.tsx` |
+| Словарь урока (сбор всех слов) | `src/lib/glossary.ts` |
+| Вкладка «Словарь» + загрузка/поиск | `src/screens/Dictionary.tsx`, `src/lib/dictionary.ts` |
+| Данные словаря + сборка | `public/dict/fr-ru.json`, `scripts/build-dictionary.mjs` |
 | Вход по коду (OTP) | `src/lib/supabase.ts`, `src/screens/Login.tsx` |
 | Пуши: подписка / рассылка | `src/lib/push.ts`, `worker/worker.ts` |
-| PWA: манифест / SW | `public/manifest.webmanifest`, `public/sw.js`, иконки в `public/` |
+| PWA: манифест / SW | `public/manifest.webmanifest`, `src/sw.ts`, иконки в `public/` |
 | Дизайн-токены + все компонентные стили | `src/styles.css` |
 
 ## Более глубокие доки

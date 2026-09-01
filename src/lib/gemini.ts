@@ -16,6 +16,7 @@ import type {
 } from './types'
 import type { SyllabusUnit } from './syllabus'
 import { rulesForUnit, type GrammarRule } from './grammar'
+import { buildSessionGlossary, dedupeGloss } from './glossary'
 
 // Транспорт: запросы идут через Cloudflare Worker-прокси (ключ — секрет
 // Worker'а, фронтенд его не видит). Без VITE_GEMINI_WORKER_URL — демо-режим.
@@ -121,16 +122,17 @@ function parseExercise(e: unknown, i: number): SprintExercise | null {
   const x = e as Record<string, unknown>
   const id = isStr(x.id) ? x.id : `ex-${i + 1}`
   if (!isStr(x.promptRu)) return null
+  const sentenceRu = isStr(x.sentenceRu) ? x.sentenceRu.trim() : null
   const base = { id, promptRu: x.promptRu }
 
   switch (x.kind) {
     case 'dialogue': {
       const keys = strArr(x.expectedKeyPhrases)
-      if (!isStr(x.promptFr) || !keys) return null
-      return { ...base, kind: 'dialogue', promptFr: x.promptFr, expectedKeyPhrases: keys }
+      if (!isStr(x.promptFr) || !keys || !sentenceRu) return null
+      return { ...base, sentenceRu, kind: 'dialogue', promptFr: x.promptFr, expectedKeyPhrases: keys }
     }
     case 'gap': {
-      if (!isStr(x.textFr) || !Array.isArray(x.blanks)) return null
+      if (!isStr(x.textFr) || !Array.isArray(x.blanks) || !sentenceRu) return null
       const blanks: { answer: string; alts?: string[] }[] = []
       for (const b of x.blanks) {
         const bo = b as Record<string, unknown>
@@ -140,24 +142,25 @@ function parseExercise(e: unknown, i: number): SprintExercise | null {
       }
       const holes = (x.textFr.match(/\{\}/g) ?? []).length
       if (blanks.length === 0 || blanks.length !== holes) return null
-      return { ...base, kind: 'gap', textFr: x.textFr, blanks }
+      return { ...base, sentenceRu, kind: 'gap', textFr: x.textFr, blanks }
     }
     case 'choice': {
       const options = strArr(x.options)
-      if (!isStr(x.promptFr) || !options || options.length < 2) return null
+      if (!isStr(x.promptFr) || !options || options.length < 2 || !sentenceRu) return null
       const ai = x.answerIndex
       if (typeof ai !== 'number' || ai < 0 || ai >= options.length) return null
-      return { ...base, kind: 'choice', promptFr: x.promptFr, options, answerIndex: Math.round(ai) }
+      return { ...base, sentenceRu, kind: 'choice', promptFr: x.promptFr, options, answerIndex: Math.round(ai) }
     }
     case 'order': {
       const tokens = strArr(x.tokens)
-      if (!tokens || tokens.length < 2 || !isStr(x.answer)) return null
-      return { ...base, kind: 'order', tokens, answer: x.answer }
+      if (!tokens || tokens.length < 2 || !isStr(x.answer) || !sentenceRu) return null
+      return { ...base, sentenceRu, kind: 'order', tokens, answer: x.answer }
     }
     case 'transform': {
-      if (!isStr(x.sourceFr) || !isStr(x.answer)) return null
+      if (!isStr(x.sourceFr) || !isStr(x.answer) || !sentenceRu) return null
       return {
         ...base,
+        sentenceRu,
         kind: 'transform',
         sourceFr: x.sourceFr,
         answer: x.answer,
@@ -205,7 +208,19 @@ export function sanitizeSprint(text: string): SprintDraft | null {
 
   if (exercises.length < 3) return null
 
+  const glossary = Array.isArray(r.glossary)
+    ? dedupeGloss(
+        r.glossary.map((w) => {
+          const wd = w as Record<string, unknown>
+          return isStr(wd.fr) && isStr(wd.ru)
+            ? { fr: wd.fr, ru: wd.ru }
+            : null
+        }),
+      )
+    : []
+
   return {
+    glossary,
     unitId: isStr(r.unitId) ? r.unitId : '',
     unitTitleFr: isStr(r.unitTitleFr) ? r.unitTitleFr : '',
     ruleId: isStr(r.ruleId) ? r.ruleId : '',
@@ -289,6 +304,7 @@ export function fallbackExercises(
     kind: 'dialogue',
     promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous, que faites-vous ?`,
     promptRu: 'Поздоровайтесь, представьтесь и скажите, кем работаете.',
+    sentenceRu: `Здравствуйте! Я ${persona.professionFr}. А вы чем занимаетесь?`,
     expectedKeyPhrases: ['je suis', "je m'appelle", 'enchanté', 'bonjour'],
   })
   out.push({
@@ -296,6 +312,7 @@ export function fallbackExercises(
     kind: 'dialogue',
     promptFr: `Parlez-moi de votre métier : qu'est-ce que vous faites exactement ?`,
     promptRu: `Расскажите о работе, используйте слово «${target}».`,
+    sentenceRu: 'Расскажите мне о своей работе: чем именно вы занимаетесь?',
     expectedKeyPhrases: ['je fais', 'je travaille', "c'est", "j'aime"],
   })
 
@@ -308,7 +325,8 @@ export function fallbackExercises(
       out.push({
         id: 'fb-gap',
         kind: 'gap',
-        promptRu: `Вставьте пропущенное слово. Перевод: ${ex0.ru}`,
+        promptRu: 'Вставьте пропущенное слово.',
+        sentenceRu: ex0.ru,
         textFr: ex0.fr.replace(hidden, '{}'),
         blanks: [{ answer: hidden.replace(/[.,!?;:]$/, '') }],
       })
@@ -326,7 +344,8 @@ export function fallbackExercises(
       out.push({
         id: 'fb-order',
         kind: 'order',
-        promptRu: `Соберите фразу. Перевод: ${exOrd.ru}`,
+        promptRu: 'Соберите фразу.',
+        sentenceRu: exOrd.ru,
         tokens: [...toks].sort(() => Math.random() - 0.5),
         answer: exOrd.fr.replace(/[.!?]$/, ''),
       })
@@ -344,18 +363,14 @@ export function fallbackExercises(
     })
   }
 
-  // choice — из key_exceptions или запасной.
-  const exc = rules.flatMap((r) => Object.entries(r.keyExceptions))[0]
+  // choice — простая проверка формы глагола (запасной вариант, всегда валиден).
   out.push({
     id: 'fb-choice',
     kind: 'choice',
-    promptRu: exc
-      ? `Что верно про «${exc[0]}»?`
-      : 'Выберите грамматически верную фразу.',
-    promptFr: exc ? exc[0] : 'Je ___ étudiant.',
-    options: exc
-      ? [exc[1].slice(0, 80), 'Такого правила нет', 'Всегда без изменений']
-      : ['suis', 'ai', 'est'],
+    promptRu: 'Выберите грамматически верную форму.',
+    promptFr: 'Je ___ étudiant.',
+    sentenceRu: 'Я студент.',
+    options: ['suis', 'ai', 'est'],
     answerIndex: 0,
   })
 
@@ -368,6 +383,7 @@ export function getFallbackSprint(
   unit: SyllabusUnit,
   rule?: GrammarRule,
 ): SprintSession {
+  const exercises = fallbackExercises(persona, unit, rule).slice(0, 4)
   return {
     id: makeId(),
     unitId: unit.id,
@@ -380,7 +396,8 @@ export function getFallbackSprint(
       titleFr: rule?.titleFr ?? unit.titleFr,
       contextFr: `Отработка темы «${rule?.titleRu ?? unit.titleRu}». Отвечайте по-французски.`,
     },
-    exercises: fallbackExercises(persona, unit, rule).slice(0, 4),
+    exercises,
+    glossary: buildSessionGlossary({ exercises, verdictWords: [] }),
     createdAt: new Date().toISOString(),
   }
 }
@@ -398,6 +415,7 @@ function ruleDigest(rules: GrammarRule[]): string {
         .join(' / ')
       return [
         `• ${r.titleFr} (${r.titleRu}).`,
+        r.plainRu ? `  Коротко: ${r.plainRu}` : '',
         `  Суть: ${r.summaryRu}`,
         `  Образование: ${r.formationRule.replace(/\n+/g, ' ')}`,
         exc ? `  Исключения: ${exc}` : '',
@@ -459,16 +477,24 @@ function buildSprintSystemPrompt(
     '{',
     '  "durationMinutes": 5,',
     '  "situation": { "titleFr": "string", "contextFr": "string на русском" },',
+    '  "glossary": [ { "fr": "mot", "ru": "перевод" } ],',
     '  "exercises": [',
-    '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "expectedKeyPhrases":["ориентиры"] },',
-    '    { "kind":"gap", "id":"e2", "promptRu":"инструкция", "textFr":"Je {} à Paris et il {} ici.", "blanks":[{"answer":"vais","alts":[]},{"answer":"vit"}] },',
-    '    { "kind":"choice", "id":"e3", "promptRu":"вопрос", "promptFr":"Il ___ parti hier.", "options":["a","est","ont"], "answerIndex":1 },',
-    '    { "kind":"order", "id":"e4", "promptRu":"соберите фразу (перевод)", "tokens":["ski","du","fais","je"], "answer":"Je fais du ski" },',
-    '    { "kind":"transform", "id":"e5", "promptRu":"поставьте в passé composé", "sourceFr":"Je mange une pomme.", "answer":"J\'ai mangé une pomme.", "alts":[] },',
+    '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "sentenceRu":"перевод реплики собеседника", "expectedKeyPhrases":["ориентиры"] },',
+    '    { "kind":"gap", "id":"e2", "promptRu":"инструкция", "textFr":"Je {} à Paris et il {} ici.", "sentenceRu":"перевод собранного предложения целиком", "blanks":[{"answer":"vais","alts":[]},{"answer":"vit"}] },',
+    '    { "kind":"choice", "id":"e3", "promptRu":"вопрос", "promptFr":"Il ___ parti hier.", "sentenceRu":"перевод фразы promptFr", "options":["a","est","ont"], "answerIndex":1 },',
+    '    { "kind":"order", "id":"e4", "promptRu":"соберите фразу", "sentenceRu":"перевод answer", "tokens":["ski","du","fais","je"], "answer":"Je fais du ski" },',
+    '    { "kind":"transform", "id":"e5", "promptRu":"поставьте в passé composé", "sourceFr":"Je mange une pomme.", "sentenceRu":"перевод sourceFr", "answer":"J\'ai mangé une pomme.", "alts":[] },',
     '    { "kind":"match", "id":"e6", "promptRu":"соедините фразу с переводом", "pairs":[{"fr":"la boxe","ru":"бокс"},{"fr":"le ski","ru":"лыжи"}] }',
     '  ]',
     '}',
     'В "textFr" для gap число "{}" = длине "blanks". Для order "tokens" — перемешанные слова "answer".',
+    'ОБЯЗАТЕЛЬНО: у каждого упражнения (кроме "match") есть поле "sentenceRu" — полный',
+    'русский перевод французской фразы этого упражнения. Для gap — перевод собранного',
+    'предложения, для order — перевод "answer", для transform — перевод "sourceFr",',
+    'для choice/dialogue — перевод "promptFr". Без "sentenceRu" упражнение отбрасывается.',
+    '"glossary" на верхнем уровне — КАЖДОЕ значимое слово из любого упражнения спринта',
+    '(существительные, глаголы, прилагательные, устойчивые выражения) с переводом.',
+    'Без служебных слов (артикли, предлоги отдельно не нужны).',
   ]
     .filter(Boolean)
     .join('\n')
@@ -547,6 +573,13 @@ export async function generateSprint(
   return {
     ...draft,
     exercises,
+    // Пересобираем словарь урока ПОСЛЕ добора упражнений — чтобы попали слова
+    // из добранных match/choice. Модельный glossary идёт первым.
+    glossary: buildSessionGlossary({
+      modelGlossary: draft.glossary,
+      exercises,
+      verdictWords: [],
+    }),
     unitId: unit.id,
     unitTitleFr: unit.titleFr,
     ruleId: rule.id,
@@ -588,6 +621,7 @@ export function fallbackRevision(
       kind: 'choice',
       promptRu: 'Что значит это слово?',
       promptFr: w.fr,
+      sentenceRu: w.ru,
       options: [w.ru, wrong[i] ?? 'другое', wrong[i + 1] ?? 'не знаю'].slice(0, 3),
       answerIndex: 0,
     })
@@ -623,7 +657,12 @@ export async function generateRevision(
   }
 
   if (!WORKER_URL) {
-    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+    const exercises = fallbackRevision(persona, words, weakUnit)
+    return {
+      ...base,
+      exercises,
+      glossary: buildSessionGlossary({ exercises, verdictWords: words.slice(0, 20) }),
+    }
   }
 
   const wordLines = words
@@ -646,7 +685,10 @@ export async function generateRevision(
         'РОВНО 6 упражнений: 2 match, 2 gap или choice вокруг этих слов,',
         '2 transform или dialogue по слабой теме (или тоже вокруг слов).',
         'Схема JSON — как в обычном спринте (kind у каждого упражнения).',
-        'Верни ТОЛЬКО JSON: { "durationMinutes":5, "situation":{"titleFr":"..","contextFr":".."}, "exercises":[ ... ] }',
+        'У каждого упражнения кроме "match" обязательно поле "sentenceRu" — полный',
+        'русский перевод его французской фразы.',
+        '"glossary" на верхнем уровне — все слова из упражнений с переводом.',
+        'Верни ТОЛЬКО JSON: { "durationMinutes":5, "situation":{"titleFr":"..","contextFr":".."}, "glossary":[{"fr":"..","ru":".."}], "exercises":[ ... ] }',
       ]
         .filter(Boolean)
         .join('\n'),
@@ -654,14 +696,33 @@ export async function generateRevision(
     )
   } catch (err) {
     console.error('[gemini.revision]', err)
-    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+    const exercises = fallbackRevision(persona, words, weakUnit)
+    return {
+      ...base,
+      exercises,
+      glossary: buildSessionGlossary({ exercises, verdictWords: words.slice(0, 20) }),
+    }
   }
 
   const draft = sanitizeSprint(text)
   if (!draft || draft.exercises.length < 3) {
-    return { ...base, exercises: fallbackRevision(persona, words, weakUnit) }
+    const exercises = fallbackRevision(persona, words, weakUnit)
+    return {
+      ...base,
+      exercises,
+      glossary: buildSessionGlossary({ exercises, verdictWords: words.slice(0, 20) }),
+    }
   }
-  return { ...base, exercises: draft.exercises.slice(0, 6) }
+  const exercises = draft.exercises.slice(0, 6)
+  return {
+    ...base,
+    exercises,
+    glossary: buildSessionGlossary({
+      modelGlossary: draft.glossary,
+      exercises,
+      verdictWords: words.slice(0, 20),
+    }),
+  }
 }
 
 // ------------------------------------------------------------

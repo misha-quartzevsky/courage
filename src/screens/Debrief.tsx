@@ -1,4 +1,5 @@
 import type { CefrLevel, EvaluationVerdict, SprintSession } from '../lib/types'
+import { dedupeGloss } from '../lib/glossary'
 import { getRule } from '../lib/grammar'
 import type { SyllabusSession } from '../lib/syllabus'
 import { speakFr } from '../lib/speech'
@@ -44,7 +45,11 @@ export function Debrief({
         : 'Нормально для начала — пройдите ещё раз, станет легче.'
 
   const allIssues = verdicts.flatMap((v) => v.issues)
-  const allWords = verdicts.flatMap((v) => v.learnedWords)
+  // Все слова урока: словарь спринта + слова из вердиктов, дедуп по fr.
+  const allWords = dedupeGloss([
+    ...(sprint.glossary ?? []),
+    ...verdicts.flatMap((v) => v.learnedWords),
+  ])
 
   return (
     <main className="screen">
@@ -102,7 +107,7 @@ export function Debrief({
 
       {allWords.length > 0 && (
         <section className="card">
-          <h2>Новые слова</h2>
+          <h2>Слова из урока</h2>
           <ul className="words">
             {allWords.map((w, i) => (
               <li key={i}>

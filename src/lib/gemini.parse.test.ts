@@ -10,6 +10,7 @@ const OK_EXERCISES = [
     id: 'e1',
     promptRu: 'Поздоровайтесь',
     promptFr: 'Bonjour !',
+    sentenceRu: 'Здравствуйте!',
     expectedKeyPhrases: ['bonjour'],
   },
   {
@@ -17,6 +18,7 @@ const OK_EXERCISES = [
     id: 'e2',
     promptRu: 'Вставьте',
     textFr: 'Je {} à Lyon.',
+    sentenceRu: 'Я живу в Лионе.',
     blanks: [{ answer: 'habite' }],
   },
   {
@@ -24,6 +26,7 @@ const OK_EXERCISES = [
     id: 'e3',
     promptRu: 'Выберите',
     promptFr: 'Il ___ parti.',
+    sentenceRu: 'Он уехал.',
     options: ['a', 'est'],
     answerIndex: 1,
   },
@@ -88,11 +91,35 @@ describe('sanitizeSprint', () => {
     const sprint = sanitizeSprint(
       sprintJson([
         OK_EXERCISES[0],
-        { kind: 'order', id: 'o', promptRu: 'соберите', tokens: ['je', 'fais', 'du', 'ski'], answer: 'Je fais du ski' },
+        { kind: 'order', id: 'o', promptRu: 'соберите', sentenceRu: 'Я катаюсь на лыжах', tokens: ['je', 'fais', 'du', 'ski'], answer: 'Je fais du ski' },
         { kind: 'match', id: 'm', promptRu: 'соедините', pairs: [{ fr: 'la boxe', ru: 'бокс' }, { fr: 'le ski', ru: 'лыжи' }] },
       ]),
     )
     expect(sprint?.exercises.map((e) => e.kind)).toEqual(['dialogue', 'order', 'match'])
+  })
+
+  it('упражнение кроме match без sentenceRu отбрасывается', () => {
+    for (const bad of [
+      { kind: 'dialogue', id: 'x', promptRu: 'x', promptFr: 'Bonjour !', expectedKeyPhrases: ['bonjour'] },
+      { kind: 'gap', id: 'x', promptRu: 'x', textFr: 'Je {} ici.', blanks: [{ answer: 'suis' }] },
+      { kind: 'choice', id: 'x', promptRu: 'x', promptFr: 'Il ___ parti.', options: ['a', 'est'], answerIndex: 1 },
+      { kind: 'order', id: 'x', promptRu: 'x', tokens: ['je', 'fais'], answer: 'Je fais' },
+      { kind: 'transform', id: 'x', promptRu: 'x', sourceFr: 'Je mange.', answer: "J'ai mangé." },
+    ]) {
+      const sprint = sanitizeSprint(sprintJson([...OK_EXERCISES, bad]))
+      // остаются только 3 валидных OK_EXERCISES, битое — выброшено
+      expect(sprint?.exercises).toHaveLength(3)
+    }
+  })
+
+  it('match без sentenceRu принимается', () => {
+    const sprint = sanitizeSprint(
+      sprintJson([
+        ...OK_EXERCISES,
+        { kind: 'match', id: 'm', promptRu: 'соедините', pairs: [{ fr: 'la boxe', ru: 'бокс' }, { fr: 'le ski', ru: 'лыжи' }] },
+      ]),
+    )
+    expect(sprint?.exercises.map((e) => e.kind)).toContain('match')
   })
 })
 
@@ -148,6 +175,14 @@ describe('getFallbackSprint', () => {
     expect(sprint.unitId).toBe(SYLLABUS[0].id)
     expect(sprint.level).toBe('A1')
     expect(sanitizeSprint(JSON.stringify(sprint))).not.toBeNull()
+  })
+
+  it('у каждого не-match упражнения есть непустой sentenceRu', () => {
+    const sprint = getFallbackSprint(DEMO_PERSONA, 'A1', SYLLABUS[0])
+    for (const ex of sprint.exercises) {
+      if (ex.kind === 'match') continue
+      expect(ex.sentenceRu && ex.sentenceRu.length > 0).toBe(true)
+    }
   })
 
   it('первые два упражнения — диалоговые', () => {

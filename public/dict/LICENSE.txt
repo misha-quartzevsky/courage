@@ -1,0 +1,7 @@
+Французско-русский словарь: WikDict (https://www.wikdict.com/)
+Релиз WikDict: 2_2026-06. Пара fr-ru.
+Построен из данных Wiktionary / DBnary.
+Лицензия: Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0)
+https://creativecommons.org/licenses/by-sa/3.0/
+
+Производные данные (public/dict/fr-ru.json) распространяются на тех же условиях.

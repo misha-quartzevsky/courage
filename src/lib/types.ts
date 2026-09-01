@@ -17,6 +17,10 @@ export interface LearnerPersona {
 interface ExerciseCommon {
   id: string
   promptRu: string // что нужно сделать, по-русски
+  // Полный русский перевод французской фразы упражнения. Обязателен для всех
+  // типов кроме match (там пары уже двуязычные). Заполняется санитайзером и
+  // всеми детерминированными фолбэками — во время занятия перевод виден всегда.
+  sentenceRu?: string
 }
 
 export type SprintExercise =
@@ -68,6 +72,9 @@ export interface SprintSession {
     contextFr: string
   }
   exercises: SprintExercise[]
+  // Все значимые слова спринта с переводом — для раздела «Слова из урока»
+  // в Debrief и пополнения глобального словаря. Собирается в gemini.ts.
+  glossary?: GlossItem[]
   revision?: boolean // повторение — не двигает курсовой прогресс
   createdAt: string
 }
@@ -85,6 +92,9 @@ export interface LearnedWord {
   fr: string
   ru: string
 }
+
+// Пара «французское слово — перевод» для словаря урока и глобального словаря.
+export type GlossItem = LearnedWord
 
 export interface EvaluationVerdict {
   exerciseId: string
@@ -122,11 +132,15 @@ export interface RuleRecord {
   lastCompletedAt: string
 }
 
-// Выученное слово (для спринта Révision).
+// Выученное слово (для спринта Révision и вкладки «Словарь»).
 export interface WordRecord {
   fr: string
   ru: string
   addedAt: string
+  // 0 / undefined — новое слово; >= MASTERY_LEARNED (storage.ts) — «пройдено».
+  // Растёт от верных ответов в Повторении, переключается вручную тапом в словаре.
+  mastery?: number
+  lastSeenAt?: string
 }
 
 // Прогресс ученика (storage.ts + Supabase profiles.progress).

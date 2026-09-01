@@ -10,6 +10,7 @@ import type {
   SupabaseProfile,
 } from './lib/types'
 import { generateRevision, generateSprint } from './lib/gemini'
+import { dedupeGloss } from './lib/glossary'
 import { getRule, type GrammarRule } from './lib/grammar'
 import { DEMO_PERSONA } from './lib/personas'
 import {
@@ -18,6 +19,7 @@ import {
   mergeServerProgress,
   recordLightSession,
   recordSessionCompletion,
+  toggleWordLearned,
   weakRules,
 } from './lib/storage'
 import {
@@ -44,6 +46,7 @@ import { Login } from './screens/Login'
 import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
 import { LessonWarmup } from './screens/LessonWarmup'
+import { Dictionary } from './screens/Dictionary'
 import { GrammarCodex } from './screens/GrammarCodex'
 import { Revision } from './screens/Revision'
 import { TabBar, type Tab } from './screens/TabBar'
@@ -237,6 +240,10 @@ export default function App() {
     void refreshProfile()
   }, [refreshProfile])
 
+  const handleToggleWord = useCallback((fr: string, ru?: string) => {
+    setProgress(toggleWordLearned(fr, ru))
+  }, [])
+
   const startRevision = useCallback(async () => {
     if (!persona) return
     setLoading(true)
@@ -263,7 +270,24 @@ export default function App() {
         const avg = vs.length
           ? Math.round(vs.reduce((a, v) => a + v.accuracy, 0) / vs.length)
           : 0
-        const words = vs.flatMap((v) => v.learnedWords)
+        const words = dedupeGloss([
+          ...(sprint.glossary ?? []),
+          ...vs.flatMap((v) => v.learnedWords),
+        ])
+        // В повторении: слова из верно решённых упражнений поднимают mastery
+        // (в словаре они тускнеют как «пройдено»).
+        const masteredFr = sprint.revision
+          ? vs
+              .filter((v) => v.passed)
+              .flatMap((v) => {
+                const ex = sprint.exercises.find((e) => e.id === v.exerciseId)
+                if (!ex) return []
+                if (ex.kind === 'match') return ex.pairs.map((p) => p.fr)
+                if (ex.kind === 'choice') return [ex.promptFr]
+                if (ex.kind === 'gap') return ex.blanks.map((b) => b.answer)
+                return []
+              })
+          : []
         const before = doneRuleIds(progress)
         const nextProgress = recordSessionCompletion(
           sprint.ruleId
@@ -276,6 +300,7 @@ export default function App() {
             : null,
           avg,
           words,
+          masteredFr,
         )
         setProgress(nextProgress)
         const lvl = sprint.level
@@ -415,6 +440,12 @@ export default function App() {
           loading={loading}
           error={aiError}
           onStart={() => void startRevision()}
+        />
+      )}
+      {tab === 'dictionary' && (
+        <Dictionary
+          userWords={progress?.words ?? []}
+          onToggle={handleToggleWord}
         />
       )}
       {tab === 'codex' && <GrammarCodex />}

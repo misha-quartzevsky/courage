@@ -22,6 +22,7 @@ export type WarmupBeat =
       id: string
       titleFr: string
       titleRu: string
+      plainRu?: string
       summaryRu: string
       formationLines: string[]
       example?: { fr: string; ru: string }
@@ -284,6 +285,7 @@ export function buildWarmup(rule: GrammarRule): WarmupBeat[] {
     id: 'reveal',
     titleFr: rule.titleFr,
     titleRu: rule.titleRu,
+    ...(rule.plainRu ? { plainRu: rule.plainRu } : {}),
     summaryRu: rule.summaryRu,
     formationLines: rule.formationRule
       .split('\n')

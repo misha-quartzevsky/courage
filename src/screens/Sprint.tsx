@@ -234,6 +234,13 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
   )
 }
 
+/* ---------- Перевод французской фразы (виден во всех упражнениях) ---------- */
+
+function SentenceRu({ text }: { text?: string }) {
+  if (!text) return null
+  return <p className="exercise-ru muted">{text}</p>
+}
+
 /* ---------- Feedback ---------- */
 
 function FeedbackCard({
@@ -332,6 +339,7 @@ function DialoguePane({
           <SpeakerIcon />
         </button>
         <p className="dialogue">{exercise.promptFr}</p>
+        <SentenceRu text={exercise.sentenceRu} />
       </section>
 
       <section className="answer-area">
@@ -443,6 +451,7 @@ function GapPane({
           </span>
         ))}
       </p>
+      <SentenceRu text={exercise.sentenceRu} />
       <button
         type="button"
         className="btn"
@@ -467,6 +476,7 @@ function ChoicePane({
   return (
     <section className="card exercise-pane">
       <p className="choice-prompt serif">{exercise.promptFr}</p>
+      <SentenceRu text={exercise.sentenceRu} />
       <div className="stack">
         {exercise.options.map((opt, i) => (
           <button
@@ -501,6 +511,7 @@ function OrderPane({
 
   return (
     <section className="card exercise-pane">
+      <SentenceRu text={exercise.sentenceRu} />
       <div className="order-line serif">
         {line.length === 0 && <span className="muted">Нажимайте на слова…</span>}
         {line.map((tok) => (
@@ -557,6 +568,7 @@ function TransformPane({
   return (
     <section className="card exercise-pane">
       <p className="transform-source serif">{exercise.sourceFr}</p>
+      <SentenceRu text={exercise.sentenceRu} />
       <form
         className="text-form"
         onSubmit={(e) => {

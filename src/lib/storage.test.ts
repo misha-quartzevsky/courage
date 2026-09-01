@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import {
+  isLearned,
+  loadProgress,
   mergeServerProgress,
   recordLightSession,
   recordSessionCompletion,
+  toggleWordLearned,
   weakRules,
 } from './storage'
 import { sessionsForUnit } from './syllabus'
@@ -74,6 +77,59 @@ describe('recordSessionCompletion', () => {
     expect(p.units).toEqual({})
     expect(p.words[0].fr).toBe('un mot')
     expect(p.streakDays).toBe(1)
+  })
+})
+
+describe('словарь: mastery / «пройдено»', () => {
+  it('верные ответы в повторении поднимают mastery, не сбрасывая слово', () => {
+    recordSessionCompletion(null, 90, [{ fr: 'la boxe', ru: 'бокс' }])
+    let p = recordSessionCompletion(null, 90, [], ['la boxe'])
+    const w1 = p.words.find((w) => w.fr === 'la boxe')!
+    expect(w1.mastery).toBe(1)
+    expect(w1.lastSeenAt).toBeTruthy()
+    expect(isLearned(w1)).toBe(false)
+
+    p = recordSessionCompletion(null, 90, [], ['la boxe'])
+    const w2 = p.words.find((w) => w.fr === 'la boxe')!
+    expect(w2.mastery).toBe(2)
+    expect(isLearned(w2)).toBe(true)
+
+    // Повторное появление того же слова как «нового» не сбрасывает mastery.
+    p = recordSessionCompletion(null, 90, [{ fr: 'la boxe', ru: 'бокс' }])
+    expect(p.words.find((w) => w.fr === 'la boxe')!.mastery).toBe(2)
+  })
+
+  it('toggleWordLearned переключает 0 ⇄ 2 у существующего слова', () => {
+    recordSessionCompletion(null, 90, [{ fr: 'nager', ru: 'плавать' }])
+    let p = toggleWordLearned('nager')
+    expect(p.words.find((w) => w.fr === 'nager')!.mastery).toBe(2)
+    p = toggleWordLearned('nager')
+    expect(p.words.find((w) => w.fr === 'nager')!.mastery).toBe(0)
+  })
+
+  it('toggleWordLearned добавляет отсутствующее слово сразу как «пройдено»', () => {
+    const p = toggleWordLearned('ordinateur', 'компьютер')
+    const w = p.words.find((x) => x.fr === 'ordinateur')!
+    expect(w.ru).toBe('компьютер')
+    expect(isLearned(w)).toBe(true)
+  })
+
+  it('старый прогресс без mastery грузится', () => {
+    localStorage.setItem(
+      'courage:progress',
+      JSON.stringify({
+        rules: {},
+        units: {},
+        words: [{ fr: 'vieux', ru: 'старый', addedAt: '2026-01-01T00:00:00.000Z' }],
+        streakDays: 1,
+        bestAccuracy: 0,
+        updatedAt: '2026-01-01T00:00:00.000Z',
+      }),
+    )
+    const p = loadProgress()!
+    expect(p.words[0].fr).toBe('vieux')
+    expect(p.words[0].mastery).toBeUndefined()
+    expect(isLearned(p.words[0])).toBe(false)
   })
 })
 

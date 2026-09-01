@@ -18,6 +18,8 @@ export function RuleCard({ rule }: RuleCardProps) {
         <p className="rule-title-ru muted">{rule.titleRu}</p>
       </header>
 
+      {rule.plainRu && <p className="rule-plain serif">{rule.plainRu}</p>}
+
       <div className="rule-block">
         <p className="eyebrow">Когда использовать</p>
         <p>{rule.summaryRu}</p>

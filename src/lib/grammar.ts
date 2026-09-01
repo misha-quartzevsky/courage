@@ -13,6 +13,7 @@ export interface GrammarRule {
   titleFr: string
   titleRu: string
   summaryRu: string
+  plainRu?: string // «в двух словах», очень простым языком (опционально)
   triggers: string[] // может быть []
   formationRule: string // может содержать \n
   keyExceptions: Record<string, string> // может быть {}
@@ -28,6 +29,7 @@ interface RawRule {
   title_fr: string
   title_ru: string
   summary_ru: string
+  plain_ru?: unknown
   triggers: unknown
   formation_rule: string
   key_exceptions: unknown
@@ -65,6 +67,9 @@ export const RULES: GrammarRule[] = (rawRules as RawRule[]).map((r) => ({
   titleFr: r.title_fr,
   titleRu: r.title_ru,
   summaryRu: r.summary_ru,
+  ...(typeof r.plain_ru === 'string' && r.plain_ru.trim()
+    ? { plainRu: r.plain_ru.trim() }
+    : {}),
   triggers: Array.isArray(r.triggers)
     ? r.triggers.filter((t): t is string => typeof t === 'string')
     : [],
@@ -96,6 +101,7 @@ export function searchRules(query: string): GrammarRule[] {
       r.titleFr,
       r.titleRu,
       r.summaryRu,
+      r.plainRu ?? '',
       r.triggers.join(' '),
     ]
       .join(' ')

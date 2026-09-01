@@ -15,7 +15,8 @@ import { SYLLABUS, unitById } from './syllabus'
 import { updateProgress } from './supabase'
 
 const KEY = 'courage:progress'
-const WORDS_CAP = 120
+// Урок теперь даёт весь свой словарь (~15–30 слов), не 3 — поднимаем потолок.
+const WORDS_CAP = 300
 
 const EMPTY: ProgressState = {
   units: {},
@@ -99,24 +100,53 @@ function rebuildUnits(
   return units
 }
 
-function asWords(v: unknown): WordRecord[] {
-  if (!Array.isArray(v)) return []
-  return v.filter(
-    (w): w is WordRecord =>
-      !!w &&
-      typeof w === 'object' &&
-      typeof (w as WordRecord).fr === 'string' &&
-      typeof (w as WordRecord).ru === 'string',
-  )
+// Порог «пройдено»: слово тускнеет в словаре, когда mastery дошёл до этого.
+export const MASTERY_LEARNED = 2
+
+export function isLearned(w: WordRecord): boolean {
+  return (w.mastery ?? 0) >= MASTERY_LEARNED
 }
 
-// Слить два списка слов: дедуп по fr (новее addedAt), кап, сортировка по свежести.
+function asWords(v: unknown): WordRecord[] {
+  if (!Array.isArray(v)) return []
+  return v
+    .filter(
+      (w): w is WordRecord =>
+        !!w &&
+        typeof w === 'object' &&
+        typeof (w as WordRecord).fr === 'string' &&
+        typeof (w as WordRecord).ru === 'string',
+    )
+    .map((w) => ({
+      fr: w.fr,
+      ru: w.ru,
+      addedAt: typeof w.addedAt === 'string' ? w.addedAt : new Date(0).toISOString(),
+      ...(typeof w.mastery === 'number' ? { mastery: w.mastery } : {}),
+      ...(typeof w.lastSeenAt === 'string' ? { lastSeenAt: w.lastSeenAt } : {}),
+    }))
+}
+
+// Слить два списка слов: дедуп по fr, слияние ПО ПОЛЯМ (mastery не сбрасывается
+// при повторном добавлении слова), кап, сортировка по свежести.
 function mergeWords(a: WordRecord[], b: WordRecord[]): WordRecord[] {
   const by = new Map<string, WordRecord>()
   for (const w of [...a, ...b]) {
     const key = w.fr.trim().toLowerCase()
     const cur = by.get(key)
-    if (!cur || w.addedAt > cur.addedAt) by.set(key, w)
+    if (!cur) {
+      by.set(key, w)
+      continue
+    }
+    const seen = [cur.lastSeenAt, w.lastSeenAt].filter(Boolean).sort()
+    by.set(key, {
+      fr: cur.fr,
+      ru: cur.ru || w.ru,
+      addedAt: w.addedAt > cur.addedAt ? w.addedAt : cur.addedAt,
+      ...(Math.max(cur.mastery ?? 0, w.mastery ?? 0) > 0
+        ? { mastery: Math.max(cur.mastery ?? 0, w.mastery ?? 0) }
+        : {}),
+      ...(seen.length ? { lastSeenAt: seen[seen.length - 1] } : {}),
+    })
   }
   return [...by.values()]
     .sort((x, y) => (x.addedAt < y.addedAt ? 1 : -1))
@@ -229,15 +259,26 @@ export function recordSessionCompletion(
   session: SessionRef | null,
   avgAccuracy: number,
   learnedWords: LearnedWord[] = [],
+  masteredFr: string[] = [],
 ): ProgressState {
   const prev = loadProgress()
   const now = new Date()
   const nowIso = now.toISOString()
 
-  const words = mergeWords(
-    prev?.words ?? [],
-    learnedWords.map((w) => ({ fr: w.fr, ru: w.ru, addedAt: nowIso })),
-  )
+  // Слова, на которые ученик ответил верно в этой сессии — поднимаем им mastery.
+  const masteredSet = new Set(masteredFr.map((s) => s.trim().toLowerCase()))
+  const bumps: WordRecord[] = (prev?.words ?? [])
+    .filter((w) => masteredSet.has(w.fr.trim().toLowerCase()))
+    .map((w) => ({
+      ...w,
+      mastery: (w.mastery ?? 0) + 1,
+      lastSeenAt: nowIso,
+    }))
+
+  const words = mergeWords(prev?.words ?? [], [
+    ...learnedWords.map((w) => ({ fr: w.fr, ru: w.ru, addedAt: nowIso, mastery: 0 })),
+    ...bumps,
+  ])
 
   let rules = prev?.rules ?? {}
   let units = prev?.units ?? {}
@@ -306,6 +347,44 @@ export function recordLightSession(): ProgressState {
     words: next.words,
   })
 
+  return next
+}
+
+// Тап по слову в словаре: переключить «пройдено» ⇄ «не пройдено». Если слова
+// ещё нет в прогрессе (тап по строке большого встроенного словаря) — добавить
+// его сразу как «пройдено».
+export function toggleWordLearned(fr: string, ru = ''): ProgressState {
+  const prev = loadProgress() ?? EMPTY
+  const nowIso = new Date().toISOString()
+  const key = fr.trim().toLowerCase()
+  const existing = prev.words.find((w) => w.fr.trim().toLowerCase() === key)
+
+  let words: WordRecord[]
+  if (!existing) {
+    words = mergeWords(prev.words, [
+      { fr: fr.trim(), ru, addedAt: nowIso, mastery: MASTERY_LEARNED, lastSeenAt: nowIso },
+    ])
+  } else {
+    const nextMastery = isLearned(existing) ? 0 : MASTERY_LEARNED
+    words = prev.words.map((w) =>
+      w.fr.trim().toLowerCase() === key
+        ? { ...w, mastery: nextMastery, lastSeenAt: nowIso }
+        : w,
+    )
+  }
+
+  // updatedAt НЕ трогаем — тап по словарю не считается учебной активностью
+  // и не должен влиять на стрик.
+  const next: ProgressState = { ...prev, words }
+  saveProgress(next)
+  void updateProgress({
+    streakDays: next.streakDays,
+    bestAccuracy: next.bestAccuracy,
+    lastCompletedAt: next.updatedAt,
+    units: next.units,
+    rules: next.rules,
+    words: next.words,
+  })
   return next
 }
 

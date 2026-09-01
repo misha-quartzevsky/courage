@@ -4,3 +4,7 @@ dev-dist
 .env
 *.local
 .DS_Store
+
+# Кэш исходников словаря (WikDict sqlite ~12 МБ) — не коммитим.
+# Сгенерированный public/dict/fr-ru.json — коммитим.
+scripts/.cache/

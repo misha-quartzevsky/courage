@@ -22,6 +22,21 @@ precacheAndRoute(self.__WB_MANIFEST)
 // SPA: любая навигация отдаётся из прекэшированного index.html.
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')))
 
+// Встроенный словарь (~3,5 МБ) не в прекэше — грузится лениво при первом
+// открытии вкладки «Словарь». Кэшируем cache-first, чтобы дальше работал офлайн.
+const DICT_CACHE = 'courage-dict-v1'
+registerRoute(
+  ({ url }) => url.pathname === '/dict/fr-ru.json',
+  async ({ request }) => {
+    const cache = await caches.open(DICT_CACHE)
+    const hit = await cache.match(request)
+    if (hit) return hit
+    const res = await fetch(request)
+    if (res.ok) await cache.put(request, res.clone())
+    return res
+  },
+)
+
 // Приложение просит новую версию активироваться немедленно.
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {

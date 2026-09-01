@@ -6,10 +6,11 @@
 "category": "Conjugaison",
 "title_fr": "Les verbes Être et Avoir au présent",
 "title_ru": "Глаголы Être (быть) и Avoir (иметь) в настоящем времени",
-"summary_ru": "Ключевые неправильные глаголы. Être используется для описания профессии, национальности и состояний. Avoir — для возраста и владения.",
+"summary_ru": "être — про то, кто вы и какой вы: профессия, национальность, состояние.\navoir — про то, что у вас есть, и про возраст.",
+"plain_ru": "Два самых нужных глагола: être — «быть» (кто я, какой я), avoir — «иметь» (что у меня есть, сколько мне лет).",
 "push_teaser_ru": "«J'ai 44 ans» — француз говорит «у меня 44 года», а не «мне 44». Почему avoir, а не être? 2 минуты.",
 "triggers": [],
-"formation_rule": "Спряжение нужно выучить наизусть, так как глаголы неправильные.",
+"formation_rule": "Оба глагола неправильные — формы просто заучиваем.\nВозраст по-французски через avoir: «у меня 30 лет».",
 "key_exceptions": {
 "être": "je suis, tu es, il est, nous sommes, vous êtes, ils sont",
 "avoir": "j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont"
@@ -32,10 +33,11 @@
 "category": "Grammaire",
 "title_fr": "Les adjectifs de nationalité",
 "title_ru": "Прилагательные, обозначающие национальность",
-"summary_ru": "Прилагательные национальности согласуются в роде с существительным (лицом), к которому они относятся.",
+"summary_ru": "Прилагательное национальности подстраивается под того, о ком речь: мужчина или женщина.",
+"plain_ru": "Слово о национальности меняет окончание под мужчину или женщину.",
 "push_teaser_ru": "«Il est français, elle est française» — во французском национальность меняется по роду. Как именно? Проверь за 2 минуты.",
 "triggers": ["être + nationalité"],
-"formation_rule": "Для образования женского рода к форме мужского рода добавляется буква 'e'. Если мужской род оканчивается на '-ien' или '-éen', в женском роде удваивается 'n' -> '-ne'.",
+"formation_rule": "Женский род: к мужской форме добавляем -e (espagnol → espagnole).\nЕсли мужская форма на -ien / -éen, в женском роде удваиваем n: -ienne / -éenne.\nЕсли мужская форма уже на -e, женская такая же.",
 "key_exceptions": {
 "Мужской род на 'e'": "Не меняется в женском роде (belge -> belge, russe -> russe).",
 "grec": "grecque",
@@ -59,10 +61,11 @@
 "category": "Grammaire",
 "title_fr": "Les articles définis",
 "title_ru": "Определенные артикли",
-"summary_ru": "Определенные артикли (le, la, l', les) используются для обозначения конкретных, известных предметов, явлений или понятий в общем смысле.",
+"summary_ru": "Определённый артикль ставим, когда предмет конкретный, уже известный или когда говорим о явлении в целом.",
+"plain_ru": "le / la / les — «этот самый», предмет уже известен или речь о нём вообще.",
 "push_teaser_ru": "«hôpital» — это le или la? Проверь догадку, это быстро.",
 "triggers": ["le", "la", "l'", "les", "aimer", "détester", "adorer"],
-"formation_rule": "Ед. число м.р. -> le. Ед. число ж.р. -> la. Ед. число перед гласной или немым 'h' -> l'. Множественное число (для обоих родов) -> les.",
+"formation_rule": "Мужской род: le.\nЖенский род: la.\nПеред гласной или немой h: l’.\nМножественное число (любой род): les.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -82,10 +85,11 @@
 "category": "Grammaire",
 "title_fr": "Les prépositions devant les noms de villes et de pays",
 "title_ru": "Предлоги перед названиями городов и стран",
-"summary_ru": "В зависимости от рода страны или типа географического названия используются разные предлоги для обозначения местонахождения или направления (в/во).",
+"summary_ru": "Предлог перед местом зависит от того, город это или страна, и какого страна рода.",
+"plain_ru": "Куда/где: в город — à, в страну — en, au или aux в зависимости от рода страны.",
 "push_teaser_ru": "«в США» — aux États-Unis, а «в Париже» — à Paris. Почему разные предлоги? 2 минуты.",
 "triggers": ["habiter", "aller", "être né"],
-"formation_rule": "Перед городами ставится 'à'. Перед странами ж.р. (оканчиваются на -e) или начинающимися с гласной -> 'en'. Перед странами м.р. -> 'au'. Перед странами во мн.ч. -> 'aux'.",
+"formation_rule": "Город: à (à Paris).\nСтрана женского рода (на -e) или на гласную: en (en France).\nСтрана мужского рода: au (au Canada).\nСтрана во множественном числе: aux (aux États-Unis).",
 "key_exceptions": {
 "Страны-исключения на -e (м.р.)": "le Mexique (au Mexique), le Mozambique (au Mozambique), le Cambodge (au Cambodge), le Zimbabwe."
 },
@@ -107,10 +111,11 @@
 "category": "Grammaire",
 "title_fr": "L'adjectif interrogatif quel",
 "title_ru": "Вопросительное прилагательное quel (какой)",
-"summary_ru": "Используется для построения вопроса и согласуется в роде и числе с существительным, к которому относится. Все 4 формы произносятся одинаково.",
+"summary_ru": "quel в вопросе подстраивается под существительное по роду и числу. Все четыре формы звучат одинаково.",
+"plain_ru": "quel — «какой / который» в вопросе; меняет окончание под существительное.",
 "push_teaser_ru": "«quel» умеет быть quelle / quels / quelles — и все четыре звучат одинаково. Когда какую писать? Проверь догадку.",
 "triggers": ["quel", "quelle", "quels", "quelles"],
-"formation_rule": "М.р. ед.ч.: quel. Ж.р. ед.ч.: quelle. М.р. мн.ч.: quels. Ж.р. мн.ч.: quelles.",
+"formation_rule": "Мужской род, ед. ч.: quel.\nЖенский род, ед. ч.: quelle.\nМужской род, мн. ч.: quels.\nЖенский род, мн. ч.: quelles.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -130,9 +135,10 @@
 "category": "Grammaire",
 "title_fr": "Les articles indéfinis",
 "title_ru": "Неопределенные артикли",
-"summary_ru": "Неопределенные артикли (un, une, des) используются для указания на предметы или лица, которые не определены, неизвестны или упоминаются впервые.",
+"summary_ru": "Неопределённый артикль ставим, когда предмет называем впервые или он не конкретный.",
+"plain_ru": "un / une / des — «какой-то», предмет новый или неважно какой именно.",
 "triggers": ["un", "une", "des", "c'est", "il y a"],
-"formation_rule": "Ед. число м.р. -> un. Ед. число ж.р. -> une. Множественное число (для обоих родов) -> des.",
+"formation_rule": "Мужской род: un.\nЖенский род: une.\nМножественное число (любой род): des.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -152,10 +158,11 @@
 "category": "Conjugaison",
 "title_fr": "Les verbes en -er au présent",
 "title_ru": "Глаголы на -er в настоящем времени (1-я группа)",
-"summary_ru": "Самая большая группа глаголов во французском языке. Они спрягаются по строгому правилу путем замены окончания инфинитива.",
+"summary_ru": "Глаголы на -er — самая большая группа. Спрягаются все одинаково, по одному правилу.",
+"plain_ru": "Самые частые глаголы (на -er): убираем -er и добавляем нужное окончание.",
 "push_teaser_ru": "Глаголы на -er — самая большая группа, и все спрягаются по одной схеме. Посмотришь её? 2 минуты.",
 "triggers": ["-er"],
-"formation_rule": "Отбросить окончание -er и добавить: -e (je), -es (tu), -e (il/elle/on), -ons (nous), -ez (vous), -ent (ils/elles).",
+"formation_rule": "Убираем -er от инфинитива, к основе добавляем:\nje → -e, tu → -es, il/elle/on → -e,\nnous → -ons, vous → -ez, ils/elles → -ent.\nОкончания -e, -es, -ent не слышны — на слух эти формы одинаковые.",
 "key_exceptions": {
 "aller": "Глагол aller (идти/ехать) заканчивается на -er, но является полностью неправильным (3 группа)."
 },
@@ -177,9 +184,10 @@
 "category": "Grammaire",
 "title_fr": "Les adjectifs possessifs",
 "title_ru": "Притяжательные прилагательные (мой, твой, его...)",
-"summary_ru": "Выражают принадлежность. Согласуются с обладателем и с родом/числом самого предмета (а не владельца, как в русском!).",
+"summary_ru": "Показывают, чьё это.\nВажно: форма зависит от самого предмета (род, число), а не от владельца, как в русском.",
+"plain_ru": "mon / ma / mes — «мой»; форма зависит от рода и числа предмета, а не хозяина.",
 "triggers": ["mon", "ma", "mes", "ton", "son", "notre", "votre", "leur"],
-"formation_rule": "Je: mon/ma/mes. Tu: ton/ta/tes. Il/Elle: son/sa/ses. Nous: notre/nos. Vous: votre/vos. Ils/Elles: leur/leurs.",
+"formation_rule": "je: mon (м.р.) / ma (ж.р.) / mes (мн. ч.).\ntu: ton / ta / tes.\nil, elle: son / sa / ses.\nnous: notre / nos. vous: votre / vos. ils, elles: leur / leurs.",
 "key_exceptions": {
 "Перед гласной и немым h (для ж.р.)": "Вместо ma, ta, sa используются формы м.р.: mon, ton, son (mon amie, ton école, son université)."
 },
@@ -201,9 +209,10 @@
 "category": "Grammaire",
 "title_fr": "Le masculin et le féminin des professions",
 "title_ru": "Мужской и женский род названий профессий",
-"summary_ru": "Большинство профессий имеют формы мужского и женского рода. Правила образования зависят от окончания в мужском роде.",
+"summary_ru": "Профессия обычно имеет две формы. Какая будет женская — зависит от окончания мужской.",
+"plain_ru": "У большинства профессий есть мужская и женская форма — меняется окончание.",
 "triggers": [],
-"formation_rule": "-e -> -e (fleuriste -> fleuriste); -er -> -ère (infirmier -> infirmière); -eur -> -euse (coiffeur -> coiffeuse); -teur -> -trice (acteur -> actrice); -ien -> -ienne (informaticien -> informaticienne); +e (étudiant -> étudiante).",
+"formation_rule": "-e → без изменений (fleuriste → fleuriste).\n-er → -ère (infirmier → infirmière).\n-eur → -euse (coiffeur → coiffeuse).\n-teur → -trice (acteur → actrice).\n-ien → -ienne. В остальных случаях просто добавляем -e.",
 "key_exceptions": {
 "professeur": "Может быть 'le professeur' (м.р.) или 'la professeure' (ж.р.)."
 },
@@ -225,9 +234,10 @@
 "category": "Grammaire",
 "title_fr": "Le singulier et le pluriel des noms",
 "title_ru": "Единственное и множественное число существительных",
-"summary_ru": "Во французском языке множественное число существительных в основном образуется добавлением непроизносимой буквы 's'.",
+"summary_ru": "Множественное число существительных чаще всего образуется добавлением -s, которая не читается.",
+"plain_ru": "Множественное число обычно = слово + непроизносимая -s.",
 "triggers": [],
-"formation_rule": "К форме единственного числа добавляется буква 's' (un panier -> des paniers).",
+"formation_rule": "Обычно: + s (un panier → des paniers).\nНа слух единственное и множественное часто различаются только артиклем (un / des, le / les).",
 "key_exceptions": {
 "-eau / -au / -eu": "Принимают окончание 'x' во множественном числе (un morceau -> des morceaux, un jeu -> des jeux)."
 },
@@ -249,9 +259,10 @@
 "category": "Grammaire",
 "title_fr": "La quantité non définie (les partitifs)",
 "title_ru": "Частичные артикли (неопределенное количество)",
-"summary_ru": "Используются перед неисчисляемыми существительными (еда, жидкости, абстрактные понятия), чтобы указать на 'какую-то часть' целого.",
+"summary_ru": "Частичный артикль ставим перед тем, что не считают поштучно (еда, жидкости, чувства), чтобы сказать «сколько-то».",
+"plain_ru": "du / de la / des — «немного, часть чего-то»: еда, вода, абстрактные вещи.",
 "triggers": ["du", "de la", "de l'", "des", "pas de"],
-"formation_rule": "М.р. -> du, Ж.р. -> de la, Перед гласной -> de l', Мн.ч. -> des. При указании конкретного количества (un peu, beaucoup) или при отрицании (ne... pas) ставится просто 'de/d''.",
+"formation_rule": "Мужской род: du. Женский род: de la.\nПеред гласной: de l’. Множественное число: des.\nПосле слов количества (un peu, beaucoup) и при отрицании — просто de / d’.",
 "key_exceptions": {
 "Отрицание": "Je mange du poisson. -> Je ne mange pas de poisson.",
 "Количественные слова": "beaucoup de poivre, un pot de crème, un kilo de raisin."
@@ -274,9 +285,10 @@
 "category": "Grammaire",
 "title_fr": "Les prépositions de lieu : chez, à, au, aux",
 "title_ru": "Предлоги места: chez (у кого-то) и à/au/aux (в/на)",
-"summary_ru": "Во французском предлоги строго делятся в зависимости от того, идете ли вы к человеку (профессия) или в заведение (место).",
+"summary_ru": "Выбор предлога зависит от того, идёте вы к человеку или в какое-то место.",
+"plain_ru": "К человеку — chez, в заведение или место — à (au / à la / aux).",
 "triggers": ["chez", "au", "à la", "à l'", "aux"],
-"formation_rule": "'chez' используется перед людьми и профессиями (chez le poissonnier, chez moi). 'à' (+ артикль: au, à la, à l', aux) используется перед неодушевленными местами и заведениями (au marché, à la boulangerie).",
+"formation_rule": "chez — перед людьми и профессиями (chez le médecin, chez moi).\nà (+ артикль: au, à la, à l’, aux) — перед местами и заведениями (au marché, à la boulangerie).",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -296,9 +308,10 @@
 "category": "Grammaire",
 "title_fr": "C'est vs Il est / Elle est",
 "title_ru": "Разница между C'est и Il/Elle est",
-"summary_ru": "C'est используется для идентификации (это есть...), Il/Elle est — для описания характеристик уже упомянутого предмета или человека.",
+"summary_ru": "C’est — чтобы назвать, что или кто это. Il/Elle est — чтобы описать уже названного человека или предмет.",
+"plain_ru": "C’est — «это (такой-то)», называем; Il/Elle est — «он/она такой», описываем.",
 "triggers": ["c'est", "ce sont", "il est", "elle est"],
-"formation_rule": "C'est + существительное с артиклем (C'est un artiste, C'est le quartier). Il/Elle est + прилагательное (или профессия/национальность без артикля) (Il est grenoblois, Elle est calme). Множественное число: Ce sont + существительное, Ils/Elles sont + прилагательное.",
+"formation_rule": "C’est + существительное с артиклем (C’est un artiste).\nIl/Elle est + прилагательное или профессия без артикля (Elle est calme, Il est médecin).\nМножественное число: Ce sont + существительное, Ils/Elles sont + прилагательное.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -318,9 +331,10 @@
 "category": "Grammaire",
 "title_fr": "La fréquence : jamais, souvent, toujours",
 "title_ru": "Наречия частоты (никогда, часто, всегда)",
-"summary_ru": "Эти наречия указывают, как часто происходит действие. Они ставятся сразу после спрягаемого глагола.",
+"summary_ru": "Наречия частоты показывают, как часто происходит действие, и стоят сразу после глагола.",
+"plain_ru": "Как часто (souvent, toujours, jamais) — сразу после глагола.",
 "triggers": ["jamais", "souvent", "toujours", "parfois", "rarement"],
-"formation_rule": "Место в предложении: Подлежащее + Глагол + Наречие частоты. Для 'jamais' используется конструкция 'ne... jamais' (слово 'pas' не ставится).",
+"formation_rule": "Порядок: подлежащее + глагол + наречие частоты (Je regarde souvent la télé).\n«Никогда» — это ne… jamais вокруг глагола, без pas.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -340,9 +354,10 @@
 "category": "Conjugaison",
 "title_fr": "L'impératif",
 "title_ru": "Повелительное наклонение (Императив)",
-"summary_ru": "Используется для приказов, инструкций и советов. Имеет только три формы (ты, мы, вы) и употребляется без местоимения-подлежащего.",
+"summary_ru": "Повелительное наклонение — для просьб, советов и инструкций. Три формы, местоимение не ставим.",
+"plain_ru": "Просьба или команда: берём форму настоящего времени и убираем «ты / мы / вы».",
 "triggers": [],
-"formation_rule": "Образуется от форм настоящего времени для 'tu', 'nous', 'vous'. У глаголов 1-й группы (на -er) в форме 'tu' отбрасывается конечная 's' (Tu regardes -> Regarde !).",
+"formation_rule": "Берём формы настоящего времени для tu, nous, vous и убираем местоимение.\nУ глаголов на -er в форме tu убираем конечную -s (Tu regardes → Regarde !).",
 "key_exceptions": {
 "aller": "va (но: vas-y), allons, allez",
 "être": "sois, soyons, soyez",
@@ -366,9 +381,10 @@
 "category": "Grammaire",
 "title_fr": "Les connecteurs (pour, parce que, mais, avec, sans)",
 "title_ru": "Союзы и предлоги связи",
-"summary_ru": "Связующие слова: pour (цель), parce que (причина), mais (противопоставление), avec (наличие/с), sans (отсутствие/без).",
+"summary_ru": "Связки соединяют части фразы: цель, причину, противопоставление, наличие или отсутствие.",
+"plain_ru": "Слова-связки: pour (зачем), parce que (почему), mais (но), avec / sans (с / без).",
 "triggers": ["pour", "parce que", "mais", "avec", "sans"],
-"formation_rule": "'pour' + инфинитив (цель). 'parce que' + фраза с подлежащим и сказуемым. 'mais' + фраза (противопоставление). 'avec'/'sans' + существительное.",
+"formation_rule": "pour + инфинитив — цель (pour apprendre).\nparce que + целое предложение — причина.\nmais + предложение — противопоставление.\navec / sans + существительное.",
 "key_exceptions": {
 "parce que + гласная": "сокращается до parce qu' (parce qu'il...)"
 },
@@ -390,9 +406,10 @@
 "category": "Grammaire",
 "title_fr": "Le genre, le nombre et la place des adjectifs",
 "title_ru": "Род, число и место прилагательных",
-"summary_ru": "Прилагательные согласуются в роде и числе с существительным. В основном они ставятся после существительного, но есть группа коротких частых прилагательных, которые ставятся перед ним.",
+"summary_ru": "Прилагательное подстраивается под существительное по роду и числу. Обычно оно после существительного, но несколько коротких частых слов — перед.",
+"plain_ru": "Прилагательное согласуется с существительным; чаще стоит после него, короткие частые — перед.",
 "triggers": [],
-"formation_rule": "Женский род: + 'e'. Множественное число: + 's'. Короткие прилагательные (petit, grand, beau, bon, joli) ставятся ПЕРЕД существительным. Цвета и национальности — всегда ПОСЛЕ.",
+"formation_rule": "Женский род: + e. Множественное число: + s.\nПеред существительным: petit, grand, beau, bon, joli и ещё несколько коротких.\nЦвета и национальности — всегда после существительного.",
 "key_exceptions": {
 "blanc": "blanche (ж.р.)",
 "long": "longue (ж.р.)",
@@ -417,9 +434,10 @@
 "category": "Conjugaison",
 "title_fr": "Le futur proche",
 "title_ru": "Ближайшее будущее время",
-"summary_ru": "Используется для выражения действий, которые произойдут в ближайшем или запланированном будущем.",
+"summary_ru": "Ближайшее будущее — про то, что произойдёт скоро или уже запланировано.",
+"plain_ru": "Скоро сделаю = aller в настоящем времени + инфинитив.",
 "triggers": ["demain", "ce soir", "lundi prochain"],
-"formation_rule": "Спрягаемый глагол 'aller' в настоящем времени + Инфинитив смыслового глагола (Je vais manger, Tu vas partir).",
+"formation_rule": "aller в настоящем времени + инфинитив основного глагола.\nJe vais manger. Tu vas partir. Nous allons voir.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -439,9 +457,10 @@
 "category": "Grammaire",
 "title_fr": "L'adjectif démonstratif",
 "title_ru": "Указательные прилагательные (этот, эта, эти)",
-"summary_ru": "Используются для указания на конкретный предмет или лицо ('этот самый'). Ставятся вместо артикля.",
+"summary_ru": "Указательное прилагательное показывает на конкретный предмет («вот этот») и заменяет артикль.",
+"plain_ru": "ce / cette / ces — «этот, эта, эти»; ставим вместо артикля.",
 "triggers": ["ce", "cet", "cette", "ces"],
-"formation_rule": "М.р. ед.ч. -> ce (ce sac). Ж.р. ед.ч. -> cette (cette robe). Мн.ч. (любой род) -> ces (ces objets).",
+"formation_rule": "Мужской род, ед. ч.: ce (ce sac).\nЖенский род, ед. ч.: cette (cette robe).\nМножественное число (любой род): ces (ces objets).",
 "key_exceptions": {
 "М.р. перед гласной или h немым": "используется 'cet' (cet étui, cet ordinateur, cet homme)."
 },
@@ -463,9 +482,10 @@
 "category": "Conjugaison",
 "title_fr": "Les verbes pronominaux au présent",
 "title_ru": "Возвратные глаголы в настоящем времени",
-"summary_ru": "Глаголы с частицей 'se' (умываться, просыпаться). Возвратное местоимение меняется в зависимости от подлежащего.",
+"summary_ru": "У возвратных глаголов есть частица se. Она меняется вместе с подлежащим.",
+"plain_ru": "Глаголы с se (умываться, вставать): частица меняется под лицо и стоит перед глаголом.",
 "triggers": ["se réveiller", "s'habiller", "se doucher", "se lever"],
-"formation_rule": "Частица меняется: je me, tu te, il/elle se, nous nous, vous vous, ils/elles se. При отрицании 'ne' ставится ПЕРЕД возвратным местоимением: Je ne me lève pas.",
+"formation_rule": "je me, tu te, il/elle se, nous nous, vous vous, ils/elles se.\nОтрицание: ne — перед частицей (Je ne me lève pas).",
 "key_exceptions": {
 "Перед гласной или h немым": "me -> m', te -> t', se -> s' (je m'habille, tu t'occupes)."
 },
@@ -487,9 +507,10 @@
 "category": "Conjugaison",
 "title_fr": "Le passé récent",
 "title_ru": "Недавнее прошедшее время",
-"summary_ru": "Обозначает действие, которое произошло только что, буквально перед моментом речи.",
+"summary_ru": "Недавнее прошедшее — про действие, которое случилось буквально минуту назад.",
+"plain_ru": "Только что сделал = venir в настоящем времени + de + инфинитив.",
 "triggers": ["venir de"],
-"formation_rule": "Спрягаемый глагол 'venir' в настоящем времени + 'de' (или d') + Инфинитив смыслового глагола (Je viens de finir).",
+"formation_rule": "venir в настоящем времени + de (d’) + инфинитив.\nJe viens de finir. Elle vient d’arriver.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -509,9 +530,10 @@
 "category": "Conjugaison",
 "title_fr": "Le passé composé avec 'avoir'",
 "title_ru": "Прошедшее время Passé composé со вспомогательным глаголом 'avoir'",
-"summary_ru": "Основное прошедшее завершенное время. Большинство глаголов спрягается со вспомогательным глаголом avoir.",
+"summary_ru": "Passé composé — основное прошедшее время про завершённое действие. Большинство глаголов берут avoir.",
+"plain_ru": "Прошедшее «сделал» = avoir в настоящем времени + причастие (у -er глаголов на -é).",
 "triggers": ["hier", "la semaine dernière", "il y a dix jours"],
-"formation_rule": "Вспомогательный глагол 'avoir' (в настоящем времени) + Participe passé (причастие прошедшего времени). Для 1-й группы (-er) причастие оканчивается на '-é' (trouver -> trouvé, acheter -> acheté).",
+"formation_rule": "avoir в настоящем времени + причастие прошедшего времени.\nУ глаголов на -er причастие оканчивается на -é (trouver → trouvé).\nJ’ai trouvé. Nous avons mangé.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -531,9 +553,10 @@
 "category": "Grammaire",
 "title_fr": "Les prépositions de lieu (2)",
 "title_ru": "Предлоги места (продвинутые)",
-"summary_ru": "Предлоги и предложные конструкции для точного указания местоположения в пространстве.",
+"summary_ru": "Предлоги и обороты для точного места предмета в пространстве.",
+"plain_ru": "Где именно: sur, sous, devant, derrière, entre и обороты с de (à côté de…).",
 "triggers": [],
-"formation_rule": "sur (на), sous (под), devant (перед), derrière (за), entre (между). Конструкции с 'de': à gauche de, à droite de, à côté de, en face de. Внимание: de + le = du, de + les = des.",
+"formation_rule": "sur (на), sous (под), devant (перед), derrière (за), entre (между).\nОбороты с de: à gauche de, à droite de, à côté de, en face de.\nПомним: de + le = du, de + les = des.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -553,9 +576,10 @@
 "category": "Grammaire",
 "title_fr": "Les pronoms COD (le, la, l', les)",
 "title_ru": "Прямые местоимения-дополнения (COD)",
-"summary_ru": "Заменяют существительное (человека или вещь) без предлога (отвечают на вопрос Кого? Что?), чтобы избежать повторений.",
+"summary_ru": "Прямое местоимение заменяет существительное без предлога (кого? что?) и убирает повтор.",
+"plain_ru": "le / la / les заменяют предмет или человека (кого? что?), чтобы не повторяться. Ставим перед глаголом.",
 "triggers": [],
-"formation_rule": "le (м.р.), la (ж.р.), l' (перед гласной), les (мн.ч.). Местоимение ставится ПЕРЕД глаголом (Je le connais). При отрицании: Je ne le connais pas.",
+"formation_rule": "le (м.р.), la (ж.р.), l’ (перед гласной), les (мн. ч.).\nСтавим перед глаголом: Je le connais.\nОтрицание: Je ne le connais pas.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -575,9 +599,10 @@
 "category": "Conjugaison",
 "title_fr": "Le passé composé avec 'être' et participes irréguliers",
 "title_ru": "Passé composé со вспомогательным 'être' и неправильные причастия",
-"summary_ru": "Глаголы движения и изменения состояния спрягаются с 'être'. В этом случае причастие (participe passé) согласуется в роде и числе с подлежащим.",
+"summary_ru": "Глаголы движения и смены состояния в passé composé берут être.\nТогда причастие согласуется с подлежащим по роду и числу.",
+"plain_ru": "Глаголы движения в прошедшем берут être, и причастие согласуется с подлежащим.",
 "triggers": ["aller", "venir", "entrer", "sortir", "partir", "arriver"],
-"formation_rule": "'être' (в наст. времени) + Participe passé. Согласование: +e (ж.р.), +s (мн.ч.), +es (ж.р. мн.ч.). Неправильные причастия (для avoir): être->été, avoir->eu, faire->fait, pouvoir->pu, prendre->pris, voir->vu, boire->bu.",
+"formation_rule": "être в настоящем времени + причастие.\nСогласование: + e (ж.р.), + s (мн. ч.), + es (ж.р. мн. ч.).\nНеправильные причастия учим отдельно: être → été, avoir → eu, faire → fait, prendre → pris, voir → vu.",
 "key_exceptions": {
 "aller": "je suis allé(e), nous sommes allé(e)s"
 },
@@ -599,9 +624,10 @@
 "category": "Grammaire",
 "title_fr": "Le pronom Y",
 "title_ru": "Местоимение Y (туда, там)",
-"summary_ru": "Заменяет место (дополнение места), введенное предлогами 'à', 'en', 'au', 'aux', 'dans' и т.д., чтобы избежать повторения.",
+"summary_ru": "y заменяет обстоятельство места с предлогами à, dans, en и т. п.",
+"plain_ru": "y заменяет место («туда / там»), чтобы не повторять à / dans + место.",
 "triggers": ["à", "au", "aux", "dans", "en", "chez"],
-"formation_rule": "Ставится ПЕРЕД глаголом. В отрицании 'ne' и 'y' сливаются: n'y (Je n'y vais pas).",
+"formation_rule": "Ставим перед глаголом (J’y vais).\nВ отрицании ne + y сливаются: Je n’y vais pas.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -621,9 +647,10 @@
 "category": "Grammaire",
 "title_fr": "L'obligation : devoir et il faut",
 "title_ru": "Выражение обязанности и совета (devoir, il faut)",
-"summary_ru": "'Il faut' (нужно) — безличная конструкция для общих правил. Глагол 'devoir' (быть должным) спрягается по лицам.",
+"summary_ru": "il faut — безличное «нужно» для общих правил. devoir — «быть должным», спрягается по лицам.",
+"plain_ru": "Надо: il faut + инфинитив (общее правило) или devoir по лицам (лично должен).",
 "triggers": ["il faut", "devoir"],
-"formation_rule": "Il faut + инфинитив. Devoir (je dois, tu dois, il doit, nous devons, vous devez, ils doivent) + инфинитив. В отрицательной форме они выражают запрет.",
+"formation_rule": "il faut + инфинитив (одна форма на всех).\ndevoir: je dois, tu dois, il doit, nous devons, vous devez, ils doivent + инфинитив.\nВ отрицании обе конструкции означают запрет.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -643,9 +670,10 @@
 "category": "Grammaire",
 "title_fr": "La comparaison",
 "title_ru": "Степени сравнения",
-"summary_ru": "Используются для сравнения качеств (прилагательных) или количества (существительных).",
+"summary_ru": "Конструкции сравнения работают с прилагательными (какой) и с количеством (сколько).",
+"plain_ru": "Сравнение: plus / moins / aussi + прилагательное + que («больше / меньше / так же… чем»).",
 "triggers": ["plus", "moins", "aussi", "que"],
-"formation_rule": "С прилагательными: plus/moins/aussi + adjectif + que. С существительными: plus de/moins de + nom + que (равенство с существительными изучается позже). 'que' перед гласной -> 'qu''.",
+"formation_rule": "С прилагательным: plus / moins / aussi + прилагательное + que.\nС существительным: plus de / moins de + существительное + que.\nque перед гласной → qu’.",
 "key_exceptions": {
 "bon / bonne": "нельзя сказать 'plus bon', используется 'meilleur' / 'meilleure'."
 },
@@ -667,9 +695,10 @@
 "category": "Conjugaison",
 "title_fr": "Les verbes impersonnels à l'imparfait",
 "title_ru": "Безличные глаголы в прошедшем времени Imparfait (описания)",
-"summary_ru": "Imparfait используется для описания фона, погоды и обстановки в прошлом. Безличные обороты имеют только одну форму (для 'il').",
+"summary_ru": "Imparfait описывает фон и обстановку в прошлом. У безличных оборотов только одна форма.",
+"plain_ru": "Описание прошлого (погода, фон): c’était, il y avait, il faisait.",
 "triggers": ["c'est", "il y a", "il fait"],
-"formation_rule": "C'est -> c'était (это было), Il y a -> il y avait (там было / находилось), Il fait (погода) -> il faisait.",
+"formation_rule": "c’est → c’était (это было).\nil y a → il y avait (там было / находилось).\nil fait (о погоде) → il faisait.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -689,9 +718,10 @@
 "category": "Grammaire",
 "title_fr": "Les pronoms COD (me, te, nous, vous)",
 "title_ru": "Личные местоимения в роли прямого дополнения (меня, тебя, нас, вас)",
-"summary_ru": "Обозначают лицо, на которое направлено действие, без предлога (Вижу КОГО? Тебя).",
+"summary_ru": "Эти местоимения обозначают человека, на которого направлено действие, без предлога.",
+"plain_ru": "me / te / nous / vous — «меня, тебя, нас, вас»; перед глаголом.",
 "triggers": [],
-"formation_rule": "me (меня), te (тебя), nous (нас), vous (вас). Ставятся ПЕРЕД глаголом. Перед гласной: me -> m', te -> t'.",
+"formation_rule": "me (меня), te (тебя), nous (нас), vous (вас).\nСтавим перед глаголом.\nПеред гласной: me → m’, te → t’.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -711,9 +741,10 @@
 "category": "Grammaire",
 "title_fr": "Les pronoms relatifs qui et que",
 "title_ru": "Относительные местоимения qui (который - подлежащее) и que (которого - дополнение)",
-"summary_ru": "Связывают два простых предложения в одно сложное, избегая повторов.",
+"summary_ru": "Относительные местоимения связывают две мысли в одну фразу без повтора существительного.",
+"plain_ru": "qui / que соединяют два предложения в одно: qui — вместо подлежащего, que — вместо дополнения.",
 "triggers": ["qui", "que", "qu'"],
-"formation_rule": "'qui' заменяет подлежащее (за ним сразу идет глагол). 'que' заменяет прямое дополнение (за ним идет подлежащее + глагол). 'que' перед гласной сокращается до 'qu''.",
+"formation_rule": "qui — вместо подлежащего, дальше сразу глагол (l’ami qui parle).\nque — вместо дополнения, дальше подлежащее + глагол (le livre que je lis).\nque перед гласной → qu’.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -733,9 +764,10 @@
 "category": "Grammaire",
 "title_fr": "La durée et la continuation (pendant, longtemps, toujours)",
 "title_ru": "Продолжительность и длительность",
-"summary_ru": "Предлоги и наречия для выражения времени протекания действия.",
+"summary_ru": "Слова для выражения того, сколько длится действие.",
+"plain_ru": "Сколько времени длилось: pendant (точный срок), longtemps (долго), toujours + настоящее (всё ещё идёт).",
 "triggers": ["pendant", "longtemps", "toujours"],
-"formation_rule": "'pendant' + существительное (ограниченный срок: pendant deux ans). 'longtemps' (долго, без точного срока). 'toujours' + настоящее время (действие началось в прошлом и всё ещё продолжается).",
+"formation_rule": "pendant + существительное — ограниченный срок (pendant deux ans).\nlongtemps — долго, без точного срока.\ntoujours + настоящее время — действие началось раньше и всё ещё идёт.",
 "key_exceptions": {},
 "authentic_examples": [
 {
@@ -755,9 +787,10 @@
 "category": "Grammaire",
 "title_fr": "Les pronoms COI : lui et leur",
 "title_ru": "Косвенные местоимения-дополнения (ему/ей, им)",
-"summary_ru": "Заменяют одушевленные существительные (людей), которые вводятся предлогом 'à' (отвечают на вопрос Кому?).",
+"summary_ru": "Косвенные местоимения заменяют людей, которых вводит предлог à (кому?).",
+"plain_ru": "lui / leur — «ему/ей, им»: заменяют людей после предлога à (кому?).",
 "triggers": ["parler à", "téléphoner à", "dire à", "donner à"],
-"formation_rule": "'lui' заменяет ед. число (и мужской, и женский род — ему, ей). 'leur' заменяет мн. число (им). Ставятся ПЕРЕД глаголом.",
+"formation_rule": "lui — один человек (и он, и она): ему, ей.\nleur — несколько человек: им.\nСтавим перед глаголом (Je lui parle).",
 "key_exceptions": {},
 "authentic_examples": [
 {

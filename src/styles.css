@@ -1387,6 +1387,16 @@ button {
   margin: 0;
 }
 
+/* Перевод французской фразы упражнения — виден всегда, во всех типах заданий. */
+.exercise-ru {
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  margin: 0;
+}
+.situation .exercise-ru {
+  margin-top: var(--space-2);
+}
+
 .exercise-pane {
   display: flex;
   flex-direction: column;
@@ -1534,6 +1544,42 @@ button {
 .rule-title-ru {
   margin: 0;
   font-size: var(--text-sm);
+}
+
+/* «В двух словах» — первое, что видит ученик; детали прячем под «Подробнее». */
+.rule-plain {
+  margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.rule-more {
+  margin: 0;
+}
+
+.rule-more > summary {
+  cursor: pointer;
+  color: var(--faint);
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.rule-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rule-more > summary::after {
+  content: ' ↓';
+}
+
+.rule-more[open] > summary::after {
+  content: ' ↑';
+}
+
+.rule-more > p {
+  margin: var(--space-2) 0 0;
+  line-height: 1.55;
 }
 
 .rule-block {
@@ -1802,6 +1848,64 @@ button {
 
 .tab-item--active {
   color: var(--accent-hover);
+}
+
+/* ------------------------------------------------------------
+   Словарь (вкладка «Словарь»)
+   ------------------------------------------------------------ */
+.dict-filters {
+  margin-bottom: var(--space-3);
+}
+
+.dict-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dict-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-1);
+  border-bottom: 1px solid var(--hairline, rgba(128, 128, 128, 0.16));
+}
+
+.dict-row--new {
+  border-left: 2px solid var(--accent);
+  padding-left: calc(var(--space-1) + 6px);
+}
+
+.dict-row--learned {
+  opacity: 0.5;
+}
+
+.dict-row-text {
+  flex: 1;
+  text-align: left;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px 0;
+  line-height: 1.4;
+}
+
+.dict-status {
+  margin-left: var(--space-2);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+.dict-attribution {
+  margin-top: var(--space-5);
+  font-size: var(--text-sm);
 }
 
 /* ------------------------------------------------------------

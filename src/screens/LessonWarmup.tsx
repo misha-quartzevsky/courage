@@ -265,13 +265,28 @@ function RevealPane({
         <p className="rule-title-ru muted">{beat.titleRu}</p>
       </div>
 
-      <p>{beat.summaryRu}</p>
+      {beat.plainRu && <p className="rule-plain serif">{beat.plainRu}</p>}
 
-      {beat.formationLines.map((line, i) => (
-        <p key={i} className="muted">
-          {line}
-        </p>
-      ))}
+      {beat.plainRu ? (
+        <details className="rule-more">
+          <summary>Подробнее</summary>
+          <p>{beat.summaryRu}</p>
+          {beat.formationLines.map((line, i) => (
+            <p key={i} className="muted">
+              {line}
+            </p>
+          ))}
+        </details>
+      ) : (
+        <>
+          <p>{beat.summaryRu}</p>
+          {beat.formationLines.map((line, i) => (
+            <p key={i} className="muted">
+              {line}
+            </p>
+          ))}
+        </>
+      )}
 
       {beat.example && (
         <p className="rule-example">
