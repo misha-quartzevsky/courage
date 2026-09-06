@@ -39,6 +39,7 @@ export function Reader({ id, userWords, onAddWord, onClose }: ReaderProps) {
   const [gloss, setGloss] = useState<Gloss | null>(null)
   const [activeWord, setActiveWord] = useState<string | null>(null)
   const [added, setAdded] = useState<Set<string>>(new Set())
+  const [shadow, setShadow] = useState(false) // бит антиципации: «повтори вслух»
 
   useEffect(() => {
     let alive = true
@@ -232,6 +233,35 @@ export function Reader({ id, userWords, onAddWord, onClose }: ReaderProps) {
             )}
           </div>
 
+          {shadow && text.sentences.length > 0 && (
+            <div className="reader-gloss">
+              <p className="eyebrow">Повтори вслух</p>
+              <p className="reader-gloss-fr" style={{ fontSize: 'var(--text-md)' }}>
+                {text.sentences[text.sentences.length - 1].fr}
+                <button
+                  type="button"
+                  className="btn-icon"
+                  aria-label="Озвучить"
+                  onClick={() =>
+                    speakFr(text.sentences[text.sentences.length - 1].fr)
+                  }
+                >
+                  <SpeakerIcon />
+                </button>
+              </p>
+              <p className="muted" style={{ margin: 0 }}>
+                {text.sentences[text.sentences.length - 1].ru}
+              </p>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setShadow(false)}
+              >
+                Сказала
+              </button>
+            </div>
+          )}
+
           {text.audio && (
             <>
               <audio
@@ -258,6 +288,15 @@ export function Reader({ id, userWords, onAddWord, onClose }: ReaderProps) {
                 <div className="reader-scrub" aria-hidden="true">
                   <span style={{ width: `${Math.round(progress * 100)}%` }} />
                 </div>
+                {progress >= 0.85 && !shadow && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-tight"
+                    onClick={() => setShadow(true)}
+                  >
+                    Повтори вслух
+                  </button>
+                )}
               </div>
             </>
           )}

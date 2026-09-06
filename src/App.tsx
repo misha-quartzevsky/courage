@@ -379,8 +379,10 @@ export default function App() {
           sprint.exercises,
           sprint.reading,
         )
-        // В повторении: французские слова упражнения двигают расписание SRS —
-        // верный ответ отправляет их на следующий интервал, ошибка сбрасывает.
+        // Французские слова упражнения двигают расписание SRS — и в повторении,
+        // и в обычном спринте (верный ответ на choice/gap/match = повторение
+        // слова, sla-methods.md). dialogue/order/transform/comprehension не
+        // трогают расписание (там нет чёткого «слова-ответа»).
         const wordsOfVerdict = (v: EvaluationVerdict): string[] => {
           const ex = sprint.exercises.find((e) => e.id === v.exerciseId)
           if (!ex) return []
@@ -389,12 +391,8 @@ export default function App() {
           if (ex.kind === 'gap') return ex.blanks.map((b) => b.answer)
           return []
         }
-        const masteredFr = sprint.revision
-          ? vs.filter((v) => v.passed).flatMap(wordsOfVerdict)
-          : []
-        const missedFr = sprint.revision
-          ? vs.filter((v) => !v.passed).flatMap(wordsOfVerdict)
-          : []
+        const masteredFr = vs.filter((v) => v.passed).flatMap(wordsOfVerdict)
+        const missedFr = vs.filter((v) => !v.passed).flatMap(wordsOfVerdict)
         const before = consolidatedRuleIds(progress)
         const nextProgress = recordSessionCompletion(
           sprint.ruleId

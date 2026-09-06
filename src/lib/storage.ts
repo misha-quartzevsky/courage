@@ -725,15 +725,25 @@ export function weakRules(progress: ProgressState | null): RuleRecord[] {
 }
 
 // Ранее пройденные правила, которые стоит «вплести» в спринт нового правила
-// (interleaving из sla-methods.md). Приоритет — слабые (bestAccuracy < 70),
-// самые слабые первыми; если их не хватает — добираем давно не повторявшиеся.
+// (interleaving из sla-methods.md). Сначала БЛОКАМИ, потом интерлив: не мешаем
+// правило, пройденное < INTERLEAVE_MIN_AGE_DAYS назад или < 2 раз — у новичка
+// ранний интерлив поднимает тревогу, выигрыш даёт на отложенном тесте.
+// Приоритет — слабые (bestAccuracy < 70), самые слабые первыми; добор —
+// давно не повторявшимися уверенными.
+export const INTERLEAVE_MIN_AGE_DAYS = 2
+
 export function interleaveRules(
   progress: ProgressState | null,
   excludeRuleId: string,
   n = 2,
+  now: Date = new Date(),
 ): RuleRecord[] {
+  const cutoff = now.getTime() - INTERLEAVE_MIN_AGE_DAYS * 86_400_000
   const done = Object.values(progress?.rules ?? {}).filter(
-    (r) => r.ruleId !== excludeRuleId,
+    (r) =>
+      r.ruleId !== excludeRuleId &&
+      (r.attempts ?? 0) >= 2 &&
+      Date.parse(r.lastCompletedAt) <= cutoff,
   )
   const weak = done
     .filter((r) => r.bestAccuracy < 70)

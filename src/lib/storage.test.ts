@@ -4,6 +4,7 @@ import {
   consolidatedRuleIds,
   dueRules,
   recordDrillComplete,
+  INTERLEAVE_MIN_AGE_DAYS,
   dueWordCount,
   dueWords,
   isLearned,
@@ -239,25 +240,47 @@ describe('SRS: интервальные повторения слов', () => {
   })
 })
 
-describe('interleaveRules', () => {
-  it('приоритет — слабые правила (bestAccuracy < 70), самые слабые первыми', () => {
-    const rules = sessionsForUnit('a1-u1').map((s) => s.ruleId)
-    recordSessionCompletion(sessionRef(rules[0]), 40)
-    recordSessionCompletion(sessionRef(rules[1]), 55)
-    recordSessionCompletion(sessionRef(rules[2]), 90)
-    const p = recordSessionCompletion(sessionRef(rules[3]), 95)
-    const picked = interleaveRules(p, rules[4]).map((r) => r.ruleId)
-    expect(picked).toEqual([rules[0], rules[1]])
+describe('interleaveRules: сначала блоками, потом интерлив', () => {
+  const iso = (daysAgo: number) =>
+    new Date(Date.now() - daysAgo * 86400000).toISOString()
+  const rec = (id: string, over: Partial<RuleRecord> = {}): RuleRecord => ({
+    ruleId: id, unitId: 'a1-u1', level: 'A1', titleFr: id,
+    bestAccuracy: 80, attempts: 3, lastCompletedAt: iso(10), ...over,
+  })
+  const put = (rules: Record<string, RuleRecord>) =>
+    localStorage.setItem('courage:progress', JSON.stringify({
+      rules, units: {}, words: [], streakDays: 1, bestAccuracy: 80, updatedAt: iso(0),
+    }))
+
+  it('не интерливит недавнее (< порога) и малопройденное (< 2 попыток)', () => {
+    put({
+      recent: rec('recent', { lastCompletedAt: iso(0) }),
+      few: rec('few', { attempts: 1 }),
+      ok: rec('ok', { lastCompletedAt: iso(INTERLEAVE_MIN_AGE_DAYS + 3) }),
+    })
+    expect(interleaveRules(loadProgress(), 'focus', 3).map((r) => r.ruleId)).toEqual(['ok'])
   })
 
-  it('исключает текущее правило, добирает крепкими по давности если слабых мало', () => {
-    const rules = sessionsForUnit('a1-u1').map((s) => s.ruleId)
-    recordSessionCompletion(sessionRef(rules[0]), 40) // одно слабое
-    recordSessionCompletion(sessionRef(rules[1]), 90)
-    const p = recordSessionCompletion(sessionRef(rules[2]), 95)
-    const picked = interleaveRules(p, rules[0], 2).map((r) => r.ruleId)
-    expect(picked).not.toContain(rules[0]) // исключено
-    expect(picked).toHaveLength(2)
+  it('слабые правила (bestAccuracy < 70) — первыми', () => {
+    put({
+      weak: rec('weak', { bestAccuracy: 50, lastCompletedAt: iso(5) }),
+      strong: rec('strong', { bestAccuracy: 95, lastCompletedAt: iso(5) }),
+      mid: rec('mid', { bestAccuracy: 60, lastCompletedAt: iso(5) }),
+    })
+    const ids = interleaveRules(loadProgress(), 'focus', 2).map((r) => r.ruleId)
+    expect(ids).toEqual(['weak', 'mid'])
+  })
+
+  it('исключает текущее правило, добирает крепкими по давности', () => {
+    put({
+      focus: rec('focus'),
+      weak: rec('weak', { bestAccuracy: 40, lastCompletedAt: iso(5) }),
+      oldStrong: rec('oldStrong', { bestAccuracy: 90, lastCompletedAt: iso(30) }),
+      newStrong: rec('newStrong', { bestAccuracy: 90, lastCompletedAt: iso(5) }),
+    })
+    const ids = interleaveRules(loadProgress(), 'focus', 2).map((r) => r.ruleId)
+    expect(ids).not.toContain('focus')
+    expect(ids).toEqual(['weak', 'oldStrong'])
   })
 })
 
@@ -433,3 +456,4 @@ describe('дрилл-тренажёр правил (A1)', () => {
     expect(due).toEqual(['overdue'])
   })
 });
+
