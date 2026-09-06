@@ -122,9 +122,12 @@
     (`WordRecord.mastery >= MASTERY_LEARNED` = «пройдено» вручную, тускнеет;
     `toggleWordLearned`) накладывается на любую строку по совпадению `normFr(f)`.
 - **Интервальные повторения (SRS).** У каждого слова `interval` (дни: `SRS_STEPS`
-  = 1 → 3 → 7 → 16 → 35) и `dueAt`. Верный ответ в Повторении двигает на следующий
-  шаг (`dueAt = now + interval`), ошибка сбрасывает к 1 дню
-  (`recordSessionCompletion(..., masteredFr, missedFr)`). Слово «пройдено», когда
+  = 1 → 3 → 7 → 16 → 35) и `dueAt`. Верный ответ (в Повторении И в обычном
+  спринте A2/B1) двигает на следующий шаг (`dueAt = now + interval`), ошибка
+  сбрасывает к 1 дню (`recordSessionCompletion(..., masteredFr, missedFr)`).
+  **FSRS-шов:** всё решение о новом расписании — в одной `schedule(word, outcome,
+  now)` (`storage.ts`); FSRS позже заменит только её тело, вызовы останутся.
+  `DESIRED_RETENTION` (0.9) пока инертна — задел под подбор интервала движком. Слово «пройдено», когда
   `interval >= SRS_LEARNED_INTERVAL` (~30) ИЛИ выставлен `mastery` вручную (см.
   `isLearned`). «Повторение» тянет не случайные 16, а просроченное — `dueWords()`
   (dueAt в прошлом / легаси / только добавленное), сортировка по сроку; мало

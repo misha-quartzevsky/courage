@@ -130,6 +130,36 @@ function nextInterval(prev: number | undefined): number {
   return SRS_STEPS.find((s) => s > cur) ?? SRS_STEPS[SRS_STEPS.length - 1]
 }
 
+// Целевая вероятность вспоминания. Сейчас не используется (интервалы фиксированные
+// SRS_STEPS); задел под FSRS — когда появится движок, он будет подбирать интервал
+// под это число, а понижение (~0.85) сократит ежедневную нагрузку ценой лёгкого
+// забывания. См. docs/README про FSRS-шов.
+export const DESIRED_RETENTION = 0.9
+
+// ЕДИНСТВЕННОЕ место, где решается новое расписание слова после ответа.
+// FSRS позже заменит тело этой функции (Difficulty/Stability/Retrievability),
+// сигнатура и вызовы останутся.
+export type ReviewOutcome = 'pass' | 'fail'
+export function schedule(
+  word: Pick<WordRecord, 'interval' | 'mastery'>,
+  outcome: ReviewOutcome,
+  nowIso: string,
+): { interval: number; dueAt: string; mastery: number } {
+  if (outcome === 'fail') {
+    return {
+      interval: SRS_STEPS[0],
+      dueAt: addDays(nowIso, SRS_STEPS[0]),
+      mastery: word.mastery ?? 0,
+    }
+  }
+  const interval = nextInterval(word.interval)
+  return {
+    interval,
+    dueAt: addDays(nowIso, interval),
+    mastery: (word.mastery ?? 0) + 1,
+  }
+}
+
 // Когда слову снова пора на повторение. dueAt в прошлом (или не задан у легаси /
 // только что добавленного слова) — просрочено. Ручную пометку «пройдено» без
 // расписания не трогаем: она уходит в далёкое будущее.
@@ -337,15 +367,12 @@ export function recordSessionCompletion(
     })
     .map((w) => {
       const k = w.fr.trim().toLowerCase()
-      if (missedSet.has(k)) {
-        return { ...w, interval: SRS_STEPS[0], dueAt: addDays(nowIso, SRS_STEPS[0]), lastSeenAt: nowIso }
-      }
-      const interval = nextInterval(w.interval)
+      const s = schedule(w, missedSet.has(k) ? 'fail' : 'pass', nowIso)
       return {
         ...w,
-        interval,
-        dueAt: addDays(nowIso, interval),
-        mastery: (w.mastery ?? 0) + 1,
+        interval: s.interval,
+        dueAt: s.dueAt,
+        mastery: s.mastery,
         lastSeenAt: nowIso,
       }
     })
