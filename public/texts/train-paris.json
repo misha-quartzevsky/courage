@@ -1,0 +1,48 @@
+{
+  "id": "train-paris",
+  "title": {
+    "fr": "Le train pour Paris",
+    "ru": "Поезд в Париж"
+  },
+  "level": "A2",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Nous prenons le train de huit heures pour Paris.",
+      "ru": "Мы садимся на восьмичасовой поезд в Париж."
+    },
+    {
+      "fr": "La gare est pleine de monde.",
+      "ru": "Вокзал полон людей."
+    },
+    {
+      "fr": "Je cherche notre voiture pendant que ma femme garde les valises.",
+      "ru": "Я ищу наш вагон, пока жена стережёт чемоданы."
+    },
+    {
+      "fr": "Le voyage dure deux heures.",
+      "ru": "Дорога занимает два часа."
+    },
+    {
+      "fr": "Par la fenêtre, on voit des champs, des villages et des rivières.",
+      "ru": "В окно видно поля, деревни и реки."
+    },
+    {
+      "fr": "À l’arrivée, il pleut, mais nous sommes contents d’être là.",
+      "ru": "По приезде идёт дождь, но мы рады, что добрались."
+    }
+  ],
+  "audio": {
+    "src": "/texts/train-paris.wav",
+    "sentenceStarts": [
+      0,
+      2793,
+      4422,
+      8145,
+      9716,
+      13498
+    ],
+    "durationMs": 16931
+  }
+}

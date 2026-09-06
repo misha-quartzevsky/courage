@@ -14,6 +14,7 @@ import { attachExamples, dedupeGloss } from './lib/glossary'
 import { getRule, type GrammarRule } from './lib/grammar'
 import { DEMO_PERSONA } from './lib/personas'
 import {
+  addSeenWord,
   doneRuleIds,
   dueWords,
   interleaveRules,
@@ -48,6 +49,8 @@ import { Login } from './screens/Login'
 import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
 import { LessonWarmup } from './screens/LessonWarmup'
+import { Lire } from './screens/Lire'
+import { Reader } from './screens/Reader'
 import { Dictionary } from './screens/Dictionary'
 import { GrammarCodex } from './screens/GrammarCodex'
 import { Revision } from './screens/Revision'
@@ -55,7 +58,7 @@ import { TabBar, type Tab } from './screens/TabBar'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
-type Overlay = 'onboarding' | 'warmup' | 'sprint' | 'debrief' | null
+type Overlay = 'onboarding' | 'warmup' | 'sprint' | 'debrief' | 'read' | null
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
   if (!p?.profession_text) return null
@@ -82,6 +85,7 @@ export default function App() {
   const [level, setLevel] = useState<CefrLevel>('A1')
   const [mode, setMode] = useState<Mode>('voice')
   const [sprint, setSprint] = useState<SprintSession | null>(null)
+  const [openTextId, setOpenTextId] = useState<string | null>(null)
   const [activeSession, setActiveSession] = useState<{
     unit: SyllabusUnit
     rule: GrammarRule
@@ -246,6 +250,27 @@ export default function App() {
     setProgress(recordLightSession())
     void refreshProfile()
   }, [refreshProfile])
+
+  // Чтение (пилон Lire). Зеркалит openSession → overlay.
+  const openText = useCallback((tid: string) => {
+    setOpenTextId(tid)
+    setOverlay('read')
+  }, [])
+
+  const closeReader = useCallback(() => {
+    // Почитала — засчитываем день как лёгкую сессию (как «На сегодня хватит»).
+    setProgress(recordLightSession())
+    setOpenTextId(null)
+    setOverlay(null)
+    void refreshProfile()
+  }, [refreshProfile])
+
+  const handleSeenWord = useCallback(
+    (fr: string, ru: string) => {
+      setProgress(addSeenWord(fr, ru, openTextId ? `text:${openTextId}` : ''))
+    },
+    [openTextId],
+  )
 
   const handleToggleWord = useCallback((fr: string, ru?: string) => {
     setProgress(toggleWordLearned(fr, ru))
@@ -416,6 +441,17 @@ export default function App() {
     )
   }
 
+  if (overlay === 'read' && openTextId) {
+    return (
+      <Reader
+        id={openTextId}
+        userWords={progress?.words ?? []}
+        onAddWord={handleSeenWord}
+        onClose={closeReader}
+      />
+    )
+  }
+
   if (overlay === 'onboarding') {
     return (
       <Onboarding
@@ -459,6 +495,7 @@ export default function App() {
           onOpenSession={openSession}
         />
       )}
+      {tab === 'lire' && <Lire onOpenText={openText} />}
       {tab === 'revision' && (
         <Revision
           progress={progress}

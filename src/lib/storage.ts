@@ -159,6 +159,7 @@ function asWords(v: unknown): WordRecord[] {
       ...(typeof w.interval === 'number' ? { interval: w.interval } : {}),
       ...(typeof w.dueAt === 'string' ? { dueAt: w.dueAt } : {}),
       ...(typeof w.ruleId === 'string' && w.ruleId ? { ruleId: w.ruleId } : {}),
+      ...(typeof w.sourceRef === 'string' && w.sourceRef ? { sourceRef: w.sourceRef } : {}),
       ...(typeof w.exampleFr === 'string' && typeof w.exampleRu === 'string' && w.exampleFr && w.exampleRu
         ? { exampleFr: w.exampleFr, exampleRu: w.exampleRu }
         : {}),
@@ -196,6 +197,7 @@ function mergeWords(a: WordRecord[], b: WordRecord[]): WordRecord[] {
       ...(dueAt ? { dueAt } : {}),
       // Тему проставляем один раз — первое непустое значение побеждает.
       ...(cur.ruleId || w.ruleId ? { ruleId: cur.ruleId || w.ruleId } : {}),
+      ...(cur.sourceRef || w.sourceRef ? { sourceRef: cur.sourceRef || w.sourceRef } : {}),
       // Пример-предложение: первое непустое; дополняем, если раньше не было.
       ...(cur.exampleFr && cur.exampleRu
         ? { exampleFr: cur.exampleFr, exampleRu: cur.exampleRu }
@@ -474,6 +476,40 @@ export function toggleWordLearned(fr: string, ru = ''): ProgressState {
 
   // updatedAt НЕ трогаем — тап по словарю не считается учебной активностью
   // и не должен влиять на стрик.
+  const next: ProgressState = { ...prev, words }
+  saveProgress(next)
+  void updateProgress({
+    streakDays: next.streakDays,
+    bestAccuracy: next.bestAccuracy,
+    lastCompletedAt: next.updatedAt,
+    units: next.units,
+    rules: next.rules,
+    words: next.words,
+  })
+  return next
+}
+
+// Тап «В мои слова» в ридере: добавить встреченное слово в SRS (новое —
+// первое повторение завтра). Если слово уже есть — не трогаем его расписание
+// (не регрессируем выученное). updatedAt/стрик не трогаем: чтение засчитывает
+// день само при закрытии ридера (recordLightSession).
+export function addSeenWord(fr: string, ru: string, sourceRef: string): ProgressState {
+  const prev = loadProgress() ?? EMPTY
+  const key = fr.trim().toLowerCase()
+  if (prev.words.some((w) => w.fr.trim().toLowerCase() === key)) return prev
+
+  const nowIso = new Date().toISOString()
+  const words = mergeWords(prev.words, [
+    {
+      fr: fr.trim(),
+      ru,
+      addedAt: nowIso,
+      mastery: 0,
+      interval: 0,
+      dueAt: addDays(nowIso, 1),
+      ...(sourceRef ? { sourceRef } : {}),
+    },
+  ])
   const next: ProgressState = { ...prev, words }
   saveProgress(next)
   void updateProgress({

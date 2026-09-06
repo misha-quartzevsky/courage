@@ -40,6 +40,22 @@ registerRoute(
   },
 )
 
+// Аудио уровневых текстов (public/texts/*.wav): не в прекэше, cache-first —
+// после первого прослушивания доступно офлайн.
+const TEXTS_CACHE = 'courage-texts-v1'
+registerRoute(
+  ({ url }) =>
+    url.pathname.startsWith('/texts/') && url.pathname.endsWith('.wav'),
+  async ({ request }) => {
+    const cache = await caches.open(TEXTS_CACHE)
+    const hit = await cache.match(request)
+    if (hit) return hit
+    const res = await fetch(request)
+    if (res.ok) await cache.put(request, res.clone())
+    return res
+  },
+)
+
 // Приложение просит новую версию активироваться немедленно.
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {

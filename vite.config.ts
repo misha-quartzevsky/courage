@@ -23,6 +23,9 @@ export default defineConfig({
         globPatterns: [
           '**/*.{js,css,html,woff2,png,webmanifest}',
           'dict/fr-ru-themed.json',
+          // Уровневые тексты «Чтения» мелкие — в прекэш. Аудио (.wav) НЕ включаем
+          // (крупное), оно кэшируется рантайм-роутом в sw.ts.
+          'texts/*.json',
         ],
       },
       devOptions: { enabled: false },

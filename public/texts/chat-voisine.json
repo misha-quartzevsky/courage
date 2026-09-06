@@ -1,0 +1,48 @@
+{
+  "id": "chat-voisine",
+  "title": {
+    "fr": "Le chat de la voisine",
+    "ru": "Кошка соседки"
+  },
+  "level": "A1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Ma voisine a un chat noir.",
+      "ru": "У моей соседки чёрная кошка."
+    },
+    {
+      "fr": "Il s’appelle Minuit.",
+      "ru": "Её зовут Минюи."
+    },
+    {
+      "fr": "Chaque matin, il vient dans mon jardin.",
+      "ru": "Каждое утро она приходит ко мне в сад."
+    },
+    {
+      "fr": "Il aime dormir au soleil.",
+      "ru": "Она любит спать на солнце."
+    },
+    {
+      "fr": "Quand je l’appelle, il ne vient pas.",
+      "ru": "Когда я её зову, она не приходит."
+    },
+    {
+      "fr": "Les chats font toujours ce qu’ils veulent.",
+      "ru": "Кошки всегда делают что хотят."
+    }
+  ],
+  "audio": {
+    "src": "/texts/chat-voisine.wav",
+    "sentenceStarts": [
+      0,
+      1711,
+      3027,
+      5593,
+      7238,
+      9607
+    ],
+    "durationMs": 12371
+  }
+}

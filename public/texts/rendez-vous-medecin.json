@@ -1,0 +1,32 @@
+{
+  "id": "rendez-vous-medecin",
+  "title": {
+    "fr": "Le rendez-vous chez le médecin",
+    "ru": "Приём у врача"
+  },
+  "level": "B1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Depuis une semaine, j’ai mal à l’épaule et je dors mal.",
+      "ru": "Уже неделю у меня болит плечо и я плохо сплю."
+    },
+    {
+      "fr": "La secrétaire m’a proposé un rendez-vous mardi à dix heures.",
+      "ru": "Секретарь предложила мне приём во вторник в десять."
+    },
+    {
+      "fr": "Le médecin m’a demandé depuis quand la douleur avait commencé et si elle augmentait le soir.",
+      "ru": "Врач спросил, с какого времени началась боль и усиливается ли она вечером."
+    },
+    {
+      "fr": "Il pense que ce n’est pas grave, mais il préfère que je fasse une radio.",
+      "ru": "Он думает, что это не серьёзно, но предпочитает, чтобы я сделал рентген."
+    },
+    {
+      "fr": "Si les résultats sont normaux, je devrai surtout me reposer et éviter de porter des choses lourdes.",
+      "ru": "Если результаты будут нормальные, мне нужно будет главным образом отдыхать и не поднимать тяжёлое."
+    }
+  ]
+}

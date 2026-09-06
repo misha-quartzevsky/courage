@@ -2019,6 +2019,163 @@ button {
 }
 
 /* ------------------------------------------------------------
+   Ридер («Чтение» / Lire) — уровневый текст + синхронное аудио
+   ------------------------------------------------------------ */
+.reader {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.reader-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3) 0 var(--space-5);
+}
+
+.reader-text {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.reader-sentence {
+  border-radius: var(--radius-sm);
+  transition: background var(--dur) var(--ease);
+  padding: 1px 2px;
+}
+
+.reader-sentence--active {
+  background: var(--accent-bg);
+}
+
+.reader-word {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0 0.5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.reader-word:hover {
+  background: var(--accent-bg);
+}
+
+.reader-word--seen {
+  border-bottom: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.reader-word--active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.reader-gloss {
+  position: sticky;
+  bottom: 0;
+  margin-top: var(--space-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  animation: rise var(--dur) var(--ease) both;
+}
+
+.reader-gloss p {
+  margin: 0;
+}
+
+.reader-gloss-fr {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--text-strong);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.reader-gloss-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.reader-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border);
+}
+
+.reader-play {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.reader-scrub {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border-strong);
+  overflow: hidden;
+}
+
+.reader-scrub span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.text-list-group {
+  margin-top: var(--space-4);
+}
+
+.text-list-group > .eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.text-row {
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.text-row:hover {
+  border-color: var(--border-strong);
+}
+
+.text-row-title {
+  font-family: var(--font-serif);
+  color: var(--text-strong);
+}
+
+/* ------------------------------------------------------------
    Reduced motion
    ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {

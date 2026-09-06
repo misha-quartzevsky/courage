@@ -1,0 +1,43 @@
+{
+  "id": "demenagement-france",
+  "title": {
+    "fr": "Le projet de déménagement",
+    "ru": "Планы переезда"
+  },
+  "level": "B1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Depuis deux ans, nous parlons de nous installer en France.",
+      "ru": "Уже два года мы говорим о том, чтобы перебраться во Францию."
+    },
+    {
+      "fr": "Ma femme apprend le français le soir, après le travail, même quand elle est fatiguée.",
+      "ru": "Моя жена учит французский по вечерам, после работы, даже когда устала."
+    },
+    {
+      "fr": "Nous savons que ce sera difficile au début : les papiers, le logement, la langue.",
+      "ru": "Мы знаем, что поначалу будет трудно: документы, жильё, язык."
+    },
+    {
+      "fr": "Mais nous préférons essayer plutôt que de regretter plus tard.",
+      "ru": "Но мы предпочитаем попробовать, чем потом жалеть."
+    },
+    {
+      "fr": "Si tout se passe bien, nous partirons l’année prochaine.",
+      "ru": "Если всё пройдёт хорошо, мы уедем в следующем году."
+    }
+  ],
+  "audio": {
+    "src": "/texts/demenagement-france.wav",
+    "sentenceStarts": [
+      0,
+      3597,
+      8869,
+      13893,
+      17738
+    ],
+    "durationMs": 21211
+  }
+}

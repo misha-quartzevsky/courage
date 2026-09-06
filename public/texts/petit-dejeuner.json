@@ -1,0 +1,43 @@
+{
+  "id": "petit-dejeuner",
+  "title": {
+    "fr": "Le petit-déjeuner",
+    "ru": "Завтрак"
+  },
+  "level": "A1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Le matin, je bois un café et je mange une tartine.",
+      "ru": "Утром я пью кофе и ем бутерброд."
+    },
+    {
+      "fr": "Ma femme préfère le thé.",
+      "ru": "Моя жена предпочитает чай."
+    },
+    {
+      "fr": "Le dimanche, nous achetons des croissants à la boulangerie.",
+      "ru": "По воскресеньям мы покупаем круассаны в булочной."
+    },
+    {
+      "fr": "Le boulanger nous connaît bien.",
+      "ru": "Пекарь нас хорошо знает."
+    },
+    {
+      "fr": "Il dit toujours bonjour avec le sourire.",
+      "ru": "Он всегда здоровается с улыбкой."
+    }
+  ],
+  "audio": {
+    "src": "/texts/petit-dejeuner.wav",
+    "sentenceStarts": [
+      0,
+      3542,
+      5242,
+      9421,
+      11617
+    ],
+    "durationMs": 14451
+  }
+}

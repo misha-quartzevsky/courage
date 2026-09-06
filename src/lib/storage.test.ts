@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import {
+  addSeenWord,
   dueWordCount,
   dueWords,
   isLearned,
@@ -349,5 +350,39 @@ describe('mergeServerProgress', () => {
       expect(merged.rules[s.ruleId].bestAccuracy).toBe(90)
     }
     expect(merged.words).toEqual([])
+  })
+})
+
+describe('addSeenWord (тап по слову в ридере)', () => {
+  it('добавляет новое слово в SRS: mastery 0, dueAt ≈ завтра, sourceRef', () => {
+    const p = addSeenWord('le marché', 'рынок', 'text:marche-dimanche')
+    const w = p.words.find((x) => x.fr === 'le marché')!
+    expect(w.mastery).toBe(0)
+    expect(w.interval).toBe(0)
+    expect(w.sourceRef).toBe('text:marche-dimanche')
+    expect(Date.parse(w.dueAt!)).toBeGreaterThan(Date.now())
+  })
+
+  it('не трогает стрик / updatedAt', () => {
+    const before = recordLightSession()
+    const after = addSeenWord('une pomme', 'яблоко', 'text:x')
+    expect(after.streakDays).toBe(before.streakDays)
+    expect(after.updatedAt).toBe(before.updatedAt)
+  })
+
+  it('повторный тап по тому же слову не регрессирует выученное', () => {
+    let p = addSeenWord('le pain', 'хлеб', 'text:x')
+    p = toggleWordLearned('le pain', 'хлеб')
+    expect(isLearned(p.words.find((w) => w.fr === 'le pain')!)).toBe(true)
+    p = addSeenWord('le pain', 'хлеб', 'text:y')
+    expect(isLearned(p.words.find((w) => w.fr === 'le pain')!)).toBe(true)
+  })
+
+  it('sourceRef переживает merge с сервером', () => {
+    addSeenWord('le chat', 'кот', 'text:chat-voisine')
+    const merged = mergeServerProgress(undefined, 0, 0)
+    expect(merged.words.find((w) => w.fr === 'le chat')?.sourceRef).toBe(
+      'text:chat-voisine',
+    )
   })
 })

@@ -1,9 +1,17 @@
-import { BookIcon, HomeIcon, ListIcon, PersonIcon, RefreshIcon } from '../lib/icons'
+import {
+  BookIcon,
+  HomeIcon,
+  ListIcon,
+  PersonIcon,
+  ReadIcon,
+  RefreshIcon,
+} from '../lib/icons'
 
-export type Tab = 'cours' | 'revision' | 'dictionary' | 'codex' | 'profil'
+export type Tab = 'cours' | 'lire' | 'revision' | 'dictionary' | 'codex' | 'profil'
 
 const TABS: { id: Tab; label: string; Icon: typeof HomeIcon }[] = [
   { id: 'cours', label: 'Курс', Icon: HomeIcon },
+  { id: 'lire', label: 'Чтение', Icon: ReadIcon },
   { id: 'revision', label: 'Повторение', Icon: RefreshIcon },
   { id: 'dictionary', label: 'Словарь', Icon: ListIcon },
   { id: 'codex', label: 'Справочник', Icon: BookIcon },

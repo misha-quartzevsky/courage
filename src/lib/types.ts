@@ -94,6 +94,34 @@ export interface SprintSession {
 
 export type SprintDraft = Omit<SprintSession, 'id' | 'createdAt'>
 
+// --- Чтение / слушание (вкладка «Чтение», пилон Lire/Écouter) ---
+
+// Уровневый текст для ридера: связные предложения с переводом + опциональное
+// синхронное аудио. Пословных таймингов нет (Gemini TTS их не даёт) —
+// подсветка идёт по предложениям (audio.sentenceStarts[i] — мс начала i-го).
+export interface LearningText {
+  id: string
+  title: { fr: string; ru: string }
+  level: CefrLevel
+  source: 'curated' // задел: позже 'rfi' | 'llm-levelled'
+  attribution: string // лицензия / происхождение исходника
+  sentences: { fr: string; ru: string }[]
+  audio?: {
+    src: string // '/texts/<id>.wav'
+    sentenceStarts: number[] // мс начала каждого предложения, длина = sentences.length
+    durationMs: number
+  }
+}
+
+// Строка списка на вкладке «Чтение» (public/texts/index.json).
+export interface TextListEntry {
+  id: string
+  title: { fr: string; ru: string }
+  level: CefrLevel
+  hasAudio: boolean
+  durationSec?: number
+}
+
 // EvaluationVerdict — вердикт по одному ответу (мягкая коррекция + Debrief).
 export interface GrammarIssue {
   snippet: string // что было сказано неверно
@@ -169,6 +197,9 @@ export interface WordRecord {
   // легаси-слов и у добавленных вручную из большого словаря. Лексику повторяем и
   // показываем блоками по теме (sla-methods.md), а не вперемешку.
   ruleId?: string
+  // Откуда слово пришло по тапу в ридере: 'text:<id>'. Пусто у слов урока и
+  // словаря. Опционально — старый прогресс грузится без миграций.
+  sourceRef?: string
   // Пример-предложение с переводом (контекст слова во вкладке «Словарь»).
   exampleFr?: string
   exampleRu?: string

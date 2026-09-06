@@ -1,0 +1,43 @@
+{
+  "id": "marche-dimanche",
+  "title": {
+    "fr": "Le marché du dimanche",
+    "ru": "Воскресный рынок"
+  },
+  "level": "A2",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Le dimanche matin, nous allons au marché de la place.",
+      "ru": "В воскресенье утром мы идём на рынок на площади."
+    },
+    {
+      "fr": "Il y a des légumes, des fruits et des fleurs.",
+      "ru": "Там есть овощи, фрукты и цветы."
+    },
+    {
+      "fr": "Ma femme choisit toujours les tomates les plus mûres.",
+      "ru": "Моя жена всегда выбирает самые спелые помидоры."
+    },
+    {
+      "fr": "Le vendeur lui fait un bon prix parce qu’elle vient chaque semaine.",
+      "ru": "Продавец делает ей хорошую цену, потому что она приходит каждую неделю."
+    },
+    {
+      "fr": "Ensuite, nous prenons un café en terrasse et nous regardons les gens passer.",
+      "ru": "Потом мы берём кофе на террасе и смотрим, как проходят люди."
+    }
+  ],
+  "audio": {
+    "src": "/texts/marche-dimanche.wav",
+    "sentenceStarts": [
+      0,
+      3146,
+      5817,
+      8963,
+      12940
+    ],
+    "durationMs": 17451
+  }
+}

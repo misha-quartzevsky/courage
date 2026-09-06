@@ -1,0 +1,61 @@
+[
+  {
+    "id": "chat-voisine",
+    "title": {
+      "fr": "Le chat de la voisine",
+      "ru": "Кошка соседки"
+    },
+    "level": "A1",
+    "hasAudio": true,
+    "durationSec": 12
+  },
+  {
+    "id": "petit-dejeuner",
+    "title": {
+      "fr": "Le petit-déjeuner",
+      "ru": "Завтрак"
+    },
+    "level": "A1",
+    "hasAudio": true,
+    "durationSec": 14
+  },
+  {
+    "id": "marche-dimanche",
+    "title": {
+      "fr": "Le marché du dimanche",
+      "ru": "Воскресный рынок"
+    },
+    "level": "A2",
+    "hasAudio": true,
+    "durationSec": 17
+  },
+  {
+    "id": "train-paris",
+    "title": {
+      "fr": "Le train pour Paris",
+      "ru": "Поезд в Париж"
+    },
+    "level": "A2",
+    "hasAudio": true,
+    "durationSec": 17
+  },
+  {
+    "id": "rendez-vous-medecin",
+    "title": {
+      "fr": "Le rendez-vous chez le médecin",
+      "ru": "Приём у врача"
+    },
+    "level": "B1",
+    "hasAudio": false
+  },
+  {
+    "id": "demenagement-france",
+    "title": {
+      "fr": "Le projet de déménagement",
+      "ru": "Планы переезда"
+    },
+    "level": "B1",
+    "hasAudio": true,
+    "durationSec": 21
+  }
+]

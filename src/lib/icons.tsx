@@ -79,6 +79,13 @@ export const BookIcon = (p: IconProps) => (
   </Svg>
 )
 
+export const ReadIcon = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 6c-1.8-1.3-4-2-7-2v13c3 0 5.2.7 7 2 1.8-1.3 4-2 7-2V4c-3 0-5.2.7-7 2Z" />
+    <path d="M12 6v13" />
+  </Svg>
+)
+
 export const ListIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
