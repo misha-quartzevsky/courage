@@ -2214,6 +2214,34 @@ button {
   gap: var(--space-2);
 }
 
+/* Аддитивная сетка «дни, когда занималась» — без красного, без сброса */
+.daygrid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.daygrid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 4px;
+}
+.daygrid-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--border);
+}
+.daygrid-cell--on {
+  background: color-mix(in srgb, var(--ok) 60%, transparent);
+}
+.daygrid-cell--today {
+  outline: 2px solid var(--ok);
+  outline-offset: 1px;
+}
+.daygrid-cap {
+  margin: 0;
+  font-size: var(--text-xs);
+}
+
 .dialogue-model {
   display: flex;
   align-items: flex-start;

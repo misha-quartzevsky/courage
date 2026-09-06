@@ -136,6 +136,7 @@ export async function updateProgress(progress: {
   units: Record<string, UnitRecord>
   rules: Record<string, RuleRecord>
   words: WordRecord[]
+  studyDays?: string[]
 }): Promise<boolean> {
   if (!supabase) return false
   const userId = await currentUserId()
@@ -150,6 +151,7 @@ export async function updateProgress(progress: {
         units: progress.units,
         rules: progress.rules,
         words: progress.words,
+        ...(progress.studyDays?.length ? { studyDays: progress.studyDays } : {}),
       },
       updated_at: new Date().toISOString(),
     })

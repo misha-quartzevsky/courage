@@ -242,6 +242,9 @@ export interface ProgressState {
   streakDays: number
   bestAccuracy: number
   updatedAt: string
+  // Дни, когда занималась (YYYY-MM-DD, последние ~60). Для аддитивной сетки на
+  // «Сегодня» — «дни, когда занималась», без красного и без сброса. Опционально.
+  studyDays?: string[]
 }
 
 // Строка таблицы profiles в Supabase (RLS: своя + партнёр).

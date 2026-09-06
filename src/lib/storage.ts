@@ -249,6 +249,9 @@ function migrate(raw: unknown): ProgressState | null {
   const bestAccuracy = typeof p.bestAccuracy === 'number' ? p.bestAccuracy : 0
   const updatedAt =
     typeof p.updatedAt === 'string' ? p.updatedAt : new Date().toISOString()
+  const studyDays = Array.isArray(p.studyDays)
+    ? { studyDays: p.studyDays.filter((x): x is string => typeof x === 'string') }
+    : {}
 
   // Новейший формат — есть карта rules.
   if (p.rules && typeof p.rules === 'object') {
@@ -260,6 +263,7 @@ function migrate(raw: unknown): ProgressState | null {
       streakDays,
       bestAccuracy,
       updatedAt,
+      ...studyDays,
     }
   }
 
@@ -321,6 +325,20 @@ export function saveProgress(progress: ProgressState): void {
   } catch {
     // Приватный режим Safari бросает QuotaExceeded — молча роняем.
   }
+}
+
+// Аддитивная история: добавить сегодняшний день (МСК-ключ), последние 60.
+const STUDY_DAYS_CAP = 60
+function withStudyDay(days: string[] | undefined, now: Date): string[] {
+  const key = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Moscow',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now)
+  const set = new Set(days ?? [])
+  set.add(key)
+  return [...set].sort().slice(-STUDY_DAYS_CAP)
 }
 
 function nextStreak(prev: ProgressState | null, now: Date): number {
@@ -422,6 +440,7 @@ export function recordSessionCompletion(
     rules,
     words,
     streakDays: nextStreak(prev, now),
+    studyDays: withStudyDay(prev?.studyDays, now),
     bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, avgAccuracy),
     updatedAt: nowIso,
   }
@@ -434,6 +453,7 @@ export function recordSessionCompletion(
     units: next.units,
     rules: next.rules,
     words: next.words,
+    studyDays: next.studyDays,
   })
 
   return next
@@ -490,6 +510,7 @@ export function recordDrillComplete(
     rules,
     words: prev?.words ?? [],
     streakDays: nextStreak(prev, now),
+    studyDays: withStudyDay(prev?.studyDays, now),
     bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, rec.bestAccuracy),
     updatedAt: nowIso,
   }
@@ -501,6 +522,7 @@ export function recordDrillComplete(
     units: next.units,
     rules: next.rules,
     words: next.words,
+    studyDays: next.studyDays,
   })
   return next
 }
@@ -537,6 +559,7 @@ export function recordLightSession(): ProgressState {
     rules: prev?.rules ?? {},
     words: prev?.words ?? [],
     streakDays: nextStreak(prev, now),
+    studyDays: withStudyDay(prev?.studyDays, now),
     bestAccuracy: prev?.bestAccuracy ?? 0,
     updatedAt: now.toISOString(),
   }
@@ -549,6 +572,7 @@ export function recordLightSession(): ProgressState {
     units: next.units,
     rules: next.rules,
     words: next.words,
+    studyDays: next.studyDays,
   })
 
   return next
@@ -601,6 +625,7 @@ export function toggleWordLearned(fr: string, ru = ''): ProgressState {
     units: next.units,
     rules: next.rules,
     words: next.words,
+    studyDays: next.studyDays,
   })
   return next
 }
@@ -635,6 +660,7 @@ export function addSeenWord(fr: string, ru: string, sourceRef: string): Progress
     units: next.units,
     rules: next.rules,
     words: next.words,
+    studyDays: next.studyDays,
   })
   return next
 }
@@ -680,6 +706,15 @@ export function mergeServerProgress(
     }
   }
 
+  const serverDays = Array.isArray(raw.studyDays)
+    ? (raw.studyDays as unknown[]).filter((x): x is string => typeof x === 'string')
+    : []
+  const studyDays = [
+    ...new Set([...(local.studyDays ?? []), ...serverDays]),
+  ]
+    .sort()
+    .slice(-STUDY_DAYS_CAP)
+
   const merged: ProgressState = {
     units: rebuildUnits(rules),
     rules,
@@ -687,6 +722,7 @@ export function mergeServerProgress(
     streakDays: Math.max(local.streakDays, serverStreak),
     bestAccuracy: Math.max(local.bestAccuracy, serverBest),
     updatedAt: new Date().toISOString(),
+    ...(studyDays.length ? { studyDays } : {}),
   }
   saveProgress(merged)
   return merged

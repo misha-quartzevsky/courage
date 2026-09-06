@@ -95,6 +95,8 @@ export function Cockpit({
         </div>
       </header>
 
+      <DayGrid days={progress?.studyDays ?? []} />
+
       {partnerStreak !== null && (
         <div className="partner-row">
           <span className="avatar">
@@ -193,5 +195,41 @@ export function Cockpit({
         onOpenSession={onOpenSession}
       />
     </main>
+  )
+}
+
+// Аддитивная история: дни текущего месяца, закрашены те, когда занималась.
+// Без красного, без «сброса», пропущенный день просто не закрашен.
+function DayGrid({ days }: { days: string[] }) {
+  const set = new Set(days)
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const todayKey = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Moscow',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now)
+  const cells = Array.from({ length: daysInMonth }, (_, i) => {
+    const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`
+    return { key, on: set.has(key), today: key === todayKey }
+  })
+  const count = cells.filter((c) => c.on).length
+  return (
+    <div className="daygrid-wrap">
+      <div className="daygrid" aria-hidden="true">
+        {cells.map((c) => (
+          <span
+            key={c.key}
+            className={`daygrid-cell${c.on ? ' daygrid-cell--on' : ''}${c.today ? ' daygrid-cell--today' : ''}`}
+          />
+        ))}
+      </div>
+      <p className="daygrid-cap muted">
+        {count > 0 ? `${count} дн. в этом месяце` : 'Первый день месяца впереди'}
+      </p>
+    </div>
   )
 }
