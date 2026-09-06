@@ -69,6 +69,28 @@ export function LessonDrill({ ruleId, recheck = false, onFinish }: LessonDrillPr
     }
   }, [drill, ruleId])
 
+  // Формы для «демонстрации правила»: группируем по префиксу «глагол - лицо».
+  const formGroups = useMemo(() => {
+    if (!drill) return []
+    const groups: { head: string | null; rows: { label: string; form: string }[] }[] = []
+    for (const f of drill.forms) {
+      const m = f.label.split(/\s+[-–—]\s+/)
+      const head = m.length > 1 ? m[0] : null
+      const label = m.length > 1 ? m.slice(1).join(' — ') : f.label
+      const g = groups.find((x) => x.head === head)
+      if (g) g.rows.push({ label, form: f.answerFr })
+      else groups.push({ head, rows: [{ label, form: f.answerFr }] })
+    }
+    return groups
+  }, [drill])
+
+  const example = useMemo(() => {
+    if (!drill) return null
+    const f = drill.forms[0]
+    const it = f.items[0]
+    return { fr: it.fr.replace('{}', f.answerFr), ru: it.ru }
+  }, [drill])
+
   if (status === 'loading') {
     return (
       <main className="screen screen-center">
@@ -182,28 +204,54 @@ export function LessonDrill({ ruleId, recheck = false, onFinish }: LessonDrillPr
       )}
 
       {phase === 'intro' && (
-        <section className="card warmup-reveal">
-          <span className="verdict verdict--ok">
-            <CheckIcon />
-            {guessPicked && normalizeFr(guessPicked) === normalizeFr(guess?.answer ?? '')
-              ? 'Верно почувствовала'
-              : 'Смотри, как устроено'}
-          </span>
+        <section className="card drill-rule">
+          <p className="eyebrow">Правило</p>
           <div className="rule-block">
             <p className="rule-title-fr serif">{drill.titleFr}</p>
             <p className="rule-title-ru muted">{drill.titleRu}</p>
           </div>
+
+          {guessPicked &&
+            normalizeFr(guessPicked) === normalizeFr(guess?.answer ?? '') && (
+              <p className="drill-guess-ok">
+                <CheckIcon /> угадала
+              </p>
+            )}
+
           <p className="rule-plain serif">{drill.plainRu}</p>
-          <p className="muted">
-            Дальше — короткие фразы на каждую форму. Не запомнилось — «ещё круг».
-            Знаешь — «выучила».
-          </p>
+
+          <div className="drill-forms">
+            {formGroups.map((g, gi) => (
+              <div key={gi} className="drill-forms-group">
+                {g.head && <p className="drill-forms-head serif">{g.head}</p>}
+                {g.rows.map((r, ri) => (
+                  <button
+                    key={ri}
+                    type="button"
+                    className="drill-form-row"
+                    onClick={() => speakFr(r.form)}
+                  >
+                    <span className="drill-form-label">{r.label}</span>
+                    <span className="drill-form-value serif">{r.form}</span>
+                    <SpeakerIcon className="icon drill-form-spk" />
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          {example && (
+            <p className="drill-example serif">
+              «&nbsp;{example.fr}&nbsp;» <span className="muted">— {example.ru}</span>
+            </p>
+          )}
+
           <button
             type="button"
             className="btn"
             onClick={() => setPhase(drill.text ? 'text' : 'round')}
           >
-            Начать
+            К практике
             <ArrowRightIcon />
           </button>
         </section>
@@ -211,19 +259,21 @@ export function LessonDrill({ ruleId, recheck = false, onFinish }: LessonDrillPr
 
       {phase === 'text' && drill.text && (
         <section className="card">
-          <h2>Мини-текст</h2>
-          <p className="serif reading-fr">{drill.text.fr}</p>
+          <p className="eyebrow">Мини-текст</p>
+          <p className="drill-example serif">
+            <button
+              type="button"
+              className="btn-icon"
+              aria-label="Озвучить"
+              onClick={() => speakFr(drill.text!.fr)}
+            >
+              <SpeakerIcon />
+            </button>
+            {drill.text.fr}
+          </p>
           <p className="muted">{drill.text.ru}</p>
-          <button
-            type="button"
-            className="btn-icon"
-            aria-label="Озвучить"
-            onClick={() => speakFr(drill.text!.fr)}
-          >
-            <SpeakerIcon />
-          </button>
           <button type="button" className="btn" onClick={() => setPhase('round')}>
-            К тренажёру
+            К практике
             <ArrowRightIcon />
           </button>
         </section>
