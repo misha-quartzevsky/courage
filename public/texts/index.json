@@ -46,7 +46,8 @@
       "ru": "Приём у врача"
     },
     "level": "B1",
-    "hasAudio": false
+    "hasAudio": true,
+    "durationSec": 20
   },
   {
     "id": "demenagement-france",
@@ -57,5 +58,55 @@
     "level": "B1",
     "hasAudio": true,
     "durationSec": 21
+  },
+  {
+    "id": "la-pluie",
+    "title": {
+      "fr": "Il pleut",
+      "ru": "Идёт дождь"
+    },
+    "level": "A1",
+    "hasAudio": true,
+    "durationSec": 12
+  },
+  {
+    "id": "au-telephone",
+    "title": {
+      "fr": "Un coup de téléphone",
+      "ru": "Телефонный звонок"
+    },
+    "level": "A1",
+    "hasAudio": true,
+    "durationSec": 13
+  },
+  {
+    "id": "la-pharmacie",
+    "title": {
+      "fr": "À la pharmacie",
+      "ru": "В аптеке"
+    },
+    "level": "A2",
+    "hasAudio": true,
+    "durationSec": 17
+  },
+  {
+    "id": "le-voisin-musicien",
+    "title": {
+      "fr": "Le voisin musicien",
+      "ru": "Сосед-музыкант"
+    },
+    "level": "A2",
+    "hasAudio": true,
+    "durationSec": 18
+  },
+  {
+    "id": "premier-jour-travail",
+    "title": {
+      "fr": "Le premier jour au travail",
+      "ru": "Первый день на работе"
+    },
+    "level": "B1",
+    "hasAudio": true,
+    "durationSec": 24
   }
 ]

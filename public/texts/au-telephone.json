@@ -1,0 +1,53 @@
+{
+  "id": "au-telephone",
+  "title": {
+    "fr": "Un coup de téléphone",
+    "ru": "Телефонный звонок"
+  },
+  "level": "A1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Le téléphone sonne.",
+      "ru": "Звонит телефон."
+    },
+    {
+      "fr": "C’est ma mère.",
+      "ru": "Это моя мама."
+    },
+    {
+      "fr": "Elle demande si tout va bien.",
+      "ru": "Она спрашивает, всё ли хорошо."
+    },
+    {
+      "fr": "Je réponds que je suis fatigué mais content.",
+      "ru": "Я отвечаю, что устал, но доволен."
+    },
+    {
+      "fr": "Elle veut venir dimanche.",
+      "ru": "Она хочет приехать в воскресенье."
+    },
+    {
+      "fr": "Je dis oui, avec plaisir.",
+      "ru": "Я говорю да, с удовольствием."
+    },
+    {
+      "fr": "On se dit au revoir.",
+      "ru": "Мы прощаемся."
+    }
+  ],
+  "audio": {
+    "src": "/texts/au-telephone.wav",
+    "sentenceStarts": [
+      0,
+      1353,
+      2350,
+      4414,
+      7547,
+      9327,
+      11107
+    ],
+    "durationMs": 12531
+  }
+}

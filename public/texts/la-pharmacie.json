@@ -1,0 +1,43 @@
+{
+  "id": "la-pharmacie",
+  "title": {
+    "fr": "À la pharmacie",
+    "ru": "В аптеке"
+  },
+  "level": "A2",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Depuis hier, j’ai mal à la tête et un peu de fièvre.",
+      "ru": "Со вчерашнего дня у меня болит голова и небольшая температура."
+    },
+    {
+      "fr": "Je vais à la pharmacie du coin.",
+      "ru": "Я иду в аптеку на углу."
+    },
+    {
+      "fr": "La pharmacienne me pose quelques questions, puis elle me conseille du paracétamol et beaucoup de repos.",
+      "ru": "Аптекарь задаёт мне несколько вопросов, потом советует парацетамол и побольше отдыха."
+    },
+    {
+      "fr": "Elle dit que si ça ne va pas mieux dans deux jours, je dois voir un médecin.",
+      "ru": "Она говорит, что если через два дня не станет лучше, мне нужно к врачу."
+    },
+    {
+      "fr": "Je la remercie et je rentre chez moi.",
+      "ru": "Я благодарю её и иду домой."
+    }
+  ],
+  "audio": {
+    "src": "/texts/la-pharmacie.wav",
+    "sentenceStarts": [
+      0,
+      2882,
+      4600,
+      10308,
+      14520
+    ],
+    "durationMs": 16571
+  }
+}

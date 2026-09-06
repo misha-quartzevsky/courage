@@ -1,0 +1,43 @@
+{
+  "id": "premier-jour-travail",
+  "title": {
+    "fr": "Le premier jour au travail",
+    "ru": "Первый день на работе"
+  },
+  "level": "B1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Ce matin-là, je suis arrivé vingt minutes en avance, au cas où.",
+      "ru": "В то утро я приехал на двадцать минут раньше, на всякий случай."
+    },
+    {
+      "fr": "Une collègue m’a fait visiter les lieux et m’a présenté à l’équipe, dont je n’ai retenu aucun prénom.",
+      "ru": "Коллега показала мне помещение и представила команде, из которой я не запомнил ни одного имени."
+    },
+    {
+      "fr": "On m’a expliqué que, les premières semaines, personne n’attendait de moi que je sois efficace : il fallait surtout poser des questions.",
+      "ru": "Мне объяснили, что в первые недели от меня никто не ждёт эффективности: главное — задавать вопросы."
+    },
+    {
+      "fr": "Le soir, j’étais épuisé, mais j’avais le sentiment d’avoir fait le plus dur.",
+      "ru": "Вечером я был вымотан, но было чувство, что самое трудное позади."
+    },
+    {
+      "fr": "Si les prochains jours ressemblent à celui-ci, tout devrait bien se passer.",
+      "ru": "Если следующие дни будут похожи на этот, всё должно сложиться хорошо."
+    }
+  ],
+  "audio": {
+    "src": "/texts/premier-jour-travail.wav",
+    "sentenceStarts": [
+      0,
+      3418,
+      8896,
+      16220,
+      20343
+    ],
+    "durationMs": 24411
+  }
+}

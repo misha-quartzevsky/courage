@@ -28,5 +28,16 @@
       "fr": "Si les résultats sont normaux, je devrai surtout me reposer et éviter de porter des choses lourdes.",
       "ru": "Если результаты будут нормальные, мне нужно будет главным образом отдыхать и не поднимать тяжёлое."
     }
-  ]
+  ],
+  "audio": {
+    "src": "/texts/rendez-vous-medecin.wav",
+    "sentenceStarts": [
+      0,
+      2900,
+      6064,
+      10915,
+      14711
+    ],
+    "durationMs": 19931
+  }
 }

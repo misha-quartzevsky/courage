@@ -1,0 +1,48 @@
+{
+  "id": "la-pluie",
+  "title": {
+    "fr": "Il pleut",
+    "ru": "Идёт дождь"
+  },
+  "level": "A1",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Aujourd’hui, il pleut.",
+      "ru": "Сегодня идёт дождь."
+    },
+    {
+      "fr": "Je reste à la maison.",
+      "ru": "Я остаюсь дома."
+    },
+    {
+      "fr": "Je bois un thé chaud et je lis un livre.",
+      "ru": "Я пью горячий чай и читаю книгу."
+    },
+    {
+      "fr": "Le chat dort sur le canapé.",
+      "ru": "Кот спит на диване."
+    },
+    {
+      "fr": "Dehors, les rues sont vides.",
+      "ru": "На улице пусто."
+    },
+    {
+      "fr": "J’aime bien les jours de pluie.",
+      "ru": "Мне нравятся дождливые дни."
+    }
+  ],
+  "audio": {
+    "src": "/texts/la-pluie.wav",
+    "sentenceStarts": [
+      0,
+      1626,
+      3178,
+      6135,
+      8130,
+      10200
+    ],
+    "durationMs": 12491
+  }
+}

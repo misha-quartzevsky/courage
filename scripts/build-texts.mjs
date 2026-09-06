@@ -14,7 +14,7 @@
 // КОММИТИТСЯ в репозиторий (сборка фронта TTS не вызывает). Если озвучка не
 // удалась — текст пишется без аудио (ридер даст браузерный speakFr).
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -86,6 +86,46 @@ const SOURCES = [
     attribution: 'Оригинальный текст (Courage), CC0.',
     fr: 'Depuis deux ans, nous parlons de nous installer en France. Ma femme apprend le français le soir, après le travail, même quand elle est fatiguée. Nous savons que ce sera difficile au début : les papiers, le logement, la langue. Mais nous préférons essayer plutôt que de regretter plus tard. Si tout se passe bien, nous partirons l’année prochaine.',
     ru: 'Уже два года мы говорим о том, чтобы перебраться во Францию. Моя жена учит французский по вечерам, после работы, даже когда устала. Мы знаем, что поначалу будет трудно: документы, жильё, язык. Но мы предпочитаем попробовать, чем потом жалеть. Если всё пройдёт хорошо, мы уедем в следующем году.',
+  },
+  {
+    id: 'la-pluie',
+    level: 'A1',
+    title: { fr: 'Il pleut', ru: 'Идёт дождь' },
+    attribution: 'Оригинальный текст (Courage), CC0.',
+    fr: 'Aujourd’hui, il pleut. Je reste à la maison. Je bois un thé chaud et je lis un livre. Le chat dort sur le canapé. Dehors, les rues sont vides. J’aime bien les jours de pluie.',
+    ru: 'Сегодня идёт дождь. Я остаюсь дома. Я пью горячий чай и читаю книгу. Кот спит на диване. На улице пусто. Мне нравятся дождливые дни.',
+  },
+  {
+    id: 'au-telephone',
+    level: 'A1',
+    title: { fr: 'Un coup de téléphone', ru: 'Телефонный звонок' },
+    attribution: 'Оригинальный текст (Courage), CC0.',
+    fr: 'Le téléphone sonne. C’est ma mère. Elle demande si tout va bien. Je réponds que je suis fatigué mais content. Elle veut venir dimanche. Je dis oui, avec plaisir. On se dit au revoir.',
+    ru: 'Звонит телефон. Это моя мама. Она спрашивает, всё ли хорошо. Я отвечаю, что устал, но доволен. Она хочет приехать в воскресенье. Я говорю да, с удовольствием. Мы прощаемся.',
+  },
+  {
+    id: 'la-pharmacie',
+    level: 'A2',
+    title: { fr: 'À la pharmacie', ru: 'В аптеке' },
+    attribution: 'Оригинальный текст (Courage), CC0.',
+    fr: 'Depuis hier, j’ai mal à la tête et un peu de fièvre. Je vais à la pharmacie du coin. La pharmacienne me pose quelques questions, puis elle me conseille du paracétamol et beaucoup de repos. Elle dit que si ça ne va pas mieux dans deux jours, je dois voir un médecin. Je la remercie et je rentre chez moi.',
+    ru: 'Со вчерашнего дня у меня болит голова и небольшая температура. Я иду в аптеку на углу. Аптекарь задаёт мне несколько вопросов, потом советует парацетамол и побольше отдыха. Она говорит, что если через два дня не станет лучше, мне нужно к врачу. Я благодарю её и иду домой.',
+  },
+  {
+    id: 'le-voisin-musicien',
+    level: 'A2',
+    title: { fr: 'Le voisin musicien', ru: 'Сосед-музыкант' },
+    attribution: 'Оригинальный текст (Courage), CC0.',
+    fr: 'Notre nouveau voisin joue de la guitare tous les soirs. Au début, ça nous dérangeait un peu. Puis nous avons compris qu’il jouait plutôt bien. Un jour, ma femme est allée frapper à sa porte, non pas pour se plaindre, mais pour lui demander une chanson. Depuis, il joue parfois pour nous, la fenêtre ouverte.',
+    ru: 'Наш новый сосед каждый вечер играет на гитаре. Поначалу это нас немного раздражало. Потом мы поняли, что играет он довольно хорошо. Однажды моя жена пошла постучать к нему — не чтобы пожаловаться, а чтобы попросить песню. С тех пор он иногда играет для нас, с открытым окном.',
+  },
+  {
+    id: 'premier-jour-travail',
+    level: 'B1',
+    title: { fr: 'Le premier jour au travail', ru: 'Первый день на работе' },
+    attribution: 'Оригинальный текст (Courage), CC0.',
+    fr: 'Ce matin-là, je suis arrivé vingt minutes en avance, au cas où. Une collègue m’a fait visiter les lieux et m’a présenté à l’équipe, dont je n’ai retenu aucun prénom. On m’a expliqué que, les premières semaines, personne n’attendait de moi que je sois efficace : il fallait surtout poser des questions. Le soir, j’étais épuisé, mais j’avais le sentiment d’avoir fait le plus dur. Si les prochains jours ressemblent à celui-ci, tout devrait bien se passer.',
+    ru: 'В то утро я приехал на двадцать минут раньше, на всякий случай. Коллега показала мне помещение и представила команде, из которой я не запомнил ни одного имени. Мне объяснили, что в первые недели от меня никто не ждёт эффективности: главное — задавать вопросы. Вечером я был вымотан, но было чувство, что самое трудное позади. Если следующие дни будут похожи на этот, всё должно сложиться хорошо.',
   },
 ]
 
@@ -165,8 +205,24 @@ async function main() {
     console.error('Нет VITE_GEMINI_WORKER_URL (.env) и GEMINI_WORKER_URL — озвучки не будет.')
   }
 
+  // Без --all: не трогаем уже готовые (json + wav есть) — только новые/провалившиеся.
+  const force = process.argv.includes('--all')
   const index = []
   for (const src of SOURCES) {
+    const jsonPath = resolve(OUT_DIR, `${src.id}.json`)
+    const wavPath = resolve(OUT_DIR, `${src.id}.wav`)
+    if (!force && existsSync(jsonPath) && existsSync(wavPath)) {
+      const prev = JSON.parse(readFileSync(jsonPath, 'utf8'))
+      index.push({
+        id: src.id,
+        title: src.title,
+        level: src.level,
+        hasAudio: !!prev.audio,
+        ...(prev.audio ? { durationSec: Math.round(prev.audio.durationMs / 1000) } : {}),
+      })
+      console.log(`· ${src.id}: уже готов, пропуск`)
+      continue
+    }
     const fr = splitSentences(src.fr)
     const ru = splitSentences(src.ru)
     if (fr.length !== ru.length) {

@@ -1,0 +1,43 @@
+{
+  "id": "le-voisin-musicien",
+  "title": {
+    "fr": "Le voisin musicien",
+    "ru": "Сосед-музыкант"
+  },
+  "level": "A2",
+  "source": "curated",
+  "attribution": "Оригинальный текст (Courage), CC0.",
+  "sentences": [
+    {
+      "fr": "Notre nouveau voisin joue de la guitare tous les soirs.",
+      "ru": "Наш новый сосед каждый вечер играет на гитаре."
+    },
+    {
+      "fr": "Au début, ça nous dérangeait un peu.",
+      "ru": "Поначалу это нас немного раздражало."
+    },
+    {
+      "fr": "Puis nous avons compris qu’il jouait plutôt bien.",
+      "ru": "Потом мы поняли, что играет он довольно хорошо."
+    },
+    {
+      "fr": "Un jour, ma femme est allée frapper à sa porte, non pas pour se plaindre, mais pour lui demander une chanson.",
+      "ru": "Однажды моя жена пошла постучать к нему — не чтобы пожаловаться, а чтобы попросить песню."
+    },
+    {
+      "fr": "Depuis, il joue parfois pour nous, la fenêtre ouverte.",
+      "ru": "С тех пор он иногда играет для нас, с открытым окном."
+    }
+  ],
+  "audio": {
+    "src": "/texts/le-voisin-musicien.wav",
+    "sentenceStarts": [
+      0,
+      3306,
+      5469,
+      8414,
+      14965
+    ],
+    "durationMs": 18211
+  }
+}
