@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { GrammarRule } from '../lib/grammar'
 import { buildWarmup, buildAnswerMatches, type WarmupBeat } from '../lib/warmup'
 import { speakFr } from '../lib/speech'
@@ -89,7 +89,7 @@ export function LessonWarmup({
         {rule.level} · Юнит {rule.unit} · разминка
       </p>
 
-      {beat.kind !== 'readiness' && (
+      {idx === 0 && (
         <button
           type="button"
           className="btn btn-secondary btn-tight warmup-skip"
@@ -159,9 +159,13 @@ export function LessonWarmup({
           path={path}
           loading={loading}
           error={error}
-          onCreditDay={onCreditDay}
           onStartPractice={onStartPractice}
-          onEnough={onEnough}
+          onEnough={() => {
+            // Разминку довели до конца и решили остановиться — это лёгкая
+            // сессия, засчитываем день. Ранний выход по «X» — не засчитываем.
+            onCreditDay()
+            onEnough()
+          }}
         />
       )}
     </main>
@@ -477,24 +481,15 @@ function ReadinessPane({
   path,
   loading,
   error,
-  onCreditDay,
   onStartPractice,
   onEnough,
 }: {
   path: Path
   loading: boolean
   error: boolean
-  onCreditDay: () => void
   onStartPractice: () => void
   onEnough: () => void
 }) {
-  const credited = useRef(false)
-  useEffect(() => {
-    if (credited.current) return
-    credited.current = true
-    onCreditDay()
-  }, [onCreditDay])
-
   const ready = Math.max(
     50,
     Math.min(

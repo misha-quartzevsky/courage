@@ -84,7 +84,7 @@ export function Settings({
   return (
     <main className="screen">
       <header>
-        <h1 className="app-title">Настройки</h1>
+        <h1 className="app-title">Профиль</h1>
       </header>
 
       <section className="card">

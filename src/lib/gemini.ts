@@ -316,6 +316,33 @@ export function sanitizeVerdict(text: string): VerdictDraft | null {
 // ------------------------------------------------------------
 const TOKEN_RE = /[\s'’]+/
 
+// Детерминированное перемешивание: одинаковый seed → одинаковый порядок.
+// Фолбэк-упражнения должны быть стабильны между заходами (модуль это обещает),
+// поэтому не Math.random.
+function seededShuffle<T>(arr: T[], seed: string): T[] {
+  let h = 2166136261
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  const rand = () => {
+    h ^= h << 13
+    h ^= h >>> 17
+    h ^= h << 5
+    return ((h >>> 0) % 100000) / 100000
+  }
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  // Не отдаём исходный порядок — иначе «собери фразу» уже собрана.
+  if (a.length > 1 && a.every((x, i) => x === arr[i])) {
+    a.push(a.shift() as T)
+  }
+  return a
+}
+
 // Детерминированные упражнения из данных правил юнита. Не «фейк-гейтвей», а
 // гарантия 6 заданий разных типов даже оффлайн / при битом ответе модели.
 export function fallbackExercises(
@@ -375,7 +402,7 @@ export function fallbackExercises(
         kind: 'order',
         promptRu: 'Соберите фразу.',
         sentenceRu: exOrd.ru,
-        tokens: [...toks].sort(() => Math.random() - 0.5),
+        tokens: seededShuffle(toks, exOrd.fr),
         answer: exOrd.fr.replace(/[.!?]$/, ''),
       })
     }

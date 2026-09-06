@@ -149,7 +149,7 @@ export function Login() {
             className="btn"
             disabled={status === 'sending' || !email.trim()}
           >
-            {status === 'sending' ? 'On envoie…' : 'Envoyer le code'}
+            {status === 'sending' ? 'Отправляем…' : 'Отправить код'}
           </button>
         </form>
       </section>

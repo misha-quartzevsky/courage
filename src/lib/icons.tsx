@@ -53,14 +53,6 @@ export const ChevronIcon = (p: IconProps) => (
   </Svg>
 )
 
-export const UsersIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <circle cx="9" cy="8" r="3" />
-    <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
-    <path d="M16 5.5a3 3 0 0 1 0 5M17 14c2.5.6 4 2.7 4 5" />
-  </Svg>
-)
-
 export const CheckIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M5 13l4 4L19 7" />
@@ -77,19 +69,6 @@ export const AlertIcon = (p: IconProps) => (
   <Svg {...p}>
     <path d="M12 3l9 16H3l9-16Z" />
     <path d="M12 10v4M12 17h.01" />
-  </Svg>
-)
-
-export const GearIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <circle cx="12" cy="12" r="3.2" />
-    <path d="M19.4 13.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 8.5 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.5a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1-1.56V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.56 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1.03Z" />
-  </Svg>
-)
-
-export const PlusIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M12 5v14M5 12h14" />
   </Svg>
 )
 
@@ -110,19 +89,6 @@ export const SearchIcon = (p: IconProps) => (
   <Svg {...p}>
     <circle cx="11" cy="11" r="7" />
     <path d="M21 21l-4.3-4.3" />
-  </Svg>
-)
-
-export const ShuffleIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
-  </Svg>
-)
-
-export const LinkIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1" />
-    <path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
   </Svg>
 )
 

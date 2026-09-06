@@ -162,6 +162,18 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
     setTextInput('')
   }
 
+  const handleQuitClick = () => {
+    // Выход бросает весь спринт без частичного зачёта — предупреждаем,
+    // если уже есть отвеченные упражнения.
+    if (
+      verdicts.length > 0 &&
+      !window.confirm('Выйти из спринта? Прогресс этого захода не сохранится.')
+    ) {
+      return
+    }
+    onQuit()
+  }
+
   if (!exercise) return null
 
   return (
@@ -187,7 +199,7 @@ export function Sprint({ sprint, exercises, mode, onFinish, onQuit }: SprintProp
         <button
           type="button"
           className="btn btn-secondary btn-tight"
-          onClick={onQuit}
+          onClick={handleQuitClick}
         >
           <CloseIcon />
           Выйти
