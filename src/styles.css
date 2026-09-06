@@ -85,6 +85,17 @@
   --touch: 44px;
 }
 
+/* Вечерний режим (18:00–6:00): притушенный акцент, чуть тёплый фон —
+   спокойнее для усталого вечера. Переключает App по часу. */
+:root[data-tod='eve'] {
+  --bg: #0c0b0a;
+  --surface: #16150f;
+  --surface-raised: #1b1a13;
+  --accent: #3f5fb8;
+  --accent-hover: #5878cf;
+  --accent-bg: rgba(63, 95, 184, 0.16);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -2173,6 +2184,34 @@ button {
 .text-row-title {
   font-family: var(--font-serif);
   color: var(--text-strong);
+}
+
+/* ------------------------------------------------------------
+   «Сегодня»: альтернативные действия + карточка повторения
+   ------------------------------------------------------------ */
+.today-alt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
+.btn-text {
+  align-self: center;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.btn-text:hover {
+  color: var(--text);
+}
+
+.revision-card {
+  gap: var(--space-2);
 }
 
 /* ------------------------------------------------------------

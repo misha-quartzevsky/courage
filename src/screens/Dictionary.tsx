@@ -11,11 +11,26 @@ import {
   type ThemedEntry,
 } from '../lib/dictionary'
 import { speakFr } from '../lib/speech'
-import { AlertIcon, SearchIcon, SpeakerIcon } from '../lib/icons'
+import { AlertIcon, RefreshIcon, SearchIcon, SpeakerIcon } from '../lib/icons'
+
+// Русское склонение по числу: 1 слово, 2 слова, 5 слов.
+function plural(n: number, one: string, few: string, many: string): string {
+  const m10 = n % 10
+  const m100 = n % 100
+  if (m10 === 1 && m100 !== 11) return one
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few
+  return many
+}
 
 interface DictionaryProps {
   userWords: WordRecord[]
   onToggle: (fr: string, ru?: string) => void
+  // «Повторение» переехало сюда карточкой (Срез 2). ready — есть что повторять.
+  revisionReady: boolean
+  dueCount: number
+  weakTitle?: string
+  revisionLoading: boolean
+  onStartRevision: () => void
 }
 
 type Mode = 'themes' | 'search'
@@ -45,7 +60,15 @@ interface Group {
   rows: Row[]
 }
 
-export function Dictionary({ userWords, onToggle }: DictionaryProps) {
+export function Dictionary({
+  userWords,
+  onToggle,
+  revisionReady,
+  dueCount,
+  weakTitle,
+  revisionLoading,
+  onStartRevision,
+}: DictionaryProps) {
   const [themed, setThemed] = useState<ThemedEntry[] | null>(null)
   const [wik, setWik] = useState<DictEntry[] | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
@@ -207,13 +230,44 @@ export function Dictionary({ userWords, onToggle }: DictionaryProps) {
   return (
     <main className="screen">
       <header>
-        <h1 className="app-title">Словарь</h1>
+        <h1 className="app-title">Слова</h1>
         <p className="muted">
           {status === 'ready'
             ? `ядро A1–B1 · встречено ${counts.total} · пройдено ${counts.learned}`
             : 'Французско-русский словарь'}
         </p>
       </header>
+
+      {revisionReady ? (
+        <section className="card card-raised revision-card">
+          <p className="preview-line">
+            {dueCount > 0
+              ? `${dueCount} ${plural(dueCount, 'слово', 'слова', 'слов')} на повторение`
+              : 'Пора освежить пройденное'}
+          </p>
+          {weakTitle && (
+            <p className="muted">Слабая тема: {weakTitle}</p>
+          )}
+          <button
+            type="button"
+            className="btn"
+            disabled={revisionLoading}
+            onClick={onStartRevision}
+          >
+            <RefreshIcon />
+            {revisionLoading ? 'Готовим…' : 'Повторить'}
+          </button>
+        </section>
+      ) : (
+        userWords.length > 0 &&
+        userWords.length < 8 && (
+          <p className="muted section-hint">
+            Ещё {8 - userWords.length}{' '}
+            {plural(8 - userWords.length, 'слово', 'слова', 'слов')} — и здесь
+            появится повторение.
+          </p>
+        )
+      )}
 
       <div className="chips dict-modes">
         <button

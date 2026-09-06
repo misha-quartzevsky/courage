@@ -28,6 +28,7 @@ import {
   weakRules,
 } from './lib/storage'
 import { loadDrillIndex } from './lib/drill'
+import { loadTextList } from './lib/texts'
 import {
   LEVEL_ACHIEVEMENT,
   levelComplete,
@@ -57,7 +58,6 @@ import { Lire } from './screens/Lire'
 import { Reader } from './screens/Reader'
 import { Dictionary } from './screens/Dictionary'
 import { GrammarCodex } from './screens/GrammarCodex'
-import { Revision } from './screens/Revision'
 import { TabBar, type Tab } from './screens/TabBar'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
@@ -69,6 +69,7 @@ type Overlay =
   | 'sprint'
   | 'debrief'
   | 'read'
+  | 'codex'
   | null
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
@@ -90,7 +91,7 @@ export default function App() {
   } | null>(null)
   const [progress, setProgress] = useState<ProgressState | null>(null)
 
-  const [tab, setTab] = useState<Tab>('cours')
+  const [tab, setTab] = useState<Tab>('today')
   const [overlay, setOverlay] = useState<Overlay>(null)
   const [persona, setPersona] = useState<LearnerPersona | null>(null)
   const [level, setLevel] = useState<CefrLevel>('A1')
@@ -131,7 +132,7 @@ export default function App() {
     setProgress(
       mergeServerProgress(p?.progress, p?.streak_count ?? 0, p?.best_accuracy ?? 0),
     )
-    setTab('cours')
+    setTab('today')
     setOverlay(p?.profession_text ? null : 'onboarding')
   }, [])
 
@@ -156,6 +157,13 @@ export default function App() {
     }
     void boot()
     void loadDrillIndex().then((ids) => active && setDrillIds(ids))
+    // Вечерний режим: после 18:00 и до 6:00 — притушенные токены (styles.css).
+    const applyTod = () => {
+      const h = new Date().getHours()
+      document.documentElement.dataset.tod = h >= 18 || h < 6 ? 'eve' : 'day'
+    }
+    applyTod()
+    const todTimer = window.setInterval(applyTod, 15 * 60 * 1000)
     // Реагируем только на смену пользователя (вход/выход). TOKEN_REFRESHED и
     // повторный SIGNED_IN при возврате на вкладку не должны сбрасывать
     // навигацию и терять прогресс текущего спринта.
@@ -167,6 +175,7 @@ export default function App() {
     })
     return () => {
       active = false
+      window.clearInterval(todTimer)
       unsub()
     }
   }, [applySession])
@@ -308,6 +317,11 @@ export default function App() {
     setOverlay(null)
     void refreshProfile()
   }, [refreshProfile])
+
+  const handleStartReading = useCallback(async () => {
+    const list = await loadTextList().catch(() => [])
+    if (list[0]) openText(list[0].id)
+  }, [openText])
 
   const handleSeenWord = useCallback(
     (fr: string, ru: string) => {
@@ -508,6 +522,10 @@ export default function App() {
     )
   }
 
+  if (overlay === 'codex') {
+    return <GrammarCodex onClose={() => setOverlay(null)} />
+  }
+
   if (overlay === 'onboarding') {
     return (
       <Onboarding
@@ -532,9 +550,13 @@ export default function App() {
   const activeStreak =
     session && profile ? profile.streak_count : progress?.streakDays ?? 0
 
+  const revWeak = weakRules(progress)[0]
+  const revDue = dueWords(progress).length
+  const revisionReady = (progress?.words.length ?? 0) >= 8 || !!revWeak
+
   return (
     <div className="tabbed-root">
-      {tab === 'cours' && (
+      {tab === 'today' && (
         <Cockpit
           persona={persona}
           level={level}
@@ -549,24 +571,23 @@ export default function App() {
           onMode={setMode}
           onStartNext={handleStartNext}
           onOpenSession={openSession}
+          onStartReading={handleStartReading}
+          onOpenCodex={() => setOverlay('codex')}
+          onEnough={handleCreditDay}
         />
       )}
       {tab === 'lire' && <Lire onOpenText={openText} />}
-      {tab === 'revision' && (
-        <Revision
-          progress={progress}
-          loading={loading}
-          error={aiError}
-          onStart={() => void startRevision()}
-        />
-      )}
-      {tab === 'dictionary' && (
+      {tab === 'mots' && (
         <Dictionary
           userWords={progress?.words ?? []}
           onToggle={handleToggleWord}
+          revisionReady={revisionReady}
+          dueCount={revDue}
+          weakTitle={revWeak?.titleFr}
+          revisionLoading={loading}
+          onStartRevision={() => void startRevision()}
         />
       )}
-      {tab === 'codex' && <GrammarCodex />}
       {tab === 'profil' && (
         <Settings
           persona={persona}

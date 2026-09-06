@@ -6,7 +6,13 @@ import {
   sessionByRuleId,
   type SyllabusSession,
 } from '../lib/syllabus'
-import { AlertIcon, ArrowRightIcon, FlameIcon } from '../lib/icons'
+import {
+  AlertIcon,
+  ArrowRightIcon,
+  BookIcon,
+  FlameIcon,
+  ReadIcon,
+} from '../lib/icons'
 import { CourseMap } from './CourseMap'
 
 export type Mode = 'voice' | 'text'
@@ -25,6 +31,9 @@ interface CockpitProps {
   onMode: (m: Mode) => void
   onStartNext: () => void
   onOpenSession: (s: SyllabusSession) => void
+  onStartReading: () => void
+  onOpenCodex: () => void
+  onEnough: () => void
 }
 
 export function Cockpit({
@@ -41,6 +50,9 @@ export function Cockpit({
   onMode,
   onStartNext,
   onOpenSession,
+  onStartReading,
+  onOpenCodex,
+  onEnough,
 }: CockpitProps) {
   const doneR = consolidatedRuleIds(progress)
   const due = dueRules(progress)[0]
@@ -65,12 +77,22 @@ export function Cockpit({
         <h1 className="app-title">
           Courage{userName ? ` · ${userName}` : ''}
         </h1>
-        {streakDays > 0 && (
-          <span className="badge badge-flame">
-            <FlameIcon />
-            {streakDays} дн.
-          </span>
-        )}
+        <div className="topbar-actions">
+          {streakDays > 0 && (
+            <span className="badge badge-flame">
+              <FlameIcon />
+              {streakDays} дн.
+            </span>
+          )}
+          <button
+            type="button"
+            className="btn-icon"
+            aria-label="Справочник"
+            onClick={onOpenCodex}
+          >
+            <BookIcon />
+          </button>
+        </div>
       </header>
 
       {partnerStreak !== null && (
@@ -150,6 +172,16 @@ export function Cockpit({
           {!loading && <ArrowRightIcon />}
         </button>
       </section>
+
+      <div className="today-alt">
+        <button type="button" className="btn btn-secondary" onClick={onStartReading}>
+          <ReadIcon />
+          Почитать
+        </button>
+        <button type="button" className="btn-text" onClick={onEnough}>
+          Достаточно на сегодня
+        </button>
+      </div>
 
       <p className="muted section-hint">
         Ваш уровень — {level}. Юнит можно раскрыть и пройти по одному правилу — нажмите на него.
