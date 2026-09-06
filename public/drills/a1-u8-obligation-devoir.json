@@ -1,0 +1,278 @@
+{
+  "ruleId": "a1-u8-obligation-devoir",
+  "titleRu": "Выражение обязанности и совета (devoir, il faut)",
+  "titleFr": "L'obligation : devoir et il faut",
+  "plainRu": "Надо: il faut + инфинитив (общее правило) или devoir по лицам (лично должен).",
+  "text": {
+    "fr": "Pour réussir, il faut travailler tous les jours. Je dois apprendre le français. Tu dois faire des exercices. Nous devons écouter le prof. Vous devez poser des questions. Tout le monde doit progresser.",
+    "ru": "Чтобы преуспеть, нужно работать каждый день. Я должен учить французский. Ты должен делать упражнения. Мы должны слушать учителя. Вы должны задавать вопросы. Все должны прогрессировать."
+  },
+  "forms": [
+    {
+      "label": "il faut",
+      "answerFr": "il faut",
+      "items": [
+        {
+          "fr": "{} manger des fruits.",
+          "ru": "Нужно есть фрукты.",
+          "distractors": [
+            "je dois",
+            "tu dois"
+          ]
+        },
+        {
+          "fr": "{} boire de l'eau.",
+          "ru": "Нужно пить воду.",
+          "distractors": [
+            "il doit",
+            "vous devez"
+          ]
+        },
+        {
+          "fr": "{} dormir huit heures.",
+          "ru": "Нужно спать восемь часов.",
+          "distractors": [
+            "nous devons",
+            "ils doivent"
+          ]
+        },
+        {
+          "fr": "{} travailler un peu.",
+          "ru": "Нужно немного работать.",
+          "distractors": [
+            "je dois",
+            "tu dois"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "je dois",
+      "answerFr": "dois",
+      "items": [
+        {
+          "fr": "Je {} partir maintenant.",
+          "ru": "Я должен уйти сейчас.",
+          "distractors": [
+            "doit",
+            "devons"
+          ]
+        },
+        {
+          "fr": "Je ne {} pas fumer.",
+          "ru": "Я не должен курить.",
+          "distractors": [
+            "devez",
+            "doivent"
+          ]
+        },
+        {
+          "fr": "Je {} payer le ticket.",
+          "ru": "Я должен заплатить за билет.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        },
+        {
+          "fr": "Je {} écouter le prof.",
+          "ru": "Я должен слушать учителя.",
+          "distractors": [
+            "doivent",
+            "devez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu dois",
+      "answerFr": "dois",
+      "items": [
+        {
+          "fr": "Tu {} rentrer tôt.",
+          "ru": "Ты должен вернуться рано.",
+          "distractors": [
+            "doit",
+            "devons"
+          ]
+        },
+        {
+          "fr": "Tu {} manger ta soupe.",
+          "ru": "Ты должен съесть свой суп.",
+          "distractors": [
+            "doit",
+            "devez"
+          ]
+        },
+        {
+          "fr": "Tu ne {} pas parler.",
+          "ru": "Ты не должен разговаривать.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        },
+        {
+          "fr": "Tu {} dormir maintenant.",
+          "ru": "Ты должен спать сейчас.",
+          "distractors": [
+            "doivent",
+            "devons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il doit",
+      "answerFr": "doit",
+      "items": [
+        {
+          "fr": "Il {} étudier le soir.",
+          "ru": "Он должен учиться вечером.",
+          "distractors": [
+            "dois",
+            "devons"
+          ]
+        },
+        {
+          "fr": "Il {} porter un manteau.",
+          "ru": "Он должен носить пальто.",
+          "distractors": [
+            "devez",
+            "dois"
+          ]
+        },
+        {
+          "fr": "Il {} acheter du pain.",
+          "ru": "Он должен купить хлеб.",
+          "distractors": [
+            "doivent",
+            "devons"
+          ]
+        },
+        {
+          "fr": "Il ne {} pas courir.",
+          "ru": "Он не должен бегать.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous devons",
+      "answerFr": "devons",
+      "items": [
+        {
+          "fr": "Nous {} préparer le dîner.",
+          "ru": "Мы должны приготовить ужин.",
+          "distractors": [
+            "devez",
+            "doivent"
+          ]
+        },
+        {
+          "fr": "Nous {} nettoyer la cuisine.",
+          "ru": "Мы должны убрать кухню.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        },
+        {
+          "fr": "Nous {} prendre le bus.",
+          "ru": "Мы должны сесть на автобус.",
+          "distractors": [
+            "devez",
+            "dois"
+          ]
+        },
+        {
+          "fr": "Nous ne {} pas crier.",
+          "ru": "Мы не должны кричать.",
+          "distractors": [
+            "doit",
+            "doivent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous devez",
+      "answerFr": "devez",
+      "items": [
+        {
+          "fr": "Vous {} signer ici.",
+          "ru": "Вы должны подписать здесь.",
+          "distractors": [
+            "devons",
+            "doivent"
+          ]
+        },
+        {
+          "fr": "Vous {} écouter attentivement.",
+          "ru": "Вы должны слушать внимательно.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        },
+        {
+          "fr": "Vous ne {} pas fumer.",
+          "ru": "Вы не должны курить.",
+          "distractors": [
+            "devons",
+            "dois"
+          ]
+        },
+        {
+          "fr": "Vous {} patienter un peu.",
+          "ru": "Вы должны немного подождать.",
+          "distractors": [
+            "doit",
+            "doivent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils doivent",
+      "answerFr": "doivent",
+      "items": [
+        {
+          "fr": "Ils {} arriver à l'heure.",
+          "ru": "Они должны прийти вовремя.",
+          "distractors": [
+            "devons",
+            "devez"
+          ]
+        },
+        {
+          "fr": "Ils {} faire leurs devoirs.",
+          "ru": "Они должны делать свои уроки.",
+          "distractors": [
+            "dois",
+            "doit"
+          ]
+        },
+        {
+          "fr": "Ils {} nettoyer la chambre.",
+          "ru": "Они должны убрать комнату.",
+          "distractors": [
+            "devez",
+            "dois"
+          ]
+        },
+        {
+          "fr": "Ils ne {} pas dormir tard.",
+          "ru": "Они не должны поздно ложиться спать.",
+          "distractors": [
+            "doit",
+            "devons"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -122,6 +122,28 @@ export interface TextListEntry {
   durationSec?: number
 }
 
+// --- Дрилл-тренажёр форм (A1, public/drills/<ruleId>.json) ---
+// Правило разбито на формы; на каждую форму — короткие простые предложения с
+// одним пропуском. Рантайм крутит их по кругу, меняя формат (см. drill.ts).
+export interface DrillItem {
+  fr: string // фраза с ровно одним {}
+  ru: string
+  distractors: string[] // неверные формы того же правила
+}
+export interface DrillForm {
+  label: string // «être - je», «le», «женский род»
+  answerFr: string // правильная форма на месте {}
+  items: DrillItem[]
+}
+export interface Drill {
+  ruleId: string
+  titleRu: string
+  titleFr: string
+  plainRu: string
+  text?: { fr: string; ru: string } // мини-текст на правило
+  forms: DrillForm[]
+}
+
 // EvaluationVerdict — вердикт по одному ответу (мягкая коррекция + Debrief).
 export interface GrammarIssue {
   snippet: string // что было сказано неверно
@@ -175,6 +197,10 @@ export interface RuleRecord {
   bestAccuracy: number // max по попыткам
   attempts: number
   lastCompletedAt: string
+  // Дрилл-тренажёр (A1). Опциональны — старый прогресс грузится без миграций.
+  drillRounds?: number // сколько кругов дрилла пройдено суммарно
+  learnedAt?: string // когда ученик нажал «Выучила» → правило в курсовом %
+  dueAt?: string // когда вернуть на быстрый круг-проверку (обслуживание)
 }
 
 // Выученное слово (для спринта Révision и вкладки «Словарь»).

@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u4-connecteurs",
+  "titleRu": "Союзы и предлоги связи",
+  "titleFr": "Les connecteurs (pour, parce que, mais, avec, sans)",
+  "plainRu": "Слова-связки: pour (зачем), parce que (почему), mais (но), avec / sans (с / без).",
+  "text": {
+    "fr": "Je cours au parc pour faire du sport, parce que j'aime bouger. Je suis fatigué, mais je continue. Je marche avec mon ami sans parler.",
+    "ru": "Я бегу в парк заниматься спортом, потому что я люблю двигаться. Я устал, но я продолжаю. Я иду со своим другом без разговоров."
+  },
+  "forms": [
+    {
+      "label": "pour",
+      "answerFr": "pour",
+      "items": [
+        {
+          "fr": "Je viens {} manger.",
+          "ru": "Я прихожу, чтобы поесть.",
+          "distractors": [
+            "mais",
+            "sans"
+          ]
+        },
+        {
+          "fr": "Il court {} gagner.",
+          "ru": "Он бежит, чтобы выиграть.",
+          "distractors": [
+            "parce que",
+            "avec"
+          ]
+        },
+        {
+          "fr": "Elle sort {} acheter du pain.",
+          "ru": "Она выходит, чтобы купить хлеб.",
+          "distractors": [
+            "mais",
+            "parce que"
+          ]
+        },
+        {
+          "fr": "Nous lisons {} apprendre.",
+          "ru": "Мы читаем, чтобы учиться.",
+          "distractors": [
+            "sans",
+            "mais"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "parce que",
+      "answerFr": "parce que",
+      "items": [
+        {
+          "fr": "Je dors {} je suis fatigué.",
+          "ru": "Я сплю, потому что я устал.",
+          "distractors": [
+            "pour",
+            "mais"
+          ]
+        },
+        {
+          "fr": "Il pleure {} il est triste.",
+          "ru": "Он плачет, потому что ему грустно.",
+          "distractors": [
+            "avec",
+            "pour"
+          ]
+        },
+        {
+          "fr": "Tu manges {} tu as faim.",
+          "ru": "Ты ешь, потому что ты голоден.",
+          "distractors": [
+            "sans",
+            "mais"
+          ]
+        },
+        {
+          "fr": "Elle sourit {} elle est heureuse.",
+          "ru": "Она улыбается, потому что она счастлива.",
+          "distractors": [
+            "pour",
+            "avec"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "parce qu'",
+      "answerFr": "parce qu'",
+      "items": [
+        {
+          "fr": "J'écoute {} il parle.",
+          "ru": "Я слушаю, потому что он говорит.",
+          "distractors": [
+            "pour",
+            "mais"
+          ]
+        },
+        {
+          "fr": "Il part {} il est tard.",
+          "ru": "Он уходит, потому что поздно.",
+          "distractors": [
+            "sans",
+            "avec"
+          ]
+        },
+        {
+          "fr": "Elle boit {} elle a soif.",
+          "ru": "Она пьет, потому что хочет пить.",
+          "distractors": [
+            "mais",
+            "pour"
+          ]
+        },
+        {
+          "fr": "Nous rions {} c'est drôle.",
+          "ru": "Мы смеемся, потому что это смешно.",
+          "distractors": [
+            "avec",
+            "sans"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "mais",
+      "answerFr": "mais",
+      "items": [
+        {
+          "fr": "Je veux du thé {} il n'y en a plus.",
+          "ru": "Я хочу чай, но его больше нет.",
+          "distractors": [
+            "pour",
+            "parce que"
+          ]
+        },
+        {
+          "fr": "Il est grand {} il est jeune.",
+          "ru": "Он высокий, но он молодой.",
+          "distractors": [
+            "avec",
+            "sans"
+          ]
+        },
+        {
+          "fr": "Tu cours {} tu es fatigué.",
+          "ru": "Ты бежишь, но ты устал.",
+          "distractors": [
+            "parce que",
+            "pour"
+          ]
+        },
+        {
+          "fr": "Elle chante {} elle a peur.",
+          "ru": "Она поет, но она боится.",
+          "distractors": [
+            "sans",
+            "parce qu'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avec",
+      "answerFr": "avec",
+      "items": [
+        {
+          "fr": "Je marche {} mon chien.",
+          "ru": "Я гуляю со своей собакой.",
+          "distractors": [
+            "sans",
+            "mais"
+          ]
+        },
+        {
+          "fr": "Tu bois du lait {} du sucre.",
+          "ru": "Ты пьешь молоко с сахаром.",
+          "distractors": [
+            "pour",
+            "parce que"
+          ]
+        },
+        {
+          "fr": "Il voyage {} un sac.",
+          "ru": "Он путешествует с сумкой.",
+          "distractors": [
+            "mais",
+            "sans"
+          ]
+        },
+        {
+          "fr": "Elle écrit {} un stylo.",
+          "ru": "Она пишет ручкой.",
+          "distractors": [
+            "parce qu'",
+            "pour"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "sans",
+      "answerFr": "sans",
+      "items": [
+        {
+          "fr": "Je marche {} mon manteau.",
+          "ru": "Я иду без моего пальто.",
+          "distractors": [
+            "avec",
+            "mais"
+          ]
+        },
+        {
+          "fr": "Tu bois le café {} sucre.",
+          "ru": "Ты пьешь кофе без сахара.",
+          "distractors": [
+            "pour",
+            "parce que"
+          ]
+        },
+        {
+          "fr": "Il sort {} son chapeau.",
+          "ru": "Он выходит без своей шляпы.",
+          "distractors": [
+            "mais",
+            "avec"
+          ]
+        },
+        {
+          "fr": "Elle vit {} argent.",
+          "ru": "Она живет без денег.",
+          "distractors": [
+            "parce que",
+            "pour"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "ruleId": "a1-u7-prepositions-lieu-2",
+  "titleRu": "Предлоги места (продвинутые)",
+  "titleFr": "Les prépositions de lieu (2)",
+  "plainRu": "Где именно: sur, sous, devant, derrière, entre и обороты с de (à côté de…).",
+  "text": {
+    "fr": "Dans ma chambre, le lit est à côté de la fenêtre. La table de nuit est à gauche du lit. Le tapis est sous la table. Le chat dort sur le tapis. La chaise est devant le bureau.",
+    "ru": "В моей комнате кровать находится рядом с окном. Тумбочка слева от кровати. Ковер под столом. Кошка спит на ковре. Стул стоит перед письменным столом."
+  },
+  "forms": [
+    {
+      "label": "sur",
+      "answerFr": "sur",
+      "items": [
+        {
+          "fr": "Le chat est {} la table.",
+          "ru": "Кошка на столе.",
+          "distractors": [
+            "sous",
+            "devant"
+          ]
+        },
+        {
+          "fr": "Le livre est {} le lit.",
+          "ru": "Книга на кровати.",
+          "distractors": [
+            "derrière",
+            "entre"
+          ]
+        },
+        {
+          "fr": "La tasse est {} la chaise.",
+          "ru": "Чашка на стул.",
+          "distractors": [
+            "sur la",
+            "sous"
+          ]
+        },
+        {
+          "fr": "Le stylo est {} le bureau.",
+          "ru": "Ручка на письменном столе.",
+          "distractors": [
+            "devant",
+            "sous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "sous",
+      "answerFr": "sous",
+      "items": [
+        {
+          "fr": "Le chat est {} le lit.",
+          "ru": "Кошка под кроватью.",
+          "distractors": [
+            "sur",
+            "entre"
+          ]
+        },
+        {
+          "fr": "Le sac est {} la table.",
+          "ru": "Сумка под столом.",
+          "distractors": [
+            "devant",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Le chien dort {} la chaise.",
+          "ru": "Собака спит под стулом.",
+          "distractors": [
+            "derrière",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Les chaussures sont {} le meuble.",
+          "ru": "Обувь под мебелью.",
+          "distractors": [
+            "entre",
+            "devant"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "devant",
+      "answerFr": "devant",
+      "items": [
+        {
+          "fr": "La voiture est {} la maison.",
+          "ru": "Машина перед домом.",
+          "distractors": [
+            "derrière",
+            "sous"
+          ]
+        },
+        {
+          "fr": "L'arbre est {} le mur.",
+          "ru": "Дерево перед стеной.",
+          "distractors": [
+            "entre",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Je suis {} la porte.",
+          "ru": "Я перед дверью.",
+          "distractors": [
+            "sous",
+            "derrière"
+          ]
+        },
+        {
+          "fr": "Le canapé est {} la télé.",
+          "ru": "Диван перед телевизором.",
+          "distractors": [
+            "sur",
+            "entre"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "derrière",
+      "answerFr": "derrière",
+      "items": [
+        {
+          "fr": "Le jardin est {} la maison.",
+          "ru": "Сад за домом.",
+          "distractors": [
+            "devant",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Le chat est {} la porte.",
+          "ru": "Кошка за дверью.",
+          "distractors": [
+            "sous",
+            "devant"
+          ]
+        },
+        {
+          "fr": "La chaise est {} le bureau.",
+          "ru": "Стул за письменным столом.",
+          "distractors": [
+            "entre",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Il est {} moi.",
+          "ru": "Он за мной.",
+          "distractors": [
+            "devant",
+            "sous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "entre",
+      "answerFr": "entre",
+      "items": [
+        {
+          "fr": "La table est {} le lit et l'armoire.",
+          "ru": "Стол между кроватью и шкафом.",
+          "distractors": [
+            "sur",
+            "sous"
+          ]
+        },
+        {
+          "fr": "Le chat est {} les deux chaises.",
+          "ru": "Кошка между двумя стульями.",
+          "distractors": [
+            "devant",
+            "derrière"
+          ]
+        },
+        {
+          "fr": "La lampe est {} le livre et le mur.",
+          "ru": "Лампа между книгой и стеной.",
+          "distractors": [
+            "sur",
+            "sous"
+          ]
+        },
+        {
+          "fr": "Je suis {} mon père et ma mère.",
+          "ru": "Я между моим папой и мамой.",
+          "distractors": [
+            "derrière",
+            "devant"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "à côté de",
+      "answerFr": "à côté de",
+      "items": [
+        {
+          "fr": "Le lit est {} la fenêtre.",
+          "ru": "Кровать рядом с окном.",
+          "distractors": [
+            "en face de",
+            "à gauche de"
+          ]
+        },
+        {
+          "fr": "La chaise est {} la table.",
+          "ru": "Стул рядом со столом.",
+          "distractors": [
+            "à droite de",
+            "entre"
+          ]
+        },
+        {
+          "fr": "Le canapé est {} le mur.",
+          "ru": "Диван рядом со стеной.",
+          "distractors": [
+            "devant",
+            "sous"
+          ]
+        },
+        {
+          "fr": "La lampe est {} le lit.",
+          "ru": "Лампа рядом с кроватью.",
+          "distractors": [
+            "en face de",
+            "sur"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "à gauche de",
+      "answerFr": "à gauche de",
+      "items": [
+        {
+          "fr": "La lampe est {} la table.",
+          "ru": "Лампа слева от стола.",
+          "distractors": [
+            "à droite de",
+            "à côté de"
+          ]
+        },
+        {
+          "fr": "Le chat est {} le chien.",
+          "ru": "Кошка слева от собаки.",
+          "distractors": [
+            "en face de",
+            "à côté de"
+          ]
+        },
+        {
+          "fr": "L'armoire est {} la porte.",
+          "ru": "Шкаф слева от двери.",
+          "distractors": [
+            "à droite de",
+            "entre"
+          ]
+        },
+        {
+          "fr": "Le lit est {} la fenêtre.",
+          "ru": "Кровать слева от окна.",
+          "distractors": [
+            "à côté de",
+            "devant"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "à droite de",
+      "answerFr": "à droite de",
+      "items": [
+        {
+          "fr": "Le fauteuil est {} la table.",
+          "ru": "Кресло справа от стола.",
+          "distractors": [
+            "à gauche de",
+            "à côté de"
+          ]
+        },
+        {
+          "fr": "La porte est {} la fenêtre.",
+          "ru": "Дверь справа от окна.",
+          "distractors": [
+            "en face de",
+            "à gauche de"
+          ]
+        },
+        {
+          "fr": "Le tapis est {} le lit.",
+          "ru": "Ковер справа от кровати.",
+          "distractors": [
+            "à côté de",
+            "entre"
+          ]
+        },
+        {
+          "fr": "Le bureau est {} l'armoire.",
+          "ru": "Письменный стол справа от шкафа.",
+          "distractors": [
+            "à gauche de",
+            "sous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "en face de",
+      "answerFr": "en face de",
+      "items": [
+        {
+          "fr": "Le canapé est {} la télé.",
+          "ru": "Диван напротив телевизора.",
+          "distractors": [
+            "à côté de",
+            "derrière"
+          ]
+        },
+        {
+          "fr": "La chaise est {} la porte.",
+          "ru": "Стул напротив двери.",
+          "distractors": [
+            "à gauche de",
+            "sur"
+          ]
+        },
+        {
+          "fr": "Le lit est {} la fenêtre.",
+          "ru": "Кровать напротив окна.",
+          "distractors": [
+            "à droite de",
+            "sous"
+          ]
+        },
+        {
+          "fr": "La maison est {} l'école.",
+          "ru": "Дом напротив школы.",
+          "distractors": [
+            "à côté de",
+            "entre"
+          ]
+        }
+      ]
+    }
+  ]
+}

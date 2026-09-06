@@ -61,10 +61,23 @@
   `deriveUnitRecord` / `rebuildUnits` в `src/lib/storage.ts`, отдельно не пишется).
   Пиши через `recordSessionCompletion(...)`; `recordLightSession()` двигает только стрик.
   Мерж с Supabase (`mergeServerProgress`) пересобирает `units` из `rules`.
+- **Дрилл-тренажёр форм (A1)** — по фидбэку жены (сент. 2026) практика для A1 = не
+  Gemini-спринт, а детерминированный тренажёр: правило разбито на формы, круг =
+  проход по всем формам (1 задание на форму, 5 форматов ротируются: выбор /
+  плитки / пропуск-с-банком / сопоставь / лишняя). После круга — «Выучила» /
+  «Ещё круг» / «Хватит». Длину выбирает ученик; 60–90 с — это разминка.
+  `src/screens/LessonDrill.tsx` + `src/lib/drill.ts`, данные —
+  `public/drills/<ruleId>.json` (собирает `scripts/build-drills.mjs` через Gemini,
+  коммитим; 32/33 правил A1, `a1-u2-articles-indefinis` — на старом пути).
+  `overlay='drill'`, роутинг в `App.openSession` (A1 + есть дрилл). Правило
+  засчитывается в курс (`consolidatedRuleIds`, `RuleRecord.learnedAt`) только по
+  «Выучила»; `recordDrillComplete`. Выученное возвращается на круг-проверку через
+  ~7 дней (`dueRules`). **A2/B1 — прежний путь** `warmup → sprint → debrief`.
 - **Лёгкий режим** (`src/screens/LessonWarmup.tsx` + `src/lib/warmup.ts`): интерактивная
   разминка по одному правилу (prime → guess → reveal-как-ответ → explore → build → итог),
   целиком на клиенте, без Gemini. В конце развилка «На сегодня хватит» /
-  «Ещё немного — практика». Открывается как `overlay='warmup'` через `openSession`.
+  «Ещё немного — практика». Открывается как `overlay='warmup'` через `openSession`
+  (для A2/B1; A1 идёт в дрилл — см. выше).
 - **Практика** — спринт из ~4 упражнений по одному правилу (`generateSprint` в
   `src/lib/gemini.ts`, фолбэк детерминированный). `SprintSession` несёт `ruleId`/`ruleTitleFr`.
   У каждого упражнения кроме `match` — обязательное `sentenceRu` (полный перевод

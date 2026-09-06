@@ -1,0 +1,150 @@
+{
+  "ruleId": "a1-u9-imparfait-impersonnel",
+  "titleRu": "Безличные глаголы в прошедшем времени Imparfait (описания)",
+  "titleFr": "Les verbes impersonnels à l'imparfait",
+  "plainRu": "Описание прошлого (погода, фон): c’était, il y avait, il faisait.",
+  "text": {
+    "fr": "Hier, il faisait beau. Il y avait du soleil dans le ciel. C'était une belle journée. Dans le parc, il y avait beaucoup de fleurs. Le voyage était parfait.",
+    "ru": "Вчера была прекрасная погода. В небе было солнце. Это был прекрасный день. В парке было много цветов. Поездка была идеальной."
+  },
+  "forms": [
+    {
+      "label": "c'était",
+      "answerFr": "c'était",
+      "items": [
+        {
+          "fr": "Hier, {} beau.",
+          "ru": "Вчера было красиво.",
+          "distractors": [
+            "il y avait",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Le film {} bien.",
+          "ru": "Фильм был хорошим.",
+          "distractors": [
+            "il y avait",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "La maison {} grande.",
+          "ru": "Дом был большим.",
+          "distractors": [
+            "il y avait",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Le chat {} noir.",
+          "ru": "Кот был черным.",
+          "distractors": [
+            "il y avait",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Le livre {} long.",
+          "ru": "Книга была длинной.",
+          "distractors": [
+            "il y avait",
+            "il faisait"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il y avait",
+      "answerFr": "il y avait",
+      "items": [
+        {
+          "fr": "Dans la rue, {} du monde.",
+          "ru": "На улице было много людей.",
+          "distractors": [
+            "c'était",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Sur la table, {} un livre.",
+          "ru": "На столе была книга.",
+          "distractors": [
+            "c'était",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Dans le jardin, {} des fleurs.",
+          "ru": "В саду были цветы.",
+          "distractors": [
+            "c'était",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Dans le ciel, {} des nuages.",
+          "ru": "В небе были облака.",
+          "distractors": [
+            "c'était",
+            "il faisait"
+          ]
+        },
+        {
+          "fr": "Dans la classe, {} des élèves.",
+          "ru": "В классе были ученики.",
+          "distractors": [
+            "c'était",
+            "il faisait"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il faisait",
+      "answerFr": "il faisait",
+      "items": [
+        {
+          "fr": "Hier, {} très chaud.",
+          "ru": "Вчера было очень жарко.",
+          "distractors": [
+            "c'était",
+            "il y avait"
+          ]
+        },
+        {
+          "fr": "Le matin, {} froid.",
+          "ru": "Утром было холодно.",
+          "distractors": [
+            "c'était",
+            "il y avait"
+          ]
+        },
+        {
+          "fr": "Le soir, {} beau.",
+          "ru": "Вечером была прекрасная погода.",
+          "distractors": [
+            "c'était",
+            "il y avait"
+          ]
+        },
+        {
+          "fr": "Dans la nuit, {} mauvais.",
+          "ru": "Ночью была плохая погода.",
+          "distractors": [
+            "c'était",
+            "il y avait"
+          ]
+        },
+        {
+          "fr": "Au parc, {} du vent.",
+          "ru": "В парке был ветер.",
+          "distractors": [
+            "c'était",
+            "il y avait"
+          ]
+        }
+      ]
+    }
+  ]
+}

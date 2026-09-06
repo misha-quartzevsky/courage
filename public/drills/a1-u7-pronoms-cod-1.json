@@ -1,0 +1,164 @@
+{
+  "ruleId": "a1-u7-pronoms-cod-1",
+  "titleRu": "Прямые местоимения-дополнения (COD)",
+  "titleFr": "Les pronoms COD (le, la, l', les)",
+  "plainRu": "le / la / les заменяют предмет или человека (кого? что?), чтобы не повторяться. Ставим перед глаголом.",
+  "text": {
+    "fr": "J'ai un livre et une pomme. Je le lis le soir. Je la mange avec plaisir. J'ai aussi des amis, je les invite souvent à la maison.",
+    "ru": "У меня есть книга и яблоко. Я читаю её вечером. Я ем его с удовольствием. У меня также есть друзья, я их часто приглашаю домой."
+  },
+  "forms": [
+    {
+      "label": "le (мужской род)",
+      "answerFr": "le",
+      "items": [
+        {
+          "fr": "Tu vois le chat ? Oui, je {} vois.",
+          "ru": "Ты видишь кота? Да, я его вижу.",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu prends le livre ? Oui, je {} prends.",
+          "ru": "Ты берешь книгу (м.р.)? Да, я её беру.",
+          "distractors": [
+            "la",
+            "l'"
+          ]
+        },
+        {
+          "fr": "Tu aimes le film ? Oui, je {} aime.",
+          "ru": "Тебе нравится фильм? Да, он мне нравится.",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu manges le pain ? Oui, je {} mange.",
+          "ru": "Ты ешь хлеб? Да, я его ешь.",
+          "distractors": [
+            "la",
+            "l'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "la (женский род)",
+      "answerFr": "la",
+      "items": [
+        {
+          "fr": "Tu veux la pomme ? Oui, je {} veux.",
+          "ru": "Ты хочешь яблоко? Да, я его хочу.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu connais la chanson ? Oui, je {} connais.",
+          "ru": "Ты знаешь песню? Да, я её знаю.",
+          "distractors": [
+            "le",
+            "l'"
+          ]
+        },
+        {
+          "fr": "Tu attends la voiture ? Oui, je {} attends.",
+          "ru": "Ты ждешь машину? Да, я её жду.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu fermes la porte ? Oui, je {} ferme.",
+          "ru": "Ты закрываешь дверь? Да, я её закрываю.",
+          "distractors": [
+            "le",
+            "l'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "l' (перед гласной)",
+      "answerFr": "l'",
+      "items": [
+        {
+          "fr": "Tu écoutes l'ami ? Oui, je {} écoute.",
+          "ru": "Ты слушаешь друга? Да, я его слушаю.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Tu aimes l'eau ? Oui, je {} aime.",
+          "ru": "Ты любишь воду? Да, я её люблю.",
+          "distractors": [
+            "les",
+            "la"
+          ]
+        },
+        {
+          "fr": "Tu regardes l'image ? Oui, je {} regarde.",
+          "ru": "Ты смотришь на картинку? Да, я на неё смотрю.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu portes l'habit ? Oui, je {} porte.",
+          "ru": "Ты ношишь эту одежду? Да, я её ношу.",
+          "distractors": [
+            "la",
+            "le"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "les (множественное число)",
+      "answerFr": "les",
+      "items": [
+        {
+          "fr": "Tu achètes les fleurs ? Oui, je {} achète.",
+          "ru": "Ты покупаешь цветы? Да, я их покупаю.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Tu invites les amis ? Oui, je {} invite.",
+          "ru": "Ты приглашаешь друзей? Да, я их приглашаю.",
+          "distractors": [
+            "l'",
+            "la"
+          ]
+        },
+        {
+          "fr": "Tu perds les clés ? Oui, je {} perds.",
+          "ru": "Ты теряешь ключи? Да, я их теряю.",
+          "distractors": [
+            "le",
+            "l'"
+          ]
+        },
+        {
+          "fr": "Tu cherches les livres ? Oui, je {} cherche.",
+          "ru": "Ты ищешь книги? Да, я их ищу.",
+          "distractors": [
+            "la",
+            "le"
+          ]
+        }
+      ]
+    }
+  ]
+}

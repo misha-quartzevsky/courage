@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u5-futur-proche",
+  "titleRu": "Ближайшее будущее время",
+  "titleFr": "Le futur proche",
+  "plainRu": "Скоро сделаю = aller в настоящем времени + инфинитив.",
+  "text": {
+    "fr": "Demain, je vais travailler. Tu vas cuisiner un bon repas. Il va acheter du pain. Nous allons manger ensemble. Vous allez regarder un film. Ils vont dormir tôt.",
+    "ru": "Завтра я буду работать. Ты будешь готовить хорошую еду. Он будет покупать хлеб. Мы будем есть вместе. Вы будете смотреть фильм. Они будут спать рано."
+  },
+  "forms": [
+    {
+      "label": "je",
+      "answerFr": "vais",
+      "items": [
+        {
+          "fr": "Je {} manger.",
+          "ru": "Я буду есть.",
+          "distractors": [
+            "vas",
+            "va"
+          ]
+        },
+        {
+          "fr": "Je {} dormir.",
+          "ru": "Я буду спать.",
+          "distractors": [
+            "allons",
+            "allez"
+          ]
+        },
+        {
+          "fr": "Je {} parler.",
+          "ru": "Я буду говорить.",
+          "distractors": [
+            "vas",
+            "vont"
+          ]
+        },
+        {
+          "fr": "Je {} regarder.",
+          "ru": "Я буду смотреть.",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu",
+      "answerFr": "vas",
+      "items": [
+        {
+          "fr": "Tu {} manger.",
+          "ru": "Ты будешь есть.",
+          "distractors": [
+            "vais",
+            "va"
+          ]
+        },
+        {
+          "fr": "Tu {} dormir.",
+          "ru": "Ты будешь спать.",
+          "distractors": [
+            "allez",
+            "vont"
+          ]
+        },
+        {
+          "fr": "Tu {} parler.",
+          "ru": "Ты будешь говорить.",
+          "distractors": [
+            "vais",
+            "allons"
+          ]
+        },
+        {
+          "fr": "Tu {} regarder.",
+          "ru": "Ты будешь смотреть.",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle",
+      "answerFr": "va",
+      "items": [
+        {
+          "fr": "Il {} manger.",
+          "ru": "Он будет есть.",
+          "distractors": [
+            "vais",
+            "vas"
+          ]
+        },
+        {
+          "fr": "Elle {} dormir.",
+          "ru": "Она будет спать.",
+          "distractors": [
+            "allons",
+            "vont"
+          ]
+        },
+        {
+          "fr": "Il {} parler.",
+          "ru": "Он будет говорить.",
+          "distractors": [
+            "allez",
+            "vais"
+          ]
+        },
+        {
+          "fr": "Elle {} regarder.",
+          "ru": "Она будет смотреть.",
+          "distractors": [
+            "vas",
+            "allons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous",
+      "answerFr": "allons",
+      "items": [
+        {
+          "fr": "Nous {} manger.",
+          "ru": "Мы будем есть.",
+          "distractors": [
+            "vais",
+            "allez"
+          ]
+        },
+        {
+          "fr": "Nous {} dormir.",
+          "ru": "Мы будем спать.",
+          "distractors": [
+            "vas",
+            "vont"
+          ]
+        },
+        {
+          "fr": "Nous {} parler.",
+          "ru": "Мы будем говорить.",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        },
+        {
+          "fr": "Nous {} regarder.",
+          "ru": "Мы будем смотреть.",
+          "distractors": [
+            "vais",
+            "vas"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous",
+      "answerFr": "allez",
+      "items": [
+        {
+          "fr": "Vous {} manger.",
+          "ru": "Вы будете есть.",
+          "distractors": [
+            "allons",
+            "vont"
+          ]
+        },
+        {
+          "fr": "Vous {} dormir.",
+          "ru": "Вы будете спать.",
+          "distractors": [
+            "vais",
+            "va"
+          ]
+        },
+        {
+          "fr": "Vous {} parler.",
+          "ru": "Вы будете говорить.",
+          "distractors": [
+            "vas",
+            "allons"
+          ]
+        },
+        {
+          "fr": "Vous {} regarder.",
+          "ru": "Вы будете смотреть.",
+          "distractors": [
+            "va",
+            "vont"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles",
+      "answerFr": "vont",
+      "items": [
+        {
+          "fr": "Ils {} manger.",
+          "ru": "Они будут есть.",
+          "distractors": [
+            "allez",
+            "allons"
+          ]
+        },
+        {
+          "fr": "Elles {} dormir.",
+          "ru": "Они будут спать.",
+          "distractors": [
+            "vais",
+            "va"
+          ]
+        },
+        {
+          "fr": "Ils {} parler.",
+          "ru": "Они будут говорить.",
+          "distractors": [
+            "vas",
+            "allez"
+          ]
+        },
+        {
+          "fr": "Elles {} regarder.",
+          "ru": "Они будут смотреть.",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        }
+      ]
+    }
+  ]
+}

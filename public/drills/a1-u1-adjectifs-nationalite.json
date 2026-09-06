@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u1-adjectifs-nationalite",
+  "titleRu": "Прилагательные, обозначающие национальность",
+  "titleFr": "Les adjectifs de nationalité",
+  "plainRu": "Слово о национальности меняет окончание под мужчину или женщину.",
+  "text": {
+    "fr": "Je suis italien et mon amie est française. Nous habitons ici. Il est russe, elle est grecque. Tout le monde est content.",
+    "ru": "Я итальянец, а моя подруга — француженка. Мы живем здесь. Он русский, она гречанка. Все довольны."
+  },
+  "forms": [
+    {
+      "label": "мужской род (m)",
+      "answerFr": "français",
+      "items": [
+        {
+          "fr": "Il est {}.",
+          "ru": "Он француз.",
+          "distractors": [
+            "française",
+            "françaises"
+          ]
+        },
+        {
+          "fr": "Mon ami est {}.",
+          "ru": "Мой друг — француз.",
+          "distractors": [
+            "française",
+            "italienne"
+          ]
+        },
+        {
+          "fr": "Le chat est {}.",
+          "ru": "Кот французский.",
+          "distractors": [
+            "française",
+            "russe"
+          ]
+        },
+        {
+          "fr": "Il est très {}.",
+          "ru": "Он очень французский.",
+          "distractors": [
+            "française",
+            "espagnole"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "женский род (f)",
+      "answerFr": "française",
+      "items": [
+        {
+          "fr": "Elle est {}.",
+          "ru": "Она француженка.",
+          "distractors": [
+            "français",
+            "françaises"
+          ]
+        },
+        {
+          "fr": "Mon amie est {}.",
+          "ru": "Моя подруга — француженка.",
+          "distractors": [
+            "français",
+            "italien"
+          ]
+        },
+        {
+          "fr": "La table est {}.",
+          "ru": "Стол французский (женский род для примера).",
+          "distractors": [
+            "français",
+            "russe"
+          ]
+        },
+        {
+          "fr": "Elle est très {}.",
+          "ru": "Она очень француженка.",
+          "distractors": [
+            "français",
+            "espagnol"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "мужской род на -ien",
+      "answerFr": "italien",
+      "items": [
+        {
+          "fr": "Il est {}.",
+          "ru": "Он итальянец.",
+          "distractors": [
+            "italienne",
+            "italiennes"
+          ]
+        },
+        {
+          "fr": "Le garçon est {}.",
+          "ru": "Мальчик итальянец.",
+          "distractors": [
+            "italienne",
+            "française"
+          ]
+        },
+        {
+          "fr": "Un homme {}.",
+          "ru": "Итальянский мужчина.",
+          "distractors": [
+            "italienne",
+            "russe"
+          ]
+        },
+        {
+          "fr": "Mon frère est {}.",
+          "ru": "Мой брат итальянец.",
+          "distractors": [
+            "italienne",
+            "espagnol"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "женский род на -ienne",
+      "answerFr": "italienne",
+      "items": [
+        {
+          "fr": "Elle est {}.",
+          "ru": "Она итальянка.",
+          "distractors": [
+            "italien",
+            "italiens"
+          ]
+        },
+        {
+          "fr": "La fille est {}.",
+          "ru": "Девочка итальянка.",
+          "distractors": [
+            "italien",
+            "français"
+          ]
+        },
+        {
+          "fr": "Une femme {}.",
+          "ru": "Итальянская женщина.",
+          "distractors": [
+            "italien",
+            "russe"
+          ]
+        },
+        {
+          "fr": "Ma sœur est {}.",
+          "ru": "Моя сестра итальянка.",
+          "distractors": [
+            "italien",
+            "espagnole"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "мужской род на -e",
+      "answerFr": "russe",
+      "items": [
+        {
+          "fr": "Il est {}.",
+          "ru": "Он русский.",
+          "distractors": [
+            "russes",
+            "russ"
+          ]
+        },
+        {
+          "fr": "Elle est {}.",
+          "ru": "Она русская.",
+          "distractors": [
+            "russes",
+            "russ"
+          ]
+        },
+        {
+          "fr": "Mon ami est {}.",
+          "ru": "Мой друг русский.",
+          "distractors": [
+            "russes",
+            "italien"
+          ]
+        },
+        {
+          "fr": "Ma mère est {}.",
+          "ru": "Моя мама русская.",
+          "distractors": [
+            "russes",
+            "française"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "исключение grec",
+      "answerFr": "grecque",
+      "items": [
+        {
+          "fr": "Elle est {}.",
+          "ru": "Она гречанка.",
+          "distractors": [
+            "grec",
+            "greque"
+          ]
+        },
+        {
+          "fr": "La salade est {}.",
+          "ru": "Салат греческий.",
+          "distractors": [
+            "grec",
+            "greque"
+          ]
+        },
+        {
+          "fr": "Une île {}.",
+          "ru": "Греческий остров.",
+          "distractors": [
+            "grec",
+            "greque"
+          ]
+        },
+        {
+          "fr": "Mon amie est {}.",
+          "ru": "Моя подруга гречанка.",
+          "distractors": [
+            "grec",
+            "greque"
+          ]
+        }
+      ]
+    }
+  ]
+}

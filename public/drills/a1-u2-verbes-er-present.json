@@ -1,0 +1,288 @@
+{
+  "ruleId": "a1-u2-verbes-er-present",
+  "titleRu": "Глаголы на -er в настоящем времени (1-я группа)",
+  "titleFr": "Les verbes en -er au présent",
+  "plainRu": "Самые частые глаголы (на -er): убираем -er и добавляем нужное окончание.",
+  "text": {
+    "fr": "J'habite à Paris. Tu habites à Nice. Il aime le chocolat et elle écoute la musique. Nous parlons français tous les jours. Vous habitez ici ? Ils adorent danser le soir.",
+    "ru": "Я живу в Париже. Ты живешь в Ницце. Он любит шоколад, а она слушает музыку. Мы говорим по-французски каждый день. Вы живете здесь? Они обожают танцевать по вечерам."
+  },
+  "forms": [
+    {
+      "label": "je (-e)",
+      "answerFr": "habite",
+      "items": [
+        {
+          "fr": "Je {} à Paris.",
+          "ru": "Я живу в Париже.",
+          "distractors": [
+            "habites",
+            "habitent"
+          ]
+        },
+        {
+          "fr": "Je {} le chocolat.",
+          "ru": "Я люблю шоколад.",
+          "distractors": [
+            "aimes",
+            "aiment"
+          ]
+        },
+        {
+          "fr": "Je {} français.",
+          "ru": "Я говорю по-французски.",
+          "distractors": [
+            "parles",
+            "parlent"
+          ]
+        },
+        {
+          "fr": "Je {} la musique.",
+          "ru": "Я слушаю музыку.",
+          "distractors": [
+            "écoutes",
+            "écoutent"
+          ]
+        },
+        {
+          "fr": "Je {} bien.",
+          "ru": "Я танцую хорошо.",
+          "distractors": [
+            "danses",
+            "dansent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (-es)",
+      "answerFr": "habites",
+      "items": [
+        {
+          "fr": "Tu {} à Lyon.",
+          "ru": "Ты живешь в Лионе.",
+          "distractors": [
+            "habite",
+            "habitent"
+          ]
+        },
+        {
+          "fr": "Tu {} le thé?",
+          "ru": "Ты любишь чай?",
+          "distractors": [
+            "aime",
+            "aiment"
+          ]
+        },
+        {
+          "fr": "Tu {} anglais.",
+          "ru": "Ты говоришь по-английски.",
+          "distractors": [
+            "parle",
+            "parlent"
+          ]
+        },
+        {
+          "fr": "Tu {} la radio.",
+          "ru": "Ты слушаешь радио.",
+          "distractors": [
+            "écoute",
+            "écoutent"
+          ]
+        },
+        {
+          "fr": "Tu {} beaucoup.",
+          "ru": "Ты много танцуешь.",
+          "distractors": [
+            "danse",
+            "dansent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle (-e)",
+      "answerFr": "habite",
+      "items": [
+        {
+          "fr": "Il {} à Nice.",
+          "ru": "Он живет в Ницце.",
+          "distractors": [
+            "habites",
+            "habitent"
+          ]
+        },
+        {
+          "fr": "Elle {} le sport.",
+          "ru": "Она любит спорт.",
+          "distractors": [
+            "aimes",
+            "aiment"
+          ]
+        },
+        {
+          "fr": "Il {} espagnol.",
+          "ru": "Он говорит по-испански.",
+          "distractors": [
+            "parles",
+            "parlent"
+          ]
+        },
+        {
+          "fr": "Elle {} un CD.",
+          "ru": "Она слушает диск.",
+          "distractors": [
+            "écoutes",
+            "écoutent"
+          ]
+        },
+        {
+          "fr": "Il {} le soir.",
+          "ru": "Он танцует вечером.",
+          "distractors": [
+            "danses",
+            "dansent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (-ons)",
+      "answerFr": "habitons",
+      "items": [
+        {
+          "fr": "Nous {} ici.",
+          "ru": "Мы живем здесь.",
+          "distractors": [
+            "habitez",
+            "habitent"
+          ]
+        },
+        {
+          "fr": "Nous {} les chats.",
+          "ru": "Мы любим кошек.",
+          "distractors": [
+            "aimez",
+            "aiment"
+          ]
+        },
+        {
+          "fr": "Nous {} français.",
+          "ru": "Мы говорим по-французски.",
+          "distractors": [
+            "parlez",
+            "parlent"
+          ]
+        },
+        {
+          "fr": "Nous {} la musique.",
+          "ru": "Мы слушаем музыку.",
+          "distractors": [
+            "écoutez",
+            "écoutent"
+          ]
+        },
+        {
+          "fr": "Nous {} bien.",
+          "ru": "Мы танцуем хорошо.",
+          "distractors": [
+            "dansez",
+            "dansent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (-ez)",
+      "answerFr": "habitez",
+      "items": [
+        {
+          "fr": "Vous {} à Paris ?",
+          "ru": "Вы живете в Париже?",
+          "distractors": [
+            "habitons",
+            "habitent"
+          ]
+        },
+        {
+          "fr": "Vous {} le café ?",
+          "ru": "Вы любите кофе?",
+          "distractors": [
+            "aimons",
+            "aiment"
+          ]
+        },
+        {
+          "fr": "Vous {} anglais ?",
+          "ru": "Вы говорите по-английски?",
+          "distractors": [
+            "parlons",
+            "parlent"
+          ]
+        },
+        {
+          "fr": "Vous {} la radio ?",
+          "ru": "Вы слушаете радио?",
+          "distractors": [
+            "écoutons",
+            "écoutent"
+          ]
+        },
+        {
+          "fr": "Vous {} le soir ?",
+          "ru": "Вы танцуете вечером?",
+          "distractors": [
+            "dansons",
+            "dansent"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles (-ent)",
+      "answerFr": "habitent",
+      "items": [
+        {
+          "fr": "Ils {} à Lyon.",
+          "ru": "Они живут в Лионе.",
+          "distractors": [
+            "habite",
+            "habites"
+          ]
+        },
+        {
+          "fr": "Elles {} le cinéma.",
+          "ru": "Они любят кино.",
+          "distractors": [
+            "aime",
+            "aimes"
+          ]
+        },
+        {
+          "fr": "Ils {} espagnol.",
+          "ru": "Они говорят по-испански.",
+          "distractors": [
+            "parle",
+            "parles"
+          ]
+        },
+        {
+          "fr": "Elles {} un CD.",
+          "ru": "Они слушают диск.",
+          "distractors": [
+            "écoute",
+            "écoutes"
+          ]
+        },
+        {
+          "fr": "Ils {} beaucoup.",
+          "ru": "Они много танцуют.",
+          "distractors": [
+            "danse",
+            "danses"
+          ]
+        }
+      ]
+    }
+  ]
+}

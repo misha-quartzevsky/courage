@@ -1,0 +1,164 @@
+{
+  "ruleId": "a1-u1-prepositions-villes-pays",
+  "titleRu": "Предлоги перед названиями городов и стран",
+  "titleFr": "Les prépositions devant les noms de villes et de pays",
+  "plainRu": "Куда/где: в город — à, в страну — en, au или aux в зависимости от рода страны.",
+  "text": {
+    "fr": "J'habite à Paris, en France. Mon ami va au Japon et ses parents vivent aux États-Unis.",
+    "ru": "Я живу в Париже, во Франции. Мой друг едет в Японию, а его родители живут в США."
+  },
+  "forms": [
+    {
+      "label": "Города (à)",
+      "answerFr": "à",
+      "items": [
+        {
+          "fr": "J'habite {} Paris.",
+          "ru": "Я живу в Париже.",
+          "distractors": [
+            "en",
+            "au"
+          ]
+        },
+        {
+          "fr": "Tu vas {} Rome.",
+          "ru": "Ты едешь в Рим.",
+          "distractors": [
+            "aux",
+            "en"
+          ]
+        },
+        {
+          "fr": "Il travaille {} Lyon.",
+          "ru": "Он работает в Лионе.",
+          "distractors": [
+            "au",
+            "en"
+          ]
+        },
+        {
+          "fr": "Nous allons {} Londres.",
+          "ru": "Мы едем в Лондон.",
+          "distractors": [
+            "en",
+            "aux"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Страны женского рода / на гласную (en)",
+      "answerFr": "en",
+      "items": [
+        {
+          "fr": "Elle habite {} France.",
+          "ru": "Она живет во Франции.",
+          "distractors": [
+            "au",
+            "à"
+          ]
+        },
+        {
+          "fr": "Je voyage {} Italie.",
+          "ru": "Я путешествую в Италию.",
+          "distractors": [
+            "aux",
+            "au"
+          ]
+        },
+        {
+          "fr": "Nous allons {} Espagne.",
+          "ru": "Мы едем в Испанию.",
+          "distractors": [
+            "à",
+            "au"
+          ]
+        },
+        {
+          "fr": "Tu vis {} Suisse.",
+          "ru": "Ты живешь в Швейцарии.",
+          "distractors": [
+            "aux",
+            "à"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Страны мужского рода (au)",
+      "answerFr": "au",
+      "items": [
+        {
+          "fr": "Il habite {} Japon.",
+          "ru": "Он живет в Японии.",
+          "distractors": [
+            "en",
+            "à"
+          ]
+        },
+        {
+          "fr": "Je vais {} Portugal.",
+          "ru": "Я еду в Португалию.",
+          "distractors": [
+            "en",
+            "aux"
+          ]
+        },
+        {
+          "fr": "Vous voyagez {} Brésil.",
+          "ru": "Вы путешествуете в Бразилию.",
+          "distractors": [
+            "à",
+            "en"
+          ]
+        },
+        {
+          "fr": "Ils habitent {} Canada.",
+          "ru": "Они живут в Канаде.",
+          "distractors": [
+            "en",
+            "aux"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Страны во множественном числе (aux)",
+      "answerFr": "aux",
+      "items": [
+        {
+          "fr": "J'habite {} États-Unis.",
+          "ru": "Я живу в США.",
+          "distractors": [
+            "en",
+            "au"
+          ]
+        },
+        {
+          "fr": "Il va {} Pays-Bas.",
+          "ru": "Он едет в Нидерланды.",
+          "distractors": [
+            "à",
+            "en"
+          ]
+        },
+        {
+          "fr": "Nous voyageons {} Émirats.",
+          "ru": "Мы путешествуем в Эмираты.",
+          "distractors": [
+            "au",
+            "en"
+          ]
+        },
+        {
+          "fr": "Tu vis {} Philippines.",
+          "ru": "Ты живешь на Филиппинах.",
+          "distractors": [
+            "à",
+            "au"
+          ]
+        }
+      ]
+    }
+  ]
+}

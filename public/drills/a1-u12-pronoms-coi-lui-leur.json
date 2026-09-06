@@ -1,0 +1,88 @@
+{
+  "ruleId": "a1-u12-pronoms-coi-lui-leur",
+  "titleRu": "Косвенные местоимения-дополнения (ему/ей, им)",
+  "titleFr": "Les pronoms COI : lui et leur",
+  "plainRu": "lui / leur — «ему/ей, им»: заменяют людей после предлога à (кому?).",
+  "text": {
+    "fr": "J'ai un ami. Je lui parle tous les jours. J'ai aussi des parents. Je leur téléphone souvent. Ils sont gentils. Je donne un cadeau à mes parents, je leur offre une belle fleur.",
+    "ru": "У меня есть друг. Я говорю с ним каждый день. У меня также есть родители. Я звоню им часто. Они добрые. Я дарю подарок моим родителям, я дарю им красивый цветок."
+  },
+  "forms": [
+    {
+      "label": "lui (ему/ей)",
+      "answerFr": "lui",
+      "items": [
+        {
+          "fr": "Je {} parle.",
+          "ru": "Я говорю ему.",
+          "distractors": [
+            "leur",
+            "le"
+          ]
+        },
+        {
+          "fr": "Tu {} donnes.",
+          "ru": "Ты даешь ей.",
+          "distractors": [
+            "leur",
+            "la"
+          ]
+        },
+        {
+          "fr": "Il {} écrit.",
+          "ru": "Он пишет ему.",
+          "distractors": [
+            "leur",
+            "les"
+          ]
+        },
+        {
+          "fr": "Elle {} téléphone.",
+          "ru": "Она звонит ей.",
+          "distractors": [
+            "leur",
+            "lui"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "leur (им)",
+      "answerFr": "leur",
+      "items": [
+        {
+          "fr": "Je {} parle.",
+          "ru": "Я говорю им.",
+          "distractors": [
+            "lui",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu {} donnes.",
+          "ru": "Ты даешь им.",
+          "distractors": [
+            "lui",
+            "des"
+          ]
+        },
+        {
+          "fr": "Il {} écrit.",
+          "ru": "Он пишет им.",
+          "distractors": [
+            "lui",
+            "la"
+          ]
+        },
+        {
+          "fr": "Elle {} téléphone.",
+          "ru": "Она звонит им.",
+          "distractors": [
+            "lui",
+            "le"
+          ]
+        }
+      ]
+    }
+  ]
+}

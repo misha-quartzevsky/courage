@@ -1,0 +1,202 @@
+{
+  "ruleId": "a1-u4-c-est-il-est",
+  "titleRu": "Разница между C'est и Il/Elle est",
+  "titleFr": "C'est vs Il est / Elle est",
+  "plainRu": "C’est — «это (такой-то)», называем; Il/Elle est — «он/она такой», описываем.",
+  "text": {
+    "fr": "Regarde cette maison. C'est une grande maison. Elle est belle et moderne. Dans la chambre, ce sont de vieux meubles. Ils sont marron et confortables.",
+    "ru": "Посмотри на этот дом. Это большой дом. Он красивый и современный. В комнате — старая мебель. Она коричневая и удобная."
+  },
+  "forms": [
+    {
+      "label": "C'est (noun)",
+      "answerFr": "C'est",
+      "items": [
+        {
+          "fr": "{} un livre.",
+          "ru": "Это книга.",
+          "distractors": [
+            "Il est",
+            "Ce sont"
+          ]
+        },
+        {
+          "fr": "{} une table.",
+          "ru": "Это стол.",
+          "distractors": [
+            "Elle est",
+            "Ce sont"
+          ]
+        },
+        {
+          "fr": "{} un chat.",
+          "ru": "Это кот.",
+          "distractors": [
+            "Il est",
+            "Ce sont"
+          ]
+        },
+        {
+          "fr": "{} une voiture.",
+          "ru": "Это машина.",
+          "distractors": [
+            "Elle est",
+            "Ce sont"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Il/Elle est (adj)",
+      "answerFr": "Il est",
+      "items": [
+        {
+          "fr": "Mon chat ? {} grand.",
+          "ru": "Мой кот? Он большой.",
+          "distractors": [
+            "C'est",
+            "Ils sont"
+          ]
+        },
+        {
+          "fr": "Le café ? {} bon.",
+          "ru": "Кофе? Он вкусный.",
+          "distractors": [
+            "C'est",
+            "Ils sont"
+          ]
+        },
+        {
+          "fr": "Le lit ? {} grand.",
+          "ru": "Кровать? Она большая.",
+          "distractors": [
+            "C'est",
+            "Ils sont"
+          ]
+        },
+        {
+          "fr": "Le mur ? {} blanc.",
+          "ru": "Стена? Она белая.",
+          "distractors": [
+            "C'est",
+            "Ils sont"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Elle est (adj)",
+      "answerFr": "Elle est",
+      "items": [
+        {
+          "fr": "La table ? {} petite.",
+          "ru": "Стол (жен.р.)? Она маленькая.",
+          "distractors": [
+            "C'est",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "La lampe ? {} jolie.",
+          "ru": "Лампа? Она красивая.",
+          "distractors": [
+            "C'est",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "La chaise ? {} noire.",
+          "ru": "Стул (жен.р.)? Она черная.",
+          "distractors": [
+            "C'est",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "La porte ? {} ouverte.",
+          "ru": "Дверь? Она открыта.",
+          "distractors": [
+            "C'est",
+            "Elles sont"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Ce sont (plural noun)",
+      "answerFr": "Ce sont",
+      "items": [
+        {
+          "fr": "{} des livres.",
+          "ru": "Это книги.",
+          "distractors": [
+            "Ils sont",
+            "C'est"
+          ]
+        },
+        {
+          "fr": "{} des tables.",
+          "ru": "Это столы.",
+          "distractors": [
+            "Elles sont",
+            "C'est"
+          ]
+        },
+        {
+          "fr": "{} des chats.",
+          "ru": "Это коты.",
+          "distractors": [
+            "Ils sont",
+            "C'est"
+          ]
+        },
+        {
+          "fr": "{} des amis.",
+          "ru": "Это друзья.",
+          "distractors": [
+            "Ils sont",
+            "C'est"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Ils/Elles sont (plural adj)",
+      "answerFr": "Ils sont",
+      "items": [
+        {
+          "fr": "Les chats ? {} grands.",
+          "ru": "Коты? Они большие.",
+          "distractors": [
+            "Ce sont",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "Les livres ? {} bons.",
+          "ru": "Книги? Они хорошие.",
+          "distractors": [
+            "Ce sont",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "Les murs ? {} blancs.",
+          "ru": "Стены? Они белые.",
+          "distractors": [
+            "Ce sont",
+            "Elles sont"
+          ]
+        },
+        {
+          "fr": "Les amis ? {} contents.",
+          "ru": "Друзья? Они довольны.",
+          "distractors": [
+            "Ce sont",
+            "Elles sont"
+          ]
+        }
+      ]
+    }
+  ]
+}

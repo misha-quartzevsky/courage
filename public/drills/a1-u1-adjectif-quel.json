@@ -1,0 +1,156 @@
+{
+  "ruleId": "a1-u1-adjectif-quel",
+  "titleRu": "Вопросительное прилагательное quel (какой)",
+  "titleFr": "L'adjectif interrogatif quel",
+  "plainRu": "quel — «какой / который» в вопросе; меняет окончание под существительное.",
+  "text": {
+    "fr": "Quel jour sommes-nous ? Quelle heure est-il ? Quels fruits tu veux ? Quelles couleurs tu aimes ? C'est facile a apprendre !",
+    "ru": "Какой сегодня день? Который час? Какие фрукты ты хочешь? Какие цвета тебе нравятся? Это легко выучить!"
+  },
+  "forms": [
+    {
+      "label": "masculin singulier",
+      "answerFr": "Quel",
+      "items": [
+        {
+          "fr": "{} jour est-ce ?",
+          "ru": "Какой сегодня день?",
+          "distractors": [
+            "Quelle",
+            "Quels"
+          ]
+        },
+        {
+          "fr": "{} film tu aimes ?",
+          "ru": "Какой фильм ты любишь?",
+          "distractors": [
+            "Quelles",
+            "Quelle"
+          ]
+        },
+        {
+          "fr": "{} livre tu lis ?",
+          "ru": "какую книгу ты читаешь?",
+          "distractors": [
+            "Quelle",
+            "Quels"
+          ]
+        },
+        {
+          "fr": "{} sport tu fais ?",
+          "ru": "каким спортом ты занимаешься?",
+          "distractors": [
+            "Quelles",
+            "Quelle"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "féminin singulier",
+      "answerFr": "Quelle",
+      "items": [
+        {
+          "fr": "{} heure est-il ?",
+          "ru": "Который час?",
+          "distractors": [
+            "Quel",
+            "Quelles"
+          ]
+        },
+        {
+          "fr": "{} couleur tu préferes ?",
+          "ru": "Какой цвет ты предпочитаешь?",
+          "distractors": [
+            "Quel",
+            "Quelles"
+          ]
+        },
+        {
+          "fr": "{} adresse tu as ?",
+          "ru": "Какой у тебя адрес?",
+          "distractors": [
+            "Quels",
+            "Quel"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "masculin pluriel",
+      "answerFr": "Quels",
+      "items": [
+        {
+          "fr": "{} jours tu travailles ?",
+          "ru": "В какие дни ты работаешь?",
+          "distractors": [
+            "Quel",
+            "Quelles"
+          ]
+        },
+        {
+          "fr": "{} films tu regardes ?",
+          "ru": "Какие фильмы ты смотришь?",
+          "distractors": [
+            "Quelle",
+            "Quel"
+          ]
+        },
+        {
+          "fr": "{} livres tu veux ?",
+          "ru": "Какие книги ты хочешь?",
+          "distractors": [
+            "Quel",
+            "Quelles"
+          ]
+        },
+        {
+          "fr": "{} sports tu aimes ?",
+          "ru": "Какие виды спорта ты любишь?",
+          "distractors": [
+            "Quelle",
+            "Quel"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "féminin pluriel",
+      "answerFr": "Quelles",
+      "items": [
+        {
+          "fr": "{} langues tu parles ?",
+          "ru": "На каких языках ты говоришь?",
+          "distractors": [
+            "Quel",
+            "Quels"
+          ]
+        },
+        {
+          "fr": "{} heures tu arrives ?",
+          "ru": "В котором часу ты приезжаешь?",
+          "distractors": [
+            "Quel",
+            "Quelle"
+          ]
+        },
+        {
+          "fr": "{} fleurs tu preferes ?",
+          "ru": "Какие цветы ты предпочитаешь?",
+          "distractors": [
+            "Quels",
+            "Quel"
+          ]
+        },
+        {
+          "fr": "{} chansons tu chantes ?",
+          "ru": "Какие песни ты поешь?",
+          "distractors": [
+            "Quel",
+            "Quelle"
+          ]
+        }
+      ]
+    }
+  ]
+}

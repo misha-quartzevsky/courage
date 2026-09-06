@@ -1,0 +1,164 @@
+{
+  "ruleId": "a1-u3-prepositions-lieu-1",
+  "titleRu": "Предлоги места: chez (у кого-то) и à/au/aux (в/на)",
+  "titleFr": "Les prépositions de lieu : chez, à, au, aux",
+  "plainRu": "К человеку — chez, в заведение или место — à (au / à la / aux).",
+  "text": {
+    "fr": "Aujourd'hui, je vais chez le dentiste. Après, je vais au marché pour acheter des fruits. Je passe aussi à la boulangerie. Ce soir, je rentre chez moi.",
+    "ru": "Сегодня я иду к зубному врачу. После этого я иду на рынок купить фрукты. Я также заглядываю в пекарню. Сегодня вечером я возвращаюсь домой."
+  },
+  "forms": [
+    {
+      "label": "chez",
+      "answerFr": "chez",
+      "items": [
+        {
+          "fr": "Je vais {} moi.",
+          "ru": "Я иду к себе.",
+          "distractors": [
+            "au",
+            "à la"
+          ]
+        },
+        {
+          "fr": "Tu manges {} toi.",
+          "ru": "Ты ешь у себя.",
+          "distractors": [
+            "aux",
+            "au"
+          ]
+        },
+        {
+          "fr": "Il va {} le médecin.",
+          "ru": "Он идет к врачу.",
+          "distractors": [
+            "à la",
+            "aux"
+          ]
+        },
+        {
+          "fr": "Nous restons {} nous.",
+          "ru": "Мы остаемся у себя.",
+          "distractors": [
+            "au",
+            "à la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "au",
+      "answerFr": "au",
+      "items": [
+        {
+          "fr": "Je vais {} marché.",
+          "ru": "Я иду на рынок.",
+          "distractors": [
+            "chez",
+            "à la"
+          ]
+        },
+        {
+          "fr": "Tu vas {} cinéma.",
+          "ru": "Ты идешь в кино.",
+          "distractors": [
+            "chez",
+            "aux"
+          ]
+        },
+        {
+          "fr": "Il travaille {} restaurant.",
+          "ru": "Он работает в ресторане.",
+          "distractors": [
+            "à la",
+            "chez"
+          ]
+        },
+        {
+          "fr": "Nous allons {} parc.",
+          "ru": "Мы идем в парк.",
+          "distractors": [
+            "chez",
+            "aux"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "à la",
+      "answerFr": "à la",
+      "items": [
+        {
+          "fr": "Je vais {} boulangerie.",
+          "ru": "Я иду в пекарню.",
+          "distractors": [
+            "au",
+            "chez"
+          ]
+        },
+        {
+          "fr": "Tu habites {} campagne.",
+          "ru": "Ты живешь в деревне.",
+          "distractors": [
+            "aux",
+            "au"
+          ]
+        },
+        {
+          "fr": "Elle va {} pharmacie.",
+          "ru": "Она идет в аптеку.",
+          "distractors": [
+            "chez",
+            "au"
+          ]
+        },
+        {
+          "fr": "Nous restons {} maison.",
+          "ru": "Мы остаемся дома.",
+          "distractors": [
+            "aux",
+            "chez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "aux",
+      "answerFr": "aux",
+      "items": [
+        {
+          "fr": "Je vais {} toilettes.",
+          "ru": "Я иду в туалет.",
+          "distractors": [
+            "au",
+            "chez"
+          ]
+        },
+        {
+          "fr": "Tu vas {} États-Unis.",
+          "ru": "Ты едешь в США.",
+          "distractors": [
+            "à la",
+            "au"
+          ]
+        },
+        {
+          "fr": "Il habite {} environs.",
+          "ru": "Он живет в окрестностях.",
+          "distractors": [
+            "chez",
+            "au"
+          ]
+        },
+        {
+          "fr": "Nous allons {} grands magasins.",
+          "ru": "Мы идем в универмаги.",
+          "distractors": [
+            "à la",
+            "chez"
+          ]
+        }
+      ]
+    }
+  ]
+}

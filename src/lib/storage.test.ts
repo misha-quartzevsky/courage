@@ -1,6 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import {
   addSeenWord,
+  consolidatedRuleIds,
+  dueRules,
+  recordDrillComplete,
   dueWordCount,
   dueWords,
   isLearned,
@@ -386,3 +389,47 @@ describe('addSeenWord (тап по слову в ридере)', () => {
     )
   })
 })
+
+describe('дрилл-тренажёр правил (A1)', () => {
+  const RID = 'a1-u1-verbes-etre-avoir'
+
+  it('без «Выучила»: копит drillRounds, держит стрик, НЕ консолидирует', () => {
+    const p = recordDrillComplete(RID, { rounds: 2, selfLearned: false, cleanRound: false })
+    expect(p.rules[RID].drillRounds).toBe(2)
+    expect(p.rules[RID].learnedAt).toBeUndefined()
+    expect(p.streakDays).toBe(1)
+    expect(consolidatedRuleIds(p).has(RID)).toBe(false)
+  })
+
+  it('накопление кругов между заходами', () => {
+    recordDrillComplete(RID, { rounds: 1, selfLearned: false, cleanRound: false })
+    const p = recordDrillComplete(RID, { rounds: 3, selfLearned: false, cleanRound: false })
+    expect(p.rules[RID].drillRounds).toBe(4)
+  })
+
+  it('«Выучила» ставит learnedAt + dueAt (+7д) и консолидирует', () => {
+    const p = recordDrillComplete(RID, { rounds: 1, selfLearned: true, cleanRound: true })
+    const r = p.rules[RID]
+    expect(r.learnedAt).toBeTruthy()
+    expect(Date.parse(r.dueAt!) - Date.parse(r.learnedAt!)).toBeGreaterThan(6 * 86400000)
+    expect(consolidatedRuleIds(p).has(RID)).toBe(true)
+  })
+
+  it('legacy-правило (запись без drillRounds) считается консолидированным', () => {
+    const before = recordSessionCompletion(sessionRef('a1-u1-articles-definis'), 70)
+    expect(before.rules['a1-u1-articles-definis'].drillRounds).toBeUndefined()
+    expect(consolidatedRuleIds(before).has('a1-u1-articles-definis')).toBe(true)
+  })
+
+  it('dueRules возвращает выученное с просроченным dueAt', () => {
+    localStorage.setItem('courage:progress', JSON.stringify({
+      rules: {
+        overdue: { ruleId: 'overdue', unitId: 'a1-u1', level: 'A1', titleFr: 'x', bestAccuracy: 100, attempts: 1, lastCompletedAt: '2026-01-01T00:00:00.000Z', drillRounds: 3, learnedAt: '2026-01-01T00:00:00.000Z', dueAt: '2026-01-05T00:00:00.000Z' },
+        fresh: { ruleId: 'fresh', unitId: 'a1-u1', level: 'A1', titleFr: 'y', bestAccuracy: 100, attempts: 1, lastCompletedAt: '2026-01-01T00:00:00.000Z', drillRounds: 3, learnedAt: '2026-01-01T00:00:00.000Z', dueAt: '2099-01-01T00:00:00.000Z' },
+      },
+      units: {}, words: [], streakDays: 1, bestAccuracy: 100, updatedAt: '2026-01-01T00:00:00.000Z',
+    }))
+    const due = dueRules(loadProgress(), new Date('2026-02-01T00:00:00.000Z')).map((r) => r.ruleId)
+    expect(due).toEqual(['overdue'])
+  })
+});

@@ -1,0 +1,164 @@
+{
+  "ruleId": "a1-u5-adjectif-demonstratif",
+  "titleRu": "Указательные прилагательные (этот, эта, эти)",
+  "titleFr": "L'adjectif démonstratif",
+  "plainRu": "ce / cette / ces — «этот, эта, эти»; ставим вместо артикля.",
+  "text": {
+    "fr": "Regarde ce livre et cette chaise. J'adore cet ordinateur sur la table. Je prends ces stylos pour le travail.",
+    "ru": "Посмотри на эту книгу и этот стул. Я обожаю этот компьютер на столе. Я беру эти ручки для работы."
+  },
+  "forms": [
+    {
+      "label": "ce",
+      "answerFr": "ce",
+      "items": [
+        {
+          "fr": "Je veux {} sac.",
+          "ru": "Я хочу эту сумку.",
+          "distractors": [
+            "cette",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Regarde {} livre ici.",
+          "ru": "Посмотри на эту книгу здесь.",
+          "distractors": [
+            "cette",
+            "cet"
+          ]
+        },
+        {
+          "fr": "Tu aimes {} stylo ?",
+          "ru": "Тебе нравится эта ручка?",
+          "distractors": [
+            "cet",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Il prend {} train.",
+          "ru": "Он садится на этот поезд.",
+          "distractors": [
+            "cette",
+            "ces"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cette",
+      "answerFr": "cette",
+      "items": [
+        {
+          "fr": "Regarde {} table là.",
+          "ru": "Посмотри на этот стол вон там.",
+          "distractors": [
+            "ce",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Je prends {} chaise.",
+          "ru": "Я беру этот стул.",
+          "distractors": [
+            "ce",
+            "cet"
+          ]
+        },
+        {
+          "fr": "Tu vois {} photo ?",
+          "ru": "Ты видишь эту фотографию?",
+          "distractors": [
+            "ce",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Elle achète {} robe.",
+          "ru": "Она покупает это платье.",
+          "distractors": [
+            "cet",
+            "ces"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cet",
+      "answerFr": "cet",
+      "items": [
+        {
+          "fr": "J'aime {} ananas.",
+          "ru": "Я люблю этот ананас.",
+          "distractors": [
+            "ce",
+            "cette"
+          ]
+        },
+        {
+          "fr": "Regarde {} homme là.",
+          "ru": "Посмотри на этого человека здесь.",
+          "distractors": [
+            "ce",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Tu connais {} hotel ?",
+          "ru": "Ты знаешь этот отель?",
+          "distractors": [
+            "cette",
+            "ces"
+          ]
+        },
+        {
+          "fr": "Il ouvre {} oiseau.",
+          "ru": "Он открывает эту птицу (пример для гласной).",
+          "distractors": [
+            "ce",
+            "cette"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ces",
+      "answerFr": "ces",
+      "items": [
+        {
+          "fr": "Je veux {} livres.",
+          "ru": "Я хочу эти книги.",
+          "distractors": [
+            "ce",
+            "cette"
+          ]
+        },
+        {
+          "fr": "Tu prends {} sacs ?",
+          "ru": "Ты берешь эти сумки?",
+          "distractors": [
+            "cet",
+            "ce"
+          ]
+        },
+        {
+          "fr": "Regarde {} photos ici.",
+          "ru": "Посмотри на эти фотографии здесь.",
+          "distractors": [
+            "cette",
+            "cet"
+          ]
+        },
+        {
+          "fr": "Elle aime {} fleurs.",
+          "ru": "Она любит эти цветы.",
+          "distractors": [
+            "ce",
+            "cette"
+          ]
+        }
+      ]
+    }
+  ]
+}

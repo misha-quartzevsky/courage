@@ -15,16 +15,19 @@ import { getRule, type GrammarRule } from './lib/grammar'
 import { DEMO_PERSONA } from './lib/personas'
 import {
   addSeenWord,
-  doneRuleIds,
+  consolidatedRuleIds,
+  dueRules,
   dueWords,
   interleaveRules,
   loadProgress,
   mergeServerProgress,
+  recordDrillComplete,
   recordLightSession,
   recordSessionCompletion,
   toggleWordLearned,
   weakRules,
 } from './lib/storage'
+import { loadDrillIndex } from './lib/drill'
 import {
   LEVEL_ACHIEVEMENT,
   levelComplete,
@@ -49,6 +52,7 @@ import { Login } from './screens/Login'
 import { Onboarding } from './screens/Onboarding'
 import { Settings } from './screens/Settings'
 import { LessonWarmup } from './screens/LessonWarmup'
+import { LessonDrill } from './screens/LessonDrill'
 import { Lire } from './screens/Lire'
 import { Reader } from './screens/Reader'
 import { Dictionary } from './screens/Dictionary'
@@ -58,7 +62,14 @@ import { TabBar, type Tab } from './screens/TabBar'
 import { Sprint } from './screens/Sprint'
 import { Debrief } from './screens/Debrief'
 
-type Overlay = 'onboarding' | 'warmup' | 'sprint' | 'debrief' | 'read' | null
+type Overlay =
+  | 'onboarding'
+  | 'warmup'
+  | 'drill'
+  | 'sprint'
+  | 'debrief'
+  | 'read'
+  | null
 
 function personaFromProfile(p: SupabaseProfile | null): LearnerPersona | null {
   if (!p?.profession_text) return null
@@ -86,6 +97,8 @@ export default function App() {
   const [mode, setMode] = useState<Mode>('voice')
   const [sprint, setSprint] = useState<SprintSession | null>(null)
   const [openTextId, setOpenTextId] = useState<string | null>(null)
+  const [drillRule, setDrillRule] = useState<{ ruleId: string; recheck: boolean } | null>(null)
+  const [drillIds, setDrillIds] = useState<Set<string>>(new Set())
   const [activeSession, setActiveSession] = useState<{
     unit: SyllabusUnit
     rule: GrammarRule
@@ -142,6 +155,7 @@ export default function App() {
       if (active) setBooted(true)
     }
     void boot()
+    void loadDrillIndex().then((ids) => active && setDrillIds(ids))
     // Реагируем только на смену пользователя (вход/выход). TOKEN_REFRESHED и
     // повторный SIGNED_IN при возврате на вкладку не должны сбрасывать
     // навигацию и терять прогресс текущего спринта.
@@ -191,16 +205,25 @@ export default function App() {
     [refreshProfile],
   )
 
-  // Открыть сессию: сперва лёгкий режим по правилу, практика — уже оттуда.
-  const openSession = useCallback((s: SyllabusSession) => {
-    const unit = unitById(s.unitId)
-    const rule = getRule(s.ruleId)
-    if (!unit || !rule) return
-    setActiveSession({ unit, rule })
-    setAiError(false)
-    setRetryExercises(null)
-    setOverlay('warmup')
-  }, [])
+  // Открыть сессию по правилу. A1 с готовым дриллом → дрилл-тренажёр форм;
+  // остальное → лёгкий режим (разминка → Gemini-спринт).
+  const openSession = useCallback(
+    (s: SyllabusSession, recheck = false) => {
+      const unit = unitById(s.unitId)
+      const rule = getRule(s.ruleId)
+      if (!unit || !rule) return
+      if (rule.level === 'A1' && drillIds.has(rule.id)) {
+        setDrillRule({ ruleId: rule.id, recheck })
+        setOverlay('drill')
+        return
+      }
+      setActiveSession({ unit, rule })
+      setAiError(false)
+      setRetryExercises(null)
+      setOverlay('warmup')
+    },
+    [drillIds],
+  )
 
   // Диплинк из пуш-напоминания: /?rule=<id> → сразу разминка этого правила.
   const deepLinked = useRef(false)
@@ -243,8 +266,29 @@ export default function App() {
   }, [persona, level, activeSession, progress])
 
   const handleStartNext = useCallback(() => {
-    openSession(nextSession(doneRuleIds(progress), level))
+    // Сначала — выученное правило, которому пора на круг-проверку; иначе новое.
+    const due = dueRules(progress)[0]
+    if (due) {
+      const s = sessionByRuleId(due.ruleId)
+      if (s) {
+        openSession(s, true)
+        return
+      }
+    }
+    openSession(nextSession(consolidatedRuleIds(progress), level))
   }, [openSession, progress, level])
+
+  const handleDrillFinish = useCallback(
+    (opts: { rounds: number; selfLearned: boolean; cleanRound: boolean }) => {
+      if (drillRule && (opts.rounds > 0 || opts.selfLearned)) {
+        setProgress(recordDrillComplete(drillRule.ruleId, opts))
+      }
+      setDrillRule(null)
+      setOverlay(null)
+      void refreshProfile()
+    },
+    [drillRule, refreshProfile],
+  )
 
   const handleCreditDay = useCallback(() => {
     setProgress(recordLightSession())
@@ -337,7 +381,7 @@ export default function App() {
         const missedFr = sprint.revision
           ? vs.filter((v) => !v.passed).flatMap(wordsOfVerdict)
           : []
-        const before = doneRuleIds(progress)
+        const before = consolidatedRuleIds(progress)
         const nextProgress = recordSessionCompletion(
           sprint.ruleId
             ? {
@@ -356,7 +400,7 @@ export default function App() {
         const lvl = sprint.level
         const justCompleted =
           !sprint.revision &&
-          levelComplete(lvl, doneRuleIds(nextProgress)) &&
+          levelComplete(lvl, consolidatedRuleIds(nextProgress)) &&
           !levelComplete(lvl, before)
         setMilestone(
           justCompleted ? { level: lvl, text: LEVEL_ACHIEVEMENT[lvl] } : null,
@@ -419,7 +463,9 @@ export default function App() {
         verdicts={verdicts}
         milestone={milestone}
         next={
-          sprint.revision ? null : nextSession(doneRuleIds(progress), level)
+          sprint.revision
+            ? null
+            : nextSession(consolidatedRuleIds(progress), level)
         }
         onRetry={handleRetry}
         onHome={handleQuit}
@@ -437,6 +483,16 @@ export default function App() {
         onEnough={handleQuit}
         onCreditDay={handleCreditDay}
         onClose={() => setOverlay(null)}
+      />
+    )
+  }
+
+  if (overlay === 'drill' && drillRule) {
+    return (
+      <LessonDrill
+        ruleId={drillRule.ruleId}
+        recheck={drillRule.recheck}
+        onFinish={handleDrillFinish}
       />
     )
   }

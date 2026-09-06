@@ -1,0 +1,126 @@
+{
+  "ruleId": "a1-u4-frequence-1",
+  "titleRu": "Наречия частоты (никогда, часто, всегда)",
+  "titleFr": "La fréquence : jamais, souvent, toujours",
+  "plainRu": "Как часто (souvent, toujours, jamais) — сразу после глагола.",
+  "text": {
+    "fr": "Je mange souvent des fruits. Tu bois toujours de l'eau. Il ne mange jamais de viande. Nous aimons toujours le chocolat. Vous écoutez souvent la musique.",
+    "ru": "Я часто ем фрукты. Ты всегда пьёшь воду. Он никогда не ест мясо. Мы всегда любим шоколад. Вы часто слушаете музыку."
+  },
+  "forms": [
+    {
+      "label": "souvent",
+      "answerFr": "souvent",
+      "items": [
+        {
+          "fr": "Je mange {} du chocolat.",
+          "ru": "Я часто ем шоколад.",
+          "distractors": [
+            "toujours",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Tu écoutes {} la radio.",
+          "ru": "Ты часто слушать радио.",
+          "distractors": [
+            "toujours",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Il regarde {} le film.",
+          "ru": "Он часто смотрит фильм.",
+          "distractors": [
+            "toujours",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Nous voyageons {} en été.",
+          "ru": "Мы часто путешествуем летом.",
+          "distractors": [
+            "toujours",
+            "jamais"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "toujours",
+      "answerFr": "toujours",
+      "items": [
+        {
+          "fr": "Vous parlez {} français.",
+          "ru": "Вы всегда говорите по-французски.",
+          "distractors": [
+            "souvent",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Ils arrivent {} à l'heure.",
+          "ru": "Они всегда приходят вовремя.",
+          "distractors": [
+            "souvent",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Je bois {} du café.",
+          "ru": "Я всегда пью кофе.",
+          "distractors": [
+            "souvent",
+            "jamais"
+          ]
+        },
+        {
+          "fr": "Elle porte {} une robe.",
+          "ru": "Она всегда носит платье.",
+          "distractors": [
+            "souvent",
+            "jamais"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "jamais",
+      "answerFr": "jamais",
+      "items": [
+        {
+          "fr": "Je ne fume {} ici.",
+          "ru": "Я никогда не курю здесь.",
+          "distractors": [
+            "souvent",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Tu ne bois {} de thé.",
+          "ru": "Ты никогда не пьёшь чай.",
+          "distractors": [
+            "souvent",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Il ne mange {} de viande.",
+          "ru": "Он никогда не ест мясо.",
+          "distractors": [
+            "souvent",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Nous ne regardons {} la télé.",
+          "ru": "Мы никогда не смотрим телевизор.",
+          "distractors": [
+            "souvent",
+            "toujours"
+          ]
+        }
+      ]
+    }
+  ]
+}

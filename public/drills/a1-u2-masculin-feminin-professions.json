@@ -1,0 +1,202 @@
+{
+  "ruleId": "a1-u2-masculin-feminin-professions",
+  "titleRu": "Мужской и женский род названий профессий",
+  "titleFr": "Le masculin et le féminin des professions",
+  "plainRu": "У большинства профессий есть мужская и женская форма — меняется окончание.",
+  "text": {
+    "fr": "Mon père est informaticien et ma mère est professeure. Mon frère est coiffeur et sa femme est actrice. Ma sœur est infirmière dans un grand hôpital. Notre amie est fleuriste au coin de la rue. Tout le monde travaille avec beaucoup de plaisir.",
+    "ru": "Мой отец программист, а мама преподаватель. Мой брат парикмахер, а его жена актриса. Моя сестра медсестра в большой больнице. Наша подруга — флорист на углу улицы. Все работают с большим удовольствием."
+  },
+  "forms": [
+    {
+      "label": "fleuriste -> fleuriste (-e)",
+      "answerFr": "fleuriste",
+      "items": [
+        {
+          "fr": "Mon ami est {}.",
+          "ru": "Мой друг флорист.",
+          "distractors": [
+            "fleurist",
+            "fleuristeuse"
+          ]
+        },
+        {
+          "fr": "Cette femme est {}.",
+          "ru": "Эта женщина — флорист.",
+          "distractors": [
+            "fleuristrice",
+            "fleuristiere"
+          ]
+        },
+        {
+          "fr": "Il est un bon {}.",
+          "ru": "Он хороший флорист.",
+          "distractors": [
+            "fleurist",
+            "fleuristiere"
+          ]
+        },
+        {
+          "fr": "Elle travaille comme {}.",
+          "ru": "Она работает флористом.",
+          "distractors": [
+            "fleuristrice",
+            "fleurist"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "infirmier -> infirmière (-er -> -ère)",
+      "answerFr": "infirmière",
+      "items": [
+        {
+          "fr": "Ma sœur est {}.",
+          "ru": "Моя сестра медсестра.",
+          "distractors": [
+            "infirmier",
+            "infirmiereuse"
+          ]
+        },
+        {
+          "fr": "Cette dame est {}.",
+          "ru": "Эта дама — медсестра.",
+          "distractors": [
+            "infirmitrice",
+            "infirmier"
+          ]
+        },
+        {
+          "fr": "Elle est une bonne {}.",
+          "ru": "Она хорошая медсестра.",
+          "distractors": [
+            "infirmiereuse",
+            "infirmier"
+          ]
+        },
+        {
+          "fr": "La jeune fille est {}.",
+          "ru": "Молодая девушка — медсестра.",
+          "distractors": [
+            "infirmitrice",
+            "infirmier"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "coiffeur -> coiffeuse (-eur -> -euse)",
+      "answerFr": "coiffeuse",
+      "items": [
+        {
+          "fr": "Ma mère est {}.",
+          "ru": "Моя мама парикмахер.",
+          "distractors": [
+            "coiffeur",
+            "coiffeutrice"
+          ]
+        },
+        {
+          "fr": "Cette fille est {}.",
+          "ru": "Эта девушка — парикмахер.",
+          "distractors": [
+            "coiffeure",
+            "coiffeurtricienne"
+          ]
+        },
+        {
+          "fr": "Elle est une excellente {}.",
+          "ru": "Она отличный парикмахер.",
+          "distractors": [
+            "coiffeur",
+            "coiffeutrice"
+          ]
+        },
+        {
+          "fr": "Notre voisine est {}.",
+          "ru": "Наша соседка — парикмахер.",
+          "distractors": [
+            "coiffeurtricienne",
+            "coiffeur"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "acteur -> actrice (-teur -> -trice)",
+      "answerFr": "actrice",
+      "items": [
+        {
+          "fr": "Elle est une grande {}.",
+          "ru": "Она великая актриса.",
+          "distractors": [
+            "acteur",
+            "acteuse"
+          ]
+        },
+        {
+          "fr": "Cette femme est {}.",
+          "ru": "Эта женщина — актриса.",
+          "distractors": [
+            "actEure",
+            "acteur"
+          ]
+        },
+        {
+          "fr": "Ma tante est {}.",
+          "ru": "Моя тетя — актриса.",
+          "distractors": [
+            "acteuse",
+            "acteur"
+          ]
+        },
+        {
+          "fr": "La jeune femme est {}.",
+          "ru": "Молодая женщина — актриса.",
+          "distractors": [
+            "acteur",
+            "actiere"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "informaticien -> informaticienne (-ien -> -ienne)",
+      "answerFr": "informaticienne",
+      "items": [
+        {
+          "fr": "Ma collègue est {}.",
+          "ru": "Моя коллега — программист.",
+          "distractors": [
+            "informaticien",
+            "informaticieure"
+          ]
+        },
+        {
+          "fr": "Cette personne est {}.",
+          "ru": "Этот человек — программист.",
+          "distractors": [
+            "informaticitrice",
+            "informaticien"
+          ]
+        },
+        {
+          "fr": "Elle est une bonne {}.",
+          "ru": "Она хороший программист.",
+          "distractors": [
+            "informaticieure",
+            "informaticien"
+          ]
+        },
+        {
+          "fr": "Notre amie est {}.",
+          "ru": "Наша подруга — программист.",
+          "distractors": [
+            "informaticitrice",
+            "informaticien"
+          ]
+        }
+      ]
+    }
+  ]
+}

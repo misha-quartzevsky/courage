@@ -1,0 +1,316 @@
+{
+  "ruleId": "a1-u4-imperatif",
+  "titleRu": "Повелительное наклонение (Императив)",
+  "titleFr": "L'impératif",
+  "plainRu": "Просьба или команда: берём форму настоящего времени и убираем «ты / мы / вы».",
+  "text": {
+    "fr": "Regarde cette belle photo. Va dans la cuisine et apporte du pain. Allons au parc ensemble maintenant. Soyez sages et écoutez bien la leçon.",
+    "ru": "Посмотри на эту красивую фотографию. Иди на кухню и принеси хлеб. Пойдём в парк вместе сейчас. Будьте послушны и хорошо слушайте урок."
+  },
+  "forms": [
+    {
+      "label": "tu (-er)",
+      "answerFr": "regarde",
+      "items": [
+        {
+          "fr": "{} la télé !",
+          "ru": "Посмотри телевизор!",
+          "distractors": [
+            "regardes",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} cette photo !",
+          "ru": "Посмотри на эту фотографию!",
+          "distractors": [
+            "regardes",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} le chat !",
+          "ru": "Посмотри на кота!",
+          "distractors": [
+            "regardes",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} par la fenêtre !",
+          "ru": "Посмотри в окно!",
+          "distractors": [
+            "regardes",
+            "regardez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (-er)",
+      "answerFr": "regardons",
+      "items": [
+        {
+          "fr": "{} ce film !",
+          "ru": "Давай посмотрим этот фильм!",
+          "distractors": [
+            "regarde",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} ensemble !",
+          "ru": "Давайте посмотрим вместе!",
+          "distractors": [
+            "regarde",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} la carte !",
+          "ru": "Давайте посмотрим карту!",
+          "distractors": [
+            "regarde",
+            "regardez"
+          ]
+        },
+        {
+          "fr": "{} le jardin !",
+          "ru": "Давайте посмотрим на сад!",
+          "distractors": [
+            "regarde",
+            "regardez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (-er)",
+      "answerFr": "regardez",
+      "items": [
+        {
+          "fr": "{} ici !",
+          "ru": "Посмотрите сюда!",
+          "distractors": [
+            "regarde",
+            "regardons"
+          ]
+        },
+        {
+          "fr": "{} le tableau !",
+          "ru": "Посмотрите на доску!",
+          "distractors": [
+            "regarde",
+            "regardons"
+          ]
+        },
+        {
+          "fr": "{} le train !",
+          "ru": "Посмотрите на поезд!",
+          "distractors": [
+            "regarde",
+            "regardons"
+          ]
+        },
+        {
+          "fr": "{} le prix !",
+          "ru": "Посмотрите на цену!",
+          "distractors": [
+            "regarde",
+            "regardons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (aller)",
+      "answerFr": "va",
+      "items": [
+        {
+          "fr": "{} à la porte !",
+          "ru": "Иди к двери!",
+          "distractors": [
+            "vas",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} à la cuisine !",
+          "ru": "Иди на кухню!",
+          "distractors": [
+            "vas",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} dans ta chambre !",
+          "ru": "Иди в свою комнату!",
+          "distractors": [
+            "vas",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} au lit !",
+          "ru": "Иди спать (в кровать)!",
+          "distractors": [
+            "vas",
+            "allez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (aller)",
+      "answerFr": "allons",
+      "items": [
+        {
+          "fr": "{} au parc !",
+          "ru": "Пойдём в парк!",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} au magasin !",
+          "ru": "Пойдём в магазин!",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} à la plage !",
+          "ru": "Пойдём на пляж!",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        },
+        {
+          "fr": "{} à la maison !",
+          "ru": "Пойдём домой!",
+          "distractors": [
+            "va",
+            "allez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (aller)",
+      "answerFr": "allez",
+      "items": [
+        {
+          "fr": "{} à gauche !",
+          "ru": "Идите налево!",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        },
+        {
+          "fr": "{} à droite !",
+          "ru": "Идите направо!",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        },
+        {
+          "fr": "{} tout droit !",
+          "ru": "Идите прямо!",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        },
+        {
+          "fr": "{} au travail !",
+          "ru": "Идите на работу!",
+          "distractors": [
+            "va",
+            "allons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (être)",
+      "answerFr": "sois",
+      "items": [
+        {
+          "fr": "{} sage !",
+          "ru": "Будь послушным!",
+          "distractors": [
+            "sois",
+            "soyez"
+          ]
+        },
+        {
+          "fr": "{} calme !",
+          "ru": "Будь спокоен!",
+          "distractors": [
+            "sois",
+            "soyez"
+          ]
+        },
+        {
+          "fr": "{} prudent !",
+          "ru": "Будь осторожен!",
+          "distractors": [
+            "sois",
+            "soyez"
+          ]
+        },
+        {
+          "fr": "{} prêt !",
+          "ru": "Будь готов!",
+          "distractors": [
+            "sois",
+            "soyez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (être)",
+      "answerFr": "soyez",
+      "items": [
+        {
+          "fr": "{} calmes !",
+          "ru": "Будьте спокойны!",
+          "distractors": [
+            "sois",
+            "soyons"
+          ]
+        },
+        {
+          "fr": "{} prudents !",
+          "ru": "Будьте осторожны!",
+          "distractors": [
+            "sois",
+            "soyons"
+          ]
+        },
+        {
+          "fr": "{} à l'heure !",
+          "ru": "Будьте вовремя!",
+          "distractors": [
+            "sois",
+            "soyons"
+          ]
+        },
+        {
+          "fr": "{} gentils !",
+          "ru": "Будьте добры!",
+          "distractors": [
+            "sois",
+            "soyons"
+          ]
+        }
+      ]
+    }
+  ]
+}

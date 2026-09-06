@@ -1,0 +1,196 @@
+{
+  "ruleId": "a1-u1-articles-definis",
+  "titleRu": "Определенные артикли",
+  "titleFr": "Les articles définis",
+  "plainRu": "le / la / les — «этот самый», предмет уже известен или речь о нём вообще.",
+  "text": {
+    "fr": "J'aime le chat et la table. Je regarde l'ami et les livres. C'est la vie.",
+    "ru": "Я люблю кота и стол. Я смотрю на друга и книги. Это жизнь."
+  },
+  "forms": [
+    {
+      "label": "le",
+      "answerFr": "le",
+      "items": [
+        {
+          "fr": "J'aime {} chat.",
+          "ru": "Я люблю кота.",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Regarde {} chien.",
+          "ru": "Посмотри на собаку (м.р.).",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Où est {} livre ?",
+          "ru": "Где книга?",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Voici {} garçon.",
+          "ru": "Вот мальчик.",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        },
+        {
+          "fr": "Je regarde {} film.",
+          "ru": "Я смотрю фильм.",
+          "distractors": [
+            "la",
+            "les"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "la",
+      "answerFr": "la",
+      "items": [
+        {
+          "fr": "Voici {} table.",
+          "ru": "Вот стол.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Où est {} chaise ?",
+          "ru": "Где стул?",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "J'écoute {} musique.",
+          "ru": "Я слушают музыку.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Je regarde {} photo.",
+          "ru": "Я смотрю фото.",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        },
+        {
+          "fr": "Où est {} porte ?",
+          "ru": "Где дверь?",
+          "distractors": [
+            "le",
+            "les"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "l'",
+      "answerFr": "l'",
+      "items": [
+        {
+          "fr": "J'aime {} eau.",
+          "ru": "Я люблю воду.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Où est {} ami ?",
+          "ru": "Где друг?",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Voici {} école.",
+          "ru": "Вот школа.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Je regarde {} oiseau.",
+          "ru": "Я смотрю на птицу.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "C'est {} homme.",
+          "ru": "Это человек.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "les",
+      "answerFr": "les",
+      "items": [
+        {
+          "fr": "J'aime {} chats.",
+          "ru": "Я люблю кошек.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Où sont {} livres ?",
+          "ru": "Где книги?",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Voici {} tables.",
+          "ru": "Вот столы.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "J'écoute {} chansons.",
+          "ru": "Я слушаю песни.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Je regarde {} enfants.",
+          "ru": "Я смотрю на детей.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        }
+      ]
+    }
+  ]
+}

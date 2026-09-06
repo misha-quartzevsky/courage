@@ -1,0 +1,224 @@
+{
+  "ruleId": "a1-u10-pronoms-cod-2",
+  "titleRu": "Личные местоимения в роли прямого дополнения (меня, тебя, нас, вас)",
+  "titleFr": "Les pronoms COD (me, te, nous, vous)",
+  "plainRu": "me / te / nous / vous — «меня, тебя, нас, вас»; перед глаголом.",
+  "text": {
+    "fr": "Tu me regardes et je t'écoute. Le professeur nous aide tous les jours. Je vous comprends bien et tu m'invites souvent.",
+    "ru": "Ты смотришь на меня, и я слушаю тебя. Преподаватель помогает нам каждый день. Я хорошо понимаю вас, и ты часто приглашаешь меня."
+  },
+  "forms": [
+    {
+      "label": "me / m'",
+      "answerFr": "me",
+      "items": [
+        {
+          "fr": "Tu {} regardes.",
+          "ru": "Ты смотришь на меня.",
+          "distractors": [
+            "te",
+            "vous"
+          ]
+        },
+        {
+          "fr": "Il {} aide.",
+          "ru": "Он помогает мне.",
+          "distractors": [
+            "nous",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elle {} écoute.",
+          "ru": "Она слушает меня.",
+          "distractors": [
+            "vous",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Tu {} invites.",
+          "ru": "Ты приглашаешь меня.",
+          "distractors": [
+            "te",
+            "nous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "te / t'",
+      "answerFr": "te",
+      "items": [
+        {
+          "fr": "Je {} regarde.",
+          "ru": "Я смотрю на тебя.",
+          "distractors": [
+            "me",
+            "vous"
+          ]
+        },
+        {
+          "fr": "Il {} aide.",
+          "ru": "Он помогает тебе.",
+          "distractors": [
+            "nous",
+            "me"
+          ]
+        },
+        {
+          "fr": "Je {} comprends.",
+          "ru": "Я понимаю тебя.",
+          "distractors": [
+            "vous",
+            "me"
+          ]
+        },
+        {
+          "fr": "Elle {} écoute.",
+          "ru": "Она слушает тебя.",
+          "distractors": [
+            "nous",
+            "me"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous",
+      "answerFr": "nous",
+      "items": [
+        {
+          "fr": "Il {} regarde.",
+          "ru": "Он смотрит на нас.",
+          "distractors": [
+            "me",
+            "vous"
+          ]
+        },
+        {
+          "fr": "Tu {} aides.",
+          "ru": "Ты помогаешь нам.",
+          "distractors": [
+            "te",
+            "me"
+          ]
+        },
+        {
+          "fr": "Elle {} écoute.",
+          "ru": "Она слушает нас.",
+          "distractors": [
+            "vous",
+            "te"
+          ]
+        },
+        {
+          "fr": "Il {} comprend.",
+          "ru": "Он понимает нас.",
+          "distractors": [
+            "me",
+            "vous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous",
+      "answerFr": "vous",
+      "items": [
+        {
+          "fr": "Je {} regarde.",
+          "ru": "Я смотрю на вас.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Il {} aide.",
+          "ru": "Он помогает вам.",
+          "distractors": [
+            "nous",
+            "me"
+          ]
+        },
+        {
+          "fr": "Elle {} écoute.",
+          "ru": "Она слушает вас.",
+          "distractors": [
+            "nous",
+            "te"
+          ]
+        },
+        {
+          "fr": "Je {} comprends.",
+          "ru": "Я понимаю вас.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "m' (перед гласной)",
+      "answerFr": "m'",
+      "items": [
+        {
+          "fr": "Il {} aime.",
+          "ru": "Он любит меня.",
+          "distractors": [
+            "t'",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Tu {} appelles.",
+          "ru": "Ты зовешь меня.",
+          "distractors": [
+            "t'",
+            "vous"
+          ]
+        },
+        {
+          "fr": "Elle {} écoute.",
+          "ru": "Она слушает меня.",
+          "distractors": [
+            "t'",
+            "nous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "t' (перед гласной)",
+      "answerFr": "t'",
+      "items": [
+        {
+          "fr": "Je {} aime.",
+          "ru": "Я люблю тебя.",
+          "distractors": [
+            "m'",
+            "vous"
+          ]
+        },
+        {
+          "fr": "Il {} appelles.",
+          "ru": "Он зовет тебя.",
+          "distractors": [
+            "m'",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Je {} écoute.",
+          "ru": "Я слушу тебя.",
+          "distractors": [
+            "m'",
+            "vous"
+          ]
+        }
+      ]
+    }
+  ]
+}

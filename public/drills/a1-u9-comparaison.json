@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u9-comparaison",
+  "titleRu": "Степени сравнения",
+  "titleFr": "La comparaison",
+  "plainRu": "Сравнение: plus / moins / aussi + прилагательное + que («больше / меньше / так же… чем»).",
+  "text": {
+    "fr": "Le chat est plus petit que le chien. Mais le chien est aussi fort que le cheval. J'ai un chat à la maison. Il mange plus de poisson que mon chien. Le chien boit moins d'eau. Ce chat est vraiment le meilleur animal du monde !",
+    "ru": "Кошка меньше, чем собака. Но собака такая же сильная, как лошадь. У меня дома есть кошка. Она ест больше рыбы, чем моя собака. Собака пьет меньше воды. Эта кошка действительно лучшее животное в мире!"
+  },
+  "forms": [
+    {
+      "label": "plus ... que",
+      "answerFr": "plus",
+      "items": [
+        {
+          "fr": "Le chat est {} grand que la souris.",
+          "ru": "Кошка больше, чем мышь.",
+          "distractors": [
+            "moins",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "La soupe est {} chaude que l'eau.",
+          "ru": "Суп горячее, чем вода.",
+          "distractors": [
+            "moins",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "Mon sac est {} lourd que ton sac.",
+          "ru": "Моя сумка тяжелее, чем твоя сумка.",
+          "distractors": [
+            "moins",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "Le livre est {} intéressant que le film.",
+          "ru": "Книга интереснее, чем фильм.",
+          "distractors": [
+            "moins",
+            "aussi"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "moins ... que",
+      "answerFr": "moins",
+      "items": [
+        {
+          "fr": "Le chien est {} grand que le cheval.",
+          "ru": "Собака меньше, чем лошадь.",
+          "distractors": [
+            "plus",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "La chaise est {} haute que la table.",
+          "ru": "Стул ниже (менее высокий), чем стол.",
+          "distractors": [
+            "plus",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "Le thé est {} chaud que le café.",
+          "ru": "Чай менее горячий, чем кофе.",
+          "distractors": [
+            "plus",
+            "aussi"
+          ]
+        },
+        {
+          "fr": "Cette robe est {} chère que cette jupe.",
+          "ru": "Это платье дешевле (менее дорогое), чем эта юбка.",
+          "distractors": [
+            "plus",
+            "aussi"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "aussi ... que",
+      "answerFr": "aussi",
+      "items": [
+        {
+          "fr": "La pomme est {} sucrée que la poire.",
+          "ru": "Яблоко такое же сладкое, как груша.",
+          "distractors": [
+            "plus",
+            "moins"
+          ]
+        },
+        {
+          "fr": "Mon frère est {} grand que moi.",
+          "ru": "Мой брат такой же высокий, как я.",
+          "distractors": [
+            "plus",
+            "moins"
+          ]
+        },
+        {
+          "fr": "Cette maison est {} vieille que cette école.",
+          "ru": "Этот дом такой же старый, как эта школа.",
+          "distractors": [
+            "plus",
+            "moins"
+          ]
+        },
+        {
+          "fr": "Le train est {} rapide que la voiture.",
+          "ru": "Поезд такой же быстрый, как машина.",
+          "distractors": [
+            "plus",
+            "moins"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "plus de ... que",
+      "answerFr": "plus de",
+      "items": [
+        {
+          "fr": "J'ai {} livres que toi.",
+          "ru": "У меня больше книг, чем у тебя.",
+          "distractors": [
+            "moins de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Il y a {} tables dans la classe.",
+          "ru": "В классе больше столов.",
+          "distractors": [
+            "moins de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Nous mangeons {} pain que vous.",
+          "ru": "Мы едим больше хлеба, чем вы.",
+          "distractors": [
+            "moins de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Elle a {} chats que son amie.",
+          "ru": "У неё больше кошек, чем у её подруги.",
+          "distractors": [
+            "moins de",
+            "autant de"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "moins de ... que",
+      "answerFr": "moins de",
+      "items": [
+        {
+          "fr": "Tu as {} temps que moi.",
+          "ru": "У тебя меньше времени, чем у меня.",
+          "distractors": [
+            "plus de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Il y a {} sucre dans le lait.",
+          "ru": "В молоке меньше сахара.",
+          "distractors": [
+            "plus de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Nous avons {} travail aujourd'hui.",
+          "ru": "У нас меньше работы сегодня.",
+          "distractors": [
+            "plus de",
+            "autant de"
+          ]
+        },
+        {
+          "fr": "Elle achète {} fruits que lui.",
+          "ru": "Она покупает меньше фруктов, чем он.",
+          "distractors": [
+            "plus de",
+            "autant de"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "meilleur / meilleure (bon)",
+      "answerFr": "meilleur",
+      "items": [
+        {
+          "fr": "Ce gâteau est {} que le pain.",
+          "ru": "Этот пирог лучше, чем хлеб.",
+          "distractors": [
+            "plus bon",
+            "bien"
+          ]
+        },
+        {
+          "fr": "Le chocolat est {} que le fruit.",
+          "ru": "Шоколад лучше, чем фрукт.",
+          "distractors": [
+            "plus bon",
+            "bien"
+          ]
+        },
+        {
+          "fr": "Ton idée est {} que mon idée.",
+          "ru": "Твоя идея лучше, чем моя идея.",
+          "distractors": [
+            "plus bonne",
+            "bien"
+          ]
+        },
+        {
+          "fr": "Cette eau est {} que cette eau.",
+          "ru": "Эта вода лучше, чем эта вода.",
+          "distractors": [
+            "plus bonne",
+            "bien"
+          ]
+        }
+      ]
+    }
+  ]
+}

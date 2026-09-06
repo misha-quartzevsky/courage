@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u6-passe-recent",
+  "titleRu": "Недавнее прошедшее время",
+  "titleFr": "Le passé récent",
+  "plainRu": "Только что сделал = venir в настоящем времени + de + инфинитив.",
+  "text": {
+    "fr": "Je viens de rentrer à la maison. Tu viens de préparer le dîner. Il vient d'arriver. Nous venons de manger ensemble. Vous venez de finir. Elles viennent de partir.",
+    "ru": "Я только что вернулся домой. Ты только что приготовил ужин. Он только что приехал. Мы только что поели вместе. Вы только что закончили. Они только что ушли."
+  },
+  "forms": [
+    {
+      "label": "je",
+      "answerFr": "viens",
+      "items": [
+        {
+          "fr": "Je {} de manger.",
+          "ru": "Я только что поел.",
+          "distractors": [
+            "vient",
+            "venons"
+          ]
+        },
+        {
+          "fr": "Je {} de dormir.",
+          "ru": "Я только что поспал.",
+          "distractors": [
+            "venez",
+            "viennent"
+          ]
+        },
+        {
+          "fr": "Je {} de sortir.",
+          "ru": "Я только что вышел.",
+          "distractors": [
+            "vient",
+            "venons"
+          ]
+        },
+        {
+          "fr": "Je {} d'arriver.",
+          "ru": "Я только что приехал.",
+          "distractors": [
+            "viens",
+            "vient"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu",
+      "answerFr": "viens",
+      "items": [
+        {
+          "fr": "Tu {} de parler.",
+          "ru": "Ты только что поговорил.",
+          "distractors": [
+            "vient",
+            "venez"
+          ]
+        },
+        {
+          "fr": "Tu {} de chanter.",
+          "ru": "Ты только что спел.",
+          "distractors": [
+            "viens",
+            "venons"
+          ]
+        },
+        {
+          "fr": "Tu {} de regarder.",
+          "ru": "Ты только что посмотрел.",
+          "distractors": [
+            "vient",
+            "viennent"
+          ]
+        },
+        {
+          "fr": "Tu {} d'écécoute.",
+          "ru": "Ты только что послушал.",
+          "distractors": [
+            "venez",
+            "viens"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle",
+      "answerFr": "vient",
+      "items": [
+        {
+          "fr": "Il {} de partir.",
+          "ru": "Он только что ушел.",
+          "distractors": [
+            "viens",
+            "venons"
+          ]
+        },
+        {
+          "fr": "Elle {} de manger.",
+          "ru": "Она только что поела.",
+          "distractors": [
+            "viens",
+            "venez"
+          ]
+        },
+        {
+          "fr": "Il {} de finir.",
+          "ru": "Он только что закончил.",
+          "distractors": [
+            "venons",
+            "viennent"
+          ]
+        },
+        {
+          "fr": "Elle {} d'arriver.",
+          "ru": "Она только что приехала.",
+          "distractors": [
+            "viens",
+            "vient"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous",
+      "answerFr": "venons",
+      "items": [
+        {
+          "fr": "Nous {} de manger.",
+          "ru": "Мы только что поели.",
+          "distractors": [
+            "venez",
+            "viennent"
+          ]
+        },
+        {
+          "fr": "Nous {} de rentrer.",
+          "ru": "Мы только что вернулись.",
+          "distractors": [
+            "viens",
+            "vient"
+          ]
+        },
+        {
+          "fr": "Nous {} de travailler.",
+          "ru": "Мы только что поработали.",
+          "distractors": [
+            "venez",
+            "viens"
+          ]
+        },
+        {
+          "fr": "Nous {} d'acheter.",
+          "ru": "Мы только что купили.",
+          "distractors": [
+            "vient",
+            "venons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous",
+      "answerFr": "venez",
+      "items": [
+        {
+          "fr": "Vous {} de parler.",
+          "ru": "Вы только что поговорили.",
+          "distractors": [
+            "venons",
+            "viennent"
+          ]
+        },
+        {
+          "fr": "Vous {} de finir.",
+          "ru": "Вы только что закончили.",
+          "distractors": [
+            "viens",
+            "vient"
+          ]
+        },
+        {
+          "fr": "Vous {} de regarder.",
+          "ru": "Вы только что посмотрели.",
+          "distractors": [
+            "venons",
+            "viens"
+          ]
+        },
+        {
+          "fr": "Vous {} d'arriver.",
+          "ru": "Вы только что приехали.",
+          "distractors": [
+            "vient",
+            "venez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles",
+      "answerFr": "viennent",
+      "items": [
+        {
+          "fr": "Ils {} de sortir.",
+          "ru": "Они только что вышли.",
+          "distractors": [
+            "venons",
+            "venez"
+          ]
+        },
+        {
+          "fr": "Elles {} de manger.",
+          "ru": "Они только что поели.",
+          "distractors": [
+            "vient",
+            "viens"
+          ]
+        },
+        {
+          "fr": "Ils {} de partir.",
+          "ru": "Они только что ушли.",
+          "distractors": [
+            "venez",
+            "viens"
+          ]
+        },
+        {
+          "fr": "Elles {} d'arriver.",
+          "ru": "Они только что приехали.",
+          "distractors": [
+            "viennent",
+            "vient"
+          ]
+        }
+      ]
+    }
+  ]
+}

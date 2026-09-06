@@ -1,0 +1,278 @@
+{
+  "ruleId": "a1-u2-adjectifs-possessifs",
+  "titleRu": "Притяжательные прилагательные (мой, твой, его...)",
+  "titleFr": "Les adjectifs possessifs",
+  "plainRu": "mon / ma / mes — «мой»; форма зависит от рода и числа предмета, а не хозяина.",
+  "text": {
+    "fr": "Bonjour ! C'est mon livre et voici mon amie. Tu as ton sac ? Il cherche son chat. Nous aimons notre maison. Vous avez votre voiture. Ils aiment leur chien.",
+    "ru": "Привет! Это моя книга, и вот моя подруга. У тебя есть твоя сумка? Он ищет своего кота. Мы любим наш дом. У вас есть ваша машина. Они любят свою собаку."
+  },
+  "forms": [
+    {
+      "label": "je (mon / ma / mes)",
+      "answerFr": "mon",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это моя книга.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот мой кот.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "Où est {} sac ?",
+          "ru": "Где моя сумка?",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "C'est {} stylo.",
+          "ru": "Это моя ручка.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "je + гласная (mon amie...)",
+      "answerFr": "mon",
+      "items": [
+        {
+          "fr": "C'est {} amie.",
+          "ru": "Это моя подруга.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "Voici {} école.",
+          "ru": "Вот моя школа.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "C'est {} idée.",
+          "ru": "Это моя идея.",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        },
+        {
+          "fr": "Où est {} adresse ?",
+          "ru": "Где мой адрес?",
+          "distractors": [
+            "ma",
+            "mes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (ton / ta / tes)",
+      "answerFr": "ton",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это твоя книга.",
+          "distractors": [
+            "ta",
+            "tes"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот твой кот.",
+          "distractors": [
+            "ta",
+            "tes"
+          ]
+        },
+        {
+          "fr": "Où est {} sac ?",
+          "ru": "Где твоя сумка?",
+          "distractors": [
+            "ta",
+            "tes"
+          ]
+        },
+        {
+          "fr": "C'est {} stylo.",
+          "ru": "Это твоя ручка.",
+          "distractors": [
+            "ta",
+            "tes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle (son / sa / ses)",
+      "answerFr": "son",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это его книга.",
+          "distractors": [
+            "sa",
+            "ses"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот её кот.",
+          "distractors": [
+            "sa",
+            "ses"
+          ]
+        },
+        {
+          "fr": "Où est {} sac ?",
+          "ru": "Где его сумка?",
+          "distractors": [
+            "sa",
+            "ses"
+          ]
+        },
+        {
+          "fr": "C'est {} stylo.",
+          "ru": "Это её ручка.",
+          "distractors": [
+            "sa",
+            "ses"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (notre / nos)",
+      "answerFr": "notre",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это наша книга.",
+          "distractors": [
+            "nos",
+            "notres"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот наш кот.",
+          "distractors": [
+            "nos",
+            "notres"
+          ]
+        },
+        {
+          "fr": "Où est {} maison ?",
+          "ru": "Где наш дом?",
+          "distractors": [
+            "nos",
+            "notres"
+          ]
+        },
+        {
+          "fr": "C'est {} école.",
+          "ru": "Это наша школа.",
+          "distractors": [
+            "nos",
+            "notres"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (votre / vos)",
+      "answerFr": "votre",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это ваша книга.",
+          "distractors": [
+            "vos",
+            "votres"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот ваш кот.",
+          "distractors": [
+            "vos",
+            "votres"
+          ]
+        },
+        {
+          "fr": "Où est {} maison ?",
+          "ru": "Где ваш дом?",
+          "distractors": [
+            "vos",
+            "votres"
+          ]
+        },
+        {
+          "fr": "C'est {} école.",
+          "ru": "Это ваша школа.",
+          "distractors": [
+            "vos",
+            "votres"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles (leur / leurs)",
+      "answerFr": "leur",
+      "items": [
+        {
+          "fr": "C'est {} livre.",
+          "ru": "Это их книга.",
+          "distractors": [
+            "leurs",
+            "leures"
+          ]
+        },
+        {
+          "fr": "Voici {} chat.",
+          "ru": "Вот их кот.",
+          "distractors": [
+            "leurs",
+            "leures"
+          ]
+        },
+        {
+          "fr": "Où est {} maison ?",
+          "ru": "Где их дом?",
+          "distractors": [
+            "leurs",
+            "leures"
+          ]
+        },
+        {
+          "fr": "C'est {} école.",
+          "ru": "Это их школа.",
+          "distractors": [
+            "leurs",
+            "leures"
+          ]
+        }
+      ]
+    }
+  ]
+}

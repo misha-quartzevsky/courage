@@ -1,0 +1,392 @@
+{
+  "ruleId": "a1-u6-verbes-pronominaux-present",
+  "titleRu": "Возвратные глаголы в настоящем времени",
+  "titleFr": "Les verbes pronominaux au présent",
+  "plainRu": "Глаголы с se (умываться, вставать): частица меняется под лицо и стоит перед глаголом.",
+  "text": {
+    "fr": "Tous les matins, je me lève à sept heures. Je me douche, je m'habille et je prends le petit déjeuner. Ma sœur se réveille plus tard. Nous ne nous couchons pas en même temps le soir.",
+    "ru": "Каждое утро я встаю в семь часов. Я принимаю душ, одеваюсь и завтракаю. Моя сестра просыпается позже. Мы не ложимся спать в одно и то же время вечером."
+  },
+  "forms": [
+    {
+      "label": "je (me / m')",
+      "answerFr": "me",
+      "items": [
+        {
+          "fr": "Je {} lève tôt.",
+          "ru": "Я встаю рано.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Je {} douche le matin.",
+          "ru": "Я принимаю душ утром.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Je {} couche tard.",
+          "ru": "Я ложусь спать поздно.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Je {} réveille bien.",
+          "ru": "Я просыпаюсь хорошо.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "je + voyelle (m')",
+      "answerFr": "m'",
+      "items": [
+        {
+          "fr": "Je {}habille vite.",
+          "ru": "Я одеваюсь быстро.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Je {}appelle Pierre.",
+          "ru": "Меня зовут Пьер.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Je {}arrête ici.",
+          "ru": "Я останавливаюсь здесь.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Je {}ennuie un peu.",
+          "ru": "Мне немного скучно.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (te / t')",
+      "answerFr": "te",
+      "items": [
+        {
+          "fr": "Tu {} lèves tôt.",
+          "ru": "Ты встаешь рано.",
+          "distractors": [
+            "me",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {} couches tard.",
+          "ru": "Ты ложишься спать поздно.",
+          "distractors": [
+            "me",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {} doushes le soir.",
+          "ru": "Ты принимаешь душ вечером.",
+          "distractors": [
+            "me",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {} promènes bien.",
+          "ru": "Ты гуляешь хорошо.",
+          "distractors": [
+            "me",
+            "se"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu + voyelle (t')",
+      "answerFr": "t'",
+      "items": [
+        {
+          "fr": "Tu {}habilles vite.",
+          "ru": "Ты одеваешься быстро.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {}appelles comment ?",
+          "ru": "Как тебя зовут?",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {}intéresses à ça ?",
+          "ru": "Ты интересуешься этим?",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        },
+        {
+          "fr": "Tu {}avises trop tard.",
+          "ru": "Ты предупреждаешь слишком поздно.",
+          "distractors": [
+            "te",
+            "se"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle (se / s')",
+      "answerFr": "se",
+      "items": [
+        {
+          "fr": "Il {} lève tôt.",
+          "ru": "Он встает рано.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elle {} couche tard.",
+          "ru": "Она ложится спать поздно.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Il {} promène le chien.",
+          "ru": "Он выгуливает собаку.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elle {} lave les mains.",
+          "ru": "Она моет руки.",
+          "distractors": [
+            "me",
+            "te"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle + voyelle (s')",
+      "answerFr": "s'",
+      "items": [
+        {
+          "fr": "Il {}habille vite.",
+          "ru": "Он одевается быстро.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elle {}appelle Marie.",
+          "ru": "Ее зовут Мари.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Il {}arrête ici.",
+          "ru": "Он останавливается здесь.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elle {}endort vite.",
+          "ru": "Она засыпает быстро.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (nous)",
+      "answerFr": "nous",
+      "items": [
+        {
+          "fr": "Nous {} levons tôt.",
+          "ru": "Мы встаем рано.",
+          "distractors": [
+            "vous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Nous {} couchons tard.",
+          "ru": "Мы ложимся спать поздно.",
+          "distractors": [
+            "vous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Nous {} habillons bien.",
+          "ru": "Мы хорошо одеваемся.",
+          "distractors": [
+            "vous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Nous {} préparons ici.",
+          "ru": "Мы готовимся здесь.",
+          "distractors": [
+            "vous",
+            "se"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (vous)",
+      "answerFr": "vous",
+      "items": [
+        {
+          "fr": "Vous {} levez tôt ?",
+          "ru": "Вы встаете рано?",
+          "distractors": [
+            "nous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Vous {} couchez tard ?",
+          "ru": "Вы ложитесь спать поздно?",
+          "distractors": [
+            "nous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Vous {} habillez vite.",
+          "ru": "Вы одеваетесь быстро.",
+          "distractors": [
+            "nous",
+            "se"
+          ]
+        },
+        {
+          "fr": "Vous {} trompez là.",
+          "ru": "Вы ошибаетесь здесь.",
+          "distractors": [
+            "nous",
+            "se"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles (se / s')",
+      "answerFr": "se",
+      "items": [
+        {
+          "fr": "Ils {} lèvent tôt.",
+          "ru": "Они встают рано.",
+          "distractors": [
+            "me",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Elles {} couchent tard.",
+          "ru": "Они ложатся спать поздно.",
+          "distractors": [
+            "me",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Ils {} promènent beaucoup.",
+          "ru": "Они много гуляют.",
+          "distractors": [
+            "me",
+            "nous"
+          ]
+        },
+        {
+          "fr": "Elles {} préparent bien.",
+          "ru": "Они хорошо готовятся.",
+          "distractors": [
+            "me",
+            "nous"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles + voyelle (s')",
+      "answerFr": "s'",
+      "items": [
+        {
+          "fr": "Ils {}habillent vite.",
+          "ru": "Они одеваются быстро.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elles {}appellent Anna.",
+          "ru": "Их зовут Анна.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Ils {}arrêtent ici.",
+          "ru": "Они останавливаются здесь.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        },
+        {
+          "fr": "Elles {}endorment tard.",
+          "ru": "Они засыпают поздно.",
+          "distractors": [
+            "se",
+            "te"
+          ]
+        }
+      ]
+    }
+  ]
+}

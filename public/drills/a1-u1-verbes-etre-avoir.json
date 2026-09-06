@@ -1,0 +1,468 @@
+{
+  "ruleId": "a1-u1-verbes-etre-avoir",
+  "titleRu": "Глаголы Être (быть) и Avoir (иметь) в настоящем времени",
+  "titleFr": "Les verbes Être et Avoir au présent",
+  "plainRu": "Два самых нужных глагола: être — «быть» (кто я, какой я), avoir — «иметь» (что у меня есть, сколько мне лет).",
+  "text": {
+    "fr": "Bonjour ! Je suis fatigué et j'ai faim. Tu es libre ce soir ? Nous avons une grande maison et vous avez un beau chat. Ils sont contents et ils ont le temps.",
+    "ru": "Привет! Я устал и я голоден. Ты свободен сегодня вечером? У нас большой дом, и у вас есть прекрасный кот. Они довольны, и у них есть время."
+  },
+  "forms": [
+    {
+      "label": "être - je",
+      "answerFr": "suis",
+      "items": [
+        {
+          "fr": "Je {} fatigué.",
+          "ru": "Я устал.",
+          "distractors": [
+            "es",
+            "est"
+          ]
+        },
+        {
+          "fr": "Je {} content.",
+          "ru": "Я доволен.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Je {} triste.",
+          "ru": "Мне грустно.",
+          "distractors": [
+            "sont",
+            "es"
+          ]
+        },
+        {
+          "fr": "Je {} ici.",
+          "ru": "Я здесь.",
+          "distractors": [
+            "est",
+            "sommes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "être - tu",
+      "answerFr": "es",
+      "items": [
+        {
+          "fr": "Tu {} fatigué.",
+          "ru": "Ты устал.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        },
+        {
+          "fr": "Tu {} grand.",
+          "ru": "Ты высокий.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Tu {} libre.",
+          "ru": "Ты свободен.",
+          "distractors": [
+            "sont",
+            "suis"
+          ]
+        },
+        {
+          "fr": "Tu {} prêt.",
+          "ru": "Ты готов.",
+          "distractors": [
+            "est",
+            "êtes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "être - il/elle",
+      "answerFr": "est",
+      "items": [
+        {
+          "fr": "Il {} fatigué.",
+          "ru": "Он устал.",
+          "distractors": [
+            "suis",
+            "es"
+          ]
+        },
+        {
+          "fr": "Elle {} grande.",
+          "ru": "Она высокая.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Il {} ici.",
+          "ru": "Он здесь.",
+          "distractors": [
+            "êtes",
+            "suis"
+          ]
+        },
+        {
+          "fr": "Elle {} prête.",
+          "ru": "Она готова.",
+          "distractors": [
+            "es",
+            "sommes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "être - nous",
+      "answerFr": "sommes",
+      "items": [
+        {
+          "fr": "Nous {} fatigués.",
+          "ru": "Мы устали.",
+          "distractors": [
+            "êtes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Nous {} prêts.",
+          "ru": "Мы готовы.",
+          "distractors": [
+            "suis",
+            "es"
+          ]
+        },
+        {
+          "fr": "Nous {} ici.",
+          "ru": "Мы здесь.",
+          "distractors": [
+            "est",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Nous {} libres.",
+          "ru": "Мы свободны.",
+          "distractors": [
+            "sont",
+            "suis"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "être - vous",
+      "answerFr": "êtes",
+      "items": [
+        {
+          "fr": "Vous {} fatigués.",
+          "ru": "Вы устали.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Vous {} prêts.",
+          "ru": "Вы готовы.",
+          "distractors": [
+            "suis",
+            "es"
+          ]
+        },
+        {
+          "fr": "Vous {} ici.",
+          "ru": "Вы здесь.",
+          "distractors": [
+            "est",
+            "sommes"
+          ]
+        },
+        {
+          "fr": "Vous {} libres.",
+          "ru": "Вы свободны.",
+          "distractors": [
+            "sont",
+            "es"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "être - ils/elles",
+      "answerFr": "sont",
+      "items": [
+        {
+          "fr": "Ils {} fatigués.",
+          "ru": "Они устали.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Elles {} grandes.",
+          "ru": "Они высокие.",
+          "distractors": [
+            "est",
+            "suis"
+          ]
+        },
+        {
+          "fr": "Ils {} ici.",
+          "ru": "Они здесь.",
+          "distractors": [
+            "es",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Elles {} prêtes.",
+          "ru": "Они готовы.",
+          "distractors": [
+            "sommes",
+            "est"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - je",
+      "answerFr": "ai",
+      "items": [
+        {
+          "fr": "J'{} un chat.",
+          "ru": "У меня есть кот.",
+          "distractors": [
+            "as",
+            "a"
+          ]
+        },
+        {
+          "fr": "J'{} faim.",
+          "ru": "Я голоден (у меня голод).",
+          "distractors": [
+            "avons",
+            "avez"
+          ]
+        },
+        {
+          "fr": "J'{} soif.",
+          "ru": "Я хочу пить (у меня жажда).",
+          "distractors": [
+            "ont",
+            "as"
+          ]
+        },
+        {
+          "fr": "J'{} vingt ans.",
+          "ru": "Мне двадцать лет.",
+          "distractors": [
+            "a",
+            "avons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - tu",
+      "answerFr": "as",
+      "items": [
+        {
+          "fr": "Tu {} un chien.",
+          "ru": "У тебя есть собака.",
+          "distractors": [
+            "ai",
+            "a"
+          ]
+        },
+        {
+          "fr": "Tu {} faim.",
+          "ru": "Ты голоден.",
+          "distractors": [
+            "avez",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Tu {} soif.",
+          "ru": "Ты хочешь пить.",
+          "distractors": [
+            "avons",
+            "ai"
+          ]
+        },
+        {
+          "fr": "Tu {} quel âge ?",
+          "ru": "Сколько тебе лет?",
+          "distractors": [
+            "a",
+            "avez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - il/elle",
+      "answerFr": "a",
+      "items": [
+        {
+          "fr": "Il {} un livre.",
+          "ru": "У него есть книга.",
+          "distractors": [
+            "ai",
+            "as"
+          ]
+        },
+        {
+          "fr": "Elle {} une voiture.",
+          "ru": "У нее есть машина.",
+          "distractors": [
+            "avons",
+            "avez"
+          ]
+        },
+        {
+          "fr": "Il {} faim.",
+          "ru": "Он голоден.",
+          "distractors": [
+            "ont",
+            "ai"
+          ]
+        },
+        {
+          "fr": "Elle {} dix ans.",
+          "ru": "Ей десять лет.",
+          "distractors": [
+            "as",
+            "avez"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - nous",
+      "answerFr": "avons",
+      "items": [
+        {
+          "fr": "Nous {} une maison.",
+          "ru": "У нас есть дом.",
+          "distractors": [
+            "avez",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Nous {} faim.",
+          "ru": "Мы голодны.",
+          "distractors": [
+            "ai",
+            "as"
+          ]
+        },
+        {
+          "fr": "Nous {} soif.",
+          "ru": "Мы хотим пить.",
+          "distractors": [
+            "a",
+            "avez"
+          ]
+        },
+        {
+          "fr": "Nous {} le temps.",
+          "ru": "У нас есть время.",
+          "distractors": [
+            "ont",
+            "ai"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - vous",
+      "answerFr": "avez",
+      "items": [
+        {
+          "fr": "Vous {} une question ?",
+          "ru": "У вас есть вопрос?",
+          "distractors": [
+            "avons",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Vous {} faim ?",
+          "ru": "Вы голодны?",
+          "distractors": [
+            "ai",
+            "as"
+          ]
+        },
+        {
+          "fr": "Vous {} soif ?",
+          "ru": "Вы хотите пить?",
+          "distractors": [
+            "a",
+            "avons"
+          ]
+        },
+        {
+          "fr": "Vous {} le temps.",
+          "ru": "У вас есть время.",
+          "distractors": [
+            "ont",
+            "as"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "avoir - ils/elles",
+      "answerFr": "ont",
+      "items": [
+        {
+          "fr": "Ils {} un vélo.",
+          "ru": "У них есть велосипед.",
+          "distractors": [
+            "avons",
+            "avez"
+          ]
+        },
+        {
+          "fr": "Elles {} une idée.",
+          "ru": "У них есть идея.",
+          "distractors": [
+            "ai",
+            "as"
+          ]
+        },
+        {
+          "fr": "Ils {} faim.",
+          "ru": "Они голодны.",
+          "distractors": [
+            "a",
+            "avons"
+          ]
+        },
+        {
+          "fr": "Elles {} chat.",
+          "ru": "У них есть кошка.",
+          "distractors": [
+            "avez",
+            "as"
+          ]
+        }
+      ]
+    }
+  ]
+}

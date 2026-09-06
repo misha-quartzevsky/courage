@@ -1,0 +1,162 @@
+[
+  {
+    "ruleId": "a1-u1-verbes-etre-avoir",
+    "titleRu": "Глаголы Être (быть) и Avoir (иметь) в настоящем времени",
+    "forms": 12
+  },
+  {
+    "ruleId": "a1-u1-adjectifs-nationalite",
+    "titleRu": "Прилагательные, обозначающие национальность",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u1-articles-definis",
+    "titleRu": "Определенные артикли",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u1-prepositions-villes-pays",
+    "titleRu": "Предлоги перед названиями городов и стран",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u1-adjectif-quel",
+    "titleRu": "Вопросительное прилагательное quel (какой)",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u2-verbes-er-present",
+    "titleRu": "Глаголы на -er в настоящем времени (1-я группа)",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u2-adjectifs-possessifs",
+    "titleRu": "Притяжательные прилагательные (мой, твой, его...)",
+    "forms": 7
+  },
+  {
+    "ruleId": "a1-u2-masculin-feminin-professions",
+    "titleRu": "Мужской и женский род названий профессий",
+    "forms": 5
+  },
+  {
+    "ruleId": "a1-u3-singulier-pluriel-noms",
+    "titleRu": "Единственное и множественное число существительных",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u3-articles-partitifs",
+    "titleRu": "Частичные артикли (неопределенное количество)",
+    "forms": 5
+  },
+  {
+    "ruleId": "a1-u3-prepositions-lieu-1",
+    "titleRu": "Предлоги места: chez (у кого-то) и à/au/aux (в/на)",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u4-c-est-il-est",
+    "titleRu": "Разница между C'est и Il/Elle est",
+    "forms": 5
+  },
+  {
+    "ruleId": "a1-u4-frequence-1",
+    "titleRu": "Наречия частоты (никогда, часто, всегда)",
+    "forms": 3
+  },
+  {
+    "ruleId": "a1-u4-imperatif",
+    "titleRu": "Повелительное наклонение (Императив)",
+    "forms": 8
+  },
+  {
+    "ruleId": "a1-u4-connecteurs",
+    "titleRu": "Союзы и предлоги связи",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u5-adjectifs-genre-nombre-place",
+    "titleRu": "Род, число и место прилагательных",
+    "forms": 3
+  },
+  {
+    "ruleId": "a1-u5-futur-proche",
+    "titleRu": "Ближайшее будущее время",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u5-adjectif-demonstratif",
+    "titleRu": "Указательные прилагательные (этот, эта, эти)",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u6-verbes-pronominaux-present",
+    "titleRu": "Возвратные глаголы в настоящем времени",
+    "forms": 10
+  },
+  {
+    "ruleId": "a1-u6-passe-recent",
+    "titleRu": "Недавнее прошедшее время",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u7-passe-compose-avoir",
+    "titleRu": "Прошедшее время Passé composé со вспомогательным глаголом 'avoir'",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u7-prepositions-lieu-2",
+    "titleRu": "Предлоги места (продвинутые)",
+    "forms": 9
+  },
+  {
+    "ruleId": "a1-u7-pronoms-cod-1",
+    "titleRu": "Прямые местоимения-дополнения (COD)",
+    "forms": 4
+  },
+  {
+    "ruleId": "a1-u8-passe-compose-etre",
+    "titleRu": "Passé composé со вспомогательным 'être' и неправильные причастия",
+    "forms": 8
+  },
+  {
+    "ruleId": "a1-u8-pronom-y",
+    "titleRu": "Местоимение Y (туда, там)",
+    "forms": 7
+  },
+  {
+    "ruleId": "a1-u8-obligation-devoir",
+    "titleRu": "Выражение обязанности и совета (devoir, il faut)",
+    "forms": 7
+  },
+  {
+    "ruleId": "a1-u9-comparaison",
+    "titleRu": "Степени сравнения",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u9-imparfait-impersonnel",
+    "titleRu": "Безличные глаголы в прошедшем времени Imparfait (описания)",
+    "forms": 3
+  },
+  {
+    "ruleId": "a1-u10-pronoms-cod-2",
+    "titleRu": "Личные местоимения в роли прямого дополнения (меня, тебя, нас, вас)",
+    "forms": 6
+  },
+  {
+    "ruleId": "a1-u10-pronoms-relatifs",
+    "titleRu": "Относительные местоимения qui (который - подлежащее) и que (которого - дополнение)",
+    "forms": 3
+  },
+  {
+    "ruleId": "a1-u11-duree-continuation",
+    "titleRu": "Продолжительность и длительность",
+    "forms": 3
+  },
+  {
+    "ruleId": "a1-u12-pronoms-coi-lui-leur",
+    "titleRu": "Косвенные местоимения-дополнения (ему/ей, им)",
+    "forms": 2
+  }
+]

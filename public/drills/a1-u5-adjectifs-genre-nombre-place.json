@@ -1,0 +1,126 @@
+{
+  "ruleId": "a1-u5-adjectifs-genre-nombre-place",
+  "titleRu": "Род, число и место прилагательных",
+  "titleFr": "Le genre, le nombre et la place des adjectifs",
+  "plainRu": "Прилагательное согласуется с существительным; чаще стоит после него, короткие частые — перед.",
+  "text": {
+    "fr": "J'ai un petit chat noir. Il aime la belle maison. Ce sont de grands livres. Elle porte une robe blanche. C'est un bon jour.",
+    "ru": "У меня есть маленький черный кот. Он любит красивый дом. Это большие книги. Она носит белое платье. Это хороший день."
+  },
+  "forms": [
+    {
+      "label": "masculin_singulier",
+      "answerFr": "petit",
+      "items": [
+        {
+          "fr": "C'est un chat {}.",
+          "ru": "Это маленький кот.",
+          "distractors": [
+            "petite",
+            "petits"
+          ]
+        },
+        {
+          "fr": "Le livre est {}.",
+          "ru": "Книга маленькая (маленькая по контексту/мужской род предмет).",
+          "distractors": [
+            "petite",
+            "petits"
+          ]
+        },
+        {
+          "fr": "Il a un chien {}.",
+          "ru": "У него есть маленькая собака (пес).",
+          "distractors": [
+            "petite",
+            "petits"
+          ]
+        },
+        {
+          "fr": "C'est un sac {}.",
+          "ru": "Это маленькая сумка (портфель).",
+          "distractors": [
+            "petite",
+            "petits"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "féminin_singulier",
+      "answerFr": "petite",
+      "items": [
+        {
+          "fr": "C'est une table {}.",
+          "ru": "Это маленький стол (женский род).",
+          "distractors": [
+            "petit",
+            "petits"
+          ]
+        },
+        {
+          "fr": "La maison est {}.",
+          "ru": "Дом маленький.",
+          "distractors": [
+            "petit",
+            "petites"
+          ]
+        },
+        {
+          "fr": "Elle a une voiture {}.",
+          "ru": "У нее есть маленькая машина.",
+          "distractors": [
+            "petit",
+            "petits"
+          ]
+        },
+        {
+          "fr": "C'est une fleur {}.",
+          "ru": "Это маленький цветок.",
+          "distractors": [
+            "petit",
+            "petits"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "masculin_pluriel",
+      "answerFr": "petits",
+      "items": [
+        {
+          "fr": "Ce sont des chats {}.",
+          "ru": "Это маленькие коты.",
+          "distractors": [
+            "petit",
+            "petite"
+          ]
+        },
+        {
+          "fr": "Les livres sont {}.",
+          "ru": "Книги маленькие.",
+          "distractors": [
+            "petit",
+            "petite"
+          ]
+        },
+        {
+          "fr": "Il a des chiens {}.",
+          "ru": "У него есть маленькие собаки.",
+          "distractors": [
+            "petite",
+            "petites"
+          ]
+        },
+        {
+          "fr": "Ce sont des sacs {}.",
+          "ru": "Это маленькие сумки.",
+          "distractors": [
+            "petit",
+            "petite"
+          ]
+        }
+      ]
+    }
+  ]
+}

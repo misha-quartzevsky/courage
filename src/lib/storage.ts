@@ -11,7 +11,7 @@ import type {
   WordRecord,
 } from './types'
 import { getRule } from './grammar'
-import { SYLLABUS, unitById } from './syllabus'
+import { SYLLABUS, sessionByRuleId, unitById } from './syllabus'
 import { updateProgress } from './supabase'
 
 const KEY = 'courage:progress'
@@ -412,6 +412,95 @@ export function recordSessionCompletion(
   return next
 }
 
+// Сколько дней до возврата выученного правила на круг-проверку (обслуживание).
+export const RULE_RECHECK_DAYS = 7
+
+// Завершён подход дрилла (A1). rounds — сколько кругов сделано за подход;
+// selfLearned — ученик нажал «Выучила»; cleanRound — последний круг без ошибок.
+// «Выучила» → правило попадает в консолидированные (курсовой %); иначе только
+// копим кругов + держим стрик.
+export function recordDrillComplete(
+  ruleId: string,
+  opts: { rounds: number; selfLearned: boolean; cleanRound: boolean },
+): ProgressState {
+  const prev = loadProgress()
+  const now = new Date()
+  const nowIso = now.toISOString()
+  const rule = getRule(ruleId)
+  const sess = sessionByRuleId(ruleId)
+  const prevRec = prev?.rules[ruleId]
+
+  const rec: RuleRecord = {
+    ruleId,
+    unitId: prevRec?.unitId ?? sess?.unitId ?? '',
+    level: prevRec?.level ?? rule?.level ?? 'A1',
+    titleFr: prevRec?.titleFr ?? rule?.titleFr ?? ruleId,
+    bestAccuracy: opts.selfLearned
+      ? Math.max(prevRec?.bestAccuracy ?? 0, opts.cleanRound ? 100 : 80)
+      : prevRec?.bestAccuracy ?? 0,
+    attempts: (prevRec?.attempts ?? 0) + (opts.selfLearned ? 1 : 0),
+    lastCompletedAt: nowIso,
+    drillRounds: (prevRec?.drillRounds ?? 0) + Math.max(0, opts.rounds),
+    ...(opts.selfLearned
+      ? {
+          learnedAt: prevRec?.learnedAt ?? nowIso,
+          dueAt: addDays(nowIso, RULE_RECHECK_DAYS),
+        }
+      : prevRec?.learnedAt
+        ? { learnedAt: prevRec.learnedAt, ...(prevRec.dueAt ? { dueAt: prevRec.dueAt } : {}) }
+        : {}),
+  }
+
+  const rules = { ...(prev?.rules ?? {}), [ruleId]: rec }
+  let units = { ...(prev?.units ?? {}) }
+  if (opts.selfLearned && rec.unitId) {
+    const derived = deriveUnitRecord(rec.unitId, rules)
+    if (derived) units[rec.unitId] = derived
+  }
+
+  const next: ProgressState = {
+    units,
+    rules,
+    words: prev?.words ?? [],
+    streakDays: nextStreak(prev, now),
+    bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, rec.bestAccuracy),
+    updatedAt: nowIso,
+  }
+  saveProgress(next)
+  void updateProgress({
+    streakDays: next.streakDays,
+    bestAccuracy: next.bestAccuracy,
+    lastCompletedAt: next.updatedAt,
+    units: next.units,
+    rules: next.rules,
+    words: next.words,
+  })
+  return next
+}
+
+// Правила, засчитанные в курсовой прогресс / nextSession:
+//  • дрилл (A1) — только после «Выучила» (learnedAt);
+//  • спринт (A2/B1) и легаси — как раньше: есть запись = пройдено
+//    (у них нет drillRounds).
+export function consolidatedRuleIds(progress: ProgressState | null): Set<string> {
+  const out = new Set<string>()
+  for (const [id, r] of Object.entries(progress?.rules ?? {})) {
+    if (r.learnedAt || r.drillRounds == null) out.add(id)
+  }
+  return out
+}
+
+// Выученные правила, которым пора на круг-проверку (dueAt в прошлом).
+export function dueRules(
+  progress: ProgressState | null,
+  now: Date = new Date(),
+): RuleRecord[] {
+  const t = now.getTime()
+  return Object.values(progress?.rules ?? {})
+    .filter((r) => r.learnedAt && r.dueAt && Date.parse(r.dueAt) <= t)
+    .sort((a, b) => Date.parse(a.dueAt!) - Date.parse(b.dueAt!))
+}
+
 // Лёгкий режим (разминка без практики): держим стрик живым, ничего больше не трогаем.
 export function recordLightSession(): ProgressState {
   const prev = loadProgress()
@@ -544,16 +633,23 @@ export function mergeServerProgress(
       ? asRules(raw.rules)
       : seedRulesFromUnits(serverUnits)
 
+  const earliest = (a?: string, b?: string) =>
+    a && b ? (a < b ? a : b) : (a ?? b)
+
   const rules: Record<string, RuleRecord> = { ...local.rules }
   for (const [id, srv] of Object.entries(serverRules)) {
     const loc = rules[id]
-    if (!loc || srv.lastCompletedAt > loc.lastCompletedAt) {
-      rules[id] = { ...srv, bestAccuracy: Math.max(srv.bestAccuracy, loc?.bestAccuracy ?? 0) }
-    } else {
-      rules[id] = {
-        ...loc,
-        bestAccuracy: Math.max(srv.bestAccuracy, loc.bestAccuracy),
-      }
+    const winner = !loc || srv.lastCompletedAt > loc.lastCompletedAt ? srv : loc
+    const learnedAt = earliest(srv.learnedAt, loc?.learnedAt)
+    const drillRounds = Math.max(srv.drillRounds ?? 0, loc?.drillRounds ?? 0)
+    const dueAt =
+      (learnedAt === srv.learnedAt ? srv.dueAt : loc?.dueAt) ?? winner.dueAt
+    rules[id] = {
+      ...winner,
+      bestAccuracy: Math.max(srv.bestAccuracy, loc?.bestAccuracy ?? 0),
+      ...(drillRounds > 0 ? { drillRounds } : {}),
+      ...(learnedAt ? { learnedAt } : {}),
+      ...(learnedAt && dueAt ? { dueAt } : {}),
     }
   }
 

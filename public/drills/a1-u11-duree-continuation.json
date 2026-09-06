@@ -1,0 +1,126 @@
+{
+  "ruleId": "a1-u11-duree-continuation",
+  "titleRu": "Продолжительность и длительность",
+  "titleFr": "La durée et la continuation (pendant, longtemps, toujours)",
+  "plainRu": "Сколько времени длилось: pendant (точный срок), longtemps (долго), toujours + настоящее (всё ещё идёт).",
+  "text": {
+    "fr": "Je travaille pendant deux ans dans cette ville. J'habite ici longtemps. Je suis toujours très heureux.",
+    "ru": "Я работаю в течение двух лет в этом городе. Я живу здесь долго. Я всё ещё очень счастлив."
+  },
+  "forms": [
+    {
+      "label": "pendant",
+      "answerFr": "pendant",
+      "items": [
+        {
+          "fr": "J'ai dormi {} huit heures.",
+          "ru": "Я спал в течение восьми часов.",
+          "distractors": [
+            "longtemps",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Il pleut {} trois jours.",
+          "ru": "Дождь идет три дня.",
+          "distractors": [
+            "longtemps",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Nous voyageons {} une semaine.",
+          "ru": "Мы путешествуем неделю.",
+          "distractors": [
+            "longtemps",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Tu travailles {} deux ans.",
+          "ru": "Ты работаешь два года.",
+          "distractors": [
+            "longtemps",
+            "toujours"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "longtemps",
+      "answerFr": "longtemps",
+      "items": [
+        {
+          "fr": "J'attends {} le bus.",
+          "ru": "Я долго жду автобус.",
+          "distractors": [
+            "pendant",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Il marche {} tous les jours.",
+          "ru": "Он гуляет долго каждый день.",
+          "distractors": [
+            "pendant",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Nous habitons ici {} aussi.",
+          "ru": "Мы живем здесь тоже долго.",
+          "distractors": [
+            "pendant",
+            "toujours"
+          ]
+        },
+        {
+          "fr": "Tu parles {} au téléphone.",
+          "ru": "Ты долго говоришь по телефону.",
+          "distractors": [
+            "pendant",
+            "toujours"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "toujours",
+      "answerFr": "toujours",
+      "items": [
+        {
+          "fr": "Je suis {} à la maison.",
+          "ru": "Я всё ещё дома.",
+          "distractors": [
+            "pendant",
+            "longtemps"
+          ]
+        },
+        {
+          "fr": "Il habite {} à Paris.",
+          "ru": "Он всё ещё живет в Париже.",
+          "distractors": [
+            "pendant",
+            "longtemps"
+          ]
+        },
+        {
+          "fr": "Nous sommes {} étudiants.",
+          "ru": "Мы всё ещё студенты.",
+          "distractors": [
+            "pendant",
+            "longtemps"
+          ]
+        },
+        {
+          "fr": "Tu travailles {} ici.",
+          "ru": "Ты всё ещё работаешь здесь.",
+          "distractors": [
+            "pendant",
+            "longtemps"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "ruleId": "a1-u3-singulier-pluriel-noms",
+  "titleRu": "Единственное и множественное число существительных",
+  "titleFr": "Le singulier et le pluriel des noms",
+  "plainRu": "Множественное число обычно = слово + непроизносимая -s.",
+  "text": {
+    "fr": "Sur la table, il y a un livre et des pommes. Je prends les clés et des morceaux de pain. Nous avons des chats et des chiens dans la maison.",
+    "ru": "На столе есть книга и яблоки. Я беру ключи и кусочки хлеба. У нас есть коты и собаки в доме."
+  },
+  "forms": [
+    {
+      "label": "un (singulier standard)",
+      "answerFr": "un",
+      "items": [
+        {
+          "fr": "C'est {} chat.",
+          "ru": "Это кот.",
+          "distractors": [
+            "des",
+            "les"
+          ]
+        },
+        {
+          "fr": "Voici {} livre.",
+          "ru": "Вот книга.",
+          "distractors": [
+            "des",
+            "les"
+          ]
+        },
+        {
+          "fr": "Je veux {} stylo.",
+          "ru": "Я хочу ручку.",
+          "distractors": [
+            "des",
+            "les"
+          ]
+        },
+        {
+          "fr": "Regarde {} chien.",
+          "ru": "Посмотри на собаку.",
+          "distractors": [
+            "des",
+            "les"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "des (pluriel standard +s)",
+      "answerFr": "des",
+      "items": [
+        {
+          "fr": "Je mange {} pommes.",
+          "ru": "Я ем яблоки.",
+          "distractors": [
+            "un",
+            "le"
+          ]
+        },
+        {
+          "fr": "Tu as {} chats.",
+          "ru": "У тебя есть коты.",
+          "distractors": [
+            "un",
+            "le"
+          ]
+        },
+        {
+          "fr": "Nous voulons {} livres.",
+          "ru": "Мы хотим книги.",
+          "distractors": [
+            "un",
+            "le"
+          ]
+        },
+        {
+          "fr": "Il achète {} tables.",
+          "ru": "Он покупает столы.",
+          "distractors": [
+            "un",
+            "le"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "les (pluriel défini)",
+      "answerFr": "les",
+      "items": [
+        {
+          "fr": "J'aime {} chats.",
+          "ru": "Я люблю кошек.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Où sont {} clés ?",
+          "ru": "Где ключи?",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Je prends {} pommes.",
+          "ru": "Я беру яблоки.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        },
+        {
+          "fr": "Voici {} livres.",
+          "ru": "Вот книги.",
+          "distractors": [
+            "le",
+            "la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "-eau / -au / -eu (pluriel en -x)",
+      "answerFr": "des morceaux",
+      "items": [
+        {
+          "fr": "Je mange {} de pain.",
+          "ru": "Я ем кусочки хлеба.",
+          "distractors": [
+            "des morcaus",
+            "des morcaub"
+          ]
+        },
+        {
+          "fr": "Tu as {} de bois.",
+          "ru": "У тебя есть куски дерева.",
+          "distractors": [
+            "des morceauxx",
+            "des morcaux"
+          ]
+        },
+        {
+          "fr": "Il prend {} de gâteau.",
+          "ru": "Он берет куски торта.",
+          "distractors": [
+            "des morcaux",
+            "des morcaus"
+          ]
+        },
+        {
+          "fr": "Nous voulons {} de fromage.",
+          "ru": "Мы хотим куски сыра.",
+          "distractors": [
+            "des morcaub",
+            "des morceauxx"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ import {
   type SyllabusSession,
   type SyllabusUnit,
 } from '../lib/syllabus'
-import { doneRuleIds } from '../lib/storage'
+import { consolidatedRuleIds } from '../lib/storage'
 import { ArrowRightIcon, CheckIcon, ChevronIcon } from '../lib/icons'
 
 interface CourseMapProps {
@@ -190,7 +190,7 @@ function LevelSection({
 }
 
 export function CourseMap({ progress, level, onOpenSession }: CourseMapProps) {
-  const doneR = doneRuleIds(progress)
+  const doneR = consolidatedRuleIds(progress)
   const ns = nextSession(doneR, level)
   const groups = syllabusByLevel()
 

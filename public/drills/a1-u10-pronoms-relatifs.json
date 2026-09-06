@@ -1,0 +1,126 @@
+{
+  "ruleId": "a1-u10-pronoms-relatifs",
+  "titleRu": "Относительные местоимения qui (который - подлежащее) и que (которого - дополнение)",
+  "titleFr": "Les pronoms relatifs qui et que",
+  "plainRu": "qui / que соединяют два предложения в одно: qui — вместо подлежащего, que — вместо дополнения.",
+  "text": {
+    "fr": "J'ai un chat qui dort. C'est le chat que j'aime. Voici la maison qu'il habite. C'est une vie qui est simple.",
+    "ru": "У меня есть кот, который спит. Это кот, которого я люблю. Вот дом, в котором он живет. Это жизнь, которая проста."
+  },
+  "forms": [
+    {
+      "label": "qui",
+      "answerFr": "qui",
+      "items": [
+        {
+          "fr": "C'est un chat {} dort.",
+          "ru": "Это кот, который спит.",
+          "distractors": [
+            "que",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "Voici l'ami {} arrive.",
+          "ru": "Вот друг, который приходит.",
+          "distractors": [
+            "que",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "J'ai un chien {} court.",
+          "ru": "У меня есть собака, которая бегает.",
+          "distractors": [
+            "que",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "C'est la table {} est grande.",
+          "ru": "Это стол, который большой.",
+          "distractors": [
+            "que",
+            "qu'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "que",
+      "answerFr": "que",
+      "items": [
+        {
+          "fr": "C'est le livre {} je lis.",
+          "ru": "Это книга, которую я читаю.",
+          "distractors": [
+            "qui",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "Voici la robe {} tu portes.",
+          "ru": "Вот платье, которое ты носишь.",
+          "distractors": [
+            "qui",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "C'est un film {} nous aimons.",
+          "ru": "Это фильм, который мы любим.",
+          "distractors": [
+            "qui",
+            "qu'"
+          ]
+        },
+        {
+          "fr": "Voici le cadeau {} vous avez.",
+          "ru": "Вот подарок, который у вас есть.",
+          "distractors": [
+            "qui",
+            "qu'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "qu'",
+      "answerFr": "qu'",
+      "items": [
+        {
+          "fr": "C'est une pomme {} il mange.",
+          "ru": "Это яблоко, которое он ест.",
+          "distractors": [
+            "qui",
+            "que"
+          ]
+        },
+        {
+          "fr": "Voici l'ami {} elle attend.",
+          "ru": "Вот друг, которого она ждет.",
+          "distractors": [
+            "qui",
+            "que"
+          ]
+        },
+        {
+          "fr": "C'est un livre {} on aime.",
+          "ru": "Это книга, которую любят.",
+          "distractors": [
+            "qui",
+            "que"
+          ]
+        },
+        {
+          "fr": "Voici la photo {} ils regardent.",
+          "ru": "Вот фото, которое они смотрят.",
+          "distractors": [
+            "qui",
+            "que"
+          ]
+        }
+      ]
+    }
+  ]
+}

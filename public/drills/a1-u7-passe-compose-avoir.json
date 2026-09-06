@@ -1,0 +1,240 @@
+{
+  "ruleId": "a1-u7-passe-compose-avoir",
+  "titleRu": "Прошедшее время Passé composé со вспомогательным глаголом 'avoir'",
+  "titleFr": "Le passé composé avec 'avoir'",
+  "plainRu": "Прошедшее «сделал» = avoir в настоящем времени + причастие (у -er глаголов на -é).",
+  "text": {
+    "fr": "Hier, j'ai acheté une jolie table. Mon ami a trouvé une chaise rouge. Nous avons mangé dans la cuisine. Ensuite, vous avez regardé un bon film. Ils ont écouté de la musique toute la soirée.",
+    "ru": "Вчера я купил красивый стол. Мой друг нашёл красный стул. Мы поели на кухне. Затем вы посмотрели хороший фильм. Они слушали музыку весь вечер."
+  },
+  "forms": [
+    {
+      "label": "je (ai)",
+      "answerFr": "ai",
+      "items": [
+        {
+          "fr": "J'{} mangé une pomme.",
+          "ru": "Я съел яблоко.",
+          "distractors": [
+            "avons",
+            "ont"
+          ]
+        },
+        {
+          "fr": "J'{} acheté un livre.",
+          "ru": "Я купил книгу.",
+          "distractors": [
+            "as",
+            "avez"
+          ]
+        },
+        {
+          "fr": "J'{} écouté la musique.",
+          "ru": "Я послушал музыку.",
+          "distractors": [
+            "a",
+            "avons"
+          ]
+        },
+        {
+          "fr": "J'{} trouvé mon chat.",
+          "ru": "Я нашёл своего кота.",
+          "distractors": [
+            "ont",
+            "as"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (as)",
+      "answerFr": "as",
+      "items": [
+        {
+          "fr": "Tu {} mangé le gâteau.",
+          "ru": "Ты съел торт.",
+          "distractors": [
+            "ai",
+            "a"
+          ]
+        },
+        {
+          "fr": "Tu {} regardé la télé.",
+          "ru": "Ты посмотрел телевизор.",
+          "distractors": [
+            "avons",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Tu {} parlé français.",
+          "ru": "Ты поговорил по-французски.",
+          "distractors": [
+            "avez",
+            "ai"
+          ]
+        },
+        {
+          "fr": "Tu {} écouté la radio.",
+          "ru": "Ты послушал радио.",
+          "distractors": [
+            "a",
+            "avons"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il/elle (a)",
+      "answerFr": "a",
+      "items": [
+        {
+          "fr": "Il {} trouvé son sac.",
+          "ru": "Он нашёл свою сумку.",
+          "distractors": [
+            "avons",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Elle {} acheté une robe.",
+          "ru": "Она купила платье.",
+          "distractors": [
+            "ai",
+            "as"
+          ]
+        },
+        {
+          "fr": "Il {} mangé une pizza.",
+          "ru": "Он съел пиццу.",
+          "distractors": [
+            "avez",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Elle {} visité Paris.",
+          "ru": "Она посетила Париж.",
+          "distractors": [
+            "avons",
+            "ai"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (avons)",
+      "answerFr": "avons",
+      "items": [
+        {
+          "fr": "Nous {} acheté une maison.",
+          "ru": "Мы купили дом.",
+          "distractors": [
+            "avez",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Nous {} mangé au restaurant.",
+          "ru": "Мы поели в ресторане.",
+          "distractors": [
+            "ai",
+            "a"
+          ]
+        },
+        {
+          "fr": "Nous {} écouté le professeur.",
+          "ru": "Мы послушали учителя.",
+          "distractors": [
+            "as",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Nous {} regardé un film.",
+          "ru": "Мы посмотрели фильм.",
+          "distractors": [
+            "avez",
+            "a"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (avez)",
+      "answerFr": "avez",
+      "items": [
+        {
+          "fr": "Vous {} visité la ville.",
+          "ru": "Вы посетили город.",
+          "distractors": [
+            "avons",
+            "ont"
+          ]
+        },
+        {
+          "fr": "Vous {} parlé anglais.",
+          "ru": "Вы поговорили по-английски.",
+          "distractors": [
+            "ai",
+            "a"
+          ]
+        },
+        {
+          "fr": "Vous {} acheté du pain.",
+          "ru": "Вы купили хлеб.",
+          "distractors": [
+            "as",
+            "avons"
+          ]
+        },
+        {
+          "fr": "Vous {} trouvé la clé.",
+          "ru": "Вы нашли ключ.",
+          "distractors": [
+            "ont",
+            "ai"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils/elles (ont)",
+      "answerFr": "ont",
+      "items": [
+        {
+          "fr": "Ils {} décoré la chambre.",
+          "ru": "Они украсили комнату.",
+          "distractors": [
+            "avons",
+            "avez"
+          ]
+        },
+        {
+          "fr": "Elles {} acheté des fleurs.",
+          "ru": "Они купили цветы.",
+          "distractors": [
+            "ai",
+            "a"
+          ]
+        },
+        {
+          "fr": "Ils {} mangé une salade.",
+          "ru": "Они съели салат.",
+          "distractors": [
+            "as",
+            "avons"
+          ]
+        },
+        {
+          "fr": "Elles {} écouté la chanson.",
+          "ru": "Они послушали песню.",
+          "distractors": [
+            "avez",
+            "a"
+          ]
+        }
+      ]
+    }
+  ]
+}

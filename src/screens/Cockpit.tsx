@@ -1,6 +1,11 @@
 import type { CefrLevel, LearnerPersona, ProgressState } from '../lib/types'
-import { doneRuleIds } from '../lib/storage'
-import { courseProgress, nextSession, type SyllabusSession } from '../lib/syllabus'
+import { consolidatedRuleIds, dueRules } from '../lib/storage'
+import {
+  courseProgress,
+  nextSession,
+  sessionByRuleId,
+  type SyllabusSession,
+} from '../lib/syllabus'
 import { AlertIcon, ArrowRightIcon, FlameIcon } from '../lib/icons'
 import { CourseMap } from './CourseMap'
 
@@ -37,9 +42,22 @@ export function Cockpit({
   onStartNext,
   onOpenSession,
 }: CockpitProps) {
-  const doneR = doneRuleIds(progress)
-  const ns = nextSession(doneR, level)
+  const doneR = consolidatedRuleIds(progress)
+  const due = dueRules(progress)[0]
+  const dueSess = due ? sessionByRuleId(due.ruleId) : undefined
+  const ns = dueSess ?? nextSession(doneR, level)
   const cp = courseProgress(doneR, level)
+  const nsRec = progress?.rules[ns.ruleId]
+  // «Проверка» — выученное правило вернулось; «Закрепляем» — начатый дрилл;
+  // иначе новое правило.
+  const mode2 = due
+    ? { eyebrow: 'Проверка', meta: 'быстрый круг — не осыпалось ли' }
+    : nsRec?.drillRounds && !nsRec.learnedAt
+      ? {
+          eyebrow: 'Закрепляем',
+          meta: `кругов пройдено: ${nsRec.drillRounds}`,
+        }
+      : { eyebrow: 'Новое правило', meta: '~1–2 мин на круг' }
 
   return (
     <main className="screen">
@@ -80,7 +98,7 @@ export function Cockpit({
       </div>
 
       <section className="card card-raised preview">
-        <p className="eyebrow">Следующая сессия</p>
+        <p className="eyebrow">{mode2.eyebrow}</p>
         <p className="preview-line">
           <span className="preview-unit">
             {ns.level} · Юнит {ns.unit}
@@ -92,26 +110,28 @@ export function Cockpit({
           Правило {ns.indexInUnit} из {ns.countInUnit} · {ns.unitTitleRu}
         </p>
         <div className="preview-meta">
-          <span>~4 упражнения · 2–3 мин</span>
+          <span>{mode2.meta}</span>
           {persona && <span>{persona.professionFr}</span>}
         </div>
 
-        <div className="mode-toggle">
-          <button
-            type="button"
-            className={mode === 'voice' ? 'seg seg--active' : 'seg'}
-            onClick={() => onMode('voice')}
-          >
-            Голос
-          </button>
-          <button
-            type="button"
-            className={mode === 'text' ? 'seg seg--active' : 'seg'}
-            onClick={() => onMode('text')}
-          >
-            Текст
-          </button>
-        </div>
+        {ns.level !== 'A1' && (
+          <div className="mode-toggle">
+            <button
+              type="button"
+              className={mode === 'voice' ? 'seg seg--active' : 'seg'}
+              onClick={() => onMode('voice')}
+            >
+              Голос
+            </button>
+            <button
+              type="button"
+              className={mode === 'text' ? 'seg seg--active' : 'seg'}
+              onClick={() => onMode('text')}
+            >
+              Текст
+            </button>
+          </div>
+        )}
 
         {error && (
           <p className="error">

@@ -1,0 +1,316 @@
+{
+  "ruleId": "a1-u8-passe-compose-etre",
+  "titleRu": "Passé composé со вспомогательным 'être' и неправильные причастия",
+  "titleFr": "Le passé composé avec 'être' et participes irréguliers",
+  "plainRu": "Глаголы движения в прошедшем берут être, и причастие согласуется с подлежащим.",
+  "text": {
+    "fr": "Hier, je suis allée au parc avec mon amie. Nous sommes sorties de la maison le matin. Le soleil est brillé toute la journée. Nous sommes rentrées tard le soir.",
+    "ru": "Вчера я ходила в парк с моей подругой. Мы вышли из дома утром. Солнце светило весь день. Мы вернулись поздно вечером."
+  },
+  "forms": [
+    {
+      "label": "je (aller)",
+      "answerFr": "suis",
+      "items": [
+        {
+          "fr": "Je {} à la maison.",
+          "ru": "Я иду домой.",
+          "distractors": [
+            "es",
+            "est"
+          ]
+        },
+        {
+          "fr": "Je {} fatigué aujourd'hui.",
+          "ru": "Я устал сегодня.",
+          "distractors": [
+            "suis eu",
+            "ai"
+          ]
+        },
+        {
+          "fr": "Je {} né en mai.",
+          "ru": "Я родился в мае.",
+          "distractors": [
+            "suis allé",
+            "es"
+          ]
+        },
+        {
+          "fr": "Je {} parti très tôt.",
+          "ru": "Я ушел очень рано.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu (aller)",
+      "answerFr": "es",
+      "items": [
+        {
+          "fr": "Tu {} allée au parc.",
+          "ru": "Ты ходила в парк.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        },
+        {
+          "fr": "Tu {} venu avec moi.",
+          "ru": "Ты пришел со мной.",
+          "distractors": [
+            "es allé",
+            "suis"
+          ]
+        },
+        {
+          "fr": "Tu {} sorti le soir.",
+          "ru": "Ты вышел вечером.",
+          "distractors": [
+            "es",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Tu {} arrivé à l'heure.",
+          "ru": "Ты приехал вовремя.",
+          "distractors": [
+            "sommes",
+            "es"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il (aller)",
+      "answerFr": "est",
+      "items": [
+        {
+          "fr": "Il {} allé au marché.",
+          "ru": "Он ходил на рынок.",
+          "distractors": [
+            "suis",
+            "es"
+          ]
+        },
+        {
+          "fr": "Il {} entré dans la chambre.",
+          "ru": "Он вошел в комнату.",
+          "distractors": [
+            "es",
+            "est allé"
+          ]
+        },
+        {
+          "fr": "Il {} monté l'escalier.",
+          "ru": "Он поднялся по лестнице.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        },
+        {
+          "fr": "Il {} tombé par terre.",
+          "ru": "Он упал на землю.",
+          "distractors": [
+            "es",
+            "est"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "elle (aller)",
+      "answerFr": "est",
+      "items": [
+        {
+          "fr": "Elle {} allée à la gare.",
+          "ru": "Она ходила на вокзал.",
+          "distractors": [
+            "suis",
+            "es"
+          ]
+        },
+        {
+          "fr": "Elle {} sortie hier.",
+          "ru": "Она гуляла вчера.",
+          "distractors": [
+            "es",
+            "est"
+          ]
+        },
+        {
+          "fr": "Elle {} née en juin.",
+          "ru": "Она родилась в июне.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        },
+        {
+          "fr": "Elle {} partie en vacances.",
+          "ru": "Она уехала на каникулы.",
+          "distractors": [
+            "es",
+            "est"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous (aller)",
+      "answerFr": "sommes",
+      "items": [
+        {
+          "fr": "Nous {} allés au cinéma.",
+          "ru": "Мы ходили в кино.",
+          "distractors": [
+            "êtes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Nous {} venus ensemble.",
+          "ru": "Мы пришли вместе.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Nous {} sortis le samedi.",
+          "ru": "Мы выходили в субботу.",
+          "distractors": [
+            "êtes",
+            "sommes"
+          ]
+        },
+        {
+          "fr": "Nous {} arrivés tard.",
+          "ru": "Мы приехали поздно.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous (aller)",
+      "answerFr": "êtes",
+      "items": [
+        {
+          "fr": "Vous {} allés au restaurant.",
+          "ru": "Вы ходили в ресторан.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Vous {} sortis sans manteau.",
+          "ru": "Вы вышли без пальто.",
+          "distractors": [
+            "êtes",
+            "sommes"
+          ]
+        },
+        {
+          "fr": "Vous {} arrivés le matin.",
+          "ru": "Вы приехали утром.",
+          "distractors": [
+            "sont",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Vous {} partis loin.",
+          "ru": "Вы уехали далеко.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils (aller)",
+      "answerFr": "sont",
+      "items": [
+        {
+          "fr": "Ils {} allés au magasin.",
+          "ru": "Они ходили в магазин.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Ils {} venus chez nous.",
+          "ru": "Они пришли к нам.",
+          "distractors": [
+            "sont",
+            "sommes"
+          ]
+        },
+        {
+          "fr": "Ils {} sortis de la classe.",
+          "ru": "Они вышли из класса.",
+          "distractors": [
+            "êtes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Ils {} montés en haut.",
+          "ru": "Они поднялись наверх.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "elles (aller)",
+      "answerFr": "sont",
+      "items": [
+        {
+          "fr": "Elles {} allées au café.",
+          "ru": "Они ходили в кафе.",
+          "distractors": [
+            "sommes",
+            "êtes"
+          ]
+        },
+        {
+          "fr": "Elles {} sorties ensemble.",
+          "ru": "Они вышли вместе.",
+          "distractors": [
+            "sont",
+            "sommes"
+          ]
+        },
+        {
+          "fr": "Elles {} arrivées à l'heure.",
+          "ru": "Они приехали вовремя.",
+          "distractors": [
+            "êtes",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Elles {} parties tôt.",
+          "ru": "Они уехали рано.",
+          "distractors": [
+            "sommes",
+            "sont"
+          ]
+        }
+      ]
+    }
+  ]
+}

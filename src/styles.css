@@ -2176,6 +2176,42 @@ button {
 }
 
 /* ------------------------------------------------------------
+   Дрилл-тренажёр форм (A1) — LessonDrill
+   ------------------------------------------------------------ */
+.screen.drill {
+  min-height: 100dvh;
+}
+
+.gap-slot {
+  display: inline-block;
+  min-width: 3ch;
+  padding: 0 4px;
+  border-bottom: 2px solid var(--accent);
+  text-align: center;
+  color: var(--accent-hover);
+}
+
+.option-btn--ok {
+  border-color: var(--ok);
+  background: var(--ok-bg);
+}
+
+.option-btn--no {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.token--ok {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
+.token--no {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ------------------------------------------------------------
    Reduced motion
    ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {

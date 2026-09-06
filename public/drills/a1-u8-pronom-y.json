@@ -1,0 +1,278 @@
+{
+  "ruleId": "a1-u8-pronom-y",
+  "titleRu": "Местоимение Y (туда, там)",
+  "titleFr": "Le pronom Y",
+  "plainRu": "y заменяет место («туда / там»), чтобы не повторять à / dans + место.",
+  "text": {
+    "fr": "J'aime Paris. Demain, j'y vais en train. J'y reste trois jours. Je visite la ville et j'y mange bien. Tu y vas aussi ?",
+    "ru": "Я люблю Париж. Завтра я поеду туда на поезде. Я останусь там на три дня. Я осматриваю город и хорошо там ем. Ты тоже туда едешь?"
+  },
+  "forms": [
+    {
+      "label": "je",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Je {} vais.",
+          "ru": "Я туда иду.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "J'{} habite.",
+          "ru": "Я там живу.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Je {} reste.",
+          "ru": "Я там остаюсь.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "J'{} travaille.",
+          "ru": "Я там работаю.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "tu",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Tu {} vas.",
+          "ru": "Ты туда идешь.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Tu {} habites.",
+          "ru": "Ты там живешь.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "Tu {} restes.",
+          "ru": "Ты там остаешься.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "Tu {} penses.",
+          "ru": "Ты об этом думаешь.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "il",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Il {} va.",
+          "ru": "Он туда идет.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "Il {} habite.",
+          "ru": "Он там живет.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "Il {} reste.",
+          "ru": "Он там остается.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Il {} est.",
+          "ru": "Он там есть.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "nous",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Nous {} allons.",
+          "ru": "Мы туда идем.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "Nous {} habitons.",
+          "ru": "Мы там живем.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Nous {} restons.",
+          "ru": "Мы там остаемся.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "Nous {} sommes.",
+          "ru": "Мы там.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "vous",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Vous {} allez.",
+          "ru": "Вы туда идете.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "Vous {} habitez.",
+          "ru": "Вы там живете.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Vous {} restez.",
+          "ru": "Вы там остаетесь.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "Vous {} êtes.",
+          "ru": "Вы там.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ils",
+      "answerFr": "y",
+      "items": [
+        {
+          "fr": "Ils {} vont.",
+          "ru": "Они туда идут.",
+          "distractors": [
+            "en",
+            "la"
+          ]
+        },
+        {
+          "fr": "Ils {} habitent.",
+          "ru": "Они там живут.",
+          "distractors": [
+            "en",
+            "le"
+          ]
+        },
+        {
+          "fr": "Ils {} restent.",
+          "ru": "Они там остаются.",
+          "distractors": [
+            "en",
+            "les"
+          ]
+        },
+        {
+          "fr": "Ils {} sont.",
+          "ru": "Они там.",
+          "distractors": [
+            "en",
+            "en"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ne ... pas",
+      "answerFr": "n'y",
+      "items": [
+        {
+          "fr": "Je {} vais pas.",
+          "ru": "Я туда не иду.",
+          "distractors": [
+            "ne pas",
+            "ne le"
+          ]
+        },
+        {
+          "fr": "Tu {} habites pas.",
+          "ru": "Ты там не живешь.",
+          "distractors": [
+            "ne pas",
+            "ne la"
+          ]
+        },
+        {
+          "fr": "Il {} va pas.",
+          "ru": "Он туда не идет.",
+          "distractors": [
+            "ne pas",
+            "ne les"
+          ]
+        },
+        {
+          "fr": "Nous {} allons pas.",
+          "ru": "Мы туда не идем.",
+          "distractors": [
+            "ne pas",
+            "ne le"
+          ]
+        }
+      ]
+    }
+  ]
+}

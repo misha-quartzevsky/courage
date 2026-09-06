@@ -1,0 +1,202 @@
+{
+  "ruleId": "a1-u3-articles-partitifs",
+  "titleRu": "Частичные артикли (неопределенное количество)",
+  "titleFr": "La quantité non définie (les partitifs)",
+  "plainRu": "du / de la / des — «немного, часть чего-то»: еда, вода, абстрактные вещи.",
+  "text": {
+    "fr": "Je vais au marché. J'achète du pain, de la viande et des fruits. Je bois de l'eau fraîche. Je n'ai pas de sucre pour le thé.",
+    "ru": "Я иду на рынок. Я покупаю хлеб, мясо и фрукты. Я пью свежую воду. У меня нет сахара для чая."
+  },
+  "forms": [
+    {
+      "label": "du (masculin)",
+      "answerFr": "du",
+      "items": [
+        {
+          "fr": "Je mange {} pain.",
+          "ru": "Я ем хлеб (немного хлеба).",
+          "distractors": [
+            "de la",
+            "des"
+          ]
+        },
+        {
+          "fr": "Tu bois {} café.",
+          "ru": "Ты пьешь кофе.",
+          "distractors": [
+            "de l'",
+            "des"
+          ]
+        },
+        {
+          "fr": "Il achète {} poisson.",
+          "ru": "Он покупает рыбу.",
+          "distractors": [
+            "de la",
+            "de l'"
+          ]
+        },
+        {
+          "fr": "Nous voulons {} beurre.",
+          "ru": "Мы хотим масло.",
+          "distractors": [
+            "des",
+            "de la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "de la (féminin)",
+      "answerFr": "de la",
+      "items": [
+        {
+          "fr": "Je prends {} soupe.",
+          "ru": "Я беру суп.",
+          "distractors": [
+            "du",
+            "des"
+          ]
+        },
+        {
+          "fr": "Tu coupes {} viande.",
+          "ru": "Ты режешь мясо.",
+          "distractors": [
+            "du",
+            "de l'"
+          ]
+        },
+        {
+          "fr": "Elle aime {} salade.",
+          "ru": "Она любит салат.",
+          "distractors": [
+            "des",
+            "du"
+          ]
+        },
+        {
+          "fr": "Vous mangez {} confiture.",
+          "ru": "Вы едите варенье.",
+          "distractors": [
+            "du",
+            "de l'"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "de l' (voyelle)",
+      "answerFr": "de l'",
+      "items": [
+        {
+          "fr": "Je bois {} eau.",
+          "ru": "Я пью воду.",
+          "distractors": [
+            "de la",
+            "du"
+          ]
+        },
+        {
+          "fr": "Il achète {} huile.",
+          "ru": "Он покупает масло.",
+          "distractors": [
+            "du",
+            "des"
+          ]
+        },
+        {
+          "fr": "Nous voulons {} oignon.",
+          "ru": "Мы хотим лук.",
+          "distractors": [
+            "de la",
+            "du"
+          ]
+        },
+        {
+          "fr": "Tu prends {} orange.",
+          "ru": "Ты берешь апельсин.",
+          "distractors": [
+            "des",
+            "de la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "des (pluriel)",
+      "answerFr": "des",
+      "items": [
+        {
+          "fr": "Je mange {} fruits.",
+          "ru": "Я ем фрукты.",
+          "distractors": [
+            "du",
+            "de la"
+          ]
+        },
+        {
+          "fr": "Tu veux {} légumes?",
+          "ru": "Ты хочешь овощи?",
+          "distractors": [
+            "de l'",
+            "du"
+          ]
+        },
+        {
+          "fr": "Elle coupe {} tomates.",
+          "ru": "Она режет помидоры.",
+          "distractors": [
+            "de la",
+            "de l'"
+          ]
+        },
+        {
+          "fr": "Nous achetons {} œufs.",
+          "ru": "Мы покупаем яйца.",
+          "distractors": [
+            "du",
+            "de la"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "de (négation)",
+      "answerFr": "de",
+      "items": [
+        {
+          "fr": "Je ne mange pas {} pain.",
+          "ru": "Я не ем хлеб.",
+          "distractors": [
+            "du",
+            "des"
+          ]
+        },
+        {
+          "fr": "Tu ne bois pas {} café.",
+          "ru": "Ты не пьешь кофе.",
+          "distractors": [
+            "du",
+            "de la"
+          ]
+        },
+        {
+          "fr": "Il n'a pas {} eau.",
+          "ru": "У него нет воды.",
+          "distractors": [
+            "de l'",
+            "des"
+          ]
+        },
+        {
+          "fr": "Nous n'avons pas {} légumes.",
+          "ru": "У нас нет овощей.",
+          "distractors": [
+            "des",
+            "de la"
+          ]
+        }
+      ]
+    }
+  ]
+}
