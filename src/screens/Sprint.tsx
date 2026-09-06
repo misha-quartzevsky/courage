@@ -356,6 +356,22 @@ function DialoguePane({
         </button>
         <p className="dialogue">{exercise.promptFr}</p>
         <SentenceRu text={exercise.sentenceRu} />
+        {exercise.modelFr && (
+          <p className="dialogue-model">
+            <button
+              type="button"
+              className="btn-icon"
+              aria-label="Озвучить образец"
+              onClick={() => speakFr(exercise.modelFr!)}
+            >
+              <SpeakerIcon />
+            </button>
+            <span>
+              <span className="muted">скажи так: </span>
+              <span className="serif">{exercise.modelFr}</span>
+            </span>
+          </p>
+        )}
       </section>
 
       <section className="answer-area">

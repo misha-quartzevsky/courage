@@ -223,9 +223,18 @@ describe('getFallbackSprint', () => {
     }
   })
 
-  it('первые два упражнения — диалоговые', () => {
+  it('A2: узнавание-первым, максимум один диалог, и у него есть modelFr', () => {
     const sprint = getFallbackSprint(DEMO_PERSONA, 'A2', SYLLABUS[13])
-    expect(sprint.exercises[0].kind).toBe('dialogue')
-    expect(sprint.exercises[1].kind).toBe('dialogue')
+    expect(sprint.exercises[0].kind).not.toBe('dialogue')
+    const dialogues = sprint.exercises.filter((e) => e.kind === 'dialogue')
+    expect(dialogues.length).toBeLessThanOrEqual(1)
+    for (const d of dialogues) {
+      if (d.kind === 'dialogue') expect(d.modelFr && d.modelFr.length > 0).toBe(true)
+    }
+  })
+
+  it('A2: одно упражнение на понимание', () => {
+    const sprint = getFallbackSprint(DEMO_PERSONA, 'A2', SYLLABUS[13])
+    expect(sprint.exercises.some((e) => e.kind === 'comprehension')).toBe(true)
   })
 })

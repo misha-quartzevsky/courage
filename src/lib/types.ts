@@ -28,6 +28,9 @@ export type SprintExercise =
       kind: 'dialogue'
       promptFr: string // реплика собеседника
       expectedKeyPhrases: string[]
+      // Готовый образец ответа по правилу-фокусу. На A1–A2 обязателен: ученик
+      // читает его и произносит/адаптирует, а не сочиняет с нуля (input-first).
+      modelFr?: string
     })
   | (ExerciseCommon & {
       kind: 'gap'

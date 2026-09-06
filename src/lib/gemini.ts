@@ -129,7 +129,14 @@ function parseExercise(e: unknown, i: number): SprintExercise | null {
     case 'dialogue': {
       const keys = strArr(x.expectedKeyPhrases)
       if (!isStr(x.promptFr) || !keys || !sentenceRu) return null
-      return { ...base, sentenceRu, kind: 'dialogue', promptFr: x.promptFr, expectedKeyPhrases: keys }
+      return {
+        ...base,
+        sentenceRu,
+        kind: 'dialogue',
+        promptFr: x.promptFr,
+        expectedKeyPhrases: keys,
+        ...(isStr(x.modelFr) ? { modelFr: x.modelFr.trim() } : {}),
+      }
     }
     case 'gap': {
       if (!isStr(x.textFr) || !Array.isArray(x.blanks) || !sentenceRu) return null
@@ -346,31 +353,28 @@ function seededShuffle<T>(arr: T[], seed: string): T[] {
 // Детерминированные упражнения из данных правил юнита. Не «фейк-гейтвей», а
 // гарантия 6 заданий разных типов даже оффлайн / при битом ответе модели.
 export function fallbackExercises(
-  persona: LearnerPersona,
+  _persona: LearnerPersona,
   unit: SyllabusUnit,
   rule?: GrammarRule,
 ): SprintExercise[] {
   const rules = rule ? [rule] : rulesForUnit(unit.ruleIds)
   const examples = rules.flatMap((r) => r.examples)
-  const target = persona.domainTags[0] ?? 'votre métier'
   const out: SprintExercise[] = []
 
-  out.push({
-    id: 'fb-d1',
-    kind: 'dialogue',
-    promptFr: `Bonjour ! Je suis ${persona.professionFr}. Et vous, que faites-vous ?`,
-    promptRu: 'Поздоровайтесь, представьтесь и скажите, кем работаете.',
-    sentenceRu: `Здравствуйте! Я ${persona.professionFr}. А вы чем занимаетесь?`,
-    expectedKeyPhrases: ['je suis', "je m'appelle", 'enchanté', 'bonjour'],
-  })
-  out.push({
-    id: 'fb-d2',
-    kind: 'dialogue',
-    promptFr: `Parlez-moi de votre métier : qu'est-ce que vous faites exactement ?`,
-    promptRu: `Расскажите о работе, используйте слово «${target}».`,
-    sentenceRu: 'Расскажите мне о своей работе: чем именно вы занимаетесь?',
-    expectedKeyPhrases: ['je fais', 'je travaille', "c'est", "j'aime"],
-  })
+  // Говорение без сочинения: даём готовую фразу правила как образец, ученик её
+  // произносит/вписывает (шэдоуинг + антиципация). НЕ «расскажи о себе».
+  const exSay = examples.find((e) => e.fr.trim() && e.ru.trim())
+  if (exSay) {
+    out.push({
+      id: 'fb-say',
+      kind: 'dialogue',
+      promptFr: exSay.fr,
+      promptRu: 'Прочитайте фразу вслух (или впишите её). Образец — ниже.',
+      sentenceRu: exSay.ru,
+      modelFr: exSay.fr,
+      expectedKeyPhrases: [exSay.fr],
+    })
+  }
 
   // gap — из первого примера: спрятать самое длинное слово.
   const ex0 = examples[0]
@@ -473,9 +477,25 @@ export function getFallbackSprint(
   rule?: GrammarRule,
 ): SprintSession {
   const all = fallbackExercises(persona, unit, rule)
-  const exercises = all.slice(0, 4)
+  const pick = (k: SprintExercise['kind']) => all.find((e) => e.kind === k)
+  // На низких уровнях — почти всё на узнавание (выбрать/собрать/понять) + один
+  // шэдоуинг с готовым образцом; свободного письма нет.
+  const order: SprintExercise['kind'][] =
+    level === 'A1' || level === 'A2'
+      ? ['choice', 'match', 'dialogue', 'order', 'comprehension']
+      : ['choice', 'gap', 'order', 'dialogue', 'comprehension']
+  const exercises: SprintExercise[] = []
+  for (const k of order) {
+    const ex = pick(k)
+    if (ex && !exercises.includes(ex)) exercises.push(ex)
+    if (exercises.length === 4) break
+  }
+  for (const ex of all) {
+    if (exercises.length === 4) break
+    if (!exercises.includes(ex)) exercises.push(ex)
+  }
   // Гарантируем одно упражнение на понимание (рецептивная проверка).
-  const comp = all.find((e) => e.kind === 'comprehension')
+  const comp = pick('comprehension')
   if (comp && !exercises.some((e) => e.kind === 'comprehension')) {
     exercises[exercises.length - 1] = comp
   }
@@ -533,8 +553,12 @@ function makeId(): string {
 // ------------------------------------------------------------
 // Промпт-инжиниринг: 70% база Édito + 30% персонализация
 // ------------------------------------------------------------
-function difficultyNote(priorBest?: number): string {
-  if (priorBest == null) return ''
+function difficultyNote(priorBest: number | undefined, level: CefrLevel): string {
+  const low = level === 'A1' || level === 'A2'
+  if (priorBest == null)
+    return low
+      ? 'Тема новая. Делай ЛЕГКО: короткие фразы (3–6 слов), очевидные варианты, максимум опоры в promptRu.'
+      : 'Тема новая — умеренная сложность, с опорой.'
   if (priorBest < 60)
     return 'Ученик уже пробовал эту тему (результат низкий) — сделай проще: короче реплики, больше опоры в promptRu, очевиднее варианты.'
   if (priorBest > 85)
@@ -551,7 +575,8 @@ function buildSprintSystemPrompt(
   interleave: GrammarRule[] = [],
 ): string {
   const digest = ruleDigest([rule])
-  const diff = difficultyNote(priorBest)
+  const diff = difficultyNote(priorBest, level)
+  const lowLevel = level === 'A1' || level === 'A2'
   const total = 4 + interleave.length
   const interleaveBlock = interleave.length
     ? [
@@ -577,12 +602,28 @@ function buildSprintSystemPrompt(
     digest,
     ...interleaveBlock,
     '',
-    'Правило 70/30: 70% — база Édito (быт/реальная жизнь), 30% — контекст профиля.',
+    lowLevel
+      ? [
+          'КОНТЕКСТ ПРОФИЛЯ почти не используем: максимум одно слово-вставка в 1',
+          'упражнении. НИКОГДА не делай профессию/интересы ТЕМОЙ упражнения. НЕ проси',
+          'рассказывать о себе, работе, семье, возрасте, планах — если это не тема',
+          'самого правила-фокуса. Всё — базовый бытовой французский из юнита Édito.',
+        ].join('\n')
+      : 'Правило 70/30: 70% — база Édito (быт/реальная жизнь), 30% — контекст профиля.',
     'Только реальная лексика, без выдуманного жаргона.',
     '',
-    `Сгенерируй РОВНО ${total} упражнени${total === 1 ? 'е' : 'й'} РАЗНЫХ типов. Не более 2 подряд`,
-    `одного типа. ${level === 'A1' ? 'Больше выбора и пропусков.' : ''}`,
-    persona && 'Диалоговых (kind:"dialogue") — 1 штука.',
+    `Сгенерируй РОВНО ${total} упражнени${total === 1 ? 'е' : 'й'} РАЗНЫХ типов. Не более 2 подряд одного типа.`,
+    lowLevel
+      ? [
+          `БАЛАНС (${level}): большинство упражнений — на УЗНАВАНИЕ, где ответ ВЫБИРАЮТ`,
+          'или СОБИРАЮТ из готового (choice, match, order, comprehension). Свободного',
+          'ввода текста — не более ОДНОГО (gap ИЛИ transform), с очевидным единственным',
+          'ответом по правилу. Никакого «сочините/расскажите/опишите».',
+          'kind:"dialogue" — РОВНО 1, НЕ «скажи что-нибудь»: дай поле "modelFr" —',
+          'короткую готовую фразу-ответ строго по правилу-фокусу (без новой лексики).',
+          'Вопрос собеседника ("promptFr") должен предполагать ответ ровно этим образцом.',
+        ].join('\n')
+      : 'kind:"dialogue" — РОВНО 1, обязательно с полем "modelFr" (образец ответа). gap/transform допустимы.',
     'РОВНО 1 упражнение kind:"comprehension" — прочитать короткий текст на правило-фокус',
     'и ответить на вопрос ПО СМЫСЛУ (проверка понимания, не продукция).',
     '',
@@ -593,7 +634,7 @@ function buildSprintSystemPrompt(
     '  "reading": { "fr": "связный текст 4–6 предложений на правило-фокус", "ru": "полный перевод" },',
     '  "glossary": [ { "fr": "mot", "ru": "перевод" } ],',
     '  "exercises": [',
-    '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "sentenceRu":"перевод реплики собеседника", "expectedKeyPhrases":["ориентиры"] },',
+    '    { "kind":"dialogue", "id":"e1", "promptRu":"что ответить", "promptFr":"реплика собеседника", "sentenceRu":"перевод реплики собеседника", "modelFr":"готовый образец ответа по правилу", "expectedKeyPhrases":["ориентиры"] },',
     '    { "kind":"gap", "id":"e2", "promptRu":"инструкция", "textFr":"Je {} à Paris et il {} ici.", "sentenceRu":"перевод собранного предложения целиком", "blanks":[{"answer":"vais","alts":[]},{"answer":"vit"}] },',
     '    { "kind":"choice", "id":"e3", "promptRu":"вопрос", "promptFr":"Il ___ parti hier.", "sentenceRu":"перевод фразы promptFr", "options":["a","est","ont"], "answerIndex":1 },',
     '    { "kind":"order", "id":"e4", "promptRu":"соберите фразу", "sentenceRu":"перевод answer", "tokens":["ski","du","fais","je"], "answer":"Je fais du ski" },',
