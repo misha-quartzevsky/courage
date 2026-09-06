@@ -1,7 +1,19 @@
 import { useEffect, useState } from 'react'
 import type { CefrLevel, TextListEntry } from '../lib/types'
-import { loadTextList } from '../lib/texts'
+import { loadRfiEpisodes, loadTextList, type RfiEpisode } from '../lib/texts'
 import { AlertIcon } from '../lib/icons'
+
+const WORKER_URL = (
+  import.meta.env.VITE_GEMINI_WORKER_URL as string | undefined
+)?.replace(/\/+$/, '')
+
+// Курируемые подкасты для начинающих/средних — ссылаемся, не рехостим.
+const PODCASTS: { title: string; note: string; url: string }[] = [
+  { title: 'InnerFrench', note: 'B1–B2 · медленно, с транскриптами', url: 'https://innerfrench.com/podcast/' },
+  { title: 'Coffee Break French', note: 'A1 → B2 · по сезонам', url: 'https://coffeebreaklanguages.com/coffeebreakfrench/' },
+  { title: 'One Thing In A French Day', note: 'B1 · короткие эпизоды из жизни', url: 'https://www.onethinginafrenchday.com/' },
+  { title: 'Duolingo French Podcast', note: 'A1–A2 · half EN/FR, транскрипты', url: 'https://podcast.duolingo.com/french' },
+]
 
 interface LireProps {
   onOpenText: (id: string) => void
@@ -13,6 +25,8 @@ export function Lire({ onOpenText }: LireProps) {
   const [list, setList] = useState<TextListEntry[] | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
 
+  const [rfi, setRfi] = useState<RfiEpisode[]>([])
+
   useEffect(() => {
     let alive = true
     loadTextList()
@@ -22,6 +36,13 @@ export function Lire({ onOpenText }: LireProps) {
         setStatus('ready')
       })
       .catch(() => alive && setStatus('error'))
+    if (WORKER_URL) {
+      loadRfiEpisodes(WORKER_URL)
+        .then((e) => alive && setRfi(e))
+        .catch(() => {
+          /* фид недоступен (worker без роута /feed) — просто не показываем */
+        })
+    }
     return () => {
       alive = false
     }
@@ -77,9 +98,43 @@ export function Lire({ onOpenText }: LireProps) {
         </section>
       )}
 
-      <p className="muted section-hint">
-        Больше текстов и подкасты — в следующих обновлениях.
-      </p>
+      {rfi.length > 0 && (
+        <section className="text-list-group">
+          <p className="eyebrow">RFI · Journal en français facile</p>
+          <p className="muted section-hint" style={{ marginTop: 0 }}>
+            Новости простым французским, ~10 мин. Открывается на сайте RFI —
+            там есть синхронный транскрипт и регулируемая скорость.
+          </p>
+          {rfi.map((e) => (
+            <a
+              key={e.audioUrl}
+              className="text-row"
+              href={e.pageUrl || e.audioUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="text-row-title">{e.title}</span>
+              <span className="muted">{e.date}</span>
+            </a>
+          ))}
+        </section>
+      )}
+
+      <section className="text-list-group">
+        <p className="eyebrow">Подкасты — послушать вне приложения</p>
+        {PODCASTS.map((p) => (
+          <a
+            key={p.url}
+            className="text-row"
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="text-row-title">{p.title}</span>
+            <span className="muted">{p.note}</span>
+          </a>
+        ))}
+      </section>
     </main>
   )
 }

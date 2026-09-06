@@ -111,6 +111,50 @@ export async function loadTextList(): Promise<TextListEntry[]> {
   return listMem
 }
 
+// --- RFI «Journal en français facile»: разбор RSS (регэксп — работает и в node) ---
+
+export interface RfiEpisode {
+  title: string
+  pageUrl: string
+  audioUrl: string
+  date: string
+}
+
+function unwrap(s: string): string {
+  return s
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .trim()
+}
+
+export function parseRfiFeed(xml: string): RfiEpisode[] {
+  const out: RfiEpisode[] = []
+  const items = xml.match(/<item\b[\s\S]*?<\/item>/gi) ?? []
+  for (const it of items) {
+    const title = unwrap(it.match(/<title>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    const link = unwrap(it.match(/<link>([\s\S]*?)<\/link>/i)?.[1] ?? '')
+    const guid = unwrap(it.match(/<guid[^>]*>([\s\S]*?)<\/guid>/i)?.[1] ?? '')
+    const enc = it.match(/<enclosure\b[^>]*\burl=["']([^"']+)["']/i)?.[1] ?? ''
+    const date = unwrap(it.match(/<pubDate>([\s\S]*?)<\/pubDate>/i)?.[1] ?? '')
+    const pageUrl = /^https?:/i.test(link) ? link : /^https?:/i.test(guid) ? guid : ''
+    if (title && enc) {
+      out.push({ title, pageUrl, audioUrl: enc, date })
+    }
+  }
+  return out
+}
+
+export async function loadRfiEpisodes(workerUrl: string): Promise<RfiEpisode[]> {
+  const base = workerUrl.replace(/\/+$/, '')
+  const res = await fetch(`${base}/feed/rfi-jff`)
+  if (!res.ok) throw new Error(`rfi feed HTTP ${res.status}`)
+  return parseRfiFeed(await res.text()).slice(0, 12)
+}
+
 export async function loadText(id: string): Promise<LearningText | null> {
   const hit = textMem.get(id)
   if (hit) return hit

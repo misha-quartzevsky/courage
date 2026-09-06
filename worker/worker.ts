@@ -34,8 +34,46 @@ const UPSTREAM = 'https://generativelanguage.googleapis.com'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, x-goog-api-key',
+}
+
+// RFI «Journal en français facile» — единственная сторонняя интеграция аудио,
+// разрешённая по редакционным условиям RFI (ссылаемся/стримим, не рехостим).
+// Жёсткий вайтлист хостов: worker остаётся НЕ открытым прокси.
+const RFI_HOSTS = ['francaisfacile.rfi.fr', 'rfi.fr', 'www.rfi.fr']
+const RFI_FEED = 'https://francaisfacile.rfi.fr/fr/podcasts/journal-en-fran%C3%A7ais-facile/podcast.xml'
+
+async function handleRfi(url: URL): Promise<Response> {
+  // /feed/rfi-jff            → RSS фида
+  // /feed/rfi-jff/page?u=... → страница эпизода (u — только хост из RFI_HOSTS)
+  let target: string
+  if (url.pathname === '/feed/rfi-jff') {
+    target = RFI_FEED
+  } else if (url.pathname === '/feed/rfi-jff/page') {
+    const u = url.searchParams.get('u') ?? ''
+    let host = ''
+    try {
+      host = new URL(u).host
+    } catch {
+      return new Response('bad u', { status: 400, headers: corsHeaders })
+    }
+    if (!RFI_HOSTS.includes(host)) {
+      return new Response('host not allowed', { status: 403, headers: corsHeaders })
+    }
+    target = u
+  } else {
+    return new Response('Not Found', { status: 404, headers: corsHeaders })
+  }
+  const upstream = await fetch(target, { headers: { 'User-Agent': 'Courage/1.0' } })
+  return new Response(upstream.body, {
+    status: upstream.status,
+    headers: {
+      'Content-Type': upstream.headers.get('Content-Type') ?? 'text/plain',
+      'Cache-Control': 'public, max-age=1800',
+      ...corsHeaders,
+    },
+  })
 }
 
 export default {
@@ -43,6 +81,13 @@ export default {
     // CORS preflight: браузер шлёт OPTIONS перед POST с application/json
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders })
+    }
+
+    const url = new URL(request.url)
+
+    // RFI-фид/страницы — GET, отдельный вайтлист (см. handleRfi).
+    if (request.method === 'GET' && url.pathname.startsWith('/feed/rfi-jff')) {
+      return handleRfi(url)
     }
 
     if (request.method !== 'POST') {
@@ -55,8 +100,6 @@ export default {
         headers: corsHeaders,
       })
     }
-
-    const url = new URL(request.url)
 
     // Проксируем только вызовы Gemini API — не превращаем worker в открытый прокси
     if (!url.pathname.startsWith('/v1beta/')) {

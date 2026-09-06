@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   parseLearningText,
+  parseRfiFeed,
   sentenceIndexAt,
   tokenize,
   wordKey,
@@ -89,5 +90,37 @@ describe('parseLearningText', () => {
     expect(
       parseLearningText({ ...valid, sentences: [{ fr: 'a' }] }),
     ).toBeNull()
+  })
+})
+
+describe('parseRfiFeed', () => {
+  const xml = `<?xml version="1.0"?><rss><channel>
+    <item>
+      <title><![CDATA[Journal en français facile 07/09/2026]]></title>
+      <link>https://francaisfacile.rfi.fr/fr/podcasts/ep-1</link>
+      <pubDate>Sun, 07 Sep 2026 20:00:00 GMT</pubDate>
+      <enclosure url="https://aod-rfi.akamaized.net/rfi/ep1.mp3" type="audio/mpeg" length="1"/>
+    </item>
+    <item>
+      <title>Deuxième</title>
+      <guid isPermaLink="true">https://francaisfacile.rfi.fr/fr/podcasts/ep-2</guid>
+      <pubDate>Sat, 06 Sep 2026 20:00:00 GMT</pubDate>
+      <enclosure url="https://aod-rfi.akamaized.net/rfi/ep2.mp3"/>
+    </item>
+    <item><title>Без аудио</title><link>https://x</link></item>
+  </channel></rss>`
+
+  it('извлекает эпизоды с аудио, распаковывает CDATA, берёт guid если нет link', () => {
+    const eps = parseRfiFeed(xml)
+    expect(eps).toHaveLength(2)
+    expect(eps[0].title).toBe('Journal en français facile 07/09/2026')
+    expect(eps[0].pageUrl).toBe('https://francaisfacile.rfi.fr/fr/podcasts/ep-1')
+    expect(eps[0].audioUrl).toBe('https://aod-rfi.akamaized.net/rfi/ep1.mp3')
+    expect(eps[1].pageUrl).toBe('https://francaisfacile.rfi.fr/fr/podcasts/ep-2')
+  })
+
+  it('пустой / битый фид → []', () => {
+    expect(parseRfiFeed('')).toEqual([])
+    expect(parseRfiFeed('<rss></rss>')).toEqual([])
   })
 })

@@ -56,6 +56,23 @@ registerRoute(
   },
 )
 
+// RFI-фид через Worker — свежесть важнее, отдаём из кэша и обновляем в фоне.
+const FEED_CACHE = 'courage-feed-v1'
+registerRoute(
+  ({ url }) => url.pathname.startsWith('/feed/'),
+  async ({ request }) => {
+    const cache = await caches.open(FEED_CACHE)
+    const hit = await cache.match(request)
+    const fresh = fetch(request)
+      .then((res) => {
+        if (res.ok) void cache.put(request, res.clone())
+        return res
+      })
+      .catch(() => hit)
+    return hit ?? (await fresh) ?? new Response('', { status: 504 })
+  },
+)
+
 // Приложение просит новую версию активироваться немедленно.
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
