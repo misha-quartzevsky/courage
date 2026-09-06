@@ -811,6 +811,7 @@
 "title_fr": "Le passé composé (synthèse et accords)",
 "title_ru": "Прошедшее время Passé composé: образование и согласование",
 "summary_ru": "Используется для обозначения однократных, завершенных действий в прошлом. Большинство глаголов спрягается с avoir, 17 глаголов движения/изменения состояния и все возвратные глаголы — с être.",
+"plain_ru": "Это правило помогает рассказать о том, что уже случилось, показывая, какому глаголу нужен помощник «быть» или «иметь», а когда нужно менять окончание.",
 "triggers": ["hier", "l'année dernière", "en 2018", "il y a deux ans"],
 "formation_rule": "Вспомогательный глагол avoir или être в présent + participe passé. С être причастие согласуется с подлежащим в роде (+e) и числе (+s).",
 "key_exceptions": {
@@ -836,6 +837,7 @@
 "title_fr": "La phrase négative (ne... rien, personne, jamais, plus)",
 "title_ru": "Отрицательные конструкции: ne... rien, personne, jamais, plus",
 "summary_ru": "Специальные отрицания заменяют 'ne... pas'. Каждое отрицание является антонимом утвердительного слова (quelque chose -> rien, quelqu'un -> personne, toujours/souvent/déjà -> jamais, encore/toujours -> plus).",
+"plain_ru": "Это правило помогает сказать «ничего», «никто», «никогда» или «больше не» вместо обычного «не», меняя слова в предложении в зависимости от времени.",
 "triggers": ["quelque chose", "quelqu'un", "tout le monde", "déjà", "souvent", "encore"],
 "formation_rule": "В Présent: ne + verbe + rien/personne/jamais/plus. В Passé composé: rien, jamais, plus ставятся между вспомогательным глаголом и причастием (ne... pas/rien/jamais/plus + participe passé). Исключение: personne ставится ПОСЛЕ причастия.",
 "key_exceptions": {
@@ -866,6 +868,7 @@
 "title_fr": "Les indicateurs de temps : il y a, pendant, depuis",
 "title_ru": "Временные указатели: il y a, pendant, depuis",
 "summary_ru": "'Il y a' указывает на момент в прошлом ('тому назад'). 'Pendant' выражает полную продолжительность завершенного действия ('в течение'). 'Depuis' обозначает действие, начавшееся в прошлом и продолжающееся в настоящем ('с/уже как').",
+"plain_ru": "Эти слова помогают сказать, когда и как долго что-то происходило: «il y a» — это сколько-то времени назад, «pendant» — сколько времени длилось законченное действие, а «desde» (desde / depuis) — как долго что-то продолжается прямо сейчас.",
 "triggers": ["il y a", "pendant", "depuis"],
 "formation_rule": "'Il y a' + отрезок времени (используется с Passé composé). 'Pendant' + отрезок времени (с любым временем, действие ограничено во времени). 'Depuis' + отрезок времени или момент начала (используется с Présent).",
 "key_exceptions": {},
@@ -892,6 +895,7 @@
 "title_fr": "L'imparfait (formation et emploi)",
 "title_ru": "Прошедшее незаконченное время Imparfait",
 "summary_ru": "Используется для описания обстановки, состояний, погоды, внешности, а также для выражения повторяющихся, привычных действий в прошлом.",
+"plain_ru": "Это время берут, чтобы описать прошлую обстановку, погоду или привычные действия, а делается оно из основы глагола для мы и специальных окончаний.",
 "triggers": ["avant", "à cette époque", "tous les jours", "souvent", "quand j'étais petit"],
 "formation_rule": "Основа формы 'nous' в настоящем времени + окончания: -ais, -ais, -ait, -ions, -iez, -aient.",
 "key_exceptions": {
@@ -917,6 +921,7 @@
 "title_fr": "Les pronoms de lieu Y et EN",
 "title_ru": "Местоимения места Y (туда/там) и EN (оттуда)",
 "summary_ru": "'Y' заменяет обстоятельства места с предлогами направления или нахождения (à, en, dans, sur, sous, chez). 'EN' заменяет обстоятельства места с предлогом происхождения/исхода 'de' (откуда).",
+"plain_ru": "Эти короткие слова заменяют места: Y значит туда или там, а EN — откуда или оттуда, и ставятся они всегда перед глаголом, чтобы не повторять одно и то же.",
 "triggers": ["à", "en", "dans", "sur", "chez", "de", "d'"],
 "formation_rule": "Оба местоимения ставятся ПЕРЕД спрягаемым глаголом (или перед инфинитивом при наличии двух глаголов). В Passé composé — перед вспомогательным глаголом.",
 "key_exceptions": {
@@ -941,6 +946,7 @@
 "title_fr": "La place de l'adjectif qualificatif",
 "title_ru": "Положение качественного прилагательного",
 "summary_ru": "Большинство французских прилагательных ставится ПОСЛЕ существительного. Небольшая группа коротких и частотных прилагательных ставится ПЕРЕД существительным.",
+"plain_ru": "Во французском языке большинство прилагательных ставят после слова, к которому они относятся, а короткие слова про красоту, размер и возраст — перед ним.",
 "triggers": [],
 "formation_rule": "ПОСЛЕ существительного: цвет, форма, национальность, стиль, длинные прилагательные. ПЕРЕД существительным: короткие прилагательные оценки, возраста, размера (beau, bon, grand, petit, jeune, vieux, joli, gros, mauvais, nouveau).",
 "key_exceptions": {
@@ -966,6 +972,7 @@
 "title_fr": "Les pronoms relatifs : qui, que, où",
 "title_ru": "Относительные местоимения: qui, que, où",
 "summary_ru": "Служат для соединения двух простых предложений в одно сложное без повтора существительного. 'Qui' заменяет подлежащее, 'que' — прямое дополнение, 'où' — место или время.",
+"plain_ru": "Эти слова помогают объединить две фразы в одну длинную и не повторять одно и то же слово дважды, когда нужно уточнить, кто, что или где.",
 "triggers": ["qui", "que", "qu'", "où"],
 "formation_rule": "Антецедент + QUI + глагол (qui не сокращается перед гласной). Антецедент + QUE/QU' + подлежащее + глагол. Антецедент (место/время) + OÙ + подлежащее + глагол.",
 "key_exceptions": {
@@ -994,6 +1001,7 @@
 "title_fr": "La comparaison (adjectifs, adverbes, verbes, noms)",
 "title_ru": "Сравнительная степень (прилагательные, наречия, глаголы, существительные)",
 "summary_ru": "Сравнение строится по-разному в зависимости от того, что именно сравнивается: качество (прилагательное/наречие), действие (глагол) или количество предметов (существительное).",
+"plain_ru": "Это правило помогает сказать по-французски «лучше», «столько же» или «меньше» в зависимости от того, что именно вы сравниваете — качество, действие или количество.",
 "triggers": ["plus... que", "moins... que", "aussi... que", "autant... que", "autant de... que"],
 "formation_rule": "С прил./наречием: plus / aussi / moins + adj/adv + que. С глаголом: verbe + plus / autant / moins + que. С существительным: plus de / autant de / moins de + nom + que.",
 "key_exceptions": {
@@ -1025,6 +1033,7 @@
 "title_fr": "L'expression de la condition avec si (1)",
 "title_ru": "Условие с союзом si (настоящее время и императив)",
 "summary_ru": "Выражает реальное условие и его следствие в настоящем времени или в виде указания/совета.",
+"plain_ru": "Это правило помогает сказать «если будет вот так, то сделайте это» или «если это правда, то происходит вот то».",
 "triggers": ["si", "s'il"],
 "formation_rule": "1) Si + présent, présent (Si je veux lire, je vais à la bibliothèque). 2) Si + présent, impératif (Si tu es malade, va chez le médecin !).",
 "key_exceptions": {
@@ -1049,6 +1058,7 @@
 "title_fr": "La comparaison : l'équivalence et la ressemblance",
 "title_ru": "Сравнение: сходство и эквивалентность",
 "summary_ru": "Для выражения равенства и сходства используются конструкции aussi... que, autant (de)... que, le/la/les même(s)... que, а также прилагательное pareil(le)(s).",
+"plain_ru": "Это правило помогает сказать, что предметы или действия похожи или равны друг другу, используя слова вроде «так же» или «такой же».",
 "triggers": ["le même", "la même", "les mêmes", "pareil", "pareille", "aussi", "autant"],
 "formation_rule": "le/la/les même(s) + nom (+ que). aussi + adjectif/adverbe + que. autant de + nom + que. Pareil/pareille(s) — предикативное прилагательное, ставится отдельно (Ils sont pareils).",
 "key_exceptions": {},
@@ -1075,6 +1085,7 @@
 "title_fr": "Les adjectifs indéfinis : chaque, tout, toute, tous, toutes",
 "title_ru": "Неопределенные прилагательные: chaque, tout, toute, tous, toutes",
 "summary_ru": "'Chaque' обозначает 'каждый по отдельности' и употребляется только в единственном числе без артикля. 'Tout' обозначает совокупность или целостность и согласуется в роде и числе с артиклем.",
+"plain_ru": "Это правило помогает правильно сказать «каждый» или «весь» в зависимости от того, говорите вы об одном предмете или о множестве.",
 "triggers": ["chaque", "tout", "toute", "tous", "toutes"],
 "formation_rule": "Chaque + существительное в ед.ч. (Chaque corps est unique). Tout + le + сущ. м.р. ед.ч. Toute + la + сущ. ж.р. ед.ч. Tous + les + сущ. м.р. мн.ч. (s на конце tous не читается как прил., читается [tus] как местоимение). Toutes + les + сущ. ж.р. мн.ч.",
 "key_exceptions": {
@@ -1099,6 +1110,7 @@
 "title_fr": "Les pronoms possessifs",
 "title_ru": "Притяжательные местоимения (мой, твой, наш...)",
 "summary_ru": "Заменяют существительное с притяжательным прилагательным (mon sac -> le mien), чтобы избежать повтора. Обязательно включают определенный артикль.",
+"plain_ru": "Эта штука заменяет фразу вроде «моя сумка» на короткое «моя», чтобы не повторяться.",
 "triggers": ["le mien", "la mienne", "les miens", "le tien", "le sien", "le nôtre", "le vôtre", "le leur"],
 "formation_rule": "М.р. ед.ч. / Ж.р. ед.ч. / М.р. мн.ч. / Ж.р. мн.ч.:\n- je: le mien, la mienne, les miens, les miennes\n- tu: le tien, la tienne, les tiens, les tiennes\n- il/elle: le sien, la sienne, les siens, les siennes\n- nous: le nôtre, la nôtre, les nôtres\n- vous: le vôtre, la vôtre, les vôtres\n- ils/elles: le leur, la leur, les leurs",
 "key_exceptions": {
@@ -1123,6 +1135,7 @@
 "title_fr": "Le futur simple",
 "title_ru": "Простое будущее время (Futur simple)",
 "summary_ru": "Употребляется для выражения планов, прогнозов, обещаний и событий в отдаленном будущем.",
+"plain_ru": "Это правило помогает рассказать о далёких планах, обещаниях или прогнозах на будущее, просто добавив к глаголу специальное окончание.",
 "triggers": ["dans le futur", "en 2050", "un jour", "bientôt", "l'année prochaine"],
 "formation_rule": "Инфинитив глагола (для глаголов на -re отбрасывается конечная 'e') + окончания глагола avoir: -ai, -as, -a, -ons, -ez, -ont.",
 "key_exceptions": {
@@ -1147,6 +1160,7 @@
 "title_fr": "La condition avec si (2) et la certitude avec quand",
 "title_ru": "Условие с si и временное придаточное с quand в будущем",
 "summary_ru": "Правило 'Si' не терпит после себя будущего времени: после 'si' ставится Présent, а в главном предложении — Futur simple. Союз 'quand' для будущих событий требует Futur simple в обеих частях.",
+"plain_ru": "После si ставим обычное настоящее время вместо будущего, а после quand для будущего ставим будущее в обеих частях, чтобы показать условие или время.",
 "triggers": ["si", "quand"],
 "formation_rule": "Условие: Si + présent, futur simple (Si tu étudies, tu réussiras). Временная связь в будущем: Quand + futur simple, futur simple (Quand tu seras grand, tu comprendras).",
 "key_exceptions": {
@@ -1171,6 +1185,7 @@
 "title_fr": "Les valeurs du pronom on",
 "title_ru": "Значения неопределенно-личного местоимения on",
 "summary_ru": "Местоимение 'on' всегда согласуется с глаголом в 3 лице единственного числа (как il/elle), но может иметь 3 разных значения по смыслу: 'мы' (разговорное nous), 'люди вообще' (les gens) или 'кто-то' (quelqu'un).",
+"plain_ru": "Слово on всегда пишется как он, но переводится то как мы, то как люди вообще, то как кто-то, когда нужно сказать обобщенно или просто заменить слово мы в разговоре.",
 "triggers": ["on"],
 "formation_rule": "On + глагол в 3 лице ед. ч. При значении 'мы' причастия и прилагательные могут согласовываться во мн.ч.: On est partis à Paris.",
 "key_exceptions": {},
@@ -1197,6 +1212,7 @@
 "title_fr": "Le pronom EN et l'expression de la quantité",
 "title_ru": "Местоимение EN для замены количества и частичного артикля",
 "summary_ru": "Заменяет существительные с частичным артиклем (du, de la, de l', des), неопределенным артиклем (un, une, des) или количественными наречиями/числами. Само количество сохраняется в конце фразы.",
+"plain_ru": "Это короткое слово помогает не повторять уже названное количество, когда говоришь, сколько именно ты взял или съел.",
 "triggers": ["du", "de la", "des", "un", "une", "beaucoup de", "un kilo de", "trois"],
 "formation_rule": "Ставится перед глаголом (в Passé composé — перед avoir/être). Формула с числом/наречием: Sujet + (ne) + EN + verbe + (pas) + число/количественное слово (J'en prends deux. / Je n'en ai pas beaucoup).",
 "key_exceptions": {
@@ -1225,6 +1241,7 @@
 "title_fr": "L'obligation et l'interdiction",
 "title_ru": "Выражение обязательства и запрета",
 "summary_ru": "Обязательство и запрет выражаются личными глаголами (devoir), безличными оборотами (il faut, il est interdit de) или повелительным наклонением.",
+"plain_ru": "Это правило помогает сказать кому-то, что он обязан что-то сделать или что ему это строго запрещено.",
 "triggers": ["il faut", "il est interdit de", "il est obligatoire de", "il est défendu de", "devoir"],
 "formation_rule": "Обязательство: Il faut + inf., Il est nécessaire/indispensable/obligatoire de + inf., Vous devez + inf., Impératif affirmatif. Запрет: Il ne faut pas + inf., Il est interdit/défendu de + inf., Vous ne devez pas + inf., Impératif négatif.",
 "key_exceptions": {
@@ -1249,6 +1266,7 @@
 "title_fr": "La restriction : ne... que",
 "title_ru": "Ограничительный оборот ne... que (только, всего лишь)",
 "summary_ru": "Оборот 'ne... que' не является отрицанием, а выражает ограничение ('только', 'исключительно', 'всего'). Синоним наречий seulement, uniquement, juste.",
+"plain_ru": "Эта штука ставится вокруг глагола и нужного слова, чтобы сказать «только» или «всего лишь», когда хочешь подчеркнуть ограничение.",
 "triggers": ["seulement", "uniquement", "juste", "ne... que"],
 "formation_rule": "'ne/n'' ставится перед глаголом, а 'que/qu'' ставится непосредственно перед тем словом, к которому относится ограничение.",
 "key_exceptions": {
@@ -1273,6 +1291,7 @@
 "title_fr": "Les pronoms COD et COI",
 "title_ru": "Прямые (COD) и косвенные (COI) местоимения-дополнения",
 "summary_ru": "COD заменяют дополнения без предлога (кого? что?). COI заменяют одушевленные дополнения с предлогом 'à' (кому?). Формы 1 и 2 лица совпадают, 3 лицо различается (le/la/les vs lui/leur).",
+"plain_ru": "Эти слова заменяют повторяющиеся существительные прямо перед глаголом, чтобы не говорить одно и то же.",
 "triggers": ["lui", "leur", "le", "la", "les", "me", "te", "nous", "vous"],
 "formation_rule": "COD: me, te, le/la/l', nous, vous, les. COI: me, te, lui, nous, vous, leur. Место в предложении: всегда ПЕРЕД спрягаемым глаголом (Je lui donne un conseil / Je ne l'écoute pas).",
 "key_exceptions": {
@@ -1297,6 +1316,7 @@
 "title_fr": "Le superlatif",
 "title_ru": "Превосходная степень (самый / наименее)",
 "summary_ru": "Используется для выделения высшей или низшей степени качества среди группы предметов или лиц.",
+"plain_ru": "Это правило помогает сказать «самый» или «менее всего», когда нужно выделить кого-то или что-то из группы.",
 "triggers": ["le plus", "la plus", "les plus", "le moins", "la moins", "les moins"],
 "formation_rule": "Превосходство: le / la / les + plus + adjectif (+ de...). Неполнота: le / la / les + moins + adjectif (+ de...).",
 "key_exceptions": {
@@ -1322,6 +1342,7 @@
 "title_fr": "Les pronoms interrogatifs (lequel, laquelle, lesquels, lesquelles)",
 "title_ru": "Вопросительные местоимения: lequel, laquelle, lesquels, lesquelles",
 "summary_ru": "Заменяют существительное с вопросительным прилагательным 'quel' при выборе из нескольких уже названных предметов или лиц ('который из них?').",
+"plain_ru": "Это нужно, чтобы спросить «который именно?» и не повторять одно и то же слово, когда выбираешь из нескольких готовых вариантов.",
 "triggers": ["lequel", "laquelle", "lesquels", "lesquelles"],
 "formation_rule": "М.р. ед.ч.: lequel. Ж.р. ед.ч.: laquelle. М.р. мн.ч.: lesquels. Ж.р. мн.ч.: lesquelles. Согласуются в роде и числе с заменяемым словом.",
 "key_exceptions": {},
@@ -1344,6 +1365,7 @@
 "title_fr": "La cause et la conséquence",
 "title_ru": "Выражение причины и следствия",
 "summary_ru": "Причина объясняет мотив действия (почему?), следствие показывает результат действия (что из этого следует?).",
+"plain_ru": "Это правило нужно, чтобы объяснить, почему что-то произошло и к какому результату это привело.",
 "triggers": ["parce que", "car", "grâce à", "à cause de", "donc", "alors", "c'est pourquoi", "c'est pour cela que"],
 "formation_rule": "Причина: parce que / car + фраза; grâce à + существительное (позитивная причина); à cause de + существительное (негативная причина). Следствие: donc / alors / c'est pourquoi / c'est pour cela que + фраза.",
 "key_exceptions": {
@@ -1372,6 +1394,7 @@
 "title_fr": "Le subjonctif présent (nécessité, opinion)",
 "title_ru": "Сослагательное наклонение Subjonctif (необходимость, суждение)",
 "summary_ru": "Употребляется в придаточных предложениях после союза 'que' после безличных выражений необходимости (il faut que, il est important que) и оценочных суждений (c'est bien que, c'est normal que).",
+"plain_ru": "Нужно ставить глагол в специальную форму после слова que, когда говоришь, что что-то важно сделать или выражаешь свое мнение.",
 "triggers": ["il faut que", "il est important que", "il est indispensable que", "c'est bien que", "c'est normal que"],
 "formation_rule": "Для je, tu, il/elle/on, ils/elles: основа 3 лица мн.ч. Présent (ils) + окончания -e, -es, -e, -ent. Для nous, vous: формы совпадают с Imparfait (-ions, -iez).",
 "key_exceptions": {
@@ -1399,6 +1422,7 @@
 "title_fr": "La place des pronoms COD et COI",
 "title_ru": "Местоимения COD и COI: положение в различных временах",
 "summary_ru": "Положение местоимения в предложении зависит от грамматической конструкции: простое время, сложное время (с причастием) или конструкция с инфинитивом.",
+"plain_ru": "Это правило подсказывает, куда именно поставить короткое местоимение во фразе, чтобы не запутаться во временах.",
 "triggers": [],
 "formation_rule": "1) В простых временах (Présent, Imparfait, Futur simple): перед спрягаемым глаголом (Je le regarde). 2) В сложных временах (Passé composé): перед вспомогательным глаголом (Je l'ai regardé / Je ne lui ai pas parlé). 3) С инфинитивом (Futur proche, Passé récent, глаголы pouvoir/vouloir): непосредственно ПЕРЕД инфинитивом (Je vais le regarder / Je viens de lui écrire).",
 "key_exceptions": {},
@@ -1425,6 +1449,7 @@
 "title_fr": "Le conditionnel présent (politesse, conseil, souhait, imaginaire)",
 "title_ru": "Условное наклонение (Conditionnel présent)",
 "summary_ru": "Используется для вежливых просьб (vouloir, pouvoir), выражения желаний/мечты (aimer, souhaiter), дачи советов (devoir) и описания воображаемых гипотетических ситуаций.",
+"plain_ru": "Это правило помогает вежливо о чем-то попросить, дать совет, выразить мечту или описать выдуманную ситуацию, когда мы мягко и вежливо рассуждаем о том, чего хочется или что стоило бы сделать.",
 "triggers": ["je voudrais", "j'aimerais", "tu devrais", "on pourrait", "dans un monde idéal"],
 "formation_rule": "Основа Futur simple + окончания Imparfait (-ais, -ais, -ait, -ions, -iez, -aient).",
 "key_exceptions": {
@@ -1453,6 +1478,7 @@
 "title_fr": "Le gérondif",
 "title_ru": "Деепричастие (Le gérondif)",
 "summary_ru": "Выражает одновременность двух действий, совершаемых одним субъектом, а также образ действия (отвечает на вопрос 'как?', 'каким образом?').",
+"plain_ru": "Это слово помогает сказать «делая что-то», когда вы заняты двумя делами сразу.",
 "triggers": ["en + participe présent"],
 "formation_rule": "Предлог 'en' + основа формы 'nous' в настоящем времени + суффикс '-ant' (nous regardons -> en regardant; nous faisons -> en faisant).",
 "key_exceptions": {
@@ -1480,6 +1506,7 @@
 "title_fr": "Le passé composé et l'imparfait dans le récit",
 "title_ru": "Passé composé и Imparfait в связном повествовании",
 "summary_ru": "В рассказе о прошлом Imparfait описывает фон, длящееся действие или контекст (декорации), а Passé composé вводит внезапные, конкретные события, двигающие сюжет вперед.",
+"plain_ru": "Это правило помогает рассказать историю из прошлого, где долгое фоновое действие передается одним временем, а резкие события, двигающие сюжет, — другим.",
 "triggers": ["soudain", "tout à coup", "quand", "pendant que", "alors"],
 "formation_rule": "Контекст/длительность/описание -> Imparfait. Внезапное действие/изменение ситуации -> Passé composé. Схема: 'Je faisais... quand soudain j'ai vu...'",
 "key_exceptions": {},
@@ -1502,6 +1529,7 @@
 "title_fr": "L'accord du participe passé avec avoir et être",
 "title_ru": "Согласование причастия прошедшего времени (Participe passé)",
 "summary_ru": "С глаголом être причастие всегда согласуется с подлежащим. С глаголом avoir причастие согласуется с прямым дополнением (COD) ТОЛЬКО если это дополнение стоит ПЕРЕД глаголом (в виде que, le/la/les, quel).",
+"plain_ru": "Это правило подсказывает, нужно ли менять окончание глагола-прошлого времени: с «быть» оно всегда подстраивается под того, кто совершает действие, а с «иметь» — только если объект, над которым совершили действие, стоит перед глаголом.",
 "triggers": ["que", "l'", "les", "laquelle"],
 "formation_rule": "1) С être: accord avec le sujet (+e, +s, +es). 2) С avoir + COD après le verbe: Pas d'accord (J'ai visité les villes). 3) С avoir + COD avant le verbe: Accord avec le COD (Les villes que j'ai visitées / Je les ai visitées).",
 "key_exceptions": {},
@@ -1524,6 +1552,7 @@
 "title_fr": "Les pronoms démonstratifs (celui, celle, ceux, celles)",
 "title_ru": "Указательные местоимения (тот, та, те)",
 "summary_ru": "Заменяют существительное с указательным прилагательным (ce, cette, ces), чтобы избежать повтора. Часто сопровождаются частицами -ci/-là или относительными местоимениями qui/que/où.",
+"plain_ru": "Это слово помогает не повторяться и заменяет уже названный предмет, когда нужно сказать «этот» или «тот».",
 "triggers": ["celui", "celle", "ceux", "celles", "celui-ci", "celui-là"],
 "formation_rule": "М.р. ед.ч.: celui (-ci/-là). Ж.р. ед.ч.: celle (-ci/-là). М.р. мн.ч.: ceux (-ci/-là). Ж.р. мн.ч.: celles (-ci/-là). -ci указывает на более близкий предмет, -là — на более далекий.",
 "key_exceptions": {},
@@ -1546,6 +1575,7 @@
 "title_fr": "La mise en relief (c'est... qui / c'est... que)",
 "title_ru": "Выделительные конструкции (C'est... qui / C'est... que)",
 "summary_ru": "Используются для логического выделения и смыслового акцентирования определенного элемента предложения (подлежащего, дополнения или обстоятельства).",
+"plain_ru": "Это правило помогает выделить главное слово в предложении с помощью конструкции «это именно тот, кто...» или «это именно то, что...», когда нужно сделать на чём-то особый акцент.",
 "triggers": ["c'est... qui", "c'est... que", "ce sont... qui", "ce qui... c'est", "ce que... c'est"],
 "formation_rule": "Выделение подлежащего: C'est / Ce sont + nom/pronom tonique + QUI + verbe. Выделение дополнения: C'est / Ce sont + nom/pronom tonique + QUE + sujet + verbe. Вынесение в начало: Ce qui (подлежащее) / Ce que (дополнение) + ... + c'est / ce sont + ...",
 "key_exceptions": {
@@ -1574,6 +1604,7 @@
 "title_fr": "Le discours rapporté au présent",
 "title_ru": "Косвенная речь в настоящем времени",
 "summary_ru": "Используется для передачи чужих слов или вопросов без изменений времен глаголов, если вводящий глагол стоит в Présent.",
+"plain_ru": "Это правило нужно, чтобы пересказать чьи-то слова без изменения времен, когда тот, кто говорит, делает это прямо сейчас.",
 "triggers": ["il dit que", "elle demande si", "ils affirment que", "on se demande ce que"],
 "formation_rule": "Утверждение: dire / affirmer / expliquer + que. Общий вопрос (Est-ce que... / инверсия): demander + si. Вопрос к неодушевленному (Qu'est-ce que...): demander + ce que. Вопрос к подлежащему (Qu'est-ce qui...): demander + ce qui. Специальный вопрос (où, quand, comment, etc.): сохранить вопросительное слово.",
 "key_exceptions": {
@@ -1602,6 +1633,7 @@
 "title_fr": "Le pronom COI Y (verbes avec à + chose/idée)",
 "title_ru": "Местоимение Y для косвенного дополнения (глаголы с à + неодушевленное)",
 "summary_ru": "'Y' заменяет не только место, но и неодушевленные дополнения (идеи, концепции, вещи), вводимые предлогом 'à' после таких глаголов, как penser à, réfléchir à, s'intéresser à, faire attention à.",
+"plain_ru": "Буква Y заменяет неодушевленные предметы и идеи после предлога à, когда вы хотите сказать короче, например: думаю об этом — дума́ю.",
 "triggers": ["penser à", "réfléchir à", "s'intéresser à", "répondre à", "s'habituer à"],
 "formation_rule": "Verbe + à + chose / idée -> Y + verbe (Tu penses à ton avenir ? -> J'y pense).",
 "key_exceptions": {
@@ -1626,6 +1658,7 @@
 "title_fr": "L'impératif avec les pronoms",
 "title_ru": "Повелительное наклонение с местоимениями",
 "summary_ru": "Положение и форма местоимений зависят от того, утвердительный или отрицательный императив используется.",
+"plain_ru": "Это правило объясняет, куда ставить и как менять местоимения, когда мы просим что-то сделать или запрещаем это.",
 "triggers": [],
 "formation_rule": "1) В утвердительном императиве: глагол + дефис + местоимение (Regarde-le !). Местоимения 'me/te' переходят в 'moi/toi' (Lève-toi !). С местоимениями 'en' и 'y' у глаголов на -er возвращается буква 's' (Manges-en ! Penses-y !). 2) В отрицательном императиве: ne + местоимение + глагол + pas (Ne le regarde pas ! Ne te lève pas !).",
 "key_exceptions": {},
@@ -1652,6 +1685,7 @@
 "title_fr": "L'expression du but : pour + infinitif vs pour que + subjonctif",
 "title_ru": "Выражение цели: pour + инфинитив и pour que + Subjonctif",
 "summary_ru": "Выбор союза зависит от субъектов действия в главном и придаточном предложениях.",
+"plain_ru": "Используйте pour с инфинитивом, когда цель делаете вы сами, а pour que с особым наклонением — когда кто-то другой.",
 "triggers": ["pour", "pour que", "afin de", "afin que"],
 "formation_rule": "1) Одинаковое подлежащее: POUR + инфинитив (в отрицании: pour ne pas + inf.). 2) Разные подлежащие: POUR QUE + глагол в Subjonctif.",
 "key_exceptions": {},
@@ -1674,6 +1708,7 @@
 "title_fr": "La forme passive",
 "title_ru": "Пассивный (страдательный) залог",
 "summary_ru": "Используется для смещения акцента с исполнителя действия на объект или результат действия.",
+"plain_ru": "Это правило нужно, чтобы перенести фокус с того, кто делает, на то, что сделали.",
 "triggers": ["par", "a été", "est + participe passé"],
 "formation_rule": "Вспомогательный глагол ÊTRE (в нужном времени) + Participe passé + предлог PAR + исполнитель (complément d'agent). Причастие ВСЕГДА согласуется в роде и числе с новым подлежащим.",
 "key_exceptions": {
@@ -1698,6 +1733,7 @@
 "title_fr": "Le passé composé et l’imparfait",
 "title_ru": "Прошедшее составное (Passé composé) и прошедшее незаконченное (Imparfait)",
 "summary_ru": "Passé composé используется для обозначения завершенных, однократных действий, смены ситуации или цепочки последовательных событий. Imparfait служит для описания фона, контекста, состояний, характеристик людей и повторяющихся привычных действий в прошлом.",
+"plain_ru": "Первое время показывает точный законченный шаг, а второе — долгий фон или привычки из прошлого.",
 "triggers": [
 "un jour",
 "tout à coup",
@@ -1734,6 +1770,7 @@
 "title_fr": "Les indicateurs de temps (1) : il y a, dans, pendant, pour, en, depuis",
 "title_ru": "Временные указатели (1): момент, длительность, непрерывность",
 "summary_ru": "Используются для точной временной привязки. 'Il y a' указывает на момент в прошлом (назад). 'Dans' — момент в будущем (через). 'Pendant' — ограниченная длительность. 'Pour' — запланированный срок. 'En' — время, необходимое для выполнения действия. 'Depuis' / 'Ça fait... que' — действие началось в прошлом и продолжается в настоящем.",
+"plain_ru": "Эти слова помогают точно сказать, когда, как долго или во сколько заходов происходило действие.",
 "triggers": [
 "il y a + durée",
 "dans + durée",
@@ -1766,6 +1803,7 @@
 "title_fr": "Le plus-que-parfait (1)",
 "title_ru": "Предпрошедшее время (Le plus-que-parfait)",
 "summary_ru": "Обозначает действие в прошлом, которое произошло раньше другого действия в прошлом (прошедшее в прошедшем).",
+"plain_ru": "Это время показывает, что одно прошлое действие случилось раньше другого прошлого действия, и строится из вспомогательного глагола в прошедшем незаконченном и смыслового глагола в форме причастия.",
 "triggers": [
 "avant",
 "parce que",
@@ -1796,6 +1834,7 @@
 "title_fr": "L'interrogation (registres familier, standard et soutenu)",
 "title_ru": "Вопросительные предложения (разговорный, нейтральный и официальный регистры)",
 "summary_ru": "Форма вопроса зависит от регистра общения. Разговорный: прямой порядок слов с восходящей интонацией (+ вопросительное слово в конце). Стандартный: конструкция 'est-ce que'. Официальный/литературный: инверсия сказуемого и подлежащего.",
+"plain_ru": "Это правило помогает задавать вопросы по-французски правильно — просто в беседе с другом или вежливо и официально в разговоре с незнакомцами.",
 "triggers": [
 "qui",
 "que",
@@ -1830,6 +1869,7 @@
 "title_fr": "Exprimer la nécessité et l'obligation : subjonctif vs infinitif",
 "title_ru": "Выражение необходимости и обязательства: Subjonctif против Infinitif",
 "summary_ru": "Для выражения общего правила/необходимости, применимой ко всем (безличной), используется инфинитив. Если необходимость обращена к конкретному лицу/субъекту, используется придаточное предложение с союзом 'que' и глаголом в Subjonctif.",
+"plain_ru": "Инфинитив используют, когда правило касается всех подряд, а Subjonctif — когда нужно указать на конкретного человека.",
 "triggers": [
 "il faut (que)",
 "il est nécessaire (de / que)",
@@ -1859,6 +1899,7 @@
 "title_fr": "Exprimer ses sentiments et appréciations : infinitif vs subjonctif",
 "title_ru": "Выражение чувств и оценок: Infinitif против Subjonctif",
 "summary_ru": "При выражении чувства по отношению к собственному действию или обобщенной ситуации используется 'de + infinitif'. При выражении чувства к действию другого лица/предмета используется 'que + subjonctif'.",
+"plain_ru": "Если эмоция касается вас лично или вообще всех, ставьте инфинитив, а если другого человека — специальное наклонение после союза que.",
 "triggers": [
 "c'est super (de/que)",
 "c'est dommage (de/que)",
@@ -1891,6 +1932,7 @@
 "title_fr": "Le conditionnel présent",
 "title_ru": "Условное наклонение настоящего времени (Le conditionnel présent)",
 "summary_ru": "Служит для выражения вежливой просьбы, желаний, советов, предложений, предположений и воображаемых ситуаций.",
+"plain_ru": "Это правило помогает вежливо о чём-то попросить, посоветовать или помечтать, а строится оно из основы будущего времени и окончаний прошедшего.",
 "triggers": [
 "j'aimerais",
 "je voudrais",
@@ -1926,6 +1968,7 @@
 "title_fr": "La restriction : ne… que",
 "title_ru": "Ограничительный оборот (La restriction : ne… que)",
 "summary_ru": "Конструкция 'ne... que' не является отрицанием. Она выражает ограничение со значением 'только', 'лишь', 'исключительно' (seulement, uniquement, juste).",
+"plain_ru": "Оборот ne... que ставится вокруг глагола, чтобы сказать «только» вместо «не».",
 "triggers": [
 "ne... que",
 "seulement",
@@ -1955,6 +1998,7 @@
 "title_fr": "La cause et la conséquence",
 "title_ru": "Причина и следствие (La cause et la conséquence)",
 "summary_ru": "Коннекторы причины объясняют мотивы или происхождение событий (parce que, comme, puisque, grâce à, à cause de). Коннекторы следствия показывают результат (donc, par conséquent, alors, tellement/si... que, c'est pourquoi, du coup).",
+"plain_ru": "Эти слова помогают связать событие с его причиной или результатом, чтобы было понятно, почему что-то произошло и к чему это привело.",
 "triggers": [
 "parce que",
 "puisque",
@@ -1996,6 +2040,7 @@
 "title_fr": "Les indéfinis exprimant la quantité",
 "title_ru": "Неопределенные прилагательные и местоимения количества",
 "summary_ru": "Обозначают количество: нулевое (aucun/aucune), индивидуальное (chaque/chacun), неопределенное (quelques/certains) или тотальное (tout/tous/toute/toutes). Могут выступать в роли определителей перед существительными (adjectifs) или заменять их (pronoms).",
+"plain_ru": "Эти слова помогают сказать «ник», «каждый», «несколько» или «всё», когда точное число неизвестно.",
 "triggers": [
 "aucun(e)",
 "chaque",
@@ -2032,6 +2077,7 @@
 "title_fr": "Exprimer la volonté et le souhait",
 "title_ru": "Выражение воли, желания и надежды",
 "summary_ru": "Глаголы воли, желания и предпочтения при несовпадении субъектов требуют Subjonctif. Главное исключение — глагол 'espérer que', который всегда требует Indicatif (настоящее или будущее время).",
+"plain_ru": "Это правило помогает вежливо или твердо сказать о своих желаниях с помощью особой формы глагола, но для надежды делается исключение.",
 "triggers": [
 "j'aimerais (bien) que",
 "je souhaite que",
@@ -2068,6 +2114,7 @@
 "title_fr": "La négation simple et complexe",
 "title_ru": "Отрицательные конструкции (двойные и тройные)",
 "summary_ru": "Французское отрицание включает базовые двухэлементные конструкции (ne... pas/plus/jamais/rien/personne/aucun) и сложные комбинированные трехэлементные структуры (ne... plus rien, ne... plus jamais, ne... pas encore, ne... ni... ni...).",
+"plain_ru": "Это правило помогает строить французские отрицания вроде «не... ничего» или «никогда», когда обычного «не» недостаточно.",
 "triggers": [
 "ne... pas",
 "ne... plus",
@@ -2104,6 +2151,7 @@
 "title_fr": "La voix passive (Le passif)",
 "title_ru": "Пассивный залог (La voix passive)",
 "summary_ru": "Пассивный залог смещает фокус с исполнителя действия на объект или результат. Возможен только с переходными глаголами прямого действия (verbes transitifs directs avec COD).",
+"plain_ru": "Пассивный залог нужен, чтобы сделать главным не того, кто делает, а то, с чем или над чем это делают.",
 "triggers": [
 "par + auteur de l'action",
 "être + participe passé",
@@ -2134,6 +2182,7 @@
 "title_fr": "La place de l'adjectif",
 "title_ru": "Место прилагательного относительно существительного",
 "summary_ru": "В общем правиле прилагательные во французском языке ставятся ПОСЛЕ существительного (цвет, форма, национальность, стиль). Короткие частые прилагательные ставятся ПЕРЕД существительным. Ряд прилагательных меняет смысл в зависимости от позиции.",
+"plain_ru": "Это правило говорит, ставить ли прилагательное до или после предмета: обычно оно идет после, но короткие и частые слова — до.",
 "triggers": [
 "beau",
 "bon",
@@ -2173,6 +2222,7 @@
 "title_fr": "La nominalisation de l'adjectif",
 "title_ru": "Образование существительных от прилагательных (Номинализация)",
 "summary_ru": "Образование абстрактных существительных (обычно женского рода) от прилагательных с помощью суффиксов качества и состояния.",
+"plain_ru": "Это правило превращает обычные описания вроде «добрый» или «быстрый» в самостоятельные слова вроде «доброта» или «быстрота», когда нужно назвать качество или свойство предмета.",
 "triggers": [
 "-té / -ité",
 "-eur",
@@ -2207,6 +2257,7 @@
 "title_fr": "Le plus-que-parfait et la concordance des temps du passé",
 "title_ru": "Plus-que-parfait в системе прошедших времен и согласование времен",
 "summary_ru": "Plus-que-parfait обозначает предшествование (antériorité) по отношению к событиям, выраженным в Passé composé или Imparfait.",
+"plain_ru": "Это правило помогает в рассказе о прошлом показать, какое из двух действий произошло еще раньше остальных.",
 "triggers": [
 "avant de",
 "parce que",
@@ -2240,6 +2291,7 @@
 "title_fr": "Les indicateurs de temps (2) : discours direct vs récit au passé",
 "title_ru": "Временные указатели (2): привязка к моменту речи против точки отсчета в прошлом",
 "summary_ru": "Временные маркеры меняются в зависимости от точки отсчета: привязка к текущему моменту речи (présent) или привязка к моменту в прошлом (récit au passé / discours indirect).",
+"plain_ru": "Это правило нужно, чтобы правильно переводить слова вроде «вчера» или «завтра» при пересказе чужих слов из прошлого, меняя их на «накануне» или «на следующий день».",
 "triggers": [
 "hier / la veille",
 "aujourd'hui / ce jour-là",
@@ -2272,6 +2324,7 @@
 "title_fr": "Les prépositions et adverbes de lieu",
 "title_ru": "Предлоги и наречия места",
 "summary_ru": "Предлоги места (prépositions) всегда вводят существительное или местоимение (dans, sous, sur, près de, au bout de, le long de). Наречия места (adverbes) используются самостоятельно и относятся к глаголу (dedans, dehors, dessus, dessous, ici, ailleurs, partout, nulle part, là-haut).",
+"plain_ru": "Эти слова показывают, где что находится: перед существительным нужен предлог, а сам по себе — наречие.",
 "triggers": [
 "dans / dedans",
 "sur / dessus",
@@ -2312,6 +2365,7 @@
 "title_fr": "Les pronoms relatifs simples : qui, que, dont, où",
 "title_ru": "Простые относительные местоимения: qui, que, dont, où",
 "summary_ru": "Служат для объединения двух предложений без повторения существительного. 'Qui' заменяет подлежащее (кто/что). 'Que' заменяет прямое дополнение (которого/которую/которых). 'Où' заменяет место или время (где/когда). 'Dont' заменяет дополнение с предлогом 'de' (о котором, чей, в котором нуждаются).",
+"plain_ru": "Это слова-помощники, которые соединяют две мысли в одну длинную фразу, чтобы не повторять одно и то же слово.",
 "triggers": [
 "qui (+ verbe)",
 "que (+ sujet)",
@@ -2342,6 +2396,7 @@
 "title_fr": "Exprimer le but : pour, afin de vs pour que, afin que",
 "title_ru": "Выражение цели (Exprimer le but)",
 "summary_ru": "Если субъект главного и придаточного предложения совпадает, используется инфинитивная конструкция (pour, afin de, mon objectif est de). Если субъекты разные, используется союзная конструкция с Subjonctif (pour que, afin que).",
+"plain_ru": "Это правило помогает сказать «зачем» что-то делается: если действие делает один человек, берется короткая форма с глаголом в начальной форме, а если разные люди — длинная форма с особым изменением глагола.",
 "triggers": [
 "pour + infinitif",
 "afin de + infinitif",
@@ -2372,6 +2427,7 @@
 "title_fr": "Le gérondif",
 "title_ru": "Деепричастие (Le gérondif)",
 "summary_ru": "Неизменяемая форма глагола, выражающая одновременность двух действий одного субъекта, образ действия (способом/как) или условие (эквивалент 'si').",
+"plain_ru": "Это правило помогает сказать «делая что-то» или «на ходу», когда вы совершаете два действия одновременно.",
 "triggers": [
 "en + participe présent",
 "en même temps",
@@ -2401,6 +2457,7 @@
 "title_fr": "L'expression de l'opinion : indicatif ou subjonctif",
 "title_ru": "Выражение мнения: Indicatif против Subjonctif",
 "summary_ru": "Глаголы мнения и уверенности в утвердительной форме требуют Indicatif (je pense que, je crois que, je suis sûr que, il est probable que). Глаголы сомнения, возможности, а также отрицательные формы глаголов мнения требуют Subjonctif (je doute que, je ne pense pas que, il est possible que).",
+"plain_ru": "Это правило помогает выбрать правильное время глагола после фраз вроде «я думаю» или «я сомневаюсь».",
 "triggers": [
 "je pense que",
 "je crois que",
@@ -2440,6 +2497,7 @@
 "title_fr": "Les pronoms adverbiaux Y et EN",
 "title_ru": "Местоимения Y и EN",
 "summary_ru": "Местоимение 'EN' заменяет неодушевленные дополнения с предлогом 'de', количество или целую инфинитивную фразу с 'de'. Местоимение 'Y' заменяет дополнения места (à, dans, sur, chez) или неодушевленные дополнения с предлогом 'à' (включая действия à + infinitif).",
+"plain_ru": "Эти маленькие слова заменяют длинные фразы с предлогами, чтобы не повторяться: *y* заменяет места и то, к чему стремятся, а *en* заменяет то, о чём говорят или чего хотят.",
 "triggers": [
 "verbe + à + chose / infinitif -> Y",
 "verbe + de + chose / infinitif -> EN",
@@ -2469,6 +2527,7 @@
 "title_fr": "L'opposition et la concession",
 "title_ru": "Противопоставление и уступка (Opposition et Concession)",
 "summary_ru": "Противопоставление (Opposition) сравнивает два независимых факта (alors que, tandis que, contrairement à, en revanche, par contre). Уступка (Concession) подчеркивает неожиданное последствие вопреки обстоятельствам (bien que + subj., même si + ind., malgré + nom, pourtant, cependant).",
+"plain_ru": "Это правило помогает связать мысли, когда нужно показать контраст между фактами или неожиданный поворот вопреки всему.",
 "triggers": [
 "mais",
 "par contre",
@@ -2511,6 +2570,7 @@
 "title_fr": "La condition et l'hypothèse avec 'Si'",
 "title_ru": "Условие и гипотеза с союзом 'Si'",
 "summary_ru": "Условие выражает реальный, выполнимый факт в настоящем/будущем (Si + présent). Гипотеза выражает воображаемый, маловероятный или нереальный факт в настоящем/будущем (Si + imparfait -> conditionnel présent).",
+"plain_ru": "Это правило помогает сказать по-французски «если произойдет вот это, то случится то-то», причем работает оно и для реальных планов, и для фантазий.",
 "triggers": [
 "si + présent -> présent / futur / impératif",
 "si + imparfait -> conditionnel présent"
@@ -2538,6 +2598,7 @@
 "title_fr": "Les adverbes de manière en -ment",
 "title_ru": "Наречия образа действия на -ment",
 "summary_ru": "Образуются от прилагательных для характеристики действия глагола, признака прилагательного или другого наречия.",
+"plain_ru": "Это правило помогает делать из обычных слов вроде «быстрый» или «тихий» слова «быстро» или «тихо», чтобы уточнить, как именно что-то делается.",
 "triggers": [
 "-ment",
 "-emment",
@@ -2566,6 +2627,7 @@
 "title_fr": "L'antériorité, la simultanéité et la postériorité",
 "title_ru": "Предшествование, одновременность и следование во времени",
 "summary_ru": "Система временных союзов и предлогов для соотнесения действий во времени с использованием различных грамматических наклонений (Indicatif, Subjonctif, Infinitif).",
+"plain_ru": "Это правило помогает связать во времени два действия с помощью специальных слов, чтобы показать, что одно произошло раньше, позже или одновременно с другим.",
 "triggers": [
 "avant de + inf.",
 "avant que + subj.",
@@ -2605,6 +2667,7 @@
 "title_fr": "Le discours rapporté au présent",
 "title_ru": "Косвенная речь с вводным глаголом в настоящем времени",
 "summary_ru": "Используется для передачи чужих слов без изменения времен глаголов, если вводный глагол стоит в настоящем времени (dire, expliquer, demander, affirmer...). Меняются только местоимения, лица глаголов и притяжательные прилагательные.",
+"plain_ru": "Это правило помогает передать чужие слова в диалоге без изменения времени глаголов, когда вы говорите от лица человека, который рассказывает это прямо сейчас.",
 "triggers": [
 "il dit que",
 "il demande si",
@@ -2635,6 +2698,7 @@
 "title_fr": "Les pronoms relatifs composés",
 "title_ru": "Сложные относительные местоимения (lequel, laquelle, lesquels, lesquelles)",
 "summary_ru": "Употребляются после предлогов (sur, sous, dans, avec, pour, devant, derrière, sans, chez...) для замены неодушевленных предметов (или лиц в формальном стиле), согласуясь в роде и числе с определяемым словом.",
+"plain_ru": "Это слова вроде lequel и laquelle, которые ставят после предлогов для связи мыслей, когда нужно заменить уже названный предмет вместо повторения.",
 "triggers": [
 "dans lequel / laquelle / lesquels / lesquelles",
 "sur lequel / laquelle / lesquels / lesquelles",
@@ -2669,6 +2733,7 @@
 "title_fr": "Le conditionnel et l'information incertaine",
 "title_ru": "Условное наклонение для передачи неподтвержденной информации",
 "summary_ru": "Широко используется в журналистике и новостной речи (conditionnel journalistique) для сообщения фактов, которые не были официально проверены, подтверждены или гарантированы.",
+"plain_ru": "Это правило помогает журналистам пересказывать непроверенные новости, чтобы не брать ответственность за их правдивость.",
 "triggers": [
 "selon les sources",
 "d'après...",
@@ -2699,6 +2764,7 @@
 "title_fr": "Le comparatif et ses particularités",
 "title_ru": "Степени сравнения и нюансы интенсивности",
 "summary_ru": "Сравнение качеств (adjectifs/adverbes), количества (noms) и интенсивности действий (verbes) с добавлением оттенков градации (un peu plus, beaucoup moins, un petit peu mieux) и динамических тенденций (de plus en plus, de moins en moins).",
+"plain_ru": "Это правило помогает сравнивать предметы и действия, а также показывать, что что-то постепенно усиливается или уменьшается.",
 "triggers": [
 "plus... que",
 "moins... que",
@@ -2732,6 +2798,7 @@
 "title_fr": "Le discours rapporté au passé (La concordance des temps)",
 "title_ru": "Косвенная речь в прошедшем времени (Согласование времен)",
 "summary_ru": "Когда вводный глагол стоит в прошедшем времени (il a dit, il a expliqué, il a demandé), время глагола в придаточном предложении трансформируется по строгим правилам согласования времен.",
+"plain_ru": "Это правило нужно, чтобы правильно пересказать чужие слова в прошлом, сдвигая времена назад.",
 "triggers": [
 "il a dit que",
 "il m'a expliqué que",
@@ -2766,6 +2833,7 @@
 "title_fr": "Exprimer le futur : futur proche, futur simple et présent",
 "title_ru": "Способы выражения будущего времени",
 "summary_ru": "Futur proche (aller + infinitif) выражает непосредственное будущее, намерение или событие с высокой степенью уверенности. Futur simple выражает более отдаленные события, прогнозы, программы и условия. Le présent с маркером времени выражает запланированное скорое действие или твердое решение.",
+"plain_ru": "Это правило помогает выбрать, как правильно сказать по-французски о будущем — когда оно наступит прямо сейчас, когда случится нескоро или когда это уже точно запланировано.",
 "triggers": [
 "demain",
 "bientôt",
@@ -2799,6 +2867,7 @@
 "title_fr": "Les indicateurs de temps (3) : projection dans l'avenir",
 "title_ru": "Временные указатели будущего (3)",
 "summary_ru": "Специальные временные маркеры (наречия, союзы, предлоги) для структурирования плана действий и указания временных рамок в будущем.",
+"plain_ru": "Эти слова нужны, чтобы чётко спланировать дела и назвать точные сроки в будущем.",
 "triggers": [
 "d'ici + durée/date",
 "dès + nom/date",
@@ -2831,6 +2900,7 @@
 "title_fr": "La double pronominalisation (L'ordre des pronoms compléments)",
 "title_ru": "Двойные приглагольные местоимения (Порядок местоимений-дополнений)",
 "summary_ru": "Правила комбинирования двух местоимений-дополнений (COD и COI) в одном предложении перед глаголом и в повелительном наклонении.",
+"plain_ru": "Это правило помогает правильно ставить два коротких слова-заменителя перед глаголом, например, когда нужно сказать «я тебе его даю».",
 "triggers": [
 "me le / me la / me les",
 "te le / te la / te les",
