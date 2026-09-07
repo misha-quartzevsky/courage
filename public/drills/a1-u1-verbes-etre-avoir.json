@@ -4,8 +4,8 @@
   "titleFr": "Les verbes Être et Avoir au présent",
   "plainRu": "Два самых нужных глагола: être — «быть» (кто я, какой я), avoir — «иметь» (что у меня есть, сколько мне лет).",
   "text": {
-    "fr": "Bonjour ! Je suis fatigué et j'ai faim. Tu es libre ce soir ? Nous avons une grande maison et vous avez un beau chat. Ils sont contents et ils ont le temps.",
-    "ru": "Привет! Я устал и я голоден. Ты свободен сегодня вечером? У нас большой дом, и у вас есть прекрасный кот. Они довольны, и у них есть время."
+    "fr": "Je suis ici et j'ai vingt ans. Tu es fatiguée et tu as soif. Nous sommes contentes. Vous avez le temps ?",
+    "ru": "Я здесь, и мне двадцать лет. Ты устала и хочешь пить. Мы довольны. У вас есть время?"
   },
   "forms": [
     {
@@ -13,34 +13,42 @@
       "answerFr": "suis",
       "items": [
         {
-          "fr": "Je {} fatigué.",
-          "ru": "Я устал.",
+          "fr": "Je {} ici.",
+          "ru": "Я здесь.",
           "distractors": [
             "es",
             "est"
           ]
         },
         {
-          "fr": "Je {} content.",
-          "ru": "Я доволен.",
+          "fr": "Je {} contente.",
+          "ru": "Я довольна.",
           "distractors": [
             "sommes",
             "êtes"
           ]
         },
         {
-          "fr": "Je {} triste.",
-          "ru": "Мне грустно.",
+          "fr": "Je {} fatiguée.",
+          "ru": "Я устала.",
           "distractors": [
             "sont",
             "es"
           ]
         },
         {
-          "fr": "Je {} ici.",
-          "ru": "Я здесь.",
+          "fr": "Je {} seule.",
+          "ru": "Я одна.",
           "distractors": [
             "est",
+            "suis"
+          ]
+        },
+        {
+          "fr": "Je {} en retard.",
+          "ru": "Я опаздываю.",
+          "distractors": [
+            "es",
             "sommes"
           ]
         }
@@ -51,35 +59,43 @@
       "answerFr": "es",
       "items": [
         {
-          "fr": "Tu {} fatigué.",
-          "ru": "Ты устал.",
+          "fr": "Tu {} ici.",
+          "ru": "Ты здесь.",
           "distractors": [
             "suis",
             "est"
           ]
         },
         {
-          "fr": "Tu {} grand.",
-          "ru": "Ты высокий.",
+          "fr": "Tu {} contente.",
+          "ru": "Ты довольна.",
           "distractors": [
             "sommes",
             "êtes"
           ]
         },
         {
-          "fr": "Tu {} libre.",
-          "ru": "Ты свободен.",
+          "fr": "Tu {} fatiguée.",
+          "ru": "Ты устала.",
           "distractors": [
             "sont",
             "suis"
           ]
         },
         {
-          "fr": "Tu {} prêt.",
-          "ru": "Ты готов.",
+          "fr": "Tu {} seule.",
+          "ru": "Ты одна.",
           "distractors": [
             "est",
             "êtes"
+          ]
+        },
+        {
+          "fr": "Tu {} en retard.",
+          "ru": "Ты опаздываешь.",
+          "distractors": [
+            "sommes",
+            "sont"
           ]
         }
       ]
@@ -89,35 +105,43 @@
       "answerFr": "est",
       "items": [
         {
-          "fr": "Il {} fatigué.",
-          "ru": "Он устал.",
+          "fr": "Elle {} ici.",
+          "ru": "Она здесь.",
           "distractors": [
             "suis",
             "es"
           ]
         },
         {
-          "fr": "Elle {} grande.",
-          "ru": "Она высокая.",
+          "fr": "Elle {} contente.",
+          "ru": "Она довольна.",
           "distractors": [
             "sommes",
             "sont"
           ]
         },
         {
-          "fr": "Il {} ici.",
-          "ru": "Он здесь.",
+          "fr": "Elle {} fatiguée.",
+          "ru": "Она устала.",
           "distractors": [
             "êtes",
-            "suis"
+            "es"
           ]
         },
         {
-          "fr": "Elle {} prête.",
-          "ru": "Она готова.",
+          "fr": "Elle {} seule.",
+          "ru": "Она одна.",
           "distractors": [
-            "es",
-            "sommes"
+            "suis",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Elle {} en retard.",
+          "ru": "Она опаздывает.",
+          "distractors": [
+            "sommes",
+            "êtes"
           ]
         }
       ]
@@ -127,35 +151,43 @@
       "answerFr": "sommes",
       "items": [
         {
-          "fr": "Nous {} fatigués.",
-          "ru": "Мы устали.",
+          "fr": "Nous {} ici.",
+          "ru": "Мы здесь.",
           "distractors": [
             "êtes",
             "sont"
           ]
         },
         {
-          "fr": "Nous {} prêts.",
-          "ru": "Мы готовы.",
+          "fr": "Nous {} contentes.",
+          "ru": "Мы довольны.",
+          "distractors": [
+            "suis",
+            "est"
+          ]
+        },
+        {
+          "fr": "Nous {} fatiguées.",
+          "ru": "Мы устали.",
+          "distractors": [
+            "es",
+            "sont"
+          ]
+        },
+        {
+          "fr": "Nous {} seules.",
+          "ru": "Мы одни.",
+          "distractors": [
+            "êtes",
+            "est"
+          ]
+        },
+        {
+          "fr": "Nous {} en retard.",
+          "ru": "Мы опаздываем.",
           "distractors": [
             "suis",
             "es"
-          ]
-        },
-        {
-          "fr": "Nous {} ici.",
-          "ru": "Мы здесь.",
-          "distractors": [
-            "est",
-            "êtes"
-          ]
-        },
-        {
-          "fr": "Nous {} libres.",
-          "ru": "Мы свободны.",
-          "distractors": [
-            "sont",
-            "suis"
           ]
         }
       ]
@@ -165,34 +197,42 @@
       "answerFr": "êtes",
       "items": [
         {
-          "fr": "Vous {} fatigués.",
-          "ru": "Вы устали.",
+          "fr": "Vous {} ici.",
+          "ru": "Вы здесь.",
           "distractors": [
             "sommes",
             "sont"
           ]
         },
         {
-          "fr": "Vous {} prêts.",
-          "ru": "Вы готовы.",
+          "fr": "Vous {} contente.",
+          "ru": "Вы довольны.",
           "distractors": [
             "suis",
-            "es"
+            "est"
           ]
         },
         {
-          "fr": "Vous {} ici.",
-          "ru": "Вы здесь.",
+          "fr": "Vous {} fatiguée.",
+          "ru": "Вы устали.",
           "distractors": [
-            "est",
+            "es",
             "sommes"
           ]
         },
         {
-          "fr": "Vous {} libres.",
-          "ru": "Вы свободны.",
+          "fr": "Vous {} seule.",
+          "ru": "Вы одна.",
           "distractors": [
             "sont",
+            "est"
+          ]
+        },
+        {
+          "fr": "Vous {} en retard.",
+          "ru": "Вы опаздываете.",
+          "distractors": [
+            "suis",
             "es"
           ]
         }
@@ -203,35 +243,43 @@
       "answerFr": "sont",
       "items": [
         {
-          "fr": "Ils {} fatigués.",
-          "ru": "Они устали.",
+          "fr": "Elles {} ici.",
+          "ru": "Они здесь.",
           "distractors": [
             "sommes",
             "êtes"
           ]
         },
         {
-          "fr": "Elles {} grandes.",
-          "ru": "Они высокие.",
+          "fr": "Elles {} contentes.",
+          "ru": "Они довольны.",
           "distractors": [
-            "est",
-            "suis"
+            "suis",
+            "est"
           ]
         },
         {
-          "fr": "Ils {} ici.",
-          "ru": "Они здесь.",
+          "fr": "Elles {} fatiguées.",
+          "ru": "Они устали.",
           "distractors": [
             "es",
             "êtes"
           ]
         },
         {
-          "fr": "Elles {} prêtes.",
-          "ru": "Они готовы.",
+          "fr": "Elles {} seules.",
+          "ru": "Они одни.",
           "distractors": [
             "sommes",
             "est"
+          ]
+        },
+        {
+          "fr": "Elles {} en retard.",
+          "ru": "Они опаздывают.",
+          "distractors": [
+            "suis",
+            "es"
           ]
         }
       ]
@@ -241,35 +289,43 @@
       "answerFr": "ai",
       "items": [
         {
-          "fr": "J'{} un chat.",
-          "ru": "У меня есть кот.",
+          "fr": "Je {} faim.",
+          "ru": "Я хочу есть.",
           "distractors": [
             "as",
             "a"
           ]
         },
         {
-          "fr": "J'{} faim.",
-          "ru": "Я голоден (у меня голод).",
+          "fr": "Je {} soif.",
+          "ru": "Я хочу пить.",
           "distractors": [
             "avons",
             "avez"
           ]
         },
         {
-          "fr": "J'{} soif.",
-          "ru": "Я хочу пить (у меня жажда).",
+          "fr": "Je {} vingt ans.",
+          "ru": "Мне двадцать лет.",
           "distractors": [
             "ont",
             "as"
           ]
         },
         {
-          "fr": "J'{} vingt ans.",
-          "ru": "Мне двадцать лет.",
+          "fr": "Je {} le temps.",
+          "ru": "У меня есть время.",
           "distractors": [
             "a",
             "avons"
+          ]
+        },
+        {
+          "fr": "Je {} une question.",
+          "ru": "У меня есть вопрос.",
+          "distractors": [
+            "avez",
+            "ont"
           ]
         }
       ]
@@ -279,19 +335,11 @@
       "answerFr": "as",
       "items": [
         {
-          "fr": "Tu {} un chien.",
-          "ru": "У тебя есть собака.",
+          "fr": "Tu {} faim.",
+          "ru": "Ты хочешь есть.",
           "distractors": [
             "ai",
             "a"
-          ]
-        },
-        {
-          "fr": "Tu {} faim.",
-          "ru": "Ты голоден.",
-          "distractors": [
-            "avez",
-            "ont"
           ]
         },
         {
@@ -299,15 +347,31 @@
           "ru": "Ты хочешь пить.",
           "distractors": [
             "avons",
+            "avez"
+          ]
+        },
+        {
+          "fr": "Tu {} vingt ans.",
+          "ru": "Тебе двадцать лет.",
+          "distractors": [
+            "ont",
             "ai"
           ]
         },
         {
-          "fr": "Tu {} quel âge ?",
-          "ru": "Сколько тебе лет?",
+          "fr": "Tu {} le temps.",
+          "ru": "У тебя есть время.",
           "distractors": [
             "a",
-            "avez"
+            "avons"
+          ]
+        },
+        {
+          "fr": "Tu {} une question.",
+          "ru": "У тебя есть вопрос.",
+          "distractors": [
+            "avez",
+            "ont"
           ]
         }
       ]
@@ -317,35 +381,43 @@
       "answerFr": "a",
       "items": [
         {
-          "fr": "Il {} un livre.",
-          "ru": "У него есть книга.",
+          "fr": "Elle {} faim.",
+          "ru": "Она хочет есть.",
           "distractors": [
             "ai",
             "as"
           ]
         },
         {
-          "fr": "Elle {} une voiture.",
-          "ru": "У нее есть машина.",
+          "fr": "Elle {} soif.",
+          "ru": "Она хочет пить.",
           "distractors": [
             "avons",
             "avez"
           ]
         },
         {
-          "fr": "Il {} faim.",
-          "ru": "Он голоден.",
+          "fr": "Elle {} vingt ans.",
+          "ru": "Ей двадцать лет.",
           "distractors": [
             "ont",
             "ai"
           ]
         },
         {
-          "fr": "Elle {} dix ans.",
-          "ru": "Ей десять лет.",
+          "fr": "Elle {} le temps.",
+          "ru": "У нее есть время.",
           "distractors": [
             "as",
-            "avez"
+            "avons"
+          ]
+        },
+        {
+          "fr": "Elle {} une question.",
+          "ru": "У нее есть вопрос.",
+          "distractors": [
+            "avez",
+            "ont"
           ]
         }
       ]
@@ -355,24 +427,24 @@
       "answerFr": "avons",
       "items": [
         {
-          "fr": "Nous {} une maison.",
-          "ru": "У нас есть дом.",
+          "fr": "Nous {} faim.",
+          "ru": "Мы хотим есть.",
           "distractors": [
             "avez",
             "ont"
           ]
         },
         {
-          "fr": "Nous {} faim.",
-          "ru": "Мы голодны.",
+          "fr": "Nous {} soif.",
+          "ru": "Мы хотим пить.",
           "distractors": [
             "ai",
             "as"
           ]
         },
         {
-          "fr": "Nous {} soif.",
-          "ru": "Мы хотим пить.",
+          "fr": "Nous {} vingt ans.",
+          "ru": "Нам двадцать лет.",
           "distractors": [
             "a",
             "avez"
@@ -385,6 +457,14 @@
             "ont",
             "ai"
           ]
+        },
+        {
+          "fr": "Nous {} une question.",
+          "ru": "У нас есть вопрос.",
+          "distractors": [
+            "as",
+            "a"
+          ]
         }
       ]
     },
@@ -393,24 +473,24 @@
       "answerFr": "avez",
       "items": [
         {
-          "fr": "Vous {} une question ?",
-          "ru": "У вас есть вопрос?",
+          "fr": "Vous {} faim.",
+          "ru": "Вы хотите есть.",
           "distractors": [
             "avons",
             "ont"
           ]
         },
         {
-          "fr": "Vous {} faim ?",
-          "ru": "Вы голодны?",
+          "fr": "Vous {} soif.",
+          "ru": "Вы хотите пить.",
           "distractors": [
             "ai",
             "as"
           ]
         },
         {
-          "fr": "Vous {} soif ?",
-          "ru": "Вы хотите пить?",
+          "fr": "Vous {} vingt ans.",
+          "ru": "Вам двадцать лет.",
           "distractors": [
             "a",
             "avons"
@@ -421,7 +501,15 @@
           "ru": "У вас есть время.",
           "distractors": [
             "ont",
-            "as"
+            "ai"
+          ]
+        },
+        {
+          "fr": "Vous {} une question.",
+          "ru": "У вас есть вопрос.",
+          "distractors": [
+            "as",
+            "a"
           ]
         }
       ]
@@ -431,35 +519,43 @@
       "answerFr": "ont",
       "items": [
         {
-          "fr": "Ils {} un vélo.",
-          "ru": "У них есть велосипед.",
+          "fr": "Elles {} faim.",
+          "ru": "Они хотят есть.",
           "distractors": [
             "avons",
             "avez"
           ]
         },
         {
-          "fr": "Elles {} une idée.",
-          "ru": "У них есть идея.",
+          "fr": "Elles {} soif.",
+          "ru": "Они хотят пить.",
           "distractors": [
             "ai",
             "as"
           ]
         },
         {
-          "fr": "Ils {} faim.",
-          "ru": "Они голодны.",
+          "fr": "Elles {} vingt ans.",
+          "ru": "Им двадцать лет.",
           "distractors": [
             "a",
             "avons"
           ]
         },
         {
-          "fr": "Elles {} chat.",
-          "ru": "У них есть кошка.",
+          "fr": "Elles {} le temps.",
+          "ru": "У них есть время.",
           "distractors": [
             "avez",
-            "as"
+            "ai"
+          ]
+        },
+        {
+          "fr": "Elles {} une question.",
+          "ru": "У них есть вопрос.",
+          "distractors": [
+            "as",
+            "a"
           ]
         }
       ]

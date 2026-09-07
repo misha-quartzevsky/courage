@@ -109,6 +109,10 @@ export interface LearningText {
   source: 'curated' // задел: позже 'rfi' | 'llm-levelled'
   attribution: string // лицензия / происхождение исходника
   sentences: { fr: string; ru: string }[]
+  // Полный глоссарий текста: перевод КАЖДОГО слова в том виде, как оно стоит в
+  // тексте (словоформы: veulent, chats, j'ai). Печётся build-texts.mjs, чтобы
+  // тап по любому слову давал перевод офлайн. Опционально (старые файлы без него).
+  gloss?: { fr: string; ru: string }[]
   audio?: {
     src: string // '/texts/<id>.wav'
     sentenceStarts: number[] // мс начала каждого предложения, длина = sentences.length

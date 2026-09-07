@@ -22,6 +22,9 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT_DIR = resolve(ROOT, 'public/texts')
 const TTS_MODEL = 'gemini-2.5-flash-preview-tts'
 const TTS_VOICE = 'Kore'
+const TEXT_MODEL = 'gemini-flash-lite-latest'
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 // --- Worker URL из .env (VITE_GEMINI_WORKER_URL) или из окружения ---
 function workerUrl() {
@@ -186,6 +189,64 @@ async function synthesize(text, worker) {
   return { pcm, rate }
 }
 
+// Полный глоссарий текста: перевод каждого слова В ТОМ ВИДЕ, как оно стоит в тексте.
+async function glossFor(fullFr, worker) {
+  const prompt = [
+    'Разбери французский текст на слова и дай русский перевод КАЖДОГО отдельного слова',
+    'В ТОМ ВИДЕ, как оно стоит в тексте (словоформы: "veulent", "chats", "j\'ai", "allée").',
+    'Перевод — с учётом контекста, коротко (1–3 слова). Служебные слова тоже',
+    '(предлоги, союзы, артикли, местоимения). Не пропускай ничего. Без повторов.',
+    '',
+    'Верни ТОЛЬКО JSON без markdown:',
+    '{ "gloss": [ { "fr": "<слово как в тексте>", "ru": "<перевод>" } ] }',
+    '',
+    'Текст:',
+    fullFr,
+  ].join('\n')
+  const body = {
+    systemInstruction: { parts: [{ text: prompt }] },
+    contents: [{ role: 'user', parts: [{ text: 'Глоссарий.' }] }],
+    generationConfig: { temperature: 0.2, maxOutputTokens: 4096 },
+  }
+  for (let a = 1; a <= 4; a++) {
+    const res = await fetch(`${worker}/v1beta/models/${TEXT_MODEL}:generateContent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    if (res.status === 429) {
+      await sleep(a * 15000)
+      continue
+    }
+    if (!res.ok) throw new Error(`gloss HTTP ${res.status}`)
+    const j = await res.json()
+    const txt = j?.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? ''
+    const m = txt.match(/```(?:json)?\s*([\s\S]*?)```/) ?? [null, txt]
+    let parsed
+    try {
+      const s = (m[1] ?? txt).trim()
+      parsed = JSON.parse(s.slice(s.indexOf('{'), s.lastIndexOf('}') + 1))
+    } catch {
+      throw new Error('gloss: не JSON')
+    }
+    const seen = new Set()
+    const out = []
+    for (const g of parsed?.gloss ?? []) {
+      if (!g || typeof g.fr !== 'string' || typeof g.ru !== 'string') continue
+      const fr = g.fr.trim()
+      const ru = g.ru.trim()
+      if (!fr || !ru) continue
+      const k = fr.toLowerCase()
+      if (seen.has(k)) continue
+      seen.add(k)
+      out.push({ fr, ru })
+    }
+    if (out.length >= 3) return out
+    throw new Error('gloss: пусто')
+  }
+  throw new Error('gloss: 429 x4')
+}
+
 function sentenceStarts(frSentences, durationMs) {
   const lens = frSentences.map((s) => s.length)
   const total = lens.reduce((a, b) => a + b, 0) || 1
@@ -205,7 +266,8 @@ async function main() {
     console.error('Нет VITE_GEMINI_WORKER_URL (.env) и GEMINI_WORKER_URL — озвучки не будет.')
   }
 
-  // Без --all: не трогаем уже готовые (json + wav есть) — только новые/провалившиеся.
+  // Без --all: не пересобираем аудио готовых. Но глоссарий дозаполняем всегда,
+  // если его ещё нет (--all форсит полную пересборку).
   const force = process.argv.includes('--all')
   const index = []
   for (const src of SOURCES) {
@@ -213,6 +275,18 @@ async function main() {
     const wavPath = resolve(OUT_DIR, `${src.id}.wav`)
     if (!force && existsSync(jsonPath) && existsSync(wavPath)) {
       const prev = JSON.parse(readFileSync(jsonPath, 'utf8'))
+      if (!prev.gloss?.length && worker) {
+        try {
+          prev.gloss = await glossFor(src.fr, worker)
+          writeFileSync(jsonPath, JSON.stringify(prev, null, 2) + '\n')
+          console.log(`+ ${src.id}: дозаполнен глоссарий (${prev.gloss.length} слов)`)
+          await sleep(2000)
+        } catch (e) {
+          console.error(`✗ ${src.id}: глоссарий не удался (${e.message})`)
+        }
+      } else {
+        console.log(`· ${src.id}: уже готов, пропуск`)
+      }
       index.push({
         id: src.id,
         title: src.title,
@@ -220,7 +294,6 @@ async function main() {
         hasAudio: !!prev.audio,
         ...(prev.audio ? { durationSec: Math.round(prev.audio.durationMs / 1000) } : {}),
       })
-      console.log(`· ${src.id}: уже готов, пропуск`)
       continue
     }
     const fr = splitSentences(src.fr)
@@ -249,6 +322,17 @@ async function main() {
       }
     }
 
+    let gloss
+    if (worker) {
+      try {
+        gloss = await glossFor(src.fr, worker)
+        console.log(`  глоссарий: ${gloss.length} слов`)
+        await sleep(2000)
+      } catch (e) {
+        console.error(`  ✗ глоссарий не удался (${e.message})`)
+      }
+    }
+
     const doc = {
       id: src.id,
       title: src.title,
@@ -256,6 +340,7 @@ async function main() {
       source: 'curated',
       attribution: src.attribution,
       sentences,
+      ...(gloss ? { gloss } : {}),
       ...(audio ? { audio } : {}),
     }
     writeFileSync(resolve(OUT_DIR, `${src.id}.json`), JSON.stringify(doc, null, 2) + '\n')

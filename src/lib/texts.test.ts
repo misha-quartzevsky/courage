@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   parseLearningText,
+  glossLookup,
   parseRfiFeed,
   sentenceIndexAt,
   tokenize,
@@ -122,5 +123,56 @@ describe('parseRfiFeed', () => {
   it('пустой / битый фид → []', () => {
     expect(parseRfiFeed('')).toEqual([])
     expect(parseRfiFeed('<rss></rss>')).toEqual([])
+  })
+})
+
+describe('glossLookup', () => {
+  const gloss = [
+    { fr: 'chat', ru: 'кот' },
+    { fr: 'veulent', ru: 'хотят' },
+    { fr: "j'ai", ru: 'у меня есть' },
+    { fr: 'fatiguée', ru: 'усталая' },
+  ]
+
+  it('точная форма', () => {
+    expect(glossLookup(gloss, 'veulent')).toBe('хотят')
+    expect(glossLookup(gloss, 'veulent.')).toBe('хотят') // с пунктуацией
+  })
+  it('множественное -s через нормализацию', () => {
+    expect(glossLookup(gloss, 'chats')).toBe('кот')
+  })
+  it('элизия j\' → снимаем и матчим лемму', () => {
+    // "ai" не в глоссарии, а "j'ai" — есть; проверяем обратное: токен "j'ai" матчит запись "j'ai"
+    expect(glossLookup(gloss, "J'ai")).toBe('у меня есть')
+  })
+  it('диакритика игнорируется', () => {
+    expect(glossLookup(gloss, 'fatiguee')).toBe('усталая')
+  })
+  it('промах → null; пустой глоссарий → null', () => {
+    expect(glossLookup(gloss, 'xyzzy')).toBeNull()
+    expect(glossLookup(undefined, 'chat')).toBeNull()
+    expect(glossLookup([], 'chat')).toBeNull()
+  })
+})
+
+describe('parseLearningText: gloss', () => {
+  const valid = {
+    id: 'x',
+    title: { fr: 'T', ru: 'Т' },
+    level: 'A1',
+    source: 'curated',
+    attribution: 'CC0',
+    sentences: [{ fr: 'Un.', ru: 'Раз.' }, { fr: 'Deux.', ru: 'Два.' }],
+  }
+  it('принимает валидный gloss', () => {
+    const t = parseLearningText({ ...valid, gloss: [{ fr: 'un', ru: 'один' }] })
+    expect(t?.gloss).toEqual([{ fr: 'un', ru: 'один' }])
+  })
+  it('битые записи отфильтровываются, пустой gloss не попадает', () => {
+    const t = parseLearningText({ ...valid, gloss: [{ fr: 'un' }, { fr: '', ru: 'x' }, 42] })
+    expect(t?.gloss).toBeUndefined()
+  })
+  it('без gloss — поле отсутствует', () => {
+    expect(parseLearningText(valid)?.gloss).toBeUndefined()
   })
 })

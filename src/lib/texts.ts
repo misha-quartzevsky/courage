@@ -20,6 +20,43 @@ export function wordKey(token: string): string {
     .trim()
 }
 
+/** Нормализация для матча: нижний регистр, NFD, без диакритики (как dictionary.normFr). */
+function norm(s: string): string {
+  return s
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+}
+
+/**
+ * Найти перевод слова в глоссарии текста. Матч по `wordKey` + `norm`; при промахе —
+ * дешёвые нормализации: снять хвостовой s/x (мн. ч.), снять французскую элизию
+ * (j'/l'/d'/qu'/n'/s'/t'/c'/m'). Промах → null.
+ */
+export function glossLookup(
+  gloss: { fr: string; ru: string }[] | undefined,
+  token: string,
+): string | null {
+  if (!gloss || !gloss.length) return null
+  const key = wordKey(token)
+  if (!key) return null
+  const map = new Map<string, string>()
+  for (const g of gloss) map.set(norm(wordKey(g.fr)), g.ru)
+
+  const tries = [key]
+  const elided = key.replace(/^(j|l|d|qu|n|s|t|c|m)['’]/, '')
+  if (elided !== key) tries.push(elided)
+  if (/[sx]$/.test(key)) tries.push(key.slice(0, -1))
+  if (/[sx]$/.test(elided) && elided !== key) tries.push(elided.slice(0, -1))
+
+  for (const t of tries) {
+    const hit = map.get(norm(t))
+    if (hit) return hit
+  }
+  return null
+}
+
 /** Индекс активного предложения для момента ms (по началам предложений). */
 export function sentenceIndexAt(starts: number[], ms: number): number {
   if (!starts.length) return 0
@@ -79,6 +116,17 @@ export function parseLearningText(raw: unknown): LearningText | null {
     }
   }
 
+  const gloss = Array.isArray(t.gloss)
+    ? (t.gloss.filter(
+        (g) =>
+          !!g &&
+          typeof (g as { fr: unknown }).fr === 'string' &&
+          typeof (g as { ru: unknown }).ru === 'string' &&
+          (g as { fr: string }).fr.trim() &&
+          (g as { ru: string }).ru.trim(),
+      ) as { fr: string; ru: string }[])
+    : undefined
+
   return {
     id: t.id,
     title: { fr: title.fr, ru: title.ru },
@@ -86,6 +134,7 @@ export function parseLearningText(raw: unknown): LearningText | null {
     source: 'curated',
     attribution: t.attribution,
     sentences: t.sentences as { fr: string; ru: string }[],
+    ...(gloss && gloss.length ? { gloss } : {}),
     ...(audio ? { audio } : {}),
   }
 }

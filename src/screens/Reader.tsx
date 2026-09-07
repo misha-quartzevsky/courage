@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { LearningText, WordRecord } from '../lib/types'
-import { loadText, sentenceIndexAt, tokenize, wordKey } from '../lib/texts'
+import {
+  glossLookup,
+  loadText,
+  sentenceIndexAt,
+  tokenize,
+  wordKey,
+} from '../lib/texts'
 import {
   loadDictionary,
   loadThemedDict,
@@ -80,6 +86,12 @@ export function Reader({ id, userWords, onAddWord, onClose }: ReaderProps) {
     const mine = userWords.find((w) => normFr(w.fr) === normFr(key))
     if (mine) {
       setGloss({ key, ru: mine.ru, known: true, loading: false })
+      return
+    }
+    // Основной источник — печёный глоссарий текста: покрывает все словоформы.
+    const baked = glossLookup(text?.gloss, token)
+    if (baked) {
+      setGloss({ key, ru: baked, known: false, loading: false })
       return
     }
     const t = themed?.find((e) => normFr(e.f) === normFr(key))
@@ -189,49 +201,49 @@ export function Reader({ id, userWords, onAddWord, onClose }: ReaderProps) {
                 Озвучить текст
               </button>
             )}
-
-            {gloss && (
-              <div className="reader-gloss">
-                <p className="reader-gloss-fr">
-                  {gloss.key}
-                  <button
-                    type="button"
-                    className="btn-icon"
-                    aria-label={`Озвучить: ${gloss.key}`}
-                    onClick={() => speakFr(gloss.key)}
-                  >
-                    <SpeakerIcon />
-                  </button>
-                </p>
-                <p className="muted" style={{ margin: 0 }}>
-                  {gloss.loading
-                    ? 'ищу перевод…'
-                    : gloss.ru || 'перевода нет — можно всё равно добавить'}
-                </p>
-                <div className="reader-gloss-actions">
-                  {gloss.known ? (
-                    <span className="verdict verdict--ok">Уже в ваших словах</span>
-                  ) : (
-                    <button
-                      type="button"
-                      className="btn"
-                      disabled={gloss.loading}
-                      onClick={addCurrentWord}
-                    >
-                      В мои слова
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={closeGloss}
-                  >
-                    Закрыть
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
+
+          {gloss && (
+            <div className="reader-gloss">
+              <p className="reader-gloss-fr">
+                {gloss.key}
+                <button
+                  type="button"
+                  className="btn-icon"
+                  aria-label={`Озвучить: ${gloss.key}`}
+                  onClick={() => speakFr(gloss.key)}
+                >
+                  <SpeakerIcon />
+                </button>
+              </p>
+              <p className="muted" style={{ margin: 0 }}>
+                {gloss.loading
+                  ? 'ищу перевод…'
+                  : gloss.ru || 'перевода нет — можно всё равно добавить'}
+              </p>
+              <div className="reader-gloss-actions">
+                {gloss.known ? (
+                  <span className="verdict verdict--ok">Уже в ваших словах</span>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn"
+                    disabled={gloss.loading}
+                    onClick={addCurrentWord}
+                  >
+                    В мои слова
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={closeGloss}
+                >
+                  Закрыть
+                </button>
+              </div>
+            </div>
+          )}
 
           {shadow && text.sentences.length > 0 && (
             <div className="reader-gloss">
